@@ -1,0 +1,26 @@
+{
+  "name": "indaba",
+  "version": "1.0.0",
+  "description": "Web app for meeting scheduling accessible to Oregon State University users",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pauladams12345/indaba.git"
+  },
+  "keywords": [
+    "indaba"
+  ],
+  "author": "Paul Adams, Everett Williams",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/pauladams12345/indaba/issues"
+  },
+  "homepage": "https://github.com/pauladams12345/indaba#readme"
+}
