@@ -16,9 +16,6 @@ app.set('view engine', 'handlebars');
 // set up access to public folder
 app.use(express.static(__dirname + '/public'));
 
-// set up routes
-app.use(require('./routes'));
-
 // configure sessions
 app.use(require("express-session")({
     secret: "We should pick a real secret",
@@ -26,6 +23,10 @@ app.use(require("express-session")({
     saveUninitialized: false
 }));
 
+// set up routes
+app.use(require('./routes'));
+
+// handle errors
 app.use(function(req,res){
     res.status(404);
     res.render('404');
@@ -38,6 +39,7 @@ app.use(function(err,req,res,next){
     res.send('500');
 });
 
+// start server
 app.listen(process.env.PORT || 3000, function(){
     console.log('Indaba server started!');
 });
