@@ -5,22 +5,26 @@ var express =       require("express"),
 
 var app = express();
 
-app.use(express.static('public'));
+// configure bodyParser
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
+// set handlebars as view engine, allow omission of .handlebars extension
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
+// set up access to public folder
+app.use(express.static(__dirname + '/public'));
+
+// set up routes
+app.use(require('./routes'));
+
+// configure sessions
 app.use(require("express-session")({
     secret: "We should pick a real secret",
     resave: false,
     saveUninitialized: false
 }));
-
-app.get('/', function(req, res) {
-    res.render('login');
-});
 
 app.use(function(req,res){
     res.status(404);
