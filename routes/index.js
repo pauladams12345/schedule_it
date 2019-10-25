@@ -8,6 +8,7 @@ var express = 	require('express'),
 // Route for landing page
 router.get('/', function(req, res) {
 	var context = {};
+	context.layout = "no_navbar.handlebars"
 	context.stylesheets = ["main.css", "login.css"]
 	res.render('login', context);
 });
