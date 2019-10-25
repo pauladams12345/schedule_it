@@ -17,4 +17,4 @@ This application is being developed as a capstone project for OSU's CS 467 cours
 
 * [Paul Adams](https://github.com/pauladams12345)
 
-* [Everett Cornel Williams](https://github.com/Everett1914)
+* [Everett Williams](https://github.com/Everett1914)
