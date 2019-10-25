@@ -16,7 +16,7 @@ router.get('/login', function(req, res) {
 router.get('/', function(req, res) {
 	var context = {};
 	var validation_ticket = req.query.ticket;
-	console.log("Ticket: " + ticket);
+	console.log("Ticket: " + validation_ticket);
 
 	var options = {
 		method: 'GET',
