@@ -6,7 +6,7 @@ var express = 	require('express'),
 // router.use('/preferences', require('./preferences'));
 
 // Route for landing page
-router.get('/', function(req, res) {
+router.get('/login', function(req, res) {
 	var context = {};
 	context.layout = "no_navbar.handlebars"
 	context.stylesheets = ["main.css", "login.css"]
