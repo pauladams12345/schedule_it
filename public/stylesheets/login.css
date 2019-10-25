@@ -1,9 +1,5 @@
-.btn-primary {
-	background-color: #D73F09;
-	border-color: #D73F09;
+body,html {
+  height: 100%;
 }
 
-.btn-primary:hover, .btn-primary:active:focus, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
-	background-color: #D3832B;
-	border-color: #D3832B;
-}
+
