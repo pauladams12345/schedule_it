@@ -7,7 +7,9 @@ var express = 	require('express'),
 
 // Route for landing page
 router.get('/', function(req, res) {
-	res.render('login');
+	var context = {};
+	context.stylesheets = ["main.css", "login.css"]
+	res.render('login', context);
 });
 
 module.exports = router;
