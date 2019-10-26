@@ -39,6 +39,16 @@ router.get('/', function(req, res) {
 		var attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
 		str2 = JSON.stringify(attributes);
 		console.log(str2);
+		var onid = attributes['cas:uid'];
+		var firstName = attributes['cas:firstname'];
+		var lastName = attributes['cas:lastname'];
+		var fullName = attributes['cas:fullname'];
+		var email = attributes['cas:email'];
+		console.log(onid);
+		console.log(firstName);
+		console.log(lastName);
+		console.log(fullName);
+		console.log(email);
 	});
 
 	res.render('home', context);
