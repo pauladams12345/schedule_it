@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
 				'Content-Type': 'text/xml'
 			},
 			qs: {
-				ticket: "THISWONTWORK",
+				ticket: "validation_ticket",
 				service: 'https://indaba-scheduler.herokuapp.com/'
 			}
 		};
