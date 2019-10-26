@@ -7,9 +7,9 @@ router.get('/', function(req, res) {
 
 	// If there's no CAS ticket in the query string, render the landing page
 	if (!req.query.ticket) {
-		let context = {};
-		context.layout = 'no_navbar.handlebars';
-		context.stylesheets = ['main.css', 'login.css'];
+		let context = {}
+		context.layout = 'no_navbar.handlebars'
+		context.stylesheets = ['main.css', 'login.css']
 		res.render('login', context);
 	}
 
@@ -40,18 +40,10 @@ router.get('/', function(req, res) {
 				next(err)		// pass errors to Express
 			}
 			else {
+
 				// Convert XML response to JSON, extract attributes
 				let json = JSON.parse(parser.toJson(body));
-
-				// Invalid ticket
-				if (json['cas:serviceResponse']['cas:authenticationFailure']) {
-					let context = {};
-					context.layout = 'no_navbar.handlebars';
-					context.stylesheets = ['main.css'];
-					res.render('auth_failure', context);
-				} 
-
-				// Valid ticket, extract attributes
+				console.log(JSON.stringify(json));
 				let attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
 				let onid = attributes['cas:uid'];
 				let firstName = attributes['cas:firstname'];
