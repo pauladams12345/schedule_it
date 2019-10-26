@@ -36,7 +36,9 @@ router.get('/', function(req, res) {
 		var json = JSON.parse(parser.toJson(body));
 		str = JSON.stringify(json);
 		console.log(str);
-		alert(str);
+		var attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
+		str2 = JSON.stringify(attributes);
+		console.log(str2);
 	});
 
 	res.render('home', context);
