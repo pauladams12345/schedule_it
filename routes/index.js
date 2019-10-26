@@ -6,7 +6,7 @@ var express = 	require('express'),
 router.get('/', function(req, res) {
 
 	// If there's no CAS ticket in the query string, render the landing page
-	if (!req.query.ticket) {	//TODO: change this logic to look for a
+	if (!req.query.ticket) {
 		let context = {}
 		context.layout = 'no_navbar.handlebars'
 		context.stylesheets = ['main.css', 'login.css']
@@ -31,7 +31,7 @@ router.get('/', function(req, res) {
 				service: 'https://indaba-scheduler.herokuapp.com/'
 			}
 		};
-
+		//TODO: Break code below up into functions, maybe a module?
 		// Send validation request
 		request(options, function(err, res, body) {
 			//TODO: add error handling
@@ -43,6 +43,9 @@ router.get('/', function(req, res) {
 			let lastName = attributes['cas:lastname'];
 			let fullName = attributes['cas:fullname'];
 			let email = attributes['cas:email'];
+
+			//TODO: find user's account id and set up their session
+
 		});
 
 		//TODO: change to a redirect instead of a render
