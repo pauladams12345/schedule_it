@@ -27,7 +27,7 @@ router.get('/', function(req, res) {
 				'Content-Type': 'text/xml'
 			},
 			qs: {
-				ticket: validation_ticket,
+				ticket: "THISWONTWORK",
 				service: 'https://indaba-scheduler.herokuapp.com/'
 			}
 		};
@@ -36,16 +36,29 @@ router.get('/', function(req, res) {
 		function extractAttributes(err, res, body) {
 			//TODO: add error handling
 			// Parse successful request
-			let json = JSON.parse(parser.toJson(body));
-			let attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
-			let onid = attributes['cas:uid'];
-			let firstName = attributes['cas:firstname'];
-			let lastName = attributes['cas:lastname'];
-			let fullName = attributes['cas:fullname'];
-			let email = attributes['cas:email'];
+			if (err) {
+				next(err)		// pass errors to Express
+			}
+			else {
 
-			//TODO: find user's account id and set up their session
 
+				// Convert XML response to JSON, extract attributes
+				let json = JSON.parse(parser.toJson(body));
+				let attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
+				let onid = attributes['cas:uid'];
+				let firstName = attributes['cas:firstname'];
+				let lastName = attributes['cas:lastname'];
+				let fullName = attributes['cas:fullname'];
+				let email = attributes['cas:email'];
+
+				console.log("onid: " + onid);
+				console.log("firstName: " + firstName);
+				console.log("lastName: " + lastName);
+				console.log("fullName: " + fullName);
+				console.log("email: " + email);
+
+				//TODO: find user's account id and set up their session
+			}
 		};
 
 		request(options, extractAttributes);
