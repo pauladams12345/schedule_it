@@ -40,22 +40,27 @@ router.get('/', function(req, res) {
 				next(err)		// pass errors to Express
 			}
 			else {
+				try {
 
-				// Convert XML response to JSON, extract attributes
-				let json = JSON.parse(parser.toJson(body));
-				console.log(JSON.stringify(json));
-				let attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
-				let onid = attributes['cas:uid'];
-				let firstName = attributes['cas:firstname'];
-				let lastName = attributes['cas:lastname'];
-				let fullName = attributes['cas:fullname'];
-				let email = attributes['cas:email'];
+					// Convert XML response to JSON, extract attributes
+					let json = JSON.parse(parser.toJson(body));
+					console.log(JSON.stringify(json));
+					let attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
+					let onid = attributes['cas:uid'];
+					let firstName = attributes['cas:firstname'];
+					let lastName = attributes['cas:lastname'];
+					let fullName = attributes['cas:fullname'];
+					let email = attributes['cas:email'];
 
-				console.log("onid: " + onid);
-				console.log("firstName: " + firstName);
-				console.log("lastName: " + lastName);
-				console.log("fullName: " + fullName);
-				console.log("email: " + email);
+					console.log("onid: " + onid);
+					console.log("firstName: " + firstName);
+					console.log("lastName: " + lastName);
+					console.log("fullName: " + fullName);
+					console.log("email: " + email);
+				}
+				catch(err) {
+					next(err);
+				}
 
 				//TODO: find user's account id and set up their session
 			}
