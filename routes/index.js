@@ -41,9 +41,9 @@ router.get('/', function(req, res) {
 			}
 			else {
 
-
 				// Convert XML response to JSON, extract attributes
 				let json = JSON.parse(parser.toJson(body));
+				console.log(JSON.stringify(json));
 				let attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
 				let onid = attributes['cas:uid'];
 				let firstName = attributes['cas:firstname'];
