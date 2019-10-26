@@ -3,7 +3,7 @@ var express = 	require('express'),
 	parser =	require('xml2json');
 
 // Display landing page or authenticate user and redirect
-router.get('/', function(req, res) {
+router.get('/', function(req, res, next) {
 
 	// If there's no CAS ticket in the query string, render the landing page
 	if (!req.query.ticket) {
