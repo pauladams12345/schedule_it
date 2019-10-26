@@ -33,6 +33,7 @@
     "express-handlebars": "^3.1.0",
     "express-session": "^1.17.0",
     "mysql": "^2.17.1",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "xml2json": "^0.11.2"
   }
 }

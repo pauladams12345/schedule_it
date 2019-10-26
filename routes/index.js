@@ -1,5 +1,6 @@
 var express = 	require('express'),
-	router = 	express.Router();
+	router = 	express.Router(),
+	parser =	require('xml2json');
 
 // For pages other than the landing page, include a line
 // like the following:
@@ -32,6 +33,10 @@ router.get('/', function(req, res) {
 
 	request(options, function(err, res, body) {
 		console.log('BODY:\n\n\n' + body);
+		var json = JSON.parse(parser.toJson(body));
+		str = JSON.stringify(json);
+		console.log(str);
+		alert(str);
 	});
 
 	res.render('home', context);
