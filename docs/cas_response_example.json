@@ -1,0 +1,18 @@
+{
+	"cas:serviceResponse":
+	{
+		"xmlns:cas": "http://www.yale.edu/tp/cas"
+		, "cas:authenticationSuccess":
+		{
+			"cas:user": "adamspa"
+			, "cas:attributes":
+			{
+				"cas:uid": "adamspa"
+				, "cas:firstname": "Paul"
+				, "cas:fullname": "Adams, Paul"
+				, "cas:email": "adamspa@oregonstate.edu"
+				, "cas:lastname": "Adams"
+			}
+		}
+	}
+}

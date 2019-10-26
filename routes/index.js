@@ -33,7 +33,7 @@ router.get('/', function(req, res) {
 		};
 		//TODO: Break code below up into functions, maybe a module?
 		// Send validation request
-		request(options, function(err, res, body) {
+		function extractAttributes(err, res, body) {
 			//TODO: add error handling
 			// Parse successful request
 			let json = JSON.parse(parser.toJson(body));
@@ -46,7 +46,9 @@ router.get('/', function(req, res) {
 
 			//TODO: find user's account id and set up their session
 
-		});
+		};
+
+		request(options, extractAttributes);
 
 		//TODO: change to a redirect instead of a render
 		let context = {};

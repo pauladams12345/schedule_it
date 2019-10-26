@@ -1,0 +1,12 @@
+ <cas:serviceResponse xmlns:cas="http://www.yale.edu/tp/cas">
+   	<cas:authenticationSuccess>
+     	<cas:user>adamspa</cas:user>
+        <cas:attributes>
+	        <cas:uid>adamspa</cas:uid>
+		    <cas:firstname>Paul</cas:firstname>
+		    <cas:fullname>Adams, Paul</cas:fullname>
+		    <cas:email>adamspa@oregonstate.edu</cas:email>
+		    <cas:lastname>Adams</cas:lastname>
+        </cas:attributes>
+  	</cas:authenticationSuccess>
+</cas:serviceResponse>
