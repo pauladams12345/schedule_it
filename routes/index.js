@@ -1,7 +1,7 @@
 var express = 			require('express'),
 	router = 			express.Router(),
 	parser =			require('xml2json'),
-	request_helpers = 	require('request_helpers.js');
+	request_helpers = 	require('../middleware/request_helpers.js');
 
 // Display landing page or authenticate user and redirect
 router.get('/', function(req, res, next) {
