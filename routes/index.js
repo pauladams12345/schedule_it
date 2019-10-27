@@ -53,8 +53,6 @@ router.get('/', function(req, res) {
 									 next(err);
 									 return;
 						 }
-						 //context.results = "Inserted OSU Member ";
-						 //res.send(context.results);
 				 });
 
 			//TODO: find user's account id and set up their session
