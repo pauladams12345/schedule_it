@@ -44,6 +44,7 @@ router.get('/', function(req, res) {
 			let lastName = attributes['cas:lastname'];
 			let fullName = attributes['cas:fullname'];
 			let email = attributes['cas:email'];
+			add_user(firstName, lastName, email)
 
 			//TODO: find user's account id and set up their session
 
@@ -68,4 +69,23 @@ router.get('/test_OSU_Users',function(req, res, next){
     context.results = JSON.stringify(rows);
     res.send(context.results);
   });
+});
+
+router.get('/insert_user',function(req,res,next){
+  var context = {};
+	var firstName = "Fred";
+	var lastName = "Sanford";
+	var email = "fred.g.sanford@southcentral.com";
+  mysql.pool.query("INSERT INTO indaba_db.OSU_member (`firstName`,`lastName`, `email`) VALUES (?,?,?)",
+      [req.query.firstName,
+       req.query.lastName,
+       req.query.email],
+       function(err, result){
+           if(err){
+               next(err);
+               return;
+         }
+         context.results = "Inserted OSU Member " + result.ONID_email;
+         res.send(context.results);
+     });
 });
