@@ -85,7 +85,7 @@ router.get('/insert_user',function(req,res,next){
                next(err);
                return;
          }
-         context.results = "Inserted OSU Member " + email;
+         context.results = "Inserted OSU Member ";
          res.send(context.results);
      });
 });
