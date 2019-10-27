@@ -6,7 +6,6 @@ var pool = mysql.createPool({
   password        : 'abadni619',
   database        : 'indaba-1',
   port            : 3306,
-  ssl             : true
 });
 
 //error handling for database connection: https://www.w3resource.com/node.js/nodejs-mysql.php#Error_handling
