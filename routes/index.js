@@ -60,13 +60,13 @@ module.exports = router;
 
 router.get('/test_OSU_Users',function(req, res){
   var context = {};
-  /*mysql.pool.query('SELECT * FROM indaba_db.OSU_member', function(err, rows, fields){
+  mysql.pool.query('SELECT * FROM indaba_db.OSU_member', function(err, rows, fields){
     if(err){
       next(err);
       return;
     }
     context.results = JSON.stringify(rows);
     res.render('test_OSU_Users');
-  });*/
-	res.render('test_OSU_Users');
+  });
+	//res.render('test_OSU_Users');
 });
