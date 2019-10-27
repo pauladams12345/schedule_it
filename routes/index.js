@@ -75,7 +75,7 @@ router.get('/insert_user',function(req,res,next){
   var context = {};
 	var firstName = "Fred";
 	var lastName = "Sanford";
-	var email = "fred.g.sanford@southcentral.com";
+	var email = "fred.sanford@southcentral.com";
   mysql.pool.query("INSERT INTO indaba_db.OSU_member (`first_name`,`last_name`, `ONID_email`) VALUES (?,?,?)",
       [firstName,
        lastName,
