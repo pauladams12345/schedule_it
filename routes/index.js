@@ -66,7 +66,7 @@ router.get('/test_OSU_Users',function(req, res){
     context.results = JSON.stringify(rows);
     res.render('login');
   });*/
-	res.render('login');
+	res.render('test_OSU_Users');
 });
 
 module.exports = router;
