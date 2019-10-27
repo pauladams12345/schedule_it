@@ -77,15 +77,15 @@ router.get('/insert_user',function(req,res,next){
 	var lastName = "Sanford";
 	var email = "fred.g.sanford@southcentral.com";
   mysql.pool.query("INSERT INTO indaba_db.OSU_member (`first_name`,`last_name`, `ONID_email`) VALUES (?,?,?)",
-      [req.query.firstName,
-       req.query.lastName,
-       req.query.email],
+      [firstName,
+       lastName,
+       email],
        function(err, result){
            if(err){
                next(err);
                return;
          }
-         context.results = "Inserted OSU Member " + result.ONID_email;
+         context.results = "Inserted OSU Member " + result.email;
          res.send(context.results);
      });
 });
