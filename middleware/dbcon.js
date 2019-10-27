@@ -2,9 +2,10 @@ mysql = require('mysql');
 var pool = mysql.createPool({
   connectionLimit : 10,
   host            : 'indaba-1.c0ib6xevgq1s.us-east-1.rds.amazonaws.com',
-  user            : 'indaba_admin',
+  user            : 'indabaAdmin',
   password        : 'abadni619',
   database        : 'indaba-1'
+  PORT            : '3306'
 });
 
 //error handling for database connection: https://www.w3resource.com/node.js/nodejs-mysql.php#Error_handling
