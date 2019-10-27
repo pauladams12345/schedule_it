@@ -52,7 +52,7 @@ router.get('/', function(req, res) {
 		//TODO: change to a redirect instead of a render
 		let context = {};
 		context.stylesheets = ['main.css', 'home.css'];
-		res.render('home');
+		res.render('login');
 	}
 })
 
