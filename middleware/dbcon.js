@@ -4,7 +4,7 @@ var pool = mysql.createPool({
   host            : 'indaba-1.c0ib6xevgq1s.us-east-1.rds.amazonaws.com',
   user            : 'indabaAdmin',
   password        : 'abadni619',
-  database        : 'indaba-1'
+  database        : 'indaba-1',
   PORT            : '3306'
 });
 
