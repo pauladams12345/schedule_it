@@ -55,4 +55,10 @@ router.get('/', function(req, res) {
 	}
 })
 
+router.get('/home', function(req, res) {
+	let context = {};
+	context.stylesheets = ['main.css', 'home.css'];
+	res.render('home', context);
+})
+
 module.exports = router;
