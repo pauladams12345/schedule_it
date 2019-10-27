@@ -68,5 +68,4 @@ router.get('/test_OSU_Users',function(req, res, next){
     context.results = JSON.stringify(rows);
     res.send(context.results);
   });
-	//res.render('test_OSU_Users');
 });
