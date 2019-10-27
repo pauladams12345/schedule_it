@@ -56,7 +56,7 @@ router.get('/', function(req, res) {
 	}
 })
 
-router.get('/test_OSU_Users',function(req,res,next){
+router.get('/test_OSU_Users',function(req, res){
   var context = {};
   /*mysql.pool.query('SELECT * FROM indaba_db.OSU_member', function(err, rows, fields){
     if(err){
@@ -66,6 +66,7 @@ router.get('/test_OSU_Users',function(req,res,next){
     context.results = JSON.stringify(rows);
     res.render('login');
   });*/
+	res.render('login');
 });
 
 module.exports = router;
