@@ -64,8 +64,7 @@ router.get('/test_OSU_Users',function(req,res,next){
       return;
     }
     context.results = JSON.stringify(rows);
-    //res.render('home');
-		console.log("test");
+    res.render('login');
   });
 });
 
