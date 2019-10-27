@@ -8,7 +8,7 @@ var pool = mysql.createPool({
 });
 
 //error handling for database connection: https://www.w3resource.com/node.js/nodejs-mysql.php#Error_handling
-pool.getConnection((err, connection) => {
+/*pool.getConnection((err, connection) => {
     if (err) {
         if (err.code === 'PROTOCOL_CONNECTION_LOST') {
             console.error('Database connection was closed.')
@@ -22,6 +22,6 @@ pool.getConnection((err, connection) => {
     }
     if (connection) connection.release()
     return
-})
+})*/
 
 module.exports.pool = pool;
