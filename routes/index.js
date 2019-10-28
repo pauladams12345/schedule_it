@@ -1,7 +1,7 @@
 var express = 	require('express'),
 	router = 	express.Router(),
-	parser =	require('xml2json');
-var mysql = require('../middleware/dbcon.js');
+	parser =	require('xml2json'),
+	mysql = require('../middleware/dbcon.js');
 
 // Display landing page or authenticate user and redirect
 router.get('/', function(req, res) {
