@@ -66,7 +66,12 @@ router.get('/', function(req, res) {
 	}
 })
 
-module.exports = router;
+
+router.get('/home', function(req, res) {
+	let context = {};
+	context.stylesheets = ['main.css', 'home.css'];
+	res.render('home', context);
+})
 
 router.get('/test_OSU_Users',function(req, res, next){
   var context = {};
@@ -98,3 +103,5 @@ router.get('/insert_user',function(req,res,next){
          res.send(context.results);
      });
 });
+
+module.exports = router;
