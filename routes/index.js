@@ -60,7 +60,7 @@ router.get('/', function(req, res, next) {
 				}
 				//if no, add them to the database
 				else {
-					mysql.pool.query("INSERT INTO indaba_db.OSU_member (`onid`, first_name`,`last_name`, `ONID_email`) VALUES (?,?,?,?)",
+					mysql.pool.query("INSERT INTO indaba_db.OSU_member (`onid`,`first_name`,`last_name`,`ONID_email`) VALUES (?,?,?,?)",
 					  [onid, firstName, lastName, email], function(err, result){
 						if(err){
 								next(err);
