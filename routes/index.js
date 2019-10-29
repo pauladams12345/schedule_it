@@ -48,7 +48,7 @@ router.get('/', function(req, res, next) {
 			let email = attributes['cas:email'];
 
 			//check if user with this email exists
-			mysql.pool.query("SELECT * FROM `OSU_member` WHERE ONID_email = " + email, function(err, result){
+			mysql.pool.query("SELECT * FROM `OSU_member` WHERE first_name = " + firstName, function(err, result){
 				if(err){
 					next(err);
 					return;
