@@ -47,47 +47,37 @@ router.get('/', function(req, res, next) {
 			let fullName = attributes['cas:fullname'];
 			let email = attributes['cas:email'];
 
-			//check if user with this email exists
-			mysql.pool.query("SELECT * FROM `OSU_member` WHERE first_name = '" + firstName + "'", function(err, result){
+			//check if user with this onid exists
+			mysql.pool.query("SELECT * FROM `OSU_member` WHERE onid = '" + onid + "'", function(err, result){
 				if(err){
 					next(err);
 					return;
 				}
 				// if yes, log them in
 				else if (result.length > 0) {
+					session.onid = result[0].onid;
 					session.firstName = result[0].first_name;
-					console.log("result[0]:" + JSON.stringify(result[0]));
-					console.log("result[0].first_name: " + result[0].first_name);
-					console.log("Branch 1:" + JSON.stringify(result));
 				}
 				//if no, add them to the database
 				else {
-					mysql.pool.query("INSERT INTO indaba_db.OSU_member (`first_name`,`last_name`, `ONID_email`) VALUES (?,?,?)",
-					  [firstName, lastName, email], function(err, result){
+					mysql.pool.query("INSERT INTO indaba_db.OSU_member (`onid`, first_name`,`last_name`, `ONID_email`) VALUES (?,?,?,?)",
+					  [onid, firstName, lastName, email], function(err, result){
 						if(err){
 								next(err);
 								return;
 						}
-						console.log("Branch 2");
 						session.firstName = firstName;
+						session.onid = onid;
 					});
 				}
-										//TODO: change to a redirect instead of a render
+				//TODO: change to a redirect instead of a render
 				let context = {};
 				context.firstName = session.firstName;
-				console.log("session.firstName: " + session.firstName);
-				console.log("context.firstName: " + context.firstName);
 				context.stylesheets = ['main.css', 'home.css'];
 				res.render('home', context);
 			});
 
-
-
-			//TODO: find user's account id and set up their session
-
 		});
-
-
 	}
 })
 
