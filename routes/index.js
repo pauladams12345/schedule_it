@@ -55,9 +55,7 @@ router.get('/', function(req, res, next) {
 				}
 				// if yes, log them in
 				else if (result.length > 0) {
-					session.firstName = firstName;
-					context.firstName = firstName;
-					context.id = result[0].osu_member_id;
+					console.log("Branch 1:" + result);
 				}
 				//if no, add them to the database
 				else {
@@ -67,6 +65,7 @@ router.get('/', function(req, res, next) {
 								next(err);
 								return;
 						}
+						console.log("Branch 2");
 					});
 				}
 			});
@@ -80,7 +79,6 @@ router.get('/', function(req, res, next) {
 		//TODO: change to a redirect instead of a render
 		let context = {};
 		context.stylesheets = ['main.css', 'home.css'];
-		console.log("User ID: " + context.id);
 		res.render('home', context);
 	}
 })
