@@ -55,6 +55,7 @@ router.get('/', function(req, res, next) {
 				}
 				// if yes, log them in
 				else if (result.length > 0) {
+					session.firstName = result[0].first_name;
 					console.log("Branch 1:" + JSON.stringify(result));
 				}
 				//if no, add them to the database
@@ -66,6 +67,7 @@ router.get('/', function(req, res, next) {
 								return;
 						}
 						console.log("Branch 2");
+						session.firstName = firstName;
 					});
 				}
 			});
@@ -78,6 +80,7 @@ router.get('/', function(req, res, next) {
 
 		//TODO: change to a redirect instead of a render
 		let context = {};
+		context.firstName = session.firstName;
 		context.stylesheets = ['main.css', 'home.css'];
 		res.render('home', context);
 	}
