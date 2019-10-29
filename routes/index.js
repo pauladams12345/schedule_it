@@ -55,7 +55,7 @@ router.get('/', function(req, res, next) {
 				}
 				// if yes, log them in
 				else if (result.length > 0) {
-					console.log("Branch 1:" + result);
+					console.log("Branch 1:" + JSON.stringify(result));
 				}
 				//if no, add them to the database
 				else {
