@@ -56,6 +56,8 @@ router.get('/', function(req, res, next) {
 				// if yes, log them in
 				else if (result.length > 0) {
 					session.firstName = result[0].first_name;
+					console.log("result[0]:" + JSON.stringify(result[0]));
+					console.log("result[0].first_name: " + result[0].firstname);
 					console.log("Branch 1:" + JSON.stringify(result));
 				}
 				//if no, add them to the database
