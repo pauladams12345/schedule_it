@@ -36,7 +36,7 @@ router.get('/', function(req, res, next) {
 		};
 		//TODO: Break code below up into functions, maybe a module?
 		// Send validation request
-		request(options, function(err, res, body) {
+		request(options, function(err, response, body) {
 			//TODO: add error handling
 			// Parse successful request
 			let json = JSON.parse(parser.toJson(body));
