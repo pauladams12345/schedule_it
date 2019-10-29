@@ -2,6 +2,7 @@ var express = 	require('express'),
 	router = 	express.Router(),
 	parser =	require('xml2json'),
 	mysql = 	require('../middleware/dbcon.js'),
+	request = 	require('request'),
 	session = 	require('express-session');
 
 // Display landing page or authenticate user and redirect
