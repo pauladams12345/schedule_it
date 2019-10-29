@@ -48,7 +48,7 @@ router.get('/', function(req, res, next) {
 			let email = attributes['cas:email'];
 
 			//check if user with this onid exists
-			mysql.pool.query("SELECT * FROM `OSU_member` WHERE onid = '" + onid + "'", function(err, result){
+			mysql.pool.query("SELECT * FROM `OSU_member` WHERE onid = " + onid, function(err, result){
 				if(err){
 					next(err);
 					return;
@@ -80,10 +80,6 @@ router.get('/', function(req, res, next) {
 		});
 	}
 })
-
-
-
-
 
 
 router.get('/home', function(req, res) {
