@@ -6,7 +6,7 @@ var express = 	require('express'),
 	session = 	require('express-session');
 
 // Display landing page or authenticate user and redirect
-router.get('/', function(req, res) {
+router.get('/', function(req, res, next) {
 
 	// If there's no CAS ticket in the query string, render the landing page
 	if (!req.query.ticket) {
@@ -50,8 +50,8 @@ router.get('/', function(req, res) {
 			//check if user with this email exists
 			mysql.pool.query("SELECT * FROM `OSU_member` WHERE ONID_email = " + email, function(err, result){
 				if(err){
-						next(err);
-						return;
+					next(err);
+					return;
 				}
 				// if yes, log them in
 				else if (result.length > 0) {
