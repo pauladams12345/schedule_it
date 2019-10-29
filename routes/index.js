@@ -72,15 +72,16 @@ router.get('/', function(req, res, next) {
 						session.firstName = firstName;
 					});
 				}
+										//TODO: change to a redirect instead of a render
+				let context = {};
+				context.firstName = session.firstName;
+				console.log("session.firstName: " + session.firstName);
+				console.log("context.firstName: " + context.firstName);
+				context.stylesheets = ['main.css', 'home.css'];
+				res.render('home', context);
 			});
 
-						//TODO: change to a redirect instead of a render
-			let context = {};
-			context.firstName = session.firstName;
-			console.log("session.firstName: " + session.firstName);
-			console.log("context.firstName: " + context.firstName);
-			context.stylesheets = ['main.css', 'home.css'];
-			res.render('home', context);
+
 
 			//TODO: find user's account id and set up their session
 
