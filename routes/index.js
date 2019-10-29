@@ -83,6 +83,8 @@ router.get('/', function(req, res, next) {
 		//TODO: change to a redirect instead of a render
 		let context = {};
 		context.firstName = session.firstName;
+		console.log("session.firstName: " + session.firstName);
+		console.log("context.firstName: " + context.firstName);
 		context.stylesheets = ['main.css', 'home.css'];
 		res.render('home', context);
 	}
