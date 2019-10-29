@@ -5,7 +5,7 @@ var pool = mysql.createPool({
   user            : 'indabaAdmin',
   password        : 'abadni619',
   database        : 'indaba_db',
-  PORT            : 3306,
+  PORT            : 3306
 });
 
 //error handling for database connection: https://www.w3resource.com/node.js/nodejs-mysql.php#Error_handling
