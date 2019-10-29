@@ -1,7 +1,8 @@
 var express = 	require('express'),
 	router = 	express.Router(),
 	parser =	require('xml2json'),
-	mysql = require('../middleware/dbcon.js');
+	mysql = 	require('../middleware/dbcon.js'),
+	session = 	require('express-session');
 
 // Display landing page or authenticate user and redirect
 router.get('/', function(req, res) {
@@ -44,16 +45,32 @@ router.get('/', function(req, res) {
 			let lastName = attributes['cas:lastname'];
 			let fullName = attributes['cas:fullname'];
 			let email = attributes['cas:email'];
-			mysql.pool.query("INSERT INTO indaba_db.OSU_member (`first_name`,`last_name`, `ONID_email`) VALUES (?,?,?)",
-					[firstName,
-					 lastName,
-					 email],
-					 function(err, result){
-							 if(err){
-									 next(err);
-									 return;
-						 }
-				 });
+
+			//check if user with this email exists
+			mysql.pool.query("SELECT * FROM `OSU_member` WHERE ONID_email = " + email, function(err, result){
+				if(err){
+						next(err);
+						return;
+				}
+				// if yes, log them in
+				else if (result.length > 0) {
+					session.firstName = firstName;
+					context.firstName = firstName;
+					context.id = results[0].osu_member_id;
+				}
+				//if no, add them to the database
+				else {
+					mysql.pool.query("INSERT INTO indaba_db.OSU_member (`first_name`,`last_name`, `ONID_email`) VALUES (?,?,?)",
+					  [firstName, lastName, email], function(err, result){
+						if(err){
+								next(err);
+								return;
+						}
+					});
+				}
+			});
+
+
 
 			//TODO: find user's account id and set up their session
 
@@ -62,9 +79,14 @@ router.get('/', function(req, res) {
 		//TODO: change to a redirect instead of a render
 		let context = {};
 		context.stylesheets = ['main.css', 'home.css'];
+		console.log("User ID: " + context.id);
 		res.render('home');
 	}
 })
+
+
+
+
 
 
 router.get('/home', function(req, res) {
