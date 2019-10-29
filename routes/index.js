@@ -57,7 +57,7 @@ router.get('/', function(req, res) {
 				else if (result.length > 0) {
 					session.firstName = firstName;
 					context.firstName = firstName;
-					context.id = results[0].osu_member_id;
+					context.id = result[0].osu_member_id;
 				}
 				//if no, add them to the database
 				else {
@@ -81,7 +81,7 @@ router.get('/', function(req, res) {
 		let context = {};
 		context.stylesheets = ['main.css', 'home.css'];
 		console.log("User ID: " + context.id);
-		res.render('home');
+		res.render('home', context);
 	}
 })
 
