@@ -3,6 +3,7 @@ var express = 		require('express'),
 	parser =		require('xml2json'),
 	dbcon = 		require('../middleware/dbcon.js'),
 	request = 		require('request'),
+	rp =			require('request-promise-native'),
 	session = 		require('express-session'),
 	sql =       	require('mysql2/promise');
 
@@ -114,26 +115,24 @@ router.get('/', function(req, res, next) {
 		};
 		//TODO: Break code below up into functions, maybe a module?
 		// Send validation request
-		request(options, function(err, response, body) {
-			//TODO: add error handling
-			// Parse successful request
-			let json = JSON.parse(parser.toJson(body));
-			let attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
-			let onid = attributes['cas:uid'];
-			let firstName = attributes['cas:firstname'];
-			let lastName = attributes['cas:lastname'];
-			let fullName = attributes['cas:fullname'];
-			let email = attributes['cas:email'];
 
-			findUser(onid);
+		const body = await rp(options);
 
-			let context = {};
-			console.log("In outer function session.firstName = " + session.firstName);
-			context.firstName = session.firstName;
-			context.stylesheets = ['main.css', 'home.css'];
-			res.render('home', context);
+		let json = JSON.parse(parser.toJson(body));
+		let attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
+		let onid = attributes['cas:uid'];
+		let firstName = attributes['cas:firstname'];
+		let lastName = attributes['cas:lastname'];
+		let fullName = attributes['cas:fullname'];
+		let email = attributes['cas:email'];
 
-		});
+		findUser(onid);
+
+		let context = {};
+		console.log("In outer function session.firstName = " + session.firstName);
+		context.firstName = session.firstName;
+		context.stylesheets = ['main.css', 'home.css'];
+		res.render('home', context);
 	}
 })
 
