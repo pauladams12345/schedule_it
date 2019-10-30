@@ -1,7 +1,6 @@
 var express = 	require('express'),
 	router = 	express.Router(),
 	parser =	require('xml2json'),
-	mysql = 	require('../middleware/dbcon.js'),
 	rp = 		require('request-promise-native'),
 	session = 	require('express-session');
 
