@@ -119,15 +119,16 @@ router.get('/', async function (req, res, next) {
 
 
 		let context = await findUser(request_options);
+		console.log("In outer function session.firstName = " + session.firstName);
 		res.render('home', context);
 	}
 })
 
 async function findUser(request_options) {
 	try {
-		const body = await rp(request_options);
+		const cas_info = await rp(request_options);
 
-		let json = JSON.parse(parser.toJson(body));
+		let json = JSON.parse(parser.toJson(cas_info));
 		let attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
 		let onid = attributes['cas:uid'];
 		let firstName = attributes['cas:firstname'];
@@ -137,15 +138,21 @@ async function findUser(request_options) {
 		
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT * FROM `OSU_member` WHERE onid = 'adamspa'");
-		console.log(rows);
+
 		if (rows.length > 0) {
 			session.firstName = rows[0].first_name;
 			session.onid = rows[0].onid;
 			console.log("In findUser session.firstName = " + session.firstName);
 		}
+		else {
+			const connection = await sql.createConnection(dbcon);
+			await connection.query("INSERT INTO indaba_db.OSU_member (`onid`,`first_name`,`last_name`,`ONID_email`) VALUES (?,?,?,?)",
+					  [onid, firstName, lastName, email]);
+			session.firstName = firstName;
+			session.onid = onid;
+		}
 
 		let context = {};
-		console.log("In outer function session.firstName = " + session.firstName);
 		context.firstName = session.firstName;
 		context.stylesheets = ['main.css', 'home.css'];
 		return context;
