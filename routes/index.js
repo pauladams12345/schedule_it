@@ -31,12 +31,8 @@ router.get('/', async function (req, res, next) {
 		// If new user, store in database
 		await createUserIfNew(attributes);
 
-		// Render page
-		let context = {};
-		context.onid = attributes.onid;
-		context.firstName = attributes.firstName;
-		context.stylesheets = ['main.css', 'home.css'];
-		res.render('home', context);
+		// Redirect to homepage
+		res.redirect('/home');
 	}
 })
 
