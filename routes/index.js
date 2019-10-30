@@ -6,7 +6,7 @@ var express = 	require('express'),
 	session = 	require('express-session');
 
 // Display landing page or authenticate user and redirect
-router.get('/', function(req, res, next) {
+router.get('/not_in_use', function(req, res, next) {
 
 	// If there's no CAS ticket in the query string, render the landing page
 	if (!req.query.ticket) {
@@ -83,7 +83,7 @@ router.get('/', function(req, res, next) {
 
 
 // Experiment with promises
-router.get('/exp', function(req, res, next) {
+router.get('/', function(req, res, next) {
 
 	// If there's no CAS ticket in the query string, render the landing page
 	if (!req.query.ticket) {
