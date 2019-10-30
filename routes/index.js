@@ -89,4 +89,10 @@ router.get('/home', function(req, res) {
 	res.render('home', context);
 })
 
+router.get('/pastEvents', function(req, res) {
+	let context = {};
+	context.stylesheets = ['main.css', 'home.css'];
+	res.render('pastEvents', context);
+})
+
 module.exports = router;
