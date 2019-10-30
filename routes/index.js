@@ -106,7 +106,7 @@ router.get('/', async function (req, res, next) {
 
 		let context = {};
 		context.onid = attributes.onid;
-		context.firstName = firestName;
+		context.firstName = firstName;
 		res.render('home', context);
 	}
 })
