@@ -1,4 +1,4 @@
-var express = 		require('express'),
+var Router =		require('express-promise-router')
 	router = 		new Router(),		//lets you use async functions as route handlers
 	parser =		require('xml2json'),
 	dbcon = 		require('../middleware/dbcon.js'),
