@@ -118,7 +118,8 @@ router.get('/', function(req, res, next) {
 
 
 
-		findUser(request_options);
+		let context = findUser(request_options);
+		res.render('home', context);
 	}
 })
 
@@ -147,7 +148,7 @@ async function findUser(request_options) {
 		console.log("In outer function session.firstName = " + session.firstName);
 		context.firstName = session.firstName;
 		context.stylesheets = ['main.css', 'home.css'];
-		res.render('home', context);
+		return context;
 
 	} catch (err) {
 		console.log(err);
