@@ -134,6 +134,7 @@ async function validateTicket(cas_ticket){
 		let json = JSON.parse(parser.toJson(cas_info));
 		let cas_attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
 		
+		let attributes = {};
 		attributes.onid = cas_attributes['cas:uid'];
 		attributes.firstName = cas_attributes['cas:firstname'];
 		attributes.lastName = cas_attributes['cas:lastname'];
