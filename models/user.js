@@ -5,7 +5,7 @@ var	dbcon = 	require('../middleware/dbcon.js'),
 module.exports.findUser = async function(onid) {
 	try {
 		const connection = await sql.createConnection(dbcon);
-		const [rows, fields] = await connection.query("SELECT * FROM `OSU_member` WHERE onid = ?", [attributes.onid]);
+		const [rows, fields] = await connection.query("SELECT * FROM `OSU_member` WHERE onid = ?", [onid]);
 		return [rows, fields];
 	} 
 	catch (err) {
