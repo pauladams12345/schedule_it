@@ -118,11 +118,11 @@ router.get('/', function(req, res, next) {
 
 
 
-		findUser(onid);
+		findUser();
 	}
 })
 
-async function findUser(onid) {
+async function findUser() {
 	try {
 		const body = await rp(options);
 
@@ -148,7 +148,7 @@ async function findUser(onid) {
 		context.firstName = session.firstName;
 		context.stylesheets = ['main.css', 'home.css'];
 		res.render('home', context);
-		
+
 	} catch (err) {
 		console.log(err);
 	}
