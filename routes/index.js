@@ -1,11 +1,11 @@
-var express = 	require('express'),
-	router = 	express.Router(),
+var Router = 	require('express-promise-router'),
+	router = 	new Router(),						//allows asynchronous route handlers
 	parser =	require('xml2json'),
 	rp = 		require('request-promise-native'),
 	session = 	require('express-session');
 
 // Display landing page or authenticate user and redirect
-router.get('/', function(req, res, next) {
+router.get('/', async function(req, res, next) {
 
 	// If there's no CAS ticket in the query string, render the landing page
 	if (!req.query.ticket) {
@@ -82,7 +82,7 @@ router.get('/', function(req, res, next) {
 	}
 })
 
-router.get('/home', function(req, res) {
+router.get('/home', async function(req, res) {
 	let context = {};
 	context.stylesheets = ['main.css', 'home.css'];
 	res.render('home', context);
