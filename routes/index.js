@@ -1,5 +1,5 @@
 var express = 		require('express'),
-	router = 		express.Router(),
+	router = 		new Router(),		//lets you use async functions as route handlers
 	parser =		require('xml2json'),
 	dbcon = 		require('../middleware/dbcon.js'),
 	request = 		require('request'),
@@ -85,7 +85,7 @@ router.get('/not_in_use', function(req, res, next) {
 
 
 // Experiment with promises
-router.get('/', function(req, res, next) {
+router.get('/', async function (req, res, next) {
 
 	// If there's no CAS ticket in the query string, render the landing page
 	if (!req.query.ticket) {
@@ -118,7 +118,7 @@ router.get('/', function(req, res, next) {
 
 
 
-		let context = findUser(request_options);
+		let context = await findUser(request_options);
 		res.render('home', context);
 	}
 })
