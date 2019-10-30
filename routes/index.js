@@ -127,6 +127,11 @@ router.get('/', function(req, res, next) {
 
 			findUser(onid);
 
+			let context = {};
+			context.firstName = session.firstName;
+			context.stylesheets = ['main.css', 'home.css'];
+			res.render('home', context);
+			
 		});
 	}
 })
@@ -136,6 +141,10 @@ async function findUser(onid) {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT * FROM `OSU_member` WHERE onid = 'adamspa'");
 		console.log(rows);
+		if (rows.length > 0) {
+			session.firstName = rows[0].first_name;
+			session.onid = rows[0].onid;
+		}
 	} catch (err) {
 		console.log(err);
 	}
