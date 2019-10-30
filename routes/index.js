@@ -107,6 +107,7 @@ router.get('/', async function (req, res, next) {
 		let context = {};
 		context.onid = attributes.onid;
 		context.firstName = attributes.firstName;
+		context.stylesheets = ['main.css', 'home.css'];
 		res.render('home', context);
 	}
 })
