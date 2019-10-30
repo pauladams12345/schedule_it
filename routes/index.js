@@ -116,6 +116,14 @@ router.get('/', function(req, res, next) {
 		//TODO: Break code below up into functions, maybe a module?
 		// Send validation request
 
+
+
+		findUser(onid);
+	}
+})
+
+async function findUser(onid) {
+	try {
 		const body = await rp(options);
 
 		let json = JSON.parse(parser.toJson(body));
@@ -125,19 +133,7 @@ router.get('/', function(req, res, next) {
 		let lastName = attributes['cas:lastname'];
 		let fullName = attributes['cas:fullname'];
 		let email = attributes['cas:email'];
-
-		findUser(onid);
-
-		let context = {};
-		console.log("In outer function session.firstName = " + session.firstName);
-		context.firstName = session.firstName;
-		context.stylesheets = ['main.css', 'home.css'];
-		res.render('home', context);
-	}
-})
-
-async function findUser(onid) {
-	try {
+		
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT * FROM `OSU_member` WHERE onid = 'adamspa'");
 		console.log(rows);
@@ -146,6 +142,13 @@ async function findUser(onid) {
 			session.onid = rows[0].onid;
 			console.log("In findUser session.firstName = " + session.firstName);
 		}
+
+		let context = {};
+		console.log("In outer function session.firstName = " + session.firstName);
+		context.firstName = session.firstName;
+		context.stylesheets = ['main.css', 'home.css'];
+		res.render('home', context);
+		
 	} catch (err) {
 		console.log(err);
 	}
