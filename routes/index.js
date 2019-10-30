@@ -1,9 +1,13 @@
-var express = 	require('express'),
-	router = 	express.Router(),
-	parser =	require('xml2json'),
-	mysql = 	require('../middleware/dbcon.js'),
-	request = 	require('request'),
-	session = 	require('express-session');
+var express = 		require('express'),
+	router = 		express.Router(),
+	parser =		require('xml2json'),
+	dbcon = 		require('../middleware/dbcon.js'),
+	request = 		require('request'),
+	session = 		require('express-session'),
+	sql =       	require('mysql2'),
+    MySQLStore =  	require('express-mysql-session')(session);
+
+const sessionStore = new MySQLStore(dbcon);
 
 // Display landing page or authenticate user and redirect
 router.get('/not_in_use', function(req, res, next) {
@@ -124,12 +128,17 @@ router.get('/', function(req, res, next) {
 			let fullName = attributes['cas:fullname'];
 			let email = attributes['cas:email'];
 
-			const [rows, fields] = await mysql.pool.promise().execute("SELECT * FROM `OSU_member` WHERE onid = ?", [onid]);
-			console.log(rows);
+			findUser(onid);
+
 		});
 	}
 })
 
+async function findUser(onid) {
+	const connection = await mysql.createConnection(dbcon);
+	const [rows, fields] = await connection.execute("SELECT * FROM `OSU_member` WHERE onid = ?", [onid]);
+	console.log(rows);
+}
 
 
 router.get('/home', function(req, res) {
