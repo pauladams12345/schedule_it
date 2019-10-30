@@ -8,31 +8,13 @@ var pool = mysql.createPool({
   user            : 'indabaAdmin',
   password        : 'abadni619',
   database        : 'indaba_db',
-  PORT            : 3306
+  port            : 3306,
+  waitForConnections: true,
+  queueLimit: 0
 });
 
-//error handling for database connection: https://www.w3resource.com/node.js/nodejs-mysql.php#Error_handling
-pool.getConnection((err, connection) => {
-    if (err) {
-        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-            console.error('Database connection was closed.');
-        }
-        if (err.code === 'ER_CON_COUNT_ERROR') {
-            console.error('Database has too many connections.');
-        }
-        if (err.code === 'ECONNREFUSED') {
-            console.error('Database connection was refused.');
-        }
-    }
 
-    if (connection) {
-      connection.release();
-    }
-
-    return;
-})
-
-var sessionStore = new MySQLStore({}, pool);
+var sessionStore = new MySQLStore({}, pool.promise());
 
 module.exports.sessionStore = sessionStore;
 module.exports.pool = pool;
