@@ -3,7 +3,9 @@ var express =       require("express"),
     session =       require("express-session"),
     handlebars =    require("express-handlebars").create({defaultLayout: 'main'}),
     request =       require("request"),
-    mysql =         require('./middleware/dbcon.js');
+    dbcon =         require('./middleware/dbcon.js'),
+    MySQLStore =    require('express-mysql-session')(session),
+    sessionStore =  new MySQLStore(dbcon);
 
 var app = express();
 
@@ -23,7 +25,7 @@ app.use(session({
     secret: "We should pick a real secret",
     resave: false,
     saveUninitialized: false,
-    store: mysql.sessionStore
+    store: sessionStore
 }));
 
 // set up routes
