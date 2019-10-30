@@ -132,10 +132,14 @@ router.get('/', function(req, res, next) {
 })
 
 async function findUser(onid) {
-	const connection = await sql.createConnection(dbcon);
-	const [rows, fields] = await connection.execute("SELECT * FROM `OSU_member` WHERE onid = ?", [onid]);
-	console.log(rows);
-}
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.execute("SELECT * FROM `OSU_member` WHERE onid = ?", [onid]);
+		console.log(rows);
+	} catch (err) {
+		console.log(err);
+	}
+};
 
 
 router.get('/home', function(req, res) {
