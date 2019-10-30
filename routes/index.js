@@ -149,7 +149,7 @@ async function validateTicket(cas_ticket){
 async function createUserIfNew(attributes){
 	try {
 		const connection = await sql.createConnection(dbcon);
-		const [rows, fields] = await connection.query("SELECT * FROM `OSU_member` WHERE onid = ?", [onid]);
+		const [rows, fields] = await connection.query("SELECT * FROM `OSU_member` WHERE onid = ?", [attributes.onid]);
 
 		if (rows.length == 0) {
 			const connection = await sql.createConnection(dbcon);
