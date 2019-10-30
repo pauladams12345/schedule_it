@@ -134,7 +134,7 @@ router.get('/', function(req, res, next) {
 async function findUser(onid) {
 	try {
 		const connection = await sql.createConnection(dbcon);
-		const [rows, fields] = await connection.execute("SELECT * FROM `OSU_member` WHERE onid = 'adamspa'");
+		const rows = await connection.execute("SELECT * FROM `OSU_member` WHERE onid = 'adamspa'");
 		console.log(rows);
 	} catch (err) {
 		console.log(err);
