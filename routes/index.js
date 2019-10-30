@@ -128,10 +128,11 @@ router.get('/', function(req, res, next) {
 			findUser(onid);
 
 			let context = {};
+			console.log("In outer function session.firstName = " + session.firstName);
 			context.firstName = session.firstName;
 			context.stylesheets = ['main.css', 'home.css'];
 			res.render('home', context);
-			
+
 		});
 	}
 })
@@ -144,6 +145,7 @@ async function findUser(onid) {
 		if (rows.length > 0) {
 			session.firstName = rows[0].first_name;
 			session.onid = rows[0].onid;
+			console.log("In findUser session.firstName = " + session.firstName);
 		}
 	} catch (err) {
 		console.log(err);
