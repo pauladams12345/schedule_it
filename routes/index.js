@@ -102,7 +102,7 @@ router.get('/', function(req, res, next) {
 		let validation_ticket = req.query.ticket;
 
 		// Set up ticket validation request to CAS
-		let options = {
+		let request_options = {
 			method: 'GET',
 			uri: 'https://login.oregonstate.edu/idp/profile/cas/serviceValidate',
 			headers: {
@@ -118,13 +118,13 @@ router.get('/', function(req, res, next) {
 
 
 
-		findUser();
+		findUser(request_options);
 	}
 })
 
-async function findUser() {
+async function findUser(request_options) {
 	try {
-		const body = await rp(options);
+		const body = await rp(request_options);
 
 		let json = JSON.parse(parser.toJson(body));
 		let attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
