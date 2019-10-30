@@ -119,7 +119,6 @@ router.get('/', async function (req, res, next) {
 
 
 		let context = await findUser(request_options);
-		console.log("In outer function session.firstName = " + session.firstName);
 		res.render('home', context);
 	}
 })
@@ -140,20 +139,20 @@ async function findUser(request_options) {
 		const [rows, fields] = await connection.query("SELECT * FROM `OSU_member` WHERE onid = 'adamspa'");
 
 		if (rows.length > 0) {
-			session.firstName = rows[0].first_name;
-			session.onid = rows[0].onid;
-			console.log("In findUser session.firstName = " + session.firstName);
+			req.session.firstName = rows[0].first_name;
+			req.session.onid = rows[0].onid;
 		}
 		else {
 			const connection = await sql.createConnection(dbcon);
 			await connection.query("INSERT INTO indaba_db.OSU_member (`onid`,`first_name`,`last_name`,`ONID_email`) VALUES (?,?,?,?)",
 					  [onid, firstName, lastName, email]);
-			session.firstName = firstName;
-			session.onid = onid;
+			req.session.firstName = firstName;
+			req.session.onid = onid;
 		}
 
 		let context = {};
-		context.firstName = session.firstName;
+
+		context.firstName = req.session.firstName;
 		context.stylesheets = ['main.css', 'home.css'];
 		return context;
 
@@ -163,11 +162,27 @@ async function findUser(request_options) {
 };
 
 
-router.get('/home', function(req, res) {
+router.get('/home', async function (req, res, next) {
+	// If there is no session established, redirect to the login page
+	if (!req.session.onid) {
+		res.redirect('../login');
+	}
+	// If there is a session, render user's homepage
+	else {
+		let context = {};
+		context.firstName = req.session.firstName;
+		context.stylesheets = ['main.css', 'login.css'];
+		res.render('home', context);
+	}
+
+});
+
+router.get('/login', async function (req, res, next) {
 	let context = {};
-	context.stylesheets = ['main.css', 'home.css'];
-	res.render('home', context);
-})
+	context.layout = 'no_navbar.handlebars';
+	context.stylesheets = ['main.css', 'login.css'];
+	res.render('login.handlebars', context);
+});
 
 router.get('/test_OSU_Users',function(req, res, next){
   var context = {};
