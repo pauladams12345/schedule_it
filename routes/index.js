@@ -133,11 +133,11 @@ async function validateTicket(cas_ticket){
 		let cas_attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
 		
 		let attributes = {};
-		let attributes.onid = cas_attributes['cas:uid'];
-		let attributes.firstName = cas_attributes['cas:firstname'];
-		let attributes.lastName = cas_attributes['cas:lastname'];
-		let attributes.fullName = cas_attributes['cas:fullname'];
-		let attributes.email = cas_attributes['cas:email'];
+		attributes.onid = cas_attributes['cas:uid'];
+		attributes.firstName = cas_attributes['cas:firstname'];
+		attributes.lastName = cas_attributes['cas:lastname'];
+		attributes.fullName = cas_attributes['cas:fullname'];
+		attributes.email = cas_attributes['cas:email'];
 
 		return attributes;
 	} catch (err) {
