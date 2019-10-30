@@ -124,7 +124,7 @@ router.get('/', function(req, res, next) {
 			let fullName = attributes['cas:fullname'];
 			let email = attributes['cas:email'];
 
-			pool.promise().query("SELECT * FROM `OSU_member` WHERE onid = '" + onid + "'")
+			mysql.pool.promise().query("SELECT * FROM `OSU_member` WHERE onid = '" + onid + "'")
 				.then( ([rows,fields]) => {
 					console.log(rows);
 				})
