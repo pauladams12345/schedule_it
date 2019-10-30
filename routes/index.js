@@ -5,7 +5,8 @@ var Router =		require('express-promise-router')
 	request = 		require('request'),
 	rp =			require('request-promise-native'),
 	session = 		require('express-session'),
-	sql =       	require('mysql2/promise');
+	sql =       	require('mysql2/promise'),
+	user =			require('../models/user.js');
 
 // // Display landing page or authenticate user and redirect
 // router.get('/not_in_use', function(req, res, next) {
@@ -133,7 +134,6 @@ async function validateTicket(cas_ticket){
 		let json = JSON.parse(parser.toJson(cas_info));
 		let cas_attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
 		
-		let attributes = {};
 		attributes.onid = cas_attributes['cas:uid'];
 		attributes.firstName = cas_attributes['cas:firstname'];
 		attributes.lastName = cas_attributes['cas:lastname'];
@@ -149,13 +149,14 @@ async function validateTicket(cas_ticket){
 // Check if user exists in database. If not, create an entry.
 async function createUserIfNew(attributes){
 	try {
-		const connection = await sql.createConnection(dbcon);
-		const [rows, fields] = await connection.query("SELECT * FROM `OSU_member` WHERE onid = ?", [attributes.onid]);
-
+		// const connection = await sql.createConnection(dbcon);
+		// const [rows, fields] = await connection.query("SELECT * FROM `OSU_member` WHERE onid = ?", [attributes.onid]);
+		const [rows, fields] = await user.findUser(attributes.onid);
 		if (rows.length == 0) {
-			const connection = await sql.createConnection(dbcon);
-			await connection.query("INSERT INTO indaba_db.OSU_member (`onid`,`first_name`,`last_name`,`ONID_email`) VALUES (?,?,?,?)",
-					  [attributes.onid, attributes.firstName, attributes.lastName, attributes.email]);
+			// const connection = await sql.createConnection(dbcon);
+			// await connection.query("INSERT INTO indaba_db.OSU_member (`onid`,`first_name`,`last_name`,`ONID_email`) VALUES (?,?,?,?)",
+			// 		  [attributes.onid, attributes.firstName, attributes.lastName, attributes.email]);
+			await user.createUser(attributes.onid, attributes.firstName, attributes.lastName, attributes.email);
 		}
 	}
 	catch (err){
