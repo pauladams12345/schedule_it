@@ -1,8 +1,9 @@
 var express =       require("express"),
     bodyParser =    require("body-parser"),
     session =       require("express-session"),
-    handlebars =    require("express-handlebars").create({defaultLayout: 'main'})
-    request =       require("request");
+    handlebars =    require("express-handlebars").create({defaultLayout: 'main'}),
+    request =       require("request"),
+    mysql =         require('./middleware/dbcon.js');
 
 var app = express();
 
@@ -18,10 +19,11 @@ app.set('view engine', 'handlebars');
 app.use(express.static(__dirname + '/public'));
 
 // configure sessions
-app.use(require("express-session")({
+app.use(session({
     secret: "We should pick a real secret",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: mysql.sessionStore
 }));
 
 // set up routes
