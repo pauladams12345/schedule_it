@@ -118,12 +118,12 @@ router.get('/', async function (req, res, next) {
 
 
 
-		let context = await findUser(request_options);
+		let context = await findUser(req, request_options);
 		res.render('home', context);
 	}
 })
 
-async function findUser(request_options) {
+async function findUser(req, request_options) {
 	try {
 		const cas_info = await rp(request_options);
 
