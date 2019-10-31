@@ -72,6 +72,7 @@ router.get('/login', async function (req, res, next) {
 router.get('/home-test', async function (req, res, next) {
 
 	req.session.onid = 'adamspa';
+	req.session.firstName = 'Paul';
 	let context = {};
 	
 	// Find all slots a user is registered for
