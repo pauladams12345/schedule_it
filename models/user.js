@@ -11,7 +11,7 @@ module.exports.findUser = async function(onid) {
 	catch (err) {
 		console.log(err);
 	}
-}
+};
 
 // Create row in OSU_member with the given information
 module.exports.createUser = async function(onid, firstName, lastName, email) {
@@ -23,4 +23,4 @@ module.exports.createUser = async function(onid, firstName, lastName, email) {
 	catch (err) {
 		console.log(err);
 	}
-}
+};

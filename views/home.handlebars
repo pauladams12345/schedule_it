@@ -6,8 +6,23 @@
 </div>
 
 <h2>Manage your events:</h2>
+<br>
 <h2>Your schedule:</h2>
+
+{{#each events}}
+<div class="container mb-4" style="border: 2px solid black;">
+	<h4>{{this.title}}</h4>
+	<p>Created by: {{this.creator}}</p>
+	<p>Description: {{this.description}}</p>
+	
+	<h5>Your Reservation(s):</h5>
+	{{#each this.reservations}}
+		<p>{{this.date}}</p> <!-- This is an example -->
+		<!-- Create rest of template here -->
+	{{/each}}
+</div>
+{{/each}}
 
 <a class="btn btn-primary btn-lg" href="#" role="button">View past events</a>
 <br>
-<a class="btn btn-primary btn-lg" href="#" role="button">View past reservations</a>
+<a class="btn btn-primary btn-lg mt-2" href="#" role="button">View past reservations</a>
