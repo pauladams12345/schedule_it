@@ -23,14 +23,13 @@ router.get('/', async function (req, res, next) {
 
 		// Validate ticket and get user's attributes
 		let attributes = await helpers.validateTicket(cas_ticket);
-		console.log(attributes);
+
 		// Store user's name and onid in the session
 		req.session.onid = attributes.onid;
 		req.session.firstName = attributes.firstName;
 		
 		// If new user, store in database
-		await helpers.createUserIfNew( attributes.onid, 
-			attributes.firstName, attributes.lastName, attributes.email);
+		await helpers.createUserIfNew(attributes);
 
 		// Redirect to homepage
 		res.redirect('/home');
