@@ -1,6 +1,7 @@
 var	dbcon = 	require('../middleware/dbcon.js'),
 	sql =   	require('mysql2/promise');
 
+// Query database for an event by its ID and return all columns for that row
 module.exports.findEvent = async function(eventId) {
 	try {
 		const connection = await sql.createConnection(dbcon);
@@ -10,4 +11,4 @@ module.exports.findEvent = async function(eventId) {
 	catch (err) {
 		console.log(err);
 	}
-}
+};
