@@ -3,7 +3,9 @@ var Router = 	require('express-promise-router'),
 	parser =	require('xml2json'),
 	rp = 		require('request-promise-native'),
 	session = 	require('express-session'),
-	user =		require('../models/user.js');
+	user =		require('../models/user.js'),
+	slot =		require('../models/slot.js'),
+	event =		require('../models/event.js');
 
 // Redirects new arrivals to landing page. Handles authentication
 // for users redirected from CAS login then redirects to personal homepage
@@ -45,6 +47,13 @@ router.get('/home', async function (req, res, next) {
 	// If there is a session, render user's homepage
 	else {
 		let context = {};
+		
+		// Find all slots a user is registered for
+		let [reservations, fields] = await slot.findUserSlots(req.session.onid);
+
+		// Process response from database into a handlebars-friendly format
+		context.events = await processReservationsForDisplay(reservations);
+
 		context.firstName = req.session.firstName;
 		context.stylesheets = ['main.css', 'login.css'];
 		res.render('home', context);
@@ -60,6 +69,50 @@ router.get('/login', async function (req, res, next) {
 	context.stylesheets = ['main.css', 'login.css'];
 	res.render('login.handlebars', context);
 });
+
+router.get('/home-test', async function (req, res, next) {
+	// Cheating here so I can test locally without constantly re-deploying to Heroku
+	req.session.onid = 'adamspa';
+	let context = {};
+	
+	// Find all slots a user is registered for
+	let [reservations, fields] = await slot.findUserSlots(req.session.onid);
+
+	// Process response from database into a handlebars-friendly format
+	context.events = await processReservationsForDisplay(reservations);
+
+	context.firstName = req.session.firstName;
+	context.stylesheets = ['main.css', 'login.css'];
+	res.render('home', context);
+})
+
+async function processReservationsForDisplay(reservations){
+	let event_ids = []; 	// Keep track of which events we've added
+	let events = {};		// Store the details of each event in a handlebars-friendly format
+
+	// Fill the events object
+	for (let resv of reservations) {
+		let id = resv.event_id;
+
+		// If we haven't seen this event before, create an object for it
+		if ( !event_ids.includes(id) ){
+			event_ids.push(id);								// add current event ID to tracking array
+			events[id] = {									// create event object
+				title: resv.event_name,
+				creator: "Fix me",
+				description: resv.description,
+				reservations: {}
+			};
+		}
+
+		// Create an object for the current reservation
+		events[id].reservations[resv.slot_id] = {
+			date: resv.slot_date		// example of how to store data
+			// Fill in the rest of the data needed here
+		};		
+	}
+	return events;
+}
 
 // Send validation request to CAS server with ticket, return attributes from response
 // TODO: handle errors
