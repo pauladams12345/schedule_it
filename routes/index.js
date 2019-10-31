@@ -68,12 +68,16 @@ router.get('/login', async function (req, res, next) {
 	res.render('login.handlebars', context);
 });
 
-// Uncomment this route to test locally without constantly re-deploying to Heroku
+// Use this route to test locally without constantly re-deploying to Heroku
 router.get('/home-test', async function (req, res, next) {
 
 	req.session.onid = 'adamspa';
 	req.session.firstName = 'Paul';
 	let context = {};
+
+
+	let creatorName = await event.getEventCreator(1);
+	console.log("creatorName: ", creatorName);
 	
 	// Find all slots a user is registered for
 	let [reservations, fields] = await slot.findUserSlots(req.session.onid);

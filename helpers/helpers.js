@@ -1,6 +1,7 @@
 var parser =	require('xml2json'),
 	rp = 		require('request-promise-native'),
-	user =		require('../models/user.js');
+	user =		require('../models/user.js'),
+	event =		require('../models/event.js');
 
 // Send validation request to CAS server with ticket, return attributes from response
 // TODO: handle errors
@@ -98,7 +99,7 @@ module.exports.processReservationsForDisplay = async function (reservations){
 			event_ids.push(id);								// add current event ID to tracking array
 			events[id] = {									// create event object
 				title: resv.event_name,
-				creator: "Fix me",
+				creator: await event.getEventCreator(id),
 				description: resv.description,
 				reservations: {}
 			};
