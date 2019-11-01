@@ -16,8 +16,14 @@
 
 	<h5>Your Reservation(s):</h5>
 	{{#each this.reservations}}
-		<p>{{this.date}}        {{this.location}}</p> <!-- This is an example -->
+		<p>{{this.date}}{{this.location}}</p> <!-- This is an example -->
     <p>{{this.location}}</p>
+    <table>
+      <tr>
+        <th>{{this.date}}</th>
+        <th>{{this.location}}</th>
+      </tr>
+    </table>
 		<!-- Create rest of template here -->
 	{{/each}}
 </div>
