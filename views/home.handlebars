@@ -1,4 +1,3 @@
-
 <div class="jumbotron py-4 my-4">
   <h1 class="display-4">Hello, {{firstName}}!</h1>
   <p class="lead">Start organizing an event by clicking the button below.</p>
@@ -17,7 +16,7 @@
 
 	<h5>Your Reservation(s):</h5>
 	{{#each this.reservations}}
-		<p>{{this.date}}     {{this.location}}</p> <!-- This is an example -->
+		<p class = "b">{{this.date}}{{this.location}}</p> <!-- This is an example -->
     <p>{{this.location}}</p>
 		<!-- Create rest of template here -->
 	{{/each}}

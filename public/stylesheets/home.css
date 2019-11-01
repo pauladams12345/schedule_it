@@ -1,0 +1,15 @@
+<head>
+  <style>
+    p.a {
+      word-spacing: normal;
+    }
+
+    p.b {
+      word-spacing: 30px;
+    }
+
+    p.c {
+      word-spacing: 1cm;
+    }
+  </style>
+</head>
