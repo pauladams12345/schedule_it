@@ -105,11 +105,11 @@ module.exports.processReservationsForDisplay = async function (reservations){
 			};
 		}
 
-		// Create a nested  object for the current reservation
-		//events[id].reservations[resv.slot_id] = {
-		//	date: resv.slot_date		// example of how to store data
-			// Fill in the rest of the data needed here
-		//};
+		//  Create a nested  object for the current reservation
+		events[id].reservations[resv.slot_id] = {
+			date: resv.slot_date		// example of how to store data
+			 //Fill in the rest of the data needed here
+		};
 	}
 	return events;
 };
