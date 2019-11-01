@@ -68,6 +68,20 @@ router.get('/login', async function (req, res, next) {
 	res.render('login.handlebars', context);
 });
 
+// Destroys current session and redirects to landing page
+router.get('/logout', async function (req, res, next) {
+	if (req.session) {
+		req.session.destroy(function(err) {
+			if(err){
+				return next(err);
+			}
+			else {
+				return res.redirect('/');
+			}
+		});
+	}
+});
+
 // Use this route to test locally without constantly re-deploying to Heroku
 router.get('/home-test', async function (req, res, next) {
 
