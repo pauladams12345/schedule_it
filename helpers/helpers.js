@@ -107,7 +107,7 @@ module.exports.processReservationsForDisplay = async function (reservations){
 
 		//  Create a nested  object for the current reservation
 		events[id].reservations[resv.slot_id] = {
-			date: resv.slot_id,		// example of how to store data
+			date: resv.slot_time,		// example of how to store data
 			location: resv.location
 			 //Fill in the rest of the data needed here
 		};
