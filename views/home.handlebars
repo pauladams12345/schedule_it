@@ -17,20 +17,7 @@
 	<h5>Your Reservation(s):</h5>
 	{{#each this.reservations}}
 		<!-- <p>{{this.date}}{{this.location}}</p> -->
-    <p wordspacing = 50%>{{this.date}}{{this.time}}{{this.location}}</p>
-    <div class="container">
-      <div class="row">
-        <div class="col-2">
-          {{this.date}}
-        </div>
-        <div class="col-1">
-          {{this.time}}
-        </div>
-        <div class="col-1">
-          {{this.location}}
-        </div>
-      </div>
-    </div>
+    <p>{{this.date}}<span style="margin-left: 5em;">{{this.time}}</span>{{this.location}}</p>
 		<!-- Create rest of template here -->
 	{{/each}}
 </div>
