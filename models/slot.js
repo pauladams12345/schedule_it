@@ -38,8 +38,9 @@ module.exports.findSlotAttendees = async function(slotId) {
 	try {
 		const connection = await sql.createConnection(dbcon);
 		//const [rows, fields] = await connection.query("SELECT * FROM `Slot` WHERE slot_id = ?", [slotId]);
-		const [rows, fields] = await connection.query("SELECT * FROM indaba_db.Reserve_Slot INNER JOIN indaba_db.Slot" +
-		"ON fk_slot_id = slot_id INNER JOIN indaba_db.OSU_member ON fk_onid = onid WHERE slot_id = 2");
+		const [rows, fields] = await connection.query(
+		"SELECT * FROM `Reserve_Slot` INNER JOIN `Slot`" +
+		"ON fk_slot_id = slot_id INNER JOIN `OSU_member` ON fk_onid = onid WHERE slot_id = 2");
 		return [rows, fields];
 	}
 	catch (err) {
