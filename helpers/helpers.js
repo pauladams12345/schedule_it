@@ -118,7 +118,7 @@ module.exports.processReservationsForDisplay = async function (reservations){
 			events[id].reservations[resv.slot_id].attendees = {
 				firstName: attendee.first_name,
 				lastName: attendee.last_name,
-				email: attendee.email
+				email: attendee.ONID_email
 			}
 		}
 	}
