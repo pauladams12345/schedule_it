@@ -2,4 +2,12 @@ body,html {
   height: 100%;
 }
 
-
+.column-1 {
+  width: 10px;
+}
+.column-2 {
+  width: 10px;
+}
+.column-3 {
+  width: 10px;
+}
