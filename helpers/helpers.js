@@ -114,7 +114,7 @@ module.exports.processReservationsForDisplay = async function (reservations){
 			attendees: {}
 		};
 		const att = await slot.findSlotAttendees(resv.slot_id);
-		console.log(att);
+		//console.log(att);
 		events[id].reservations[resv.slot_id].attendees = att;
 	}
 	return events;
