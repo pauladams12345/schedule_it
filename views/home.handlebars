@@ -18,9 +18,9 @@
 	{{#each this.reservations}}
 		<!-- <p>{{this.date}}{{this.location}}</p> -->
     <table class="table table-borderless">
-      <tbody>
+      <tbody data-type="date" data-format-string="Do MMMM YYYY">
         <tr>
-          <td data-type="date" data-format-string="Do MMMM YYYY">{{this.date}}</td>
+          <td>{{this.date}}</td>
           <td>{{this.location}}</td>
         </tr>
       </tbody>
