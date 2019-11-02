@@ -84,7 +84,6 @@ router.get('/home-test', async function (req, res, next) {
 
 	// Process response from database into a handlebars-friendly format
 	context.events = await helpers.processReservationsForDisplay(reservations);
-	console.log(context);
 
 	context.firstName = req.session.firstName;
 	context.stylesheets = ['main.css', 'login.css', 'home.css'];
