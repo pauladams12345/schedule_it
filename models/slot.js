@@ -34,7 +34,7 @@ module.exports.findSlot = async function(slotId) {
 };
 
 // Query database for all of the individuals who signed up for the slot
-module.exports.findSlotAttendee = async function(slotId) {
+module.exports.findSlotAttendees = async function(slotId) {
 	try {
 		const connection = await sql.createConnection(dbcon);
 		//const [rows, fields] = await connection.query("SELECT * FROM `Slot` WHERE slot_id = ?", [slotId]);
