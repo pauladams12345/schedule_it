@@ -34,3 +34,13 @@ body {
 	width: 100%;
 	height: 3rem;
 }
+
+.column-1 {
+  width: 10px;
+}
+.column-2 {
+  width: 10px;
+}
+.column-3 {
+  width: 10px;
+}

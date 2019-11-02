@@ -86,7 +86,7 @@ router.get('/home-test', async function (req, res, next) {
 	context.events = await helpers.processReservationsForDisplay(reservations);
 
 	context.firstName = req.session.firstName;
-	context.stylesheets = ['main.css', 'login.css', 'home.css'];
+	context.stylesheets = ['main.css', 'login.css'];
 	res.render('home', context);
 });
 
