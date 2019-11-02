@@ -19,9 +19,7 @@
 		<!-- <p>{{this.date}}{{this.location}}</p> -->
     <p>{{this.date}}<span style="margin-left: 1%;">{{this.time}}</span><span style="margin-left: 4%;">{{this.location}}</span></p>
     <p>Who else signed up:</p>
-    {{#each this.attendees}}
-      <p>{{this.name}}</p>
-    {{/each}}
+    {{this.attendees}}
 		<!-- Create rest of template here -->
 	{{/each}}
 </div>
