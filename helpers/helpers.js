@@ -113,8 +113,8 @@ module.exports.processReservationsForDisplay = async function (reservations){
 			location: resv.slot_location,
 			attendees: {}
 		};
-		let attendees = await slot.findSlotAttendee(resv.slot_id);
-		events[id].reservations[resv.slot_id].attendees = resv.slot_id;
+		const att = await slot.findSlotAttendees(resv.slot_id);
+		events[id].reservations[resv.slot_id].attendees = att;
 	}
 	return events;
 };
