@@ -116,9 +116,9 @@ module.exports.processReservationsForDisplay = async function (reservations){
 		const [attendees, fields] = await slot.findSlotAttendees(resv.slot_id);
 		for (let attendee of attendees){
 			events[id].reservations[resv.slot_id].attendees = {
-				firstName: 'Everett',
-				lastName: 'Williams',
-				email: 'bedee'
+				firstName: attendee.first_name,
+				lastName: attendee.last_name,
+				email: attendee.email
 			}
 		}
 	}
