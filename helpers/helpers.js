@@ -117,7 +117,7 @@ module.exports.processReservationsForDisplay = async function (reservations){
 		for (let attendee of attendees){
 			events[id].reservations[resv.slot_id].attendees = {
 				firstName: 'Everett',
-				LastName: 'Williams',
+				lastName: 'Williams',
 				email: 'bedee'
 			}
 		}
