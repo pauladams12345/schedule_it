@@ -1,6 +1,7 @@
 var parser =	require('xml2json'),
 	rp = 		require('request-promise-native'),
 	user =		require('../models/user.js'),
+	slot =    require('../models/slot.js'),
 	event =		require('../models/event.js');
 
 // Send validation request to CAS server with ticket, return attributes from response
@@ -112,7 +113,7 @@ module.exports.processReservationsForDisplay = async function (reservations){
 			location: resv.slot_location,
 			attendees: {}
 		};
-		let attendees = slot.findSlotAttendee(resv.slot_id);
+		let attendees = await slot.findSlotAttendee(resv.slot_id);
 		events[id].reservations[resv.slot_id].attendees = attendees;
 	}
 	return events;
