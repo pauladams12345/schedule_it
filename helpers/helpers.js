@@ -119,7 +119,7 @@ module.exports.processReservationsForDisplay = async function (reservations){
 				firstName: attendee.first_name,
 				lastName: attendee.last_name,
 				email: attendee.ONID_email
-			}
+			};
 		}
 	}
 	console.log(events);
