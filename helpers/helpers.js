@@ -109,9 +109,11 @@ module.exports.processReservationsForDisplay = async function (reservations){
 		events[id].reservations[resv.slot_id] = {
 			date: resv.slot_date,		// example of how to store data
 			time: resv.start_time,
-			location: resv.slot_location
-			 //Fill in the rest of the data needed here
+			location: resv.slot_location,
+			attendees: {}
 		};
+		let attendees = slot.findSlotAttendee(resv.slot_id);
+		events[id].reservations[resv.slot_id].attendees = attendees;
 	}
 	return events;
 };

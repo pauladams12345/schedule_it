@@ -34,13 +34,15 @@ module.exports.findSlot = async function(slotId) {
 };
 
 // Query database for all of the individuals who signed up for the slot
-/*module.exports.findAttendee = async function(slotId) {
+module.exports.findSlotAttendee = async function(slotId) {
 	try {
 		const connection = await sql.createConnection(dbcon);
-		const [rows, fields] = await connection.query("SELECT * FROM `Slot` WHERE slot_id = ?", [slotId]);
+		//const [rows, fields] = await connection.query("SELECT * FROM `Slot` WHERE slot_id = ?", [slotId]);
+		const [rows, fields] = await connection.query("SELECT * FROM indaba_db.Reserve_Slot INNER JOIN indaba_db.Slot" +
+		"ON fk_slot_id = slot_id INNER JOIN indaba_db.OSU_member ON fk_onid = onid WHERE slot_id = 2");
 		return [rows, fields];
 	}
 	catch (err) {
 		console.log(err);
 	}
-};*/
+};
