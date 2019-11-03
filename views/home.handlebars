@@ -18,9 +18,9 @@
 	{{#each this.reservations}}
 		<!-- <p>{{this.date}}{{this.location}}</p> -->
     <p>{{this.date}}<span style="margin-left: .2em;">{{this.time}}</span><span style="margin-left: 1em;">{{this.location}}</span></p>
-    <h4>Who else signed up:</h4>
+    <h5>Who else signed up:</h5>
     {{#each this.attendees}}
-      <p>{{this.firstName}}<span style="margin-left: .2em;">{{this.lastName}}</span>{{this.time}}<span style="margin-left: 1em;">{{this.email}}</span></p>
+      <p margin-bottom=6px>{{this.firstName}}<span style="margin-left: .2em;">{{this.lastName}}</span>{{this.time}}<span style="margin-left: 1em;">{{this.email}}</span></p>
     {{/each}}
 		<!-- Create rest of template here -->
 	{{/each}}
