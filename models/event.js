@@ -35,7 +35,7 @@ convertTime = async function(slotTime){
 	try{
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
-			"Select TIME_FORMAT(" + slotTime + ", '%h:%i%p') AS timePM");
+			"SELECT TIME_FORMAT('" + slotTime + "', '%h:%i%p') AS timePM");
 		return rows[0].timePM
 	}
 	catch (err) {
