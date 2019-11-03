@@ -37,7 +37,7 @@ module.exports.getTimeInterval = async function(startTime, duration) {
 		//durationSec = durationMin*60;
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
-			"SELECT ADDTIME ('" + startTime + "'," + duration + ") AS end_time");
+			"SELECT ADDTIME ('" + startTime + "','" + duration + "') AS end_time");
 		console.log(rows[0]);
 		return startTime + "-" + rows[0].end_time;
 	}
