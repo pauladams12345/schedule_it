@@ -114,15 +114,16 @@ module.exports.processReservationsForDisplay = async function (reservations){
 			attendees: {}
 		};
 		const [attendees, fields] = await slot.findSlotAttendees(resv.slot_id);
-		console.log(attendees);
+		//console.log(attendees);
 		for (let attendee of attendees){
 			events[id].reservations[resv.slot_id].attendees = {
 				firstName: attendee.first_name,
 				lastName: attendee.last_name,
 				email: attendee.ONID_email
 			};
+			console.log(events[id].reservations[resv.slot_id].attendees);
 		}
-		console.log(events[id].reservations[resv.slot_id].attendees);
+		//console.log(events[id].reservations[resv.slot_id].attendees);
 	}
 	console.log(events);
 	return events;
