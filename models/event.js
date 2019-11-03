@@ -35,10 +35,10 @@ module.exports.getEventCreator = async function(eventId) {
 module.exports.getTimeInterval = async function(startTime, durationMin) {
 	try {
 		durationSec = durationMin*60;
-		/*const connection = await sql.createConnection(dbcon);
+		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
-			"SELECT ADDTIME ("15:00:00", "20")");
-		return startTime + "-" + row[0];*/
+			"SELECT ADDTIME (" + startTime + "," + durationSec + ")");
+		return startTime + "-" + row[0];
 	}
 	catch (err) {
 		console.log(err);
