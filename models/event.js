@@ -32,12 +32,12 @@ module.exports.getEventCreator = async function(eventId) {
 };
 
 //takes the events time and duration and returns the end time for the event
-module.exports.getTimeInterval = async function(startTime, durationMin) {
+module.exports.getTimeInterval = async function(startTime, duration) {
 	try {
-		durationSec = durationMin*60;
+		//durationSec = durationMin*60;
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
-			"SELECT ADDTIME ('" + startTime + "'," + durationSec + ") AS end_time");
+			"SELECT ADDTIME ('" + startTime + "'," + duration + ") AS end_time");
 		console.log(rows[0]);
 		return startTime + "-" + rows[0].end_time;
 	}
