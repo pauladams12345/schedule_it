@@ -50,7 +50,7 @@ router.get('/home', async function (req, res, next) {
 		let [reservations, fields] = await slot.findUserSlots(req.session.onid);
 
 		// Process response from database into a handlebars-friendly format
-		context.events = await helpers.processReservationsForDisplay(reservations);
+		context.events = await helpers.processReservationsForDisplay(reservations, req.session.onid);
 
 		context.firstName = req.session.firstName;
 		context.stylesheets = ['main.css', 'login.css'];
