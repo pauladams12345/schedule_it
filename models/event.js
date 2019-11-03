@@ -53,4 +53,7 @@ module.exports.convertTime = async function(slotTime){
 			"Select TIME_FORMAT(slotTime, '%h:%i%p') slotTime AS timePM");
 		return rows[0].timePM
 	}
+	catch (err) {
+		console.log(err);
+	}
 };
