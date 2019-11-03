@@ -34,7 +34,6 @@ module.exports.getEventCreator = async function(eventId) {
 //takes the events time and duration and returns the end time for the event
 module.exports.getTimeInterval = async function(startTime, duration) {
 	try {
-		//durationSec = durationMin*60;
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
 			"SELECT ADDTIME ('" + startTime + "','" + duration + "') AS end_time");
