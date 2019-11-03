@@ -115,14 +115,14 @@ module.exports.processReservationsForDisplay = async function (reservations){
 		};
 		const [attendees, fields] = await slot.findSlotAttendees(resv.slot_id);
 		for (let attendee of attendees){
-			events[id].reservations[resv.slot_id].attendees[attendee.onid] = {
-				firstName: attendee.first_name,
-				lastName: attendee.last_name,
-				email: attendee.ONID_email
-			};
+			if(attendee.onid != req.session.onid){
+				events[id].reservations[resv.slot_id].attendees[attendee.onid] = {
+					firstName: attendee.first_name,
+					lastName: attendee.last_name,
+					email: attendee.ONID_email
+				};
+			}
 		}
-		//console.log(events[id].reservations[resv.slot_id]);
 	}
-	//console.log(events);
 	return events;
 };
