@@ -40,7 +40,7 @@ module.exports.findSlotAttendees = async function(slotId) {
 		//const [rows, fields] = await connection.query("SELECT * FROM `Slot` WHERE slot_id = ?", [slotId]);
 		const [rows, fields] = await connection.query(
 		"SELECT * FROM `Reserve_Slot` INNER JOIN `Slot`" +
-		"ON fk_slot_id = slot_id INNER JOIN `OSU_member` ON fk_onid = onid WHERE slot_id = 2");
+		"ON fk_slot_id = slot_id INNER JOIN `OSU_member` ON fk_onid = onid WHERE slot_id = ?", [slot_id]);
 		return [rows, fields];
 	}
 	catch (err) {
