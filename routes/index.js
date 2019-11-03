@@ -27,7 +27,7 @@ router.get('/', async function (req, res, next) {
 		// Store user's name and onid in the session
 		req.session.onid = attributes.onid;
 		req.session.firstName = attributes.firstName;
-		
+
 		// If new user, store in database
 		await helpers.createUserIfNew(attributes);
 
@@ -50,7 +50,7 @@ router.get('/home', async function (req, res, next) {
 		let [reservations, fields] = await slot.findUserSlots(req.session.onid);
 
 		// Process response from database into a handlebars-friendly format
-		context.events = await helpers.processReservationsForDisplay(reservations);
+		context.events = await helpers.processReservationsForDisplay(reservations, req.session.onid);
 
 		context.firstName = req.session.firstName;
 		context.stylesheets = ['main.css', 'login.css'];
@@ -92,12 +92,12 @@ router.get('/home-test', async function (req, res, next) {
 
 	let creatorName = await event.getEventCreator(1);
 	console.log("creatorName: ", creatorName);
-	
+
 	// Find all slots a user is registered for
 	let [reservations, fields] = await slot.findUserSlots(req.session.onid);
 
 	// Process response from database into a handlebars-friendly format
-	context.events = await helpers.processReservationsForDisplay(reservations);
+	context.events = await helpers.processReservationsForDisplay(reservations, req.session.onid);
 
 	context.firstName = req.session.firstName;
 	context.stylesheets = ['main.css', 'login.css'];

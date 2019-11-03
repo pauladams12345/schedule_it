@@ -7,7 +7,7 @@ module.exports.findEvent = async function(eventId) {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT * FROM `Event` WHERE event_id = ?", [eventId]);
 		return [rows, fields];
-	} 
+	}
 	catch (err) {
 		console.log(err);
 	}
@@ -25,7 +25,36 @@ module.exports.getEventCreator = async function(eventId) {
 			"WHERE e.event_id = ? ",
 			[eventId]);
 		return rows[0].first_name + " " + rows[0].last_name;
-	} 
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+//takes a time in MySQL 24h time format and converts to 12h format
+convertTime = async function(slotTime){
+	try{
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+			"SELECT TIME_FORMAT('" + slotTime + "', '%h:%i%p') AS timePM");
+		return rows[0].timePM
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+//takes the events time and duration and returns the end time for the event
+//Note: this function uses convertTime to convert to 12h format.
+module.exports.getTimeInterval = async function(startTime, duration) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+			"SELECT ADDTIME ('" + startTime + "','" + duration + "') AS end_time");
+		let startTimeAMPM = await convertTime(startTime, rows[0].end_time);
+		let endTimeAMPM = await convertTime(rows[0].end_time);
+		return startTimeAMPM + "-" + endTimeAMPM;
+	}
 	catch (err) {
 		console.log(err);
 	}

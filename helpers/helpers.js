@@ -1,6 +1,7 @@
 var parser =	require('xml2json'),
 	rp = 		require('request-promise-native'),
 	user =		require('../models/user.js'),
+	slot =    require('../models/slot.js'),
 	event =		require('../models/event.js');
 
 // Send validation request to CAS server with ticket, return attributes from response
@@ -27,7 +28,7 @@ module.exports.validateTicket = async function(cas_ticket){
 		// Parse results from validation, converting from XML to JSON
 		let json = JSON.parse(parser.toJson(cas_info));
 		let cas_attributes = json['cas:serviceResponse']['cas:authenticationSuccess']['cas:attributes'];
-		
+
 		// Extract user's attributes
 		let attributes = {};
 		attributes.onid = cas_attributes['cas:uid'];
@@ -38,7 +39,7 @@ module.exports.validateTicket = async function(cas_ticket){
 
 		// Return user's attributes
 		return attributes;
-	} 
+	}
 	catch (err) {
 		console.log(err);
 	}
@@ -49,7 +50,7 @@ module.exports.createUserIfNew = async function(attributes){
 	try {
 		// Check if user exists
 		const [rows, fields] = await user.findUser(attributes.onid);
-		
+
 		// If not, add an entry
 		if (rows.length == 0) {
 			await user.createUser(attributes.onid, attributes.firstName, attributes.lastName, attributes.email);
@@ -74,7 +75,7 @@ module.exports.createUserIfNew = async function(attributes){
 					attendees: {
 						<<first attendee onid>>: {
 							name: ...
-							email: ...							
+							email: ...
 						}
 						<<second attendee onid>>: {...}
 
@@ -86,7 +87,7 @@ module.exports.createUserIfNew = async function(attributes){
 		<<second event id>>: {...}
 	}
 */
-module.exports.processReservationsForDisplay = async function (reservations){
+module.exports.processReservationsForDisplay = async function (reservations, user_ONID){
 	let event_ids = []; 	// Keep track of which events we've added
 	let events = {};		// Store the details of each event in a handlebars-friendly format
 
@@ -105,11 +106,23 @@ module.exports.processReservationsForDisplay = async function (reservations){
 			};
 		}
 
-		// Create a nested  object for the current reservation
+		//  Create a nested  object for the current reservation
 		events[id].reservations[resv.slot_id] = {
-			date: resv.slot_date		// example of how to store data
-			// Fill in the rest of the data needed here
-		};		
+			date: resv.slot_date,		// example of how to store data
+			time: await event.getTimeInterval(resv.start_time,resv.duration),
+			location: resv.slot_location,
+			attendees: {}
+		};
+		const [attendees, fields] = await slot.findSlotAttendees(resv.slot_id);
+		for (let attendee of attendees){
+			if(attendee.onid != user_ONID){
+				events[id].reservations[resv.slot_id].attendees[attendee.onid] = {
+					firstName: attendee.first_name,
+					lastName: attendee.last_name,
+					email: attendee.ONID_email
+				};
+			}
+		}
 	}
 	return events;
 };

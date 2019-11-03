@@ -34,3 +34,10 @@ body {
 	width: 100%;
 	height: 3rem;
 }
+
+.indent-1 {
+  text-indent: 2em;
+}
+.indent-2 {
+  text-indent: 4em;
+}
