@@ -31,7 +31,7 @@ module.exports.getEventCreator = async function(eventId) {
 	}
 };
 
-module.exports.convertTime = async function(slotTime){
+convertTime = async function(slotTime){
 	try{
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
