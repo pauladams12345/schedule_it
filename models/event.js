@@ -31,6 +31,7 @@ module.exports.getEventCreator = async function(eventId) {
 	}
 };
 
+//takes a time in MySQL 24h time format and converts to 12h format
 convertTime = async function(slotTime){
 	try{
 		const connection = await sql.createConnection(dbcon);
@@ -44,6 +45,7 @@ convertTime = async function(slotTime){
 };
 
 //takes the events time and duration and returns the end time for the event
+//Note: this function uses convertTime to convert to 12h format.
 module.exports.getTimeInterval = async function(startTime, duration) {
 	try {
 		const connection = await sql.createConnection(dbcon);
