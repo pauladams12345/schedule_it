@@ -8,7 +8,7 @@ module.exports.findUserSlots = async function(onid) {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
 			"SELECT slot_id, DATE_FORMAT(slot_date, '%a %b %D %Y') slot_date," +
-			" TIME_FORMAT(start_time, '%r') start_time, TIME_FORMAT(duration, '%r') duration, slot_location," +
+			"start_time, duration, slot_location," +
 			" event_name, description, event_id FROM `Slot` s " +
 			"INNER JOIN `Reserve_Slot` rs ON s.slot_id = rs.fk_slot_id " +
 			"RIGHT JOIN `Event` e ON s.fk_event_id = e.event_id " +
