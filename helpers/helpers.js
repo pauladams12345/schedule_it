@@ -87,7 +87,7 @@ module.exports.createUserIfNew = async function(attributes){
 		<<second event id>>: {...}
 	}
 */
-module.exports.processReservationsForDisplay = async function (reservations){
+module.exports.processReservationsForDisplay = async function (reservations, user_ONID){
 	let event_ids = []; 	// Keep track of which events we've added
 	let events = {};		// Store the details of each event in a handlebars-friendly format
 
@@ -115,7 +115,7 @@ module.exports.processReservationsForDisplay = async function (reservations){
 		};
 		const [attendees, fields] = await slot.findSlotAttendees(resv.slot_id);
 		for (let attendee of attendees){
-			if(attendee.onid != req.session.onid){
+			if(attendee.onid != user_ONID){
 				events[id].reservations[resv.slot_id].attendees[attendee.onid] = {
 					firstName: attendee.first_name,
 					lastName: attendee.last_name,
