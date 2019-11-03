@@ -7,7 +7,7 @@ module.exports.findEvent = async function(eventId) {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT * FROM `Event` WHERE event_id = ?", [eventId]);
 		return [rows, fields];
-	} 
+	}
 	catch (err) {
 		console.log(err);
 	}
@@ -25,7 +25,22 @@ module.exports.getEventCreator = async function(eventId) {
 			"WHERE e.event_id = ? ",
 			[eventId]);
 		return rows[0].first_name + " " + rows[0].last_name;
-	} 
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+//takes the events time and duration and returns the end time for the event
+module.exports.getTimeInterval = async function(startTime, durationMin) {
+	try {
+		durationSec = durationMin*60;
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+			"SELECT ADDTIME (?, ?)",
+			[startTime],[durationSec]);
+		return startTime + "-" + row[0];
+	}
 	catch (err) {
 		console.log(err);
 	}
