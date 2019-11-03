@@ -121,8 +121,8 @@ module.exports.processReservationsForDisplay = async function (reservations){
 				email: attendee.ONID_email
 			};
 		}
-		console.log(events[id].reservations[resv.slot_id]);
+		//console.log(events[id].reservations[resv.slot_id]);
 	}
-	console.log(events);
+	//console.log(events);
 	return events;
 };
