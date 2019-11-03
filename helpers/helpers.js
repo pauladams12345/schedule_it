@@ -113,6 +113,7 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 			location: resv.slot_location,
 			attendees: {}
 		};
+		console.log(events[id].reservations[resv.slot_id]);
 		const [attendees, fields] = await slot.findSlotAttendees(resv.slot_id);
 		for (let attendee of attendees){
 			if(attendee.onid != user_ONID){
