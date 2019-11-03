@@ -16,8 +16,9 @@
 
 	<h5>Your Reservation(s):</h5>
 	<h6>{{#each this.reservations}}</h6>
-    <h6>{{this.date}}<span style="margin-left: .2em;">{{this.time}}</span><span style="margin-left: 1em;">{{this.location}}</span></h6>
-    <h6>Who else signed up:</h6>
+    <h6 class=indent-1>{{this.date}}<span style="margin-left: .2em;">{{this.time}}</span><span style="margin-left: 1em;">{{this.location}}</span></h6>
+    <br>
+    <h6 class=indent-1>Who else signed up:</h6>
     {{#each this.attendees}}
       <h6 class=indent-1>{{this.firstName}}<span style="margin-left: .2em;">{{this.lastName}}</span>{{this.time}}<span style="margin-left: 1em;">{{this.email}}</span></h6>
       <br>
