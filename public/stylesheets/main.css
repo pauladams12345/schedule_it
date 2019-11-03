@@ -38,3 +38,7 @@ body {
 .indent-1 {
   text-indent: 2em;
 }
+
+.p-1{
+	margin:0;
+}
