@@ -4,28 +4,47 @@
   <a class="btn btn-primary btn-lg" href="#" role="button">Create Event</a>
 </div>
 
-<h2>Manage your events:</h2>
+<h1>Events you're managing:</h1>
 <br>
-<h2>Your schedule:</h2>
+<p class="pl-2">
+  <a class="h3" href="#">CS 443 Recitations</a>
+</p>
+<p class="pl-2">
+  <a class="h3" href="#">Department Colloquium</a>
+</p>
+<br>
+<a class="btn btn-primary btn-lg" href="#" role="button">View past events</a>
+<br>
+<br>
 
+<h1>Events you're attending:</h1>
+<br>
 {{#each events}}
-<div class="container mb-4" style="border: 2px solid black;">
-	<h4>{{this.title}}</h4>
+<div class="container reservation-display mb-4 ml-2">
+	<h3>{{this.title}}</h3>
 	<p>Created by: {{this.creator}}</p>
 	<p>Description: {{this.description}}</p>
 
 	<h5>Your Reservation(s):</h5>
-	<h6>{{#each this.reservations}}</h6>
-    <h6 class=indent-1>{{this.date}}<span style="margin-left: .4em;">{{this.time}}</span><span style="margin-left: 1em;">{{this.location}}</span></h6>
+	
+  <h6>{{#each this.reservations}}</h6>
+    <h6 class=indent-1>{{this.date}}
+      <span style="margin-left: .4em;">{{this.time}}</span>
+      <span style="margin-left: 1em;">{{this.location}}</span>
+    </h6>
     <h6 class=indent-2>Who else signed up:</h6>
+    
     {{#each this.attendees}}
-      <p class="indent-2 mt-0 mb-0 pt-0 pb-0">{{this.firstName}}<span style="margin-left: .2em;">{{this.lastName}}</span>{{this.time}}<span style="margin-left: 1em;">{{this.email}}</span></p>
+      <p class="indent-2 mt-0 mb-0 pt-0 pb-0">{{this.firstName}}
+        <span style="margin-left: .2em;">{{this.lastName}}</span>
+        {{this.time}}
+        <span style="margin-left: 1em;">{{this.email}}</span>
+    </p>
     {{/each}}
+    
     <br>
 	{{/each}}
+
 </div>
 {{/each}}
-
-<a class="btn btn-primary btn-lg" href="#" role="button">View past events</a>
-<br>
-<a class="btn btn-primary btn-lg mt-2" href="#" role="button">View past reservations</a>
+<a class="btn btn-primary btn-lg mt-2 mb-5" href="#" role="button">View past reservations</a>
