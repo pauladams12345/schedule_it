@@ -20,6 +20,8 @@ body {
 
 .reservation-display {
 	background-color: #e8e8e8;
+	padding: 1rem;
+
 }
 
 .btn-primary:active:focus{
@@ -47,8 +49,8 @@ body {
 }
 
 .indent-1 {
-  text-indent: 2em;
+  text-indent: 2rem;
 }
 .indent-2 {
-  text-indent: 4em;
+  text-indent: 4rem;
 }
