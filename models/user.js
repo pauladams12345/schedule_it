@@ -6,6 +6,7 @@ module.exports.findUser = async function(onid) {
 	try {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT * FROM `OSU_member` WHERE onid = ?", [onid]);
+		connection.end();
 		return [rows, fields];
 	} 
 	catch (err) {
@@ -19,6 +20,7 @@ module.exports.createUser = async function(onid, firstName, lastName, email) {
 		const connection = await sql.createConnection(dbcon);
 		await connection.query("INSERT INTO indaba_db.OSU_member (`onid`,`first_name`,`last_name`,`ONID_email`) VALUES (?,?,?,?)",
 		  [onid, firstName, lastName, email]);
+		connection.end();
 	}
 	catch (err) {
 		console.log(err);

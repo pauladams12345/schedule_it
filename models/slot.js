@@ -15,6 +15,7 @@ module.exports.findUserSlots = async function(onid) {
 			"WHERE fk_onid = ? " +
 			"ORDER BY s.slot_date",
 			[onid]);
+		connection.end();
 		return [rows, fields];
 	}
 	catch (err) {
@@ -27,6 +28,7 @@ module.exports.findSlot = async function(slotId) {
 	try {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT * FROM `Slot` WHERE slot_id = ?", [slotId]);
+		connection.end();
 		return [rows, fields];
 	}
 	catch (err) {
@@ -42,6 +44,7 @@ module.exports.findSlotAttendees = async function(slotId) {
 		const [rows, fields] = await connection.query(
 		"SELECT * FROM `Reserve_Slot` INNER JOIN `Slot`" +
 		"ON fk_slot_id = slot_id INNER JOIN `OSU_member` ON fk_onid = onid WHERE slot_id = ?", [slotId]);
+		connection.end();
 		return [rows, fields];
 	}
 	catch (err) {
