@@ -23,6 +23,20 @@ module.exports.findUserSlots = async function(onid) {
 	}
 };
 
+// Create row in Reserve_Slot with the given information
+module.exports.reserveSlot = async function(onid, slot) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		await connection.query("INSERT INTO indaba_db.Reserve_Slot (`fk_onid`,`fk_slot_id`) VALUES (?,?)",
+		  [onid, slot]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+
+}
+
 // Query database for slot by its ID and return all columns for that row
 module.exports.findSlot = async function(slotId) {
 	try {
