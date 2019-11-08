@@ -4,6 +4,25 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link href='../../public/@fullcalendar/core/main.css' rel='stylesheet' />
+      <link href='../../public/@fullcalendar/daygrid/main.css' rel='stylesheet' />
+
+  <script src='../../public/@fullcalendar/core/main.js'></script>
+  <script src='../../public/@fullcalendar/daygrid/main.js'></script>
+
+  <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: [ 'dayGrid' ]
+        });
+
+        calendar.render();
+      });
+
+  </script>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -47,6 +66,7 @@
       </div>
 
     </div>
+    <div id='calendar'></div>
 
     {{#each scripts}}
     <script src="scripts/{{this}}"></script>

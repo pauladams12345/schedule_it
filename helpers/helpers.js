@@ -61,32 +61,6 @@ module.exports.createUserIfNew = async function(attributes){
 	}
 };
 
-/*Given a list of all a user's reservations, process them into a nested object with this structure:
-	events{
-		<<first event id>>: {
-			title: ...
-			creator: ...
-			description: ...
-			reservations: {
-				<<first resv id>>: {
-					date: ...
-					time: ...
-					location: ...
-					attendees: {
-						<<first attendee onid>>: {
-							name: ...
-							email: ...
-						}
-						<<second attendee onid>>: {...}
-
-					}
-				}
-				<<second resv id>>: {...}
-			}
-		}
-		<<second event id>>: {...}
-	}
-*/
 module.exports.processReservationsForDisplay = async function (reservations, user_ONID){
 	let event_ids = []; 	// Keep track of which events we've added
 	let events = {};		// Store the details of each event in a handlebars-friendly format
