@@ -1,8 +1,3 @@
-import { Calendar } from '../public/@fullcalendar/core';
-import dayGridPlugin from '../public/@fullcalendar/daygrid';
-import timeGridPlugin from '../public/@fullcalendar/timegrid';
-import listPlugin from '../public/@fullcalendar/list';
-
 var Router = 	require('express-promise-router'),
 	router = 	new Router(),						// allows asynchronous route handlers
 	session = 	require('express-session'),
