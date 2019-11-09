@@ -8,10 +8,14 @@
     <link href='@fullcalendar/core/main.css' rel='stylesheet' />
     <link href='@fullcalendar/daygrid/main.css' rel='stylesheet' />
     <link href='@fullcalendar/timegrid/main.css' rel='stylesheet' />
+    <link href='@fullcalendar/bootstrap/main.css' rel='stylesheet' />
+    <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />
 
     <script src='@fullcalendar/core/main.js'></script>
     <script src='@fullcalendar/daygrid/main.js'></script>
     <script src='@fullcalendar/timegrid/main.js'></script>
+    <script src='@fullcalendar/bootstrap/main.js'></script>
 
     <script>
 
@@ -20,6 +24,7 @@
 
           var calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: [ 'dayGrid', 'timeGrid' ],
+            themeSystem: 'bootstrap',
             header: {
               left: 'prev,next today',
               center: 'title',
