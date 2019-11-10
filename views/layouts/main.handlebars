@@ -19,6 +19,7 @@
             plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'bootstrap' ],
             themeSystem: 'bootstrap',
             defaultView: 'timeGridWeek',
+            editable: true,
             selectable: true,
             eventLimit : true,
             header: {
@@ -27,13 +28,16 @@
               right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
             },
             dateClick: function(info) {
+              startT = info.dateStr;
+              calendar.addEvent({title: 'Dynamic Event', start: startT});
               alert('clicked ' + info.dateStr);
             },
             select: function(info) {
-              startT = info.startStr;
+              $('#exampleModal').modal('show');
+              /*startT = info.startStr;
               endT = info.endStr;
               alert('selected ' + info.startStr + ' to ' + info.endStr);
-              calendar.addEvent({title: 'Dynamic Event', start: startT, end: endT});
+              calendar.addEvent({title: 'Dynamic Event', start: startT, end: endT});*/
             }
           });
           calendar.render();
