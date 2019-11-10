@@ -15,6 +15,7 @@
           var startTime;
           var endTime;
           var calendarEl = document.getElementById('calendar');
+          var modal = document.getElementById('exampleModal');
           var calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'bootstrap' ],
             themeSystem: 'bootstrap',
@@ -34,10 +35,10 @@
             },
             select: function(info) {
               $('#exampleModal').modal('show');
-              /*startT = info.startStr;
+              startT = info.startStr;
               endT = info.endStr;
               alert('selected ' + info.startStr + ' to ' + info.endStr);
-              calendar.addEvent({title: 'Dynamic Event', start: startT, end: endT});*/
+              calendar.addEvent({title: 'Dynamic Event', start: startT, end: endT});
             }
           });
           calendar.render();
