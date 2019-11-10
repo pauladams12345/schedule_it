@@ -17,13 +17,19 @@
             plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'bootstrap' ],
             themeSystem: 'bootstrap',
             defaultView: 'timeGridWeek',
+            selectable: true,
+            eventLimit : true,
             header: {
               left: 'prev,next today',
               center: 'title',
               right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
             },
-            selectable: true,
-            eventLimit : true
+            dateClick: function(info) {
+              alert('clicked ' + info.dateStr);
+            },
+            select: function(info) {
+              alert('selected ' + info.startStr + ' to ' + info.endStr);
+            }
           });
           calendar.render();
         });
