@@ -37,7 +37,8 @@
               $('#addEvent').modal('show');
               startT = info.startStr;
               endT = info.endStr;
-              alert('selected ' + info.startStr + ' to ' + info.endStr);
+              //get location and max number from form
+              //call function to add event to store event
               calendar.addEvent({title: 'Dynamic Event', start: startT, end: endT});
             }
           });
