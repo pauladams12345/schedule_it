@@ -38,9 +38,10 @@
               var eventLocation = document.getElementById("Location").value;
               startT = info.startStr;
               endT = info.endStr;
+              console.log(eventLocation);
               //get location and max number from form
               //call function to add event to store event
-              calendar.addEvent({title: eventLocation, start: startT, end: endT});
+              //calendar.addEvent({title: eventLocation, start: startT, end: endT});
             }
           });
           calendar.render();
