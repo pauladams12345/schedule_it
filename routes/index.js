@@ -83,6 +83,14 @@ router.get('/logout', async function (req, res, next) {
 });
 
 // Use this route to test locally without constantly re-deploying to Heroku
+router.get('/createCalTest', async function (req, res, next) {
+	req.session.onid = 'williaev';
+	let context = {};
+	context.stylesheets = ['main.css', 'create.css'];
+	res.render('create', context);
+});
+
+// Use this route to test locally without constantly re-deploying to Heroku
 router.get('/home-test', async function (req, res, next) {
 
 	req.session.onid = 'adamspa';
