@@ -15,6 +15,7 @@ module.exports.findUserSlots = async function(onid) {
 			"WHERE fk_onid = ? " +
 			"ORDER BY s.slot_date",
 			[onid]);
+		connection.end();
 		return [rows, fields];
 	}
 	catch (err) {
@@ -22,11 +23,26 @@ module.exports.findUserSlots = async function(onid) {
 	}
 };
 
+// Create row in Reserve_Slot with the given information
+module.exports.reserveSlot = async function(onid, slot) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		await connection.query("INSERT INTO indaba_db.Reserve_Slot (`fk_onid`,`fk_slot_id`) VALUES (?,?)",
+		  [onid, slot]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+
+}
+
 // Query database for slot by its ID and return all columns for that row
 module.exports.findSlot = async function(slotId) {
 	try {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT * FROM `Slot` WHERE slot_id = ?", [slotId]);
+		connection.end();
 		return [rows, fields];
 	}
 	catch (err) {
@@ -42,6 +58,7 @@ module.exports.findSlotAttendees = async function(slotId) {
 		const [rows, fields] = await connection.query(
 		"SELECT * FROM `Reserve_Slot` INNER JOIN `Slot`" +
 		"ON fk_slot_id = slot_id INNER JOIN `OSU_member` ON fk_onid = onid WHERE slot_id = ?", [slotId]);
+		connection.end();
 		return [rows, fields];
 	}
 	catch (err) {

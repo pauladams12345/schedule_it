@@ -6,6 +6,7 @@ module.exports.findEvent = async function(eventId) {
 	try {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT * FROM `Event` WHERE event_id = ?", [eventId]);
+		connection.end();
 		return [rows, fields];
 	}
 	catch (err) {
@@ -24,6 +25,7 @@ module.exports.getEventCreator = async function(eventId) {
 			"INNER JOIN `Event` e ON ce.fk_event_id = e.event_id " +
 			"WHERE e.event_id = ? ",
 			[eventId]);
+		connection.end();
 		return rows[0].first_name + " " + rows[0].last_name;
 	}
 	catch (err) {
@@ -37,6 +39,7 @@ convertTime = async function(slotTime){
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
 			"SELECT TIME_FORMAT('" + slotTime + "', '%h:%i%p') AS timePM");
+		connection.end();
 		return rows[0].timePM
 	}
 	catch (err) {
@@ -53,6 +56,7 @@ module.exports.getTimeInterval = async function(startTime, duration) {
 			"SELECT ADDTIME ('" + startTime + "','" + duration + "') AS end_time");
 		let startTimeAMPM = await convertTime(startTime, rows[0].end_time);
 		let endTimeAMPM = await convertTime(rows[0].end_time);
+		connection.end();
 		return startTimeAMPM + "-" + endTimeAMPM;
 	}
 	catch (err) {

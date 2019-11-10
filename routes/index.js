@@ -101,9 +101,6 @@ router.get('/home-test', async function (req, res, next) {
 	let context = {};
 
 
-	let creatorName = await event.getEventCreator(1);
-	console.log("creatorName: ", creatorName);
-
 	// Find all slots a user is registered for
 	let [reservations, fields] = await slot.findUserSlots(req.session.onid);
 
