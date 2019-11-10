@@ -107,11 +107,11 @@
   <!-- Calendar goes here -->
  <div id='calendar' class='m-1 p-1'></div>
 
- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="addEventLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
      <div class="modal-content">
        <div class="modal-header">
-         <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+         <h5 class="modal-title" id="addEventLabel">Add Event</h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
          </button>
@@ -119,12 +119,12 @@
        <div class="modal-body">
          <form>
            <div class="form-group">
-             <label for="recipient-name" class="col-form-label">Recipient:</label>
-             <input type="text" class="form-control" id="recipient-name">
+             <label for="Location" class="col-form-label">Location:</label>
+             <input type="text" class="form-control" id="Location">
            </div>
            <div class="form-group">
-             <label for="message-text" class="col-form-label">Message:</label>
-             <textarea class="form-control" id="message-text"></textarea>
+             <label for="max-attendees" class="col-form-label">Max Attendees:</label>
+             <input type="number" class="form-control" id="max-attendees">
            </div>
          </form>
        </div>
