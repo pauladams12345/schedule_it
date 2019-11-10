@@ -87,10 +87,8 @@ router.get('/createCalTest', async function (req, res, next) {
 	req.session.onid = 'williaev';
 	let context = {};
 	context.stylesheets = ['main.css', 'home.css', 'login.css'];
-	/*context.scripts = ['@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
-	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js',
-	'@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css', '@fullcalendar/timegrid/main.css',
-	'@fullcalendar/bootstrap/main.css'];*/
+	context.scripts = ['@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 	res.render('create', context);
 });
 
