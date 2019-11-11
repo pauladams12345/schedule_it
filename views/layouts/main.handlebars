@@ -26,8 +26,7 @@
             selectable: true,
             eventLimit : true,
             eventRender: function (info) {
-              console.log(info.event.extendedProps);
-              // {description: "Lecture", department: "BioChemistry"}
+              {description: "Lecture", department: "BioChemistry"}
             },
             header: {
               left: 'prev,next today',
@@ -60,7 +59,7 @@
             $("#addEvent").modal('hide');
             eventLocation = document.getElementById("Location").value;
             max_attendees = document.getElementById("max-attendees").value;
-            calendar.addEvent({title: eventLocation, start: startT, end: endT, extendedProps : {location: eventLocation}});
+            calendar.addEvent({title: eventLocation, start: startT, end: endT, extendedProps: {location: eventLocation}});
            }
           calendar.render();
         });
