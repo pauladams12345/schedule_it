@@ -46,6 +46,10 @@
               //calendar.addEvent({title: eventLocation, start: startT, end: endT});
             }
           });
+          $('#submitButton').on('click', function(e){
+            e.preventDefault();
+            doSubmit();
+          });
           calendar.render();
         });
 
