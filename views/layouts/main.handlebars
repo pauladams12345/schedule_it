@@ -39,7 +39,7 @@
             select: function(info) {
               startT = info.startStr;
               startT = moment(info.startStr).format('h:mm a');
-              st = $.fullCalendar.formatDate(startT,'h:mm tt')
+              st = $.fullCalendar.formatDate(startT,'h:mm tt');
               endT = info.endStr;
               var slotTime = st + ' - ' + endT;
               document.getElementById("start").value = startT;
