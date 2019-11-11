@@ -56,7 +56,7 @@
             $("#addEvent").modal('hide');
             eventLocation = document.getElementById("Location").value;
             max_attendees = document.getElementById("max-attendees").value;
-            calendar.addEvent({title: document.getElementById("Location").value, start: startT, end: endT});
+            calendar.addEvent({title: eventLocation, start: startT, end: endT});
            }
           calendar.render();
         });
