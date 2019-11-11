@@ -38,7 +38,7 @@
             },
             select: function(info) {
               //startT = info.startStr;
-              startT = moment().format('YYYY MM DD');
+              startT = FullCalendarMoment.format('YYYY MM DD');
               endT = info.endStr;
               var slotTime = startT + ' - ' + endT;
               document.getElementById("start").value = startT;
