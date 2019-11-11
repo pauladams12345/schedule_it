@@ -51,17 +51,16 @@
             doSubmit();
           });
           function doSubmit(){
-            $("#createEventModal").modal('hide');
-            console.log($('#apptStartTime').val());
-            console.log($('#apptEndTime').val());
-            console.log($('#apptAllDay').val());
+            $("#addEvent").modal('hide');
+            console.log($('#start').val());
+            console.log($('#end').val());
             alert("form submitted");
 
             $("#calendar").fullCalendar('renderEvent',
                 {
-                    title: $('#patientName').val(),
-                    start: new Date($('#apptStartTime').val()),
-                    end: new Date($('#apptEndTime').val()),
+                    title: $('#Location').val(),
+                    start: new Date($('#start').val()),
+                    end: new Date($('#end').val()),
                     allDay: ($('#apptAllDay').val() == "true"),
                 },
                 true);
