@@ -37,8 +37,8 @@
               hour12: true
             },
             select: function(info) {
-              startT = info.start[0];
-              endT = info.end[0];
+              startT = info.startStr;
+              endT = info.endStr;
               var slotTime = startT + ' - ' + endT;
               document.getElementById("start").value = startT;
               document.getElementById("end").value = endT;
