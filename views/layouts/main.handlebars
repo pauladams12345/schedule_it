@@ -34,10 +34,12 @@
               alert('clicked ' + info.dateStr);
             },*/
             select: function(info) {
-              $('#addEvent').modal('show');
               //var eventLocation = document.getElementById('Location');
               startT = info.startStr;
               endT = info.endStr;
+              document.getElementById("start").value = startT;
+              document.getElementById("end").value = endT;
+              $('#addEvent').modal('show');
               //get location and max number from form
               //call function to add event to store event
               //calendar.addEvent({title: eventLocation, start: startT, end: endT});
