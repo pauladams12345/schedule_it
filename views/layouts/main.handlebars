@@ -39,6 +39,7 @@
             select: function(info) {
               startT = info.start;
               endT = info.end;
+              var str = calendar.formatDate('startT', {month:long,year:numeric,day:numeric});
               var slotTime = startT + ' - ' + endT;
               document.getElementById("start").value = startT;
               document.getElementById("end").value = endT;
