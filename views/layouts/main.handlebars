@@ -25,11 +25,10 @@
             editable: true,
             selectable: true,
             eventLimit : true,
-            eventRender: function(event, element) {
-                element.qtip({
-                    content: event.description
-                });
-            },
+            eventRender: function (info) {
+              console.log(info.event.extendedProps);
+              // {description: "Lecture", department: "BioChemistry"}
+            }
             header: {
               left: 'prev,next today',
               center: 'title',
@@ -61,7 +60,7 @@
             $("#addEvent").modal('hide');
             eventLocation = document.getElementById("Location").value;
             max_attendees = document.getElementById("max-attendees").value;
-            calendar.addEvent({title: eventLocation, start: startT, end: endT, description: eventLocation});
+            calendar.addEvent({title: eventLocation, start: startT, end: endT, extendedProps : {location: eventLocation}});
            }
           calendar.render();
         });
