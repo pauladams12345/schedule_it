@@ -42,7 +42,6 @@
               document.getElementById("end").value = endT;
               $('#addEvent').modal('show');
               eventLocation = document.getElementById("Location").value;
-              alert(eventLocation);
               max_attendees = document.getElementById("max-attendees").value;
               //get location and max number from form
               //call function to add event to store event
@@ -56,6 +55,7 @@
           function doSubmit(){
             $("#addEvent").modal('hide');
             alert("form submitted");
+            alert(eventLocation);
             calendar.addEvent({title: 'eventLocation', start: startT, end: endT});
             /*$("#calendar").fullCalendar('renderEvent',
                 {
