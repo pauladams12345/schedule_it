@@ -20,7 +20,7 @@
           var calendarEl = document.getElementById('calendar');
           var modal = document.getElementById('exampleModal');
           var calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'bootstrap' ],
+            plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'bootstrap', 'momentPlugin' ],
             themeSystem: 'bootstrap',
             defaultView: 'timeGridWeek',
             editable: true,
@@ -37,7 +37,6 @@
               hour12: true
             },
             select: function(info) {
-              var moment = require('moment');
               startT = info.startStr;
               startT = moment().format('YYYY MM DD');
               endT = info.endStr;
