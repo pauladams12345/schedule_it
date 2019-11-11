@@ -45,17 +45,18 @@
               max_attendees = document.getElementById("max-attendees").value;
               //get location and max number from form
               //call function to add event to store event
+              //calendar.addEvent({title: eventLocation, start: startT, end: endT});
             }
           });
           $('#submitButton').on('click', function(e){
             e.preventDefault();
-            create_slot();
+            doSubmit();
           });
-          function create_slot(){
+          function doSubmit(){
+            console.log("eventLocation");
             $("#addEvent").modal('hide');
-            eventLocation = document.getElementById("Location").value;
-            max_attendees = document.getElementById("max-attendees").value;
-            calendar.addEvent({title: eventLocation, start: startT, end: endT);
+            alert("form submitted");
+            calendar.addEvent({title: document.getElementById("Location").value, start: startT, end: endT});
            }
           calendar.render();
         });
