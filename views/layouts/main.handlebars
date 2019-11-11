@@ -25,6 +25,11 @@
             editable: true,
             selectable: true,
             eventLimit : true,
+            eventRender: function(event, element) {
+                element.qtip({
+                    content: event.description
+                });
+            },
             header: {
               left: 'prev,next today',
               center: 'title',
