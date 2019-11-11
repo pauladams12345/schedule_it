@@ -11,6 +11,7 @@
     <script>
 
         document.addEventListener('DOMContentLoaded', function() {
+          dateFormat = {}
           let context = {};
           var startTime;
           var endTime;
@@ -25,19 +26,18 @@
             editable: true,
             selectable: true,
             eventLimit : true,
-            eventTimeFormat : 'dddd, MMMM D, YYYY',
             header: {
               left: 'prev,next today',
               center: 'title',
               right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
             },
-            eventTimeFormat: { // like '14:30:00'
+            eventTimeFormat: { // 7:30p.m.
               hour: '2-digit',
               minute: '2-digit',
               hour12: true
             },
             select: function(info) {
-              startT = info.startStr;
+              startT = formatDate(info.startStr,);
               endT = info.endStr;
               var slotTime = startT + ' - ' + endT;
               document.getElementById("start").value = startT;
