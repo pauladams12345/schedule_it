@@ -50,9 +50,9 @@
           });
           $('#submitButton').on('click', function(e){
             e.preventDefault();
-            doSubmit();
+            createSlot();
           });
-          function doSubmit(){
+          function createSlot(){
             $("#addEvent").modal('hide');
             eventLocation = document.getElementById("Location").value;
             max_attendees = document.getElementById("max-attendees").value;
