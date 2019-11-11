@@ -39,7 +39,7 @@
             select: function(info) {
               startT = info.startStr;
               endT = info.endStr;
-              formattedTime = moment(startT).format("hh:mm a");
+              formattedTime = moment("Fri Apr 12 2013 19:08:55 GMT-0500 (CDT)").format("hh:mm a");
               var slotTime = formattedTime + ' - ' + endT;
               document.getElementById("start").value = startT;
               document.getElementById("end").value = endT;
