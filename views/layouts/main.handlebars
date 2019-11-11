@@ -41,17 +41,27 @@
               $('#addEvent').modal('show');
               //document.getElementById("Location").value = eventLocation;
               //document.getElementById("max-attendees").value = max_attendees;
-              function submit() {
-                var eventLocation = document.getElementById('Location');
-                var max_attendees = document.getElementById('max-attendees');
-                calendar.addEvent({title: eventLocation, start: startT, end: endT});
-              }
               //get location and max number from form
               //call function to add event to store event
               //calendar.addEvent({title: eventLocation, start: startT, end: endT});
             }
           });
-          calendar.render();
+          $('#submitButton').on('click', function(e){
+            e.preventDefault();
+            doSubmit();
+          });
+
+          function doSubmit(){
+
+            $("#calendar").fullCalendar('renderEvent',{
+                    title: $('#Location').val(),
+                    start: new Date($('#start').val()),
+                    end: new Date($('#end').val()),
+                    allDay: ($('#apptAllDay').val() == "true"),
+                },
+                true);
+           }
+          //calendar.render();
         });
 
     </script>
