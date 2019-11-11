@@ -53,9 +53,7 @@
             doSubmit();
           });
           function doSubmit(){
-            console.log("eventLocation");
             $("#addEvent").modal('hide');
-            alert("form submitted");
             calendar.addEvent({title: document.getElementById("Location").value, start: startT, end: endT});
            }
           calendar.render();
