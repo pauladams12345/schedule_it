@@ -43,7 +43,7 @@
               day:'numeric', hour: '2-digit', minute : '2-digit', hour12 : true});
               var time2 = calendar.formatDate(endT, {month:'long',year:'numeric',
               day:'numeric', hour: '2-digit', minute : '2-digit', hour12 : true});
-              var slotTime = time1 + ' - ' + endT;
+              var slotTime = time1 + ' - ' + time2;
               document.getElementById("start").value = startT;
               document.getElementById("end").value = endT;
               document.getElementById("timePeriod").textContent = slotTime;
