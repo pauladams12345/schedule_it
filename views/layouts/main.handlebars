@@ -14,6 +14,8 @@
           let context = {};
           var startTime;
           var endTime;
+          var eventLocation;
+          var max_attendees;
           var calendarEl = document.getElementById('calendar');
           var modal = document.getElementById('exampleModal');
           var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -39,8 +41,8 @@
               document.getElementById("start").value = startT;
               document.getElementById("end").value = endT;
               $('#addEvent').modal('show');
-              //document.getElementById("Location").value = eventLocation;
-              //document.getElementById("max-attendees").value = max_attendees;
+              eventLocation = document.getElementById("Location").value;
+              max_attendees = document.getElementById("max-attendees").value;
               //get location and max number from form
               //call function to add event to store event
               //calendar.addEvent({title: eventLocation, start: startT, end: endT});
@@ -52,18 +54,16 @@
           });
           function doSubmit(){
             $("#addEvent").modal('hide');
-            console.log($('#start').val());
-            console.log($('#end').val());
             alert("form submitted");
-
-            $("#calendar").fullCalendar('renderEvent',
+            calendar.addEvent({title: eventLocation, start: startT, end: endT});
+            /*$("#calendar").fullCalendar('renderEvent',
                 {
                     title: $('#Location').val(),
                     start: new Date($('#start').val()),
                     end: new Date($('#end').val()),
                     allDay: ($('#apptAllDay').val() == "true"),
                 },
-                true);
+                true);*/
            }
           calendar.render();
         });
