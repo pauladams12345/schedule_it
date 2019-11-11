@@ -39,7 +39,7 @@
             select: function(info) {
               startT = info.startStr;
               endT = info.endStr;
-              var slotTime = formattedTime + ' - ' + endT;
+              var slotTime = startT + ' - ' + endT;
               document.getElementById("start").value = startT;
               document.getElementById("end").value = endT;
               document.getElementById("timePeriod").textContent = slotTime;
