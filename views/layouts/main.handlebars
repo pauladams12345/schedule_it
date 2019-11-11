@@ -22,6 +22,12 @@
             plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'bootstrap' ],
             themeSystem: 'bootstrap',
             defaultView: 'timeGridWeek',
+            events: [{title: 'My Event',
+              start: '2019-11-13',
+              description: 'This is a cool event'}],
+            eventRender: function(info) {
+              console.log(info.event.extendedProps.description);
+            },
             editable: true,
             selectable: true,
             eventLimit : true,
