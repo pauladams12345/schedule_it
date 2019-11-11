@@ -53,18 +53,10 @@
             doSubmit();
           });
           function doSubmit(){
+            console.log(eventLocation);
             $("#addEvent").modal('hide');
             alert("form submitted");
-            alert(eventLocation);
             calendar.addEvent({title: 'eventLocation', start: startT, end: endT});
-            /*$("#calendar").fullCalendar('renderEvent',
-                {
-                    title: $('#Location').val(),
-                    start: new Date($('#start').val()),
-                    end: new Date($('#end').val()),
-                    allDay: ($('#apptAllDay').val() == "true"),
-                },
-                true);*/
            }
           calendar.render();
         });
