@@ -37,8 +37,7 @@
               hour12: true
             },
             select: function(info) {
-              //startT = info.startStr;
-              startT = FullCalendarMoment.format('YYYY MM DD');
+              startT = info.startStr;
               endT = info.endStr;
               var slotTime = startT + ' - ' + endT;
               document.getElementById("start").value = startT;
