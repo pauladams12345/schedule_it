@@ -35,14 +35,14 @@
             },*/
             select: function(info) {
               $('#addEvent').modal('show');
-              var eventLocation = document.getElementById('Location');
+              //var eventLocation = document.getElementById('Location');
               startT = info.startStr;
               endT = info.endStr;
               $('#submitButton').on('click',function(){
                   var mockEvent = {title: 'myNewEvent!', start:startT, end:endT};
                    $('#calendar').fullCalendar('renderEvent', mockEvent);
                    $('#submitButton').unbind('click');
-                   $('#createEventModal').modal('hide');
+                   $('#addEvent').modal('hide');
               });
               //get location and max number from form
               //call function to add event to store event
