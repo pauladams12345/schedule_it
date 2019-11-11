@@ -107,11 +107,11 @@
   <!-- Calendar goes here -->
  <div id='calendar' class='m-1 p-1'></div>
 
- <div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="addEventLabel" aria-hidden="true">
+ <div class="modal fade" id="addEventSlot" tabindex="-1" role="dialog" aria-labelledby="addEventSlotLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
      <div class="modal-content">
        <div class="modal-header">
-         <h5 class="modal-title" id="addEventLabel">Add Event</h5>
+         <h5 class="modal-title" id="addEventSlotLabel">Add Event Slot</h5>
          <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
          </button>-->
@@ -119,15 +119,19 @@
        <div class="modal-body">
          <form>
            <div class="form-group">
-             <label for="Location" class="col-form-label">Location:</label>
-             <input type="text" class="form-control" id="Location">
-             <input type="text" id="start"/>
-             <input type="text" id="end"/>
+             <label for="location" class="col-form-label">Location:</label>
+             <input type="text" class="form-control" id="location">
            </div>
            <div class="form-group">
              <label for="max-attendees" class="col-form-label">Max Attendees:</label>
              <input type="number" class="form-control" id="max-attendees">
            </div>
+           <div class="form-group">
+             <label for="time" class="col-form-label">Time:</label>
+             <input type="hidden" id="start"/>
+             <input type="hidden" id="end"/>
+           </div>
+           <div class="controls controls-row" id="timePeriod" style="margin-top:5px;"></div>
          </form>
        </div>
        <div class="modal-footer">

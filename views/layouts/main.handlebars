@@ -22,12 +22,6 @@
             plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'bootstrap' ],
             themeSystem: 'bootstrap',
             defaultView: 'timeGridWeek',
-            events: [{title: 'My Event',
-              start: '2019-11-13',
-              description: 'This is a cool event'}],
-            eventRender: function(info) {
-              console.log(info.event.extendedProps.description);
-            },
             editable: true,
             selectable: true,
             eventLimit : true,
@@ -36,20 +30,14 @@
               center: 'title',
               right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
             },
-            /*dateClick: function(info) {
-              startT = info.dateStr;
-              calendar.addEvent({title: 'Dynamic Event', start: startT});
-              alert('clicked ' + info.dateStr);
-            },*/
             select: function(info) {
               startT = info.startStr;
               endT = info.endStr;
+              var slotTime = startT + ' - ' + endT;
               document.getElementById("start").value = startT;
               document.getElementById("end").value = endT;
-              $('#addEvent').modal('show');
-              //get location and max number from form
-              //call function to add event to store event
-              //calendar.addEvent({title: eventLocation, start: startT, end: endT});
+              document.getElementById("timePeriod").value = slotTime;
+              $('#addEventSlot').modal('show');
             }
           });
           //Used the following reference:
@@ -58,9 +46,9 @@
             e.preventDefault();
             createSlot();
           });
-          function createSlot(){
-            $("#addEvent").modal('hide');
-            eventLocation = document.getElementById("Location").value;
+          function createSlot(){  //add slot to calendar for visibility
+            $("#addEventSlot").modal('hide');
+            eventLocation = document.getElementById("location").value;
             max_attendees = document.getElementById("max-attendees").value;
             calendar.addEvent({title: eventLocation, start: startT, end: endT});
            }
