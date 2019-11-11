@@ -42,8 +42,8 @@
           });
           //Used the following reference:
           //https://stackoverflow.com/questions/14207318/create-fullcalendar-calendar-event-on-submitting-the-form-in-bootstrap-modal-win
-          $('#submitButton').on('click', function(e){
-            e.preventDefault();
+          $('#submitButton').on('click', function(event){
+            event.preventDefault();
             createSlot();
           });
           function createSlot(){  //add slot to calendar for visibility
