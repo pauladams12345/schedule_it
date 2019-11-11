@@ -93,6 +93,10 @@ router.get('/createCalTest', async function (req, res, next) {
 	res.render('create', context);
 });
 
+router.post('create', async function (req, res, next) {
+	
+})
+
 // Use this route to test locally without constantly re-deploying to Heroku
 router.get('/home-test', async function (req, res, next) {
 

@@ -1,6 +1,21 @@
 var	dbcon = 	require('../middleware/dbcon.js'),
 	sql =   	require('mysql2/promise');
 
+// Create an event with the given parameters
+module.exports.createEvent = async function(event_name, location, 
+	max_attendee_per_slot, max_resv_per_attendee, description, visibility) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		await connection.query("INSERT INTO `indaba_db`.`Event` (`event_name`, `location`, `max_attendee_per_slot`, `max_resv_per_attendee`, `description`) VALUES (?, ?, ?, ?, ?);",
+		  [event_name, location, max_attendee_per_slot, max_resv_per_attendee,
+		  description, visibility]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+}
+
 // Query database for an event by its ID and return all columns for that row
 module.exports.findEvent = async function(eventId) {
 	try {
