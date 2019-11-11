@@ -34,13 +34,19 @@
               alert('clicked ' + info.dateStr);
             },*/
             select: function(info) {
-              //$('#addEvent').modal('show');
+              $('#addEvent').modal('show');
               var eventLocation = document.getElementById('Location');
               startT = info.startStr;
               endT = info.endStr;
+              $('#submitButton').on('click',function(){
+                  var mockEvent = {title: 'myNewEvent!', start:startT, end:endT};
+                   $('#calendar').fullCalendar('renderEvent', mockEvent);
+                   $('#submitButton').unbind('click');
+                   $('#createEventModal').modal('hide');
+              });
               //get location and max number from form
               //call function to add event to store event
-              calendar.addEvent({title: eventLocation, start: startT, end: endT});
+              //calendar.addEvent({title: eventLocation, start: startT, end: endT});
             }
           });
           calendar.render();
