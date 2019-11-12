@@ -2,13 +2,32 @@ var	dbcon = 	require('../middleware/dbcon.js'),
 	sql =   	require('mysql2/promise');
 
 // Create an event with the given parameters
-module.exports.createEvent = async function(event_name, location, 
-	max_attendee_per_slot, max_resv_per_attendee, description, visibility) {
+module.exports.createEvent = async function(eventName, location, 
+	maxAttendeePerSlot, maxResvPerAttendee, description, visibility) {
 	try {
 		const connection = await sql.createConnection(dbcon);
-		await connection.query("INSERT INTO `indaba_db`.`Event` (`event_name`, `location`, `max_attendee_per_slot`, `max_resv_per_attendee`, `description`) VALUES (?, ?, ?, ?, ?);",
-		  [event_name, location, max_attendee_per_slot, max_resv_per_attendee,
+		await connection.query("INSERT INTO `indaba_db`.`Event` " +
+		"(`event_name`, `location`, `max_attendee_per_slot`, " +
+		"`max_resv_per_attendee`, `description`, visibility) " +
+		"VALUES (?, ?, ?, ?, ?, ?);",
+		  [eventName, location, maxAttendeePerSlot, maxResvPerAttendee,
 		  description, visibility]);
+		const [rows, fields] = await connection.query("SELECT LAST_INSERT_ID()");
+		let eventId = rows[0]['LAST_INSERT_ID()'];
+		connection.end();
+
+		return eventId;
+	}
+	catch (err) {
+		console.log(err);
+	}
+}
+
+module.exports.defineEventCreator = async function(eventId, onid) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		await connection.query("INSERT INTO `indaba_db`.`Creates_Event` " +
+		"(`fk_event_id`, `fk_onid`) VALUES (?, ?);", [eventId, onid]);
 		connection.end();
 	}
 	catch (err) {

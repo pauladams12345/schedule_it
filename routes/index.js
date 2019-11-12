@@ -83,7 +83,7 @@ router.get('/logout', async function (req, res, next) {
 });
 
 // Use this route to test locally without constantly re-deploying to Heroku
-router.get('/createCalTest', async function (req, res, next) {
+router.get('/create', async function (req, res, next) {
 	req.session.onid = 'williaev';
 	let context = {};
 	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
@@ -93,8 +93,19 @@ router.get('/createCalTest', async function (req, res, next) {
 	res.render('create', context);
 });
 
-router.post('create', async function (req, res, next) {
-	
+router.post('/create', async function (req, res, next) {
+	let eventName = req.body.eventName,
+		location = req.body.defaultLocation,
+		maxAttendeePerSlot = req.body.defaultMaxAttendees,
+		maxResvPerAttendee = req.body.maxReservationsPerAttendee,
+		description = req.body.description,
+		visibility = req.body.attendeeNameVisibility;
+
+	let eventId = await event.createEvent(eventName, location, 
+		maxAttendeePerSlot, maxResvPerAttendee, description, visibility);
+	await event.defineEventCreator(eventId, req.session.onid);
+
+	res.redirect('/home');
 })
 
 // Use this route to test locally without constantly re-deploying to Heroku
