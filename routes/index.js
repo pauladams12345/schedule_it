@@ -1,9 +1,11 @@
-var Router = 	require('express-promise-router'),
-	router = 	new Router(),						// allows asynchronous route handlers
-	session = 	require('express-session'),
-	slot =		require('../models/slot.js'),
-	event =		require('../models/event.js'),
-	helpers = 	require('../helpers/helpers.js');
+var Router = 		require('express-promise-router'),
+	router = 		new Router(),						// allows asynchronous route handlers
+	session = 		require('express-session'),
+	slot =			require('../models/slot.js'),
+	event =			require('../models/event.js'),
+	invitation =	require('../models/invitation.js'),
+	createsEvent =	require('../models/createsEvent.js')
+	helpers = 		require('../helpers/helpers.js');
 
 // Redirects new arrivals to landing page. Handles authentication
 // for users redirected from CAS login then redirects to personal homepage
@@ -83,7 +85,17 @@ router.get('/logout', async function (req, res, next) {
 });
 
 // Use this route to test locally without constantly re-deploying to Heroku
-router.get('/create', async function (req, res, next) {
+router.get('/create-test', async function (req, res, next) {
+	let context = {};
+	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
+	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
+	context.scripts = ['create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
+	res.render('create', context);
+});
+
+// Use this route to test locally without constantly re-deploying to Heroku
+router.get('/create-test', async function (req, res, next) {
 	req.session.onid = 'williaev';
 	let context = {};
 	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
@@ -99,11 +111,13 @@ router.post('/create', async function (req, res, next) {
 		maxAttendeePerSlot = req.body.defaultMaxAttendees,
 		maxResvPerAttendee = req.body.maxReservationsPerAttendee,
 		description = req.body.description,
-		visibility = req.body.attendeeNameVisibility;
+		visibility = req.body.attendeeNameVisibility,
+		emails = req.body.emails;
 
 	let eventId = await event.createEvent(eventName, location, 
 		maxAttendeePerSlot, maxResvPerAttendee, description, visibility);
-	await event.defineEventCreator(eventId, req.session.onid);
+	await createsEvent.createCreatesEvent(eventId, req.session.onid);
+	await invitation.createInvitations(eventId, emails);
 
 	res.redirect('/home');
 })

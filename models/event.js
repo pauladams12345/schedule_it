@@ -23,18 +23,6 @@ module.exports.createEvent = async function(eventName, location,
 	}
 }
 
-module.exports.defineEventCreator = async function(eventId, onid) {
-	try {
-		const connection = await sql.createConnection(dbcon);
-		await connection.query("INSERT INTO `indaba_db`.`Creates_Event` " +
-		"(`fk_event_id`, `fk_onid`) VALUES (?, ?);", [eventId, onid]);
-		connection.end();
-	}
-	catch (err) {
-		console.log(err);
-	}
-}
-
 // Query database for an event by its ID and return all columns for that row
 module.exports.findEvent = async function(eventId) {
 	try {
