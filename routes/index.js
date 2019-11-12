@@ -85,7 +85,7 @@ router.get('/logout', async function (req, res, next) {
 });
 
 // Use this route to test locally without constantly re-deploying to Heroku
-router.get('/create-test', async function (req, res, next) {
+router.get('/create', async function (req, res, next) {
 	let context = {};
 	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
