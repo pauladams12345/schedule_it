@@ -114,6 +114,10 @@ router.post('/create', async function (req, res, next) {
 		visibility = req.body.attendeeNameVisibility,
 		emails = req.body.emails;
 
+	if (typeof emails === 'string') {
+		emails = [emails];
+	}
+
 	let eventId = await event.createEvent(eventName, location, 
 		maxAttendeePerSlot, maxResvPerAttendee, description, visibility);
 	await createsEvent.createCreatesEvent(eventId, req.session.onid);
