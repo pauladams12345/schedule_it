@@ -6,12 +6,11 @@
 
 <h1>Events you're managing:</h1>
 <br>
+{{#each eventsManaging}}
 <p class="pl-2">
-  <a class="h3" href="#">CS 443 Recitations</a>
+  <a class="h3" href="#">{{this}}</a>
 </p>
-<p class="pl-2">
-  <a class="h3" href="#">Department Colloquium</a>
-</p>
+{{/each}}
 <br>
 <a class="btn btn-primary btn-lg" href="#" role="button">View past events</a>
 <br>
@@ -19,7 +18,7 @@
 
 <h1>Events you're attending:</h1>
 <br>
-{{#each events}}
+{{#each eventsAttending}}
 <div class="reservation-display mb-4 ml-2 w-auto">
 	<h3>{{this.title}}</h3>
 	<p>Created by: {{this.creator}}</p>

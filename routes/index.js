@@ -48,14 +48,16 @@ router.get('/home', async function (req, res, next) {
 	else {
 		let context = {};
 
+		context.eventsManaging = await createsEvent.getUserEvents('adamspa');
+
 		// Find all slots a user is registered for
 		let [reservations, fields] = await slot.findUserSlots(req.session.onid);
 
 		// Process response from database into a handlebars-friendly format
-		context.events = await helpers.processReservationsForDisplay(reservations, req.session.onid);
+		context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
 
 		context.firstName = req.session.firstName;
-		context.stylesheets = ['main.css', 'login.css'];
+		context.stylesheets = ['main.css', 'home.css'];
 		res.render('home', context);
 	}
 
@@ -84,7 +86,7 @@ router.get('/logout', async function (req, res, next) {
 	}
 });
 
-// Use this route to test locally without constantly re-deploying to Heroku
+// Displays "Create New Event" page
 router.get('/create', async function (req, res, next) {
 	let context = {};
 	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
@@ -105,7 +107,9 @@ router.get('/create-test', async function (req, res, next) {
 	res.render('create', context);
 });
 
+// Process event creation form
 router.post('/create', async function (req, res, next) {
+	// Get values from request
 	let eventName = req.body.eventName,
 		location = req.body.defaultLocation,
 		maxAttendeePerSlot = req.body.defaultMaxAttendees,
@@ -118,6 +122,7 @@ router.post('/create', async function (req, res, next) {
 		emails = [emails];
 	}
 
+	// Store values in database
 	let eventId = await event.createEvent(eventName, location, 
 		maxAttendeePerSlot, maxResvPerAttendee, description, visibility);
 	await createsEvent.createCreatesEvent(eventId, req.session.onid);
@@ -133,12 +138,13 @@ router.get('/home-test', async function (req, res, next) {
 	req.session.firstName = 'Paul';
 	let context = {};
 
+	context.eventsManaging = await createsEvent.getUserEvents('adamspa');
 
 	// Find all slots a user is registered for
 	let [reservations, fields] = await slot.findUserSlots(req.session.onid);
 
 	// Process response from database into a handlebars-friendly format
-	context.events = await helpers.processReservationsForDisplay(reservations, req.session.onid);
+	context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
 
 	context.firstName = req.session.firstName;
 	context.stylesheets = ['main.css', 'login.css', 'home.css'];
