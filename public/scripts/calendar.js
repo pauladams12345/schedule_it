@@ -28,24 +28,24 @@ document.addEventListener('DOMContentLoaded', function() {
     select: function(info) {
       startT = info.startStr;
       endT = info.endStr;
-      var date = calendar.formatDate(startT, {month:,day:,year:})
+      var date = calendar.formatDate(startT, {month : '2-digit', day : '2-digit', year : 'numeric'})
       var time1 = calendar.formatDate(startT, {hour : '2-digit', minute : '2-digit',
       second : '2-digit', hour12 : false});
       //var time2 = calendar.formatDate(endT, {month:'long',year:'numeric',
       //day:'numeric', hour: '2-digit', minute : '2-digit', hour12 : true});
-      //var slotTime = time1 + ' - ' + time2;
-      //document.getElementById("start").value = startT;
-      //document.getElementById("end").value = endT;
-      //document.getElementById("timePeriod").textContent = slotTime;
+      var slotTime = time1 + ' - ' + date;
+      document.getElementById("start").value = startT;
+      document.getElementById("end").value = endT;
+      document.getElementById("timePeriod").textContent = slotTime;
       appendSlot(startT, date);
       //calendar.addEvent({title: eventLocation, start: startT, end: endT});
       calendar.addEvent({start: startT, end: endT});
-      //$('#addEventSlot').modal('show');
+      $('#addEventSlot').modal('show');
     }
   });
   //Used the following reference:
   //https://stackoverflow.com/questions/14207318/create-fullcalendar-calendar-event-on-submitting-the-form-in-bootstrap-modal-win
-  /*$('#submitButton').on('click', function(event){
+  $('#submitButton').on('click', function(event){
     event.preventDefault();
     createSlot();
   });
@@ -54,13 +54,13 @@ document.addEventListener('DOMContentLoaded', function() {
     eventLocation = document.getElementById("location").value;
     max_attendees = document.getElementById("max-attendees").value;
     calendar.addEvent({title: eventLocation, start: startT, end: endT});
-  }*/
+  }
   calendar.render();
 });
 
 // Appends the slot input to the form
 function appendSlot(date, startTime) {
-    var row = document.createElement("div");
+    /*var row = document.createElement("div");
     row.setAttribute('class', 'row')
     var col = document.createElement("div");
     col.setAttribute('class', 'col-12 form-inline d-flex');
@@ -70,6 +70,6 @@ function appendSlot(date, startTime) {
     div.appendChild(input)
     col.appendChild(div);
     col.appendChild(button);
-    row.appendChild(col);
+    row.appendChild(col);*/
     document.getElementById('timeSlot').appendChild(input);
 };
