@@ -33,12 +33,12 @@ document.addEventListener('DOMContentLoaded', function() {
       second : '2-digit', hour12 : false});
       //var time2 = calendar.formatDate(endT, {month:'long',year:'numeric',
       //day:'numeric', hour: '2-digit', minute : '2-digit', hour12 : true});
-      /*var slotTime = time1 + ' - ' + date;
+      var slotTime = time1 + ' - ' + date;
       document.getElementById("start").value = startT;
       document.getElementById("end").value = endT;
       document.getElementById("timePeriod").textContent = slotTime;
-      appendSlot(startT, date);
-      //calendar.addEvent({title: eventLocation, start: startT, end: endT});*/
+      //appendSlot(startT, date);
+      //calendar.addEvent({title: eventLocation, start: startT, end: endT});
       calendar.addEvent({start: startT, end: endT});
       $('#addEventSlot').modal('show');
     }
