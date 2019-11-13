@@ -1,4 +1,4 @@
-//Script to create and manipulate calendar on the create event page
+//Script to create and manipulate the calendar on the create event page
 document.addEventListener('DOMContentLoaded', function() {
   dateFormat = {}
   let context = {};
