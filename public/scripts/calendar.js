@@ -35,24 +35,11 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById("start").value = startT;
       document.getElementById("end").value = endT;
       document.getElementById("timePeriod").textContent = slotTime;
-      appendSlot(time, date);
-      //calendar.addEvent({title: eventLocation, start: startT, end: endT});
       calendar.addEvent({start: startT, end: endT});
-      $('#addEventSlot').modal('show');
+      appendSlot(time, date);
+      //$('#addEventSlot').modal('show');
     }
   });
-  //Used the following reference:
-  //https://stackoverflow.com/questions/14207318/create-fullcalendar-calendar-event-on-submitting-the-form-in-bootstrap-modal-win
-  /*$('#submitButton').on('click', function(event){
-    event.preventDefault();
-    createSlot();
-  });
-  function createSlot(){  //add slot to calendar for visibility
-    $("#addEventSlot").modal('hide');
-    eventLocation = document.getElementById("location").value;
-    max_attendees = document.getElementById("max-attendees").value;
-    calendar.addEvent({title: eventLocation, start: startT, end: endT});
-  }*/
   calendar.render();
 });
 
