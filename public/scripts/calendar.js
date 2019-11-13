@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     select: function(info) {
       startT = info.startStr;
       endT = info.endStr;
-      var date = calendar.formatDate(startT, {month : '2-digit', day : '2-digit', year : 'numeric'});
+      /*var date = calendar.formatDate(startT, {month : '2-digit', day : '2-digit', year : 'numeric'});
       var time1 = calendar.formatDate(startT, {hour : '2-digit', minute : '2-digit',
       second : '2-digit', hour12 : false});
       //var time2 = calendar.formatDate(endT, {month:'long',year:'numeric',
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById("end").value = endT;
       document.getElementById("timePeriod").textContent = slotTime;
       appendSlot(startT, date);
-      //calendar.addEvent({title: eventLocation, start: startT, end: endT});
+      //calendar.addEvent({title: eventLocation, start: startT, end: endT});*/
       calendar.addEvent({start: startT, end: endT});
       $('#addEventSlot').modal('show');
     }
