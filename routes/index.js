@@ -1,9 +1,11 @@
-var Router = 	require('express-promise-router'),
-	router = 	new Router(),						// allows asynchronous route handlers
-	session = 	require('express-session'),
-	slot =		require('../models/slot.js'),
-	event =		require('../models/event.js'),
-	helpers = 	require('../helpers/helpers.js');
+var Router = 		require('express-promise-router'),
+	router = 		new Router(),						// allows asynchronous route handlers
+	session = 		require('express-session'),
+	slot =			require('../models/slot.js'),
+	event =			require('../models/event.js'),
+	invitation =	require('../models/invitation.js'),
+	createsEvent =	require('../models/createsEvent.js')
+	helpers = 		require('../helpers/helpers.js');
 
 // Redirects new arrivals to landing page. Handles authentication
 // for users redirected from CAS login then redirects to personal homepage
@@ -46,14 +48,16 @@ router.get('/home', async function (req, res, next) {
 	else {
 		let context = {};
 
+		context.eventsManaging = await createsEvent.getUserEvents('adamspa');
+
 		// Find all slots a user is registered for
 		let [reservations, fields] = await slot.findUserSlots(req.session.onid);
 
 		// Process response from database into a handlebars-friendly format
-		context.events = await helpers.processReservationsForDisplay(reservations, req.session.onid);
+		context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
 
 		context.firstName = req.session.firstName;
-		context.stylesheets = ['main.css', 'login.css'];
+		context.stylesheets = ['main.css', 'home.css'];
 		res.render('home', context);
 	}
 
@@ -82,16 +86,50 @@ router.get('/logout', async function (req, res, next) {
 	}
 });
 
-// Use this route to test locally without constantly re-deploying to Heroku
-router.get('/createCalTest', async function (req, res, next) {
-	req.session.onid = 'williaev';
+// Displays "Create New Event" page
+router.get('/create', async function (req, res, next) {
 	let context = {};
-	context.stylesheets = ['main.css', 'home.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
+	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
-	context.scripts = ['@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	context.scripts = ['create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 	res.render('create', context);
 });
+
+// Use this route to test locally without constantly re-deploying to Heroku
+router.get('/create-test', async function (req, res, next) {
+	req.session.onid = 'williaev';
+	let context = {};
+	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
+	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
+	context.scripts = ['create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
+	res.render('create', context);
+});
+
+// Process event creation form
+router.post('/create', async function (req, res, next) {
+	// Get values from request
+	let eventName = req.body.eventName,
+		location = req.body.defaultLocation,
+		maxAttendeePerSlot = req.body.defaultMaxAttendees,
+		maxResvPerAttendee = req.body.maxReservationsPerAttendee,
+		description = req.body.description,
+		visibility = req.body.attendeeNameVisibility,
+		emails = req.body.emails;
+
+	if (typeof emails === 'string') {
+		emails = [emails];
+	}
+
+	// Store values in database
+	let eventId = await event.createEvent(eventName, location, 
+		maxAttendeePerSlot, maxResvPerAttendee, description, visibility);
+	await createsEvent.createCreatesEvent(eventId, req.session.onid);
+	await invitation.createInvitations(eventId, emails);
+
+	res.redirect('/home');
+})
 
 // Use this route to test locally without constantly re-deploying to Heroku
 router.get('/home-test', async function (req, res, next) {
@@ -100,12 +138,13 @@ router.get('/home-test', async function (req, res, next) {
 	req.session.firstName = 'Paul';
 	let context = {};
 
+	context.eventsManaging = await createsEvent.getUserEvents('adamspa');
 
 	// Find all slots a user is registered for
 	let [reservations, fields] = await slot.findUserSlots(req.session.onid);
 
 	// Process response from database into a handlebars-friendly format
-	context.events = await helpers.processReservationsForDisplay(reservations, req.session.onid);
+	context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
 
 	context.firstName = req.session.firstName;
 	context.stylesheets = ['main.css', 'login.css', 'home.css'];

@@ -1,37 +1,27 @@
-
+<!-- Form: Create New Event" -->
 <h1 class="mt-5">Create New Event</h1>
-<form class="mt-3 needs-validation" action="/create" novalidate>
+<form class="mt-3 needs-validation" action="/create" method="post" novalidate>
 
- <div class="form-row">
-   <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
-     <label for="eventName">Event Name:</label>
-     <input type="text" class="form-control" name="eventName"
+  <!-- Event name -->
+  <div class="form-row">
+    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
+      <label for="eventName">Event name:</label>
+      <input type="text" class="form-control" name="eventName"
      id="eventName" required>
-   </div>
- </div>
+    </div>
+  </div>
 
- <div class="form-row">
+  <!-- Description -->
+  <div class="form-row">
    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
      <label for="description">Description (optional):</label>
      <textarea class="form-control" name="description"
      id="description" rows="3"></textarea>
    </div>
- </div>
+  </div>
 
- <div class="form-row">
-   <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group" id="organizerDiv">
-     <label for="additionalOrganizer-1">
-     Add additional event organizers (optional):</label>
-     <small id="additionalOrganizerHelpText" class="form-text text-danger mt-0">
-     These users will be able to make changes to your event!</small>
-     <input type="text" class="form-control" name="additionalOrganizer-1"
-     id="additionalOrganizer-1" placeholder="Type a valid OSU email address"
-     oninput="validateOrganizer(this)">
-     <div class="invalid-feedback">This is not a valid OSU email</div>
-   </div>
- </div>
-
- <div class="form-row">
+  <!-- Location -->
+  <div class="form-row">
    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
      <label for="defaultLocation">Location:</label>
      <small id="locationHelpText" class="form-text text-muted mt-0">
@@ -39,9 +29,10 @@
      <input type="text" class="form-control" name="defaultLocation"
      id="defaultLocation" required>
    </div>
- </div>
+  </div>
 
- <div class="form-row">
+  <!-- Max attendees per slot -->
+  <div class="form-row">
    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
      <label for="defaultMaxAttendees">Max attendees per time slot:</label>
      <small id="locationHelpText" class="form-text text-muted mt-0">
@@ -49,9 +40,10 @@
      <input type="number" class="form-control" name="defaultMaxAttendees"
      id="defaultMaxAttendees">
    </div>
- </div>
+  </div>
 
- <div class="form-row">
+  <!-- Max reservations per attendee -->
+  <div class="form-row">
    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
      <label for="maxReservationsPerAttendee">
      Max reservations per attendee:</label>
@@ -60,9 +52,10 @@
      <input type="number" class="form-control" name="maxReservationsPerAttendee"
      id="maxReservationsPerAttendee">
    </div>
- </div>
+  </div>
 
- <fieldset class="form-group">
+  <!-- Time slot duration -->
+  <fieldset class="form-group">
    <legend class="col-form-label">Time slot duration:</legend>
    <small id="defaultDurationHelpText" class="form-text text-muted mt-0">
    You can change this for individual slots.</small>
@@ -76,37 +69,37 @@
        <label for="defaultDurationMinutes" class="ml-2">minutes</label>
      </div>
    </div>
- </fieldset>
+  </fieldset>
 
-
- <div class="form-row">
+  <!-- Show/hide registrant names -->
+  <div class="form-row">
    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-check">
      <fieldset class="form-group">
        <legend class="col-form-label">
        Allow people to see who is registered for each slot?:</legend>
        <div class="form-check">
-         <input type="radio" class="form-check-input" name="AttendeeNameVisibility"
-         id="AttendeeNameVisibilityTrue" value="true" required>
-         <label class="form-check-label" for="AttendeeNameVisibilityTrue">
+         <input type="radio" class="form-check-input" name="attendeeNameVisibility"
+         id="attendeeNameVisibilityTrue" value="1" required>
+         <label class="form-check-label" for="attendeeNameVisibilityTrue">
            Yes, make names visible
          </label>
        </div>
        <div class="form-check">
-         <input type="radio" class="form-check-input" name="AttendeeNameVisibility"
-         id="AttendeeNameVisibilityFalse" value="false" required>
-         <label class="form-check-label" for="AttendeeNameVisibilityFalse">
+         <input type="radio" class="form-check-input" name="attendeeNameVisibility"
+         id="attendeeNameVisibilityFalse" value="0" required>
+         <label class="form-check-label" for="attendeeNameVisibilityFalse">
            No, keep names hidden
          </label>
        </div>
 
      </fieldset>
    </div>
- </div>
+  </div>
 
- <p>Choose time slots:</p>
-  <!-- Calendar goes here -->
- <div id='calendar' class='m-1 p-1'></div>
+  <!-- Calendar -->
+  <p>Choose time slots:</p>
 
+<<<<<<< HEAD
  <div class="modal fade" id="addEventSlot" tabindex="-1" role="dialog" aria-labelledby="addEventSlotLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
      <div class="modal-content">
@@ -143,127 +136,29 @@
    </div>
  </div>
 
+=======
+  <div id='calendar' class='m-1 p-1'></div>
+
+  <!-- Email addresses -->
+>>>>>>> master
   <div class="form-row">
-   <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
+    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group" id="emailsDiv">
      <label for="emailAddresses">
      Enter email addresses of people you'd like to invite:</label>
      <small id="emailAddressesHelpText" class="form-text text-muted mt-0">
      You can always send more invitations later.</small>
+
+     <!-- User enters email addresses into textarea -->
      <textarea class="form-control" name="emailAddresses"
      id="emailAddresses" rows="3"></textarea>
-   </div>
+     <button type="button" role="button" class="btn btn-primary mb-5" id="addEmailsButton">Add emails</button>
+
+     <!-- Email addresses are extracted from textarea and
+      placed in individual email inputs -->
+    </div>
  </div>
- <button class="btn btn-primary mb-5" type-submit>Create event</button>
+
+ <!-- Submit button -->
+ <button class="btn btn-primary mb-5" type="submit">Create event</button>
 </form>
 
-<script>
-   var num_organizers = 1;
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function validateForm() {
- 'use strict';
-   // On load
-   window.addEventListener('load', function() {
-       const organizer = document.getElementById('additionalOrganizer-1');
-       organizer.addEventListener('blur', validateOrganizer);
-       // Fetch all the forms we want to apply custom Bootstrap validation styles to
-       var forms = document.getElementsByClassName('needs-validation');
-       // Loop over them and prevent submission
-       var validation = Array.prototype.filter.call(forms, function(form) {
-           form.addEventListener('submit', function(event) {
-               if (form.checkValidity() === false) {
-                 event.preventDefault();
-                 event.stopPropagation();
-               }
-               form.classList.add('was-validated');
-           }, false);
-       });
-   }, false);
-})();
-function validateOrganizer(event) {
- if (this.value == "") {
-   this.classList.remove('is-valid');
-   this.classList.remove('is-invalid');
-   this.setCustomValidity('');
- }
- else if (isValidOsuEmail(this.value)) {
-   // Change styling to show valid input
-   this.classList.remove('is-invalid');
-   this.classList.add('is-valid');
-   this.setCustomValidity('');
-   // Create another organizer input
-   num_organizers++;
-   let newOrganizer = document.getElementById('additionalOrganizer-1').cloneNode();
-   newOrganizer.setAttribute('id', 'additionalOrganizer-' + num_organizers);
-   newOrganizer.classList.remove('is-valid');
-   newOrganizer.value = "";
-   // Create help text for new organizer input
-   let newOrganizerHelpText = document.getElementById
-   ('additionalOrganizerHelpText').cloneNode();
-   // Append new organizer input and its help text to the document
-   let organizerDiv = document.getElementById('organizerDiv');
-   organizerDiv.appendChild(newOrganizer);
-   organizerDiv.appendChild(newOrganizerHelpText);
-   newOrganizer.addEventListener('blur', validateOrganizer);
- } else {
-   this.classList.remove('is-valid');
-   this.classList.add('is-invalid');
-   this.setCustomValidity('Invalid OSU email');
- }
-}
-// function validateOsuEmail(input) {
-// 	if (input.value == "") {
-// 		input.classList.remove('is-valid');
-// 		input.classList.remove('is-invalid');
-// 	} else if (isValidOsuEmail(input.value)) {
-// 		input.setCustomValidity('');	//Clears any validation errors
-// 	} else {
-// 		input.setCustomValidity('This is not a valid OSU email');
-// 	}
-// }
-function isValidOsuEmail(email) {
- // let xhr = new XMLHttpRequest();
- // let reqBody = {email:null};
- // reqBody.email = email;
- // xhr.timeout = 2000;
- // xhr.open('POST', 'localhost:3000/validate/email');
- // xhr.setRequestHeader('Content-Type', 'application/json');
- // xhr.send(email);
- // xhr.onload = function() {
- // 	if (xhr.status != 200) {
- // 		console.log('Error ' + xhr.status + ': ' + xhr.statusText);
- // 	} else {
- // 		// do something with response
- // 		console.log(xhr.response);
- // 	}
- // };
- // xhr.onerror = function() {
- // 	console.log('Validation to OSU LDAP server failed.');
- // };
- if (email == "abc") {
-   return true;
- } else {
-   return false;
- }
-}
-// Fetches a resource, resolving an error if the request times out
-function timedFetch(url, options) {
- return new Promise( function(resolve, reject) {
-   let timer = setTimeout(
-     function() {
-       reject(new Error('Fetch timed out') );
-     }, 2000
-   );
-   fetch(url, options)
-   .then(
-     function(response) {
-       resolve(response);
-   }).catch(
-     function(err) {
-       reject(err);
-   }).finally(
-     function() {
-       clearTimeout(timer);
-   });
- });
-}
-</script>
