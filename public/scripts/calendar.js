@@ -28,13 +28,13 @@ document.addEventListener('DOMContentLoaded', function() {
     select: function(info) {
       startT = info.startStr;
       endT = info.endStr;
-      var date = startT.substring(0, 10);
+      /*var date = startT.substring(0, 10);
       var time = calendar.formatDate(startT, {hour : '2-digit', minute : '2-digit',
       second : '2-digit', hour12 : false});
-      //var slotTime = time + ' - ' + date;
+      var slotTime = time + ' - ' + date;
       document.getElementById("start").value = startT;
       document.getElementById("end").value = endT;
-      document.getElementById("timePeriod").textContent = slotTime;
+      document.getElementById("timePeriod").textContent = slotTime;*/
       calendar.addEvent({start: startT, end: endT});
       appendSlot(startT);
     }
