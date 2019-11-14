@@ -110,6 +110,7 @@ router.get('/create-test', async function (req, res, next) {
 // Process event creation form
 router.post('/create', async function (req, res, next) {
 	// Get values from request
+	let slotArray = [];
 	let eventName = req.body.eventName,
 		location = req.body.defaultLocation,
 		maxAttendeePerSlot = req.body.defaultMaxAttendees,
@@ -131,8 +132,16 @@ router.post('/create', async function (req, res, next) {
 
 
 	//parse slot date/time substring
-	console.log(slots);
+	if (!Array.isArray(req.body.slots)){
+		slots = slots.push(slots);
+	}
+	else{
+		slots = req.body.slots;
+	}
+
+	//parse slot date/time substring
 	for (let timeSlot of slots){
+		console.log(timeSlot);
 		let dateTime = await helpers.parseDateTimeString(timeSlot);
 		await slot.createSlot(eventId, location, dateTime[0], dateTime[1]);
 	}
