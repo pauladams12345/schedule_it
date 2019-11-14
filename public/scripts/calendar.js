@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     editable: true,
     selectable: true,
     eventLimit : true,
-    longPressDelay: 1,
+    longPressDelay: 0,
     header: {
       left: 'prev,next today',
       center: 'title',
