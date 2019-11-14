@@ -130,6 +130,7 @@ router.post('/create', async function (req, res, next) {
 	await invitation.createInvitations(eventId, emails);
 
 	//parse slot date/time substring
+	console.log(slots);
 	for (let slot of slots){
 		let dateTime = await helpers.parseDateTimeString(slot);
 		await slot.createSlot(eventId, location, dateTime[0], dateTime[1]);
