@@ -67,11 +67,11 @@ module.exports.createUserIfNew = async function(attributes){
 	}
 };
 
-module.exports.parseDateTimeString = async function (slot){
+/*module.exports.parseDateTimeString = async function (slot){
 	let date = slot.substring(0,10);
 	let time = slot.substring(11,19);
 	return [date, time];
-};
+};*/
 
 module.exports.processReservationsForDisplay = async function (reservations, user_ONID){
 	let event_ids = []; 	// Keep track of which events we've added
