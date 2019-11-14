@@ -38,8 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
       let minutes = parseInt(document.getElementById('defaultDurationMinutes').value, 10);
       let duration = (60 * hours) + minutes;
       info.end.setTime(info.start.getTime() + duration * 60000);
-      console.log("start: ", info.start);
-      console.log("end: ", info.end);
       // startT = info.startStr;
       // endT = info.endStr;
       /*var date = startT.substring(0, 10);
@@ -52,6 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
       //console.log(startT);
       calendar.addEvent({id: slotId, start: info.start, end: info.end});
       appendSlot(info.start, info.end, slotId);
+    },
+    eventClick: function(clickInfo) {
+      $('#addEventSlot').modal('show');
     },
     eventDrop: function(dropInfo) {
       let startInput = document.getElementById("slot" + dropInfo.event.id + "Start");
