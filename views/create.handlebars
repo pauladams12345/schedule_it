@@ -1,0 +1,167 @@
+<!-- Form: Create New Event" -->
+<h1 class="mt-5">Create New Event</h1>
+<form class="mt-3 needs-validation" action="/create" method="post" novalidate>
+
+  <!-- Event name -->
+  <div class="form-row">
+    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
+      <label for="eventName">Event name:</label>
+      <input type="text" class="form-control" name="eventName"
+     id="eventName" required>
+    </div>
+  </div>
+
+  <!-- Description -->
+  <div class="form-row">
+   <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
+     <label for="description">Description (optional):</label>
+     <textarea class="form-control" name="description"
+     id="description" rows="3"></textarea>
+   </div>
+  </div>
+
+  <!-- Location -->
+  <div class="form-row">
+   <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
+     <label for="defaultLocation">Location:</label>
+     <small id="locationHelpText" class="form-text text-muted mt-0">
+     You can change this for individual slots.</small>
+     <input type="text" class="form-control" name="defaultLocation"
+     id="defaultLocation" required>
+   </div>
+  </div>
+
+  <!-- Max attendees per slot -->
+  <div class="form-row">
+   <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
+     <label for="defaultMaxAttendees">Max attendees per time slot:</label>
+     <small id="locationHelpText" class="form-text text-muted mt-0">
+     You can change this for individual slots. Leave blank for no limit.</small>
+     <input type="number" class="form-control" name="defaultMaxAttendees"
+     id="defaultMaxAttendees">
+   </div>
+  </div>
+
+  <!-- Max reservations per attendee -->
+  <div class="form-row">
+   <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
+     <label for="maxReservationsPerAttendee">
+     Max reservations per attendee:</label>
+     <small id="locationHelpText" class="form-text text-muted mt-0">
+     Leave blank for no limit.</small>
+     <input type="number" class="form-control" name="maxReservationsPerAttendee"
+     id="maxReservationsPerAttendee">
+   </div>
+  </div>
+
+  <!-- Time slot duration -->
+  <fieldset class="form-group">
+   <legend class="col-form-label">Time slot duration:</legend>
+   <small id="defaultDurationHelpText" class="form-text text-muted mt-0">
+   You can change this for individual slots.</small>
+   <div class="form-row">
+     <div class="col col-sm-8 col-md-6 col-lg-5 col-xl-4 form-group form-inline">
+       <input type="number" class="form-control w-25"
+       name="defaultDurationHours" id="defaultDurationHours" required>
+       <label for="defaultDurationHours" class="mx-2">hours</label>
+       <input type="number" class="form-control w-25" name="defaultDurationMinutes"
+       id="defaultDurationMinutes" placeholder="0">
+       <label for="defaultDurationMinutes" class="ml-2">minutes</label>
+     </div>
+   </div>
+  </fieldset>
+
+  <!-- Show/hide registrant names -->
+  <div class="form-row">
+   <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-check">
+     <fieldset class="form-group">
+       <legend class="col-form-label">
+       Allow people to see who is registered for each slot?:</legend>
+       <div class="form-check">
+         <input type="radio" class="form-check-input" name="attendeeNameVisibility"
+         id="attendeeNameVisibilityTrue" value="1" required>
+         <label class="form-check-label" for="attendeeNameVisibilityTrue">
+           Yes, make names visible
+         </label>
+       </div>
+       <div class="form-check">
+         <input type="radio" class="form-check-input" name="attendeeNameVisibility"
+         id="attendeeNameVisibilityFalse" value="0" required>
+         <label class="form-check-label" for="attendeeNameVisibilityFalse">
+           No, keep names hidden
+         </label>
+       </div>
+
+     </fieldset>
+   </div>
+  </div>
+
+  <!-- Calendar -->
+  <p>Choose time slots:</p>
+
+ <!--<div class="modal fade" id="addEventSlot" tabindex="-1" role="dialog" aria-labelledby="addEventSlotLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="addEventSlotLabel">Add Event Slot</h5>
+       </div>
+       <div class="modal-body">
+         <form>
+           <div class="form-group">
+             <label for="location" class="col-form-label">Location:</label>
+             <input type="text" class="form-control" id="location">
+           </div>
+           <div class="form-group">
+             <label for="max-attendees" class="col-form-label">Max Attendees:</label>
+             <input type="number" class="form-control" id="max-attendees">
+           </div>
+           <div class="form-group">
+             <input type="hidden" id="start"/>
+             <input type="hidden" id="end"/>
+           </div>
+           <div class="form-group">
+             <div class="control-group">
+               <label class="control-label" for="timePeriod">Time:</label>
+               <div class="controls controls-row" id="timePeriod"></div>
+             </div>
+           </div>
+         </form>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <button type="button" class="btn btn-primary" name="modal-form" id="submitButton">Create Slot</button>
+       </div>
+     </div>
+   </div>
+ </div> -->
+
+  <div id='calendar' class='m-1 p-1'></div>
+
+  <!-- Time slot -->
+ <div class="form-row">
+   <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group" id="timeSlot">
+   </div>
+ </div>
+
+
+  <!-- Email addresses -->
+  <div class="form-row">
+    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group" id="emailsDiv">
+     <label for="emailAddresses">
+     Enter email addresses of people you'd like to invite:</label>
+     <small id="emailAddressesHelpText" class="form-text text-muted mt-0">
+     You can always send more invitations later.</small>
+
+     <!-- User enters email addresses into textarea -->
+     <textarea class="form-control" name="emailAddresses"
+     id="emailAddresses" rows="3"></textarea>
+     <button type="button" role="button" class="btn btn-primary mb-5" id="addEmailsButton">Add emails</button>
+
+     <!-- Email addresses are extracted from textarea and
+      placed in individual email inputs -->
+    </div>
+ </div>
+
+ <!-- Submit button -->
+ <button class="btn btn-primary mb-5" type="submit">Create event</button>
+</form>

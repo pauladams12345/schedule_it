@@ -34,8 +34,7 @@ module.exports.reserveSlot = async function(onid, slot) {
 	catch (err) {
 		console.log(err);
 	}
-
-}
+};
 
 // Query database for slot by its ID and return all columns for that row
 module.exports.findSlot = async function(slotId) {
@@ -60,6 +59,18 @@ module.exports.findSlotAttendees = async function(slotId) {
 		"ON fk_slot_id = slot_id INNER JOIN `OSU_member` ON fk_onid = onid WHERE slot_id = ?", [slotId]);
 		connection.end();
 		return [rows, fields];
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+module.exports.createSlot = async function(eventId, location, date, time){
+	try{
+		const connection = await sql.createConnection(dbcon);
+		await connection.query("INSERT INTO `indaba_db`.`Slot` " +
+		"(`fk_event_id`, `slot_location`, `slot_date`, `start_time`) VALUES (?, ?, ?, ?);", [eventId, location, date, time]);
+		connection.end();
 	}
 	catch (err) {
 		console.log(err);
