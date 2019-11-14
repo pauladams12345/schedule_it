@@ -116,8 +116,8 @@ router.post('/create', async function (req, res, next) {
 		maxResvPerAttendee = req.body.maxReservationsPerAttendee,
 		description = req.body.description,
 		visibility = req.body.attendeeNameVisibility,
-		emails = req.body.emails;
-		//slots = req.body.slots;
+		emails = req.body.emails,
+		slots = req.body.slots;
 
 	if (typeof emails === 'string') {
 		emails = [emails];
