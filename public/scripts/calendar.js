@@ -1,3 +1,6 @@
+// TODO: figure out how to handle slot ID assignment on Manage Event
+// Maybe pick a random starting value tied to the date/time? Want to
+// avoid overlap.
 //Script to create and manipulate the calendar on the create event page
 document.addEventListener('DOMContentLoaded', function() {
   dateFormat = {}
@@ -29,15 +32,16 @@ document.addEventListener('DOMContentLoaded', function() {
       hour12: true
     },
     select: function(info) {
+      var slotId = slotNumber;
+      slotNumber++;
       let hours = parseInt(document.getElementById('defaultDurationHours').value, 10);
       let minutes = parseInt(document.getElementById('defaultDurationMinutes').value, 10);
       let duration = (60 * hours) + minutes;
-      info.end = new Date(info.start.getTime() + duration * 60000);
+      info.end.setTime(info.start.getTime() + duration * 60000);
       console.log("start: ", info.start);
       console.log("end: ", info.end);
-      startT = info.startStr;
-      endT = info.endStr;
-      slotNumber++;
+      // startT = info.startStr;
+      // endT = info.endStr;
       /*var date = startT.substring(0, 10);
       var time = calendar.formatDate(startT, {hour : '2-digit', minute : '2-digit',
       second : '2-digit', hour12 : false});
@@ -46,20 +50,39 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById("end").value = endT;
       document.getElementById("timePeriod").textContent = slotTime;*/
       //console.log(startT);
-      calendar.addEvent({start: info.start, end: info.end});
-      appendSlot(startT,slotNumber);
+      calendar.addEvent({id: slotId, start: info.start, end: info.end});
+      appendSlot(info.start, info.end, slotId);
+    },
+    eventDrop: function(dropInfo) {
+      let startInput = document.getElementById("slot" + dropInfo.event.id + "Start");
+      let endInput = document.getElementById("slot" + dropInfo.event.id + "End");
+      startInput.value = dropInfo.event.start;
+      endInput.value = dropInfo.event.end;
+    },
+    eventResize: function(resizeInfo) {
+      let endInput = document.getElementById("slot" + resizeInfo.event.id + "End");
+      endInput.value = resizeInfo.event.end;
     }
   });
   calendar.render();
 });
 
 // Appends the slot input to the form
-function appendSlot(startT, slotNumber) {
-    var input = document.createElement("input");
-    input.setAttribute('type', 'text');
-    input.setAttribute('class', 'form-control w-100');
-    input.setAttribute('name', 'slots');
-    input.setAttribute('id', 'slot' + slotNumber);
-    input.value = startT;
-    document.getElementById('timeSlot').appendChild(input);
+function appendSlot(startTime, endTime, slotNumber) {
+    var startInput = document.createElement("input");
+    startInput.setAttribute('type', 'text');
+    startInput.setAttribute('class', 'form-control w-100');
+    startInput.setAttribute('name', 'slots');
+    startInput.setAttribute('id', 'slot' + slotNumber + 'Start');
+    startInput.value = startTime;
+
+    var endInput = document.createElement("input");
+    endInput.setAttribute('type', 'text');
+    endInput.setAttribute('class', 'form-control w-100');
+    endInput.setAttribute('name', 'slots');
+    endInput.setAttribute('id', 'slot' + slotNumber + 'End');
+    endInput.value = endTime;
+
+    document.getElementById('timeSlot').appendChild(startInput);
+    document.getElementById('timeSlot').appendChild(endInput);
 };
