@@ -116,7 +116,7 @@ router.post('/create', async function (req, res, next) {
 		maxResvPerAttendee = req.body.maxReservationsPerAttendee,
 		description = req.body.description,
 		visibility = req.body.attendeeNameVisibility,
-		emails = req.body.emails;
+		emails = req.body.emails,
 		slots = req.body.slots;
 
 	if (typeof emails === 'string') {
@@ -128,6 +128,13 @@ router.post('/create', async function (req, res, next) {
 		maxAttendeePerSlot, maxResvPerAttendee, description, visibility);
 	await createsEvent.createCreatesEvent(eventId, req.session.onid);
 	await invitation.createInvitations(eventId, emails);
+
+	//parse slot date/time substring
+	for (let slot of slots){
+		let dateTime = await helpers.parseDateTimeString(slot);
+		await slot.createSlot(eventId, location, dateTime[0], dateTime[1]);
+	}
+
 
 	res.redirect('/home');
 })

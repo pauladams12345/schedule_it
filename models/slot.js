@@ -64,3 +64,15 @@ module.exports.findSlotAttendees = async function(slotId) {
 		console.log(err);
 	}
 };
+
+module.exports.createSlot = async function(eventId, location, date, time){
+	try{
+		const connection = await sql.createConnection(dbcon);
+		await connection.query("INSERT INTO `indaba_db`.`Slot` " +
+		"(`fk_event_id`, `slot_location`, `slot_date`, `start_time`) VALUES (?, ?, ?, ?);", [eventId, location, date, time]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};

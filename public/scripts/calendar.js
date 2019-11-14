@@ -31,24 +31,24 @@ document.addEventListener('DOMContentLoaded', function() {
       var date = startT.substring(0, 10);
       var time = calendar.formatDate(startT, {hour : '2-digit', minute : '2-digit',
       second : '2-digit', hour12 : false});
-      var slotTime = time + ' - ' + date;
+      //var slotTime = time + ' - ' + date;
       document.getElementById("start").value = startT;
       document.getElementById("end").value = endT;
       document.getElementById("timePeriod").textContent = slotTime;
       calendar.addEvent({start: startT, end: endT});
-      appendSlot(time, date);
+      appendSlot(startT);
     }
   });
   calendar.render();
 });
 
 // Appends the slot input to the form
-function appendSlot(time, date, slotNumber) {
+function appendSlot(startT, slotNumber) {
     var input = document.createElement("input");
     input.setAttribute('type', 'text');
     input.setAttribute('class', 'form-control w-100');
     input.setAttribute('name', 'slots');
     input.setAttribute('id', 'slot' + slotNumber);
-    input.value = date + time;
+    input.value = startT;
     document.getElementById('timeSlot').appendChild(input);
 };
