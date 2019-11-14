@@ -21,7 +21,7 @@ module.exports.findUserSlots = async function(onid) {
 	catch (err) {
 		console.log(err);
 	}
-}
+};
 
 // Create row in Reserve_Slot with the given information
 module.exports.reserveSlot = async function(onid, slot) {
@@ -34,7 +34,7 @@ module.exports.reserveSlot = async function(onid, slot) {
 	catch (err) {
 		console.log(err);
 	}
-}
+};
 
 // Query database for slot by its ID and return all columns for that row
 module.exports.findSlot = async function(slotId) {
@@ -47,7 +47,7 @@ module.exports.findSlot = async function(slotId) {
 	catch (err) {
 		console.log(err);
 	}
-}
+};
 
 // Query database for all of the individuals who signed up for the slot
 module.exports.findSlotAttendees = async function(slotId) {
@@ -63,7 +63,7 @@ module.exports.findSlotAttendees = async function(slotId) {
 	catch (err) {
 		console.log(err);
 	}
-}
+};
 
 module.exports.createSlot = async function(eventId, location, date, time){
 	try{
@@ -75,4 +75,4 @@ module.exports.createSlot = async function(eventId, location, date, time){
 	catch (err) {
 		console.log(err);
 	}
-}
+};

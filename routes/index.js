@@ -133,7 +133,7 @@ router.post('/create', async function (req, res, next) {
 	console.log(slots);
 	for (let slot of slots){
 		let dateTime = await helpers.parseDateTimeString(slot);
-		await slot.createSlot(eventId, location, dateTime[0], dateTime[1]);
+		slot.createSlot(eventId, location, dateTime[0], dateTime[1]);
 	}
 	res.redirect('/home');
 });
