@@ -131,7 +131,7 @@ router.post('/create', async function (req, res, next) {
 
 
 	//parse slot date/time substring
-	console.log(req.body.slots);
+	console.log(slots);
 	for (let timeSlot of slots){
 		let dateTime = await helpers.parseDateTimeString(timeSlot);
 		await slot.createSlot(eventId, location, dateTime[0], dateTime[1]);
