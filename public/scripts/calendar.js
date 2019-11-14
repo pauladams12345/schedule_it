@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     themeSystem: 'bootstrap',
     defaultView: 'timeGridWeek',
     slotDuration: '00:15',
+    slotLabelInterval: '01:00:00',
     editable: true,
     selectable: true,
     eventLimit : true,
