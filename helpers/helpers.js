@@ -68,6 +68,7 @@ module.exports.createUserIfNew = async function(attributes){
 };
 
 module.exports.parseDateTimeString = async function (slot){
+	console.log(slot);
 	let date = slot.substring(0,10);
 	let time = slot.substring(11,19);
 	return [date, time];
