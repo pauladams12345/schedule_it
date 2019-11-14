@@ -72,17 +72,22 @@ document.addEventListener('DOMContentLoaded', function() {
 function appendSlot(startTime, endTime, slotNumber) {
     var startInput = document.createElement("input");
     startInput.setAttribute('type', 'text');
-    startInput.setAttribute('class', 'form-control w-100');
     startInput.setAttribute('name', 'slots');
     startInput.setAttribute('id', 'slot' + slotNumber + 'Start');
     startInput.value = startTime;
 
     var endInput = document.createElement("input");
     endInput.setAttribute('type', 'text');
-    endInput.setAttribute('class', 'form-control w-100');
     endInput.setAttribute('name', 'slots');
     endInput.setAttribute('id', 'slot' + slotNumber + 'End');
     endInput.value = endTime;
+
+    // Location value is left empty unless user enters a location other than the
+    // default. Will be replaced with defaultLocation if empty upon form submission.
+    var locationInput = document.createElement("input");
+    locationInput.setAttribute('type', 'text');
+    locationInput.setAttribute('name', 'slots');
+    locationInput.setAttribute('id', 'slot' + slotNumber + 'Location');
 
     document.getElementById('timeSlot').appendChild(startInput);
     document.getElementById('timeSlot').appendChild(endInput);
