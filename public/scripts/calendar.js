@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById("timePeriod").textContent = slotTime;*/
       calendar.addEvent({start: startT, end: endT});
       appendSlot(startT);
-    }
+    };
   });
   calendar.render();
 });
