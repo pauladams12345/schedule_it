@@ -117,7 +117,7 @@ router.post('/create', async function (req, res, next) {
 		description = req.body.description,
 		visibility = req.body.attendeeNameVisibility,
 		emails = req.body.emails,
-		slots = req.body.slots;
+		//slots = req.body.slots;
 
 	if (typeof emails === 'string') {
 		emails = [emails];
@@ -130,10 +130,10 @@ router.post('/create', async function (req, res, next) {
 	await invitation.createInvitations(eventId, emails);
 
 	//parse slot date/time substring
-	for (let slot of slots){
+/*	for (let slot of slots){
 		let dateTime = await helpers.parseDateTimeString(slot);
 		await slot.createSlot(eventId, location, dateTime[0], dateTime[1]);
-	}
+	}*/
 
 
 	res.redirect('/home');
