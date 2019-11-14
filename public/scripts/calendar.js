@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'bootstrap' ],
     themeSystem: 'bootstrap',
     defaultView: 'timeGridWeek',
-    //slotDuration: '00:30',
+    slotDuration: '00:15',
     //slotLabelInterval: '01:00:00',
     editable: true,
     selectable: true,
@@ -29,6 +29,12 @@ document.addEventListener('DOMContentLoaded', function() {
       hour12: true
     },
     select: function(info) {
+      let hours = parseInt(document.getElementById('defaultDurationHours').value, 10);
+      let minutes = parseInt(document.getElementById('defaultDurationMinutes').value, 10);
+      let duration = (60 * hours) + minutes;
+      info.end = new Date(info.start.getTime() + duration * 60000);
+      console.log("start: ", info.start);
+      console.log("end: ", info.end);
       startT = info.startStr;
       endT = info.endStr;
       slotNumber++;
@@ -40,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById("end").value = endT;
       document.getElementById("timePeriod").textContent = slotTime;*/
       //console.log(startT);
-      calendar.addEvent({start: startT, end: endT});
+      calendar.addEvent({start: info.start, end: info.end});
       appendSlot(startT,slotNumber);
     }
   });
