@@ -129,11 +129,12 @@ router.post('/create', async function (req, res, next) {
 	await createsEvent.createCreatesEvent(eventId, req.session.onid);
 	await invitation.createInvitations(eventId, emails);
 
+	await slot.createSlot(eventId, location, dateTime[0], dateTime[1]);
 	//parse slot date/time substring
 	console.log(slots);
 	for (let slot of slots){
 		let dateTime = await helpers.parseDateTimeString(slot);
-		slot.createSlot(eventId, location, dateTime[0], dateTime[1]);
+		await slot.createSlot(eventId, location, dateTime[0], dateTime[1]);
 	}
 	res.redirect('/home');
 });
