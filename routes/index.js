@@ -133,7 +133,7 @@ router.post('/create', async function (req, res, next) {
 
 	//parse slot date/time substring
 	if (!Array.isArray(req.body.slots)){
-		slots.push(slots);
+		slots.push(req.body.slots);
 	}
 	else{
 		slots = req.body.slots;
