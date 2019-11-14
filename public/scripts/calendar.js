@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById("start").value = startT;
       document.getElementById("end").value = endT;
       document.getElementById("timePeriod").textContent = slotTime;*/
-      console.log(startT);
+      //console.log(startT);
       calendar.addEvent({start: startT, end: endT});
       appendSlot(startT,slotNumber);
     }
