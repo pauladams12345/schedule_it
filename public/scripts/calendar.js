@@ -51,4 +51,4 @@ function appendSlot(startT, slotNumber) {
     input.setAttribute('id', 'slot' + slotNumber);
     input.value = startT;
     document.getElementById('timeSlot').appendChild(input);
-};*/
+};
