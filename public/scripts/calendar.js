@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let context = {};
   var startTime;
   var endTime;
-  var eventLocation;
+  var slotNumber = 0;
   var max_attendees;
   var calendarEl = document.getElementById('calendar');
   var modal = document.getElementById('exampleModal');
@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     select: function(info) {
       startT = info.startStr;
       endT = info.endStr;
+      slotNumber++;
       /*var date = startT.substring(0, 10);
       var time = calendar.formatDate(startT, {hour : '2-digit', minute : '2-digit',
       second : '2-digit', hour12 : false});
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById("end").value = endT;
       document.getElementById("timePeriod").textContent = slotTime;*/
       calendar.addEvent({start: startT, end: endT});
-      appendSlot(startT);
+      appendSlot(startT,slotNumber);
     }
   });
   calendar.render();
