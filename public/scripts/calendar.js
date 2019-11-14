@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'bootstrap' ],
     themeSystem: 'bootstrap',
     defaultView: 'timeGridWeek',
+    slotDuration: '00:15',
     editable: true,
     selectable: true,
     eventLimit : true,
