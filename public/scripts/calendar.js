@@ -1,5 +1,5 @@
 //Script to create and manipulate the calendar on the create event page
-/*document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
   dateFormat = {}
   let context = {};
   var startTime;
@@ -27,7 +27,7 @@
     },
     select: function(info) {
       startT = info.startStr;
-      endT = info.endStr;*/
+      endT = info.endStr;
       /*var date = startT.substring(0, 10);
       var time = calendar.formatDate(startT, {hour : '2-digit', minute : '2-digit',
       second : '2-digit', hour12 : false});
@@ -35,7 +35,7 @@
       document.getElementById("start").value = startT;
       document.getElementById("end").value = endT;
       document.getElementById("timePeriod").textContent = slotTime;*/
-      /*calendar.addEvent({start: startT, end: endT});
+      calendar.addEvent({start: startT, end: endT});
       appendSlot(startT);
     }
   });
