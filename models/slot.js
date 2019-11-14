@@ -34,7 +34,6 @@ module.exports.reserveSlot = async function(onid, slot) {
 	catch (err) {
 		console.log(err);
 	}
-
 }
 
 // Query database for slot by its ID and return all columns for that row

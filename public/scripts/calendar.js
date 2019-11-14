@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
     },
-    eventTimeFormat: { // 7:30p.m.
+    eventTimeFormat: { // 07:30p.m.
       hour: '2-digit',
       minute: '2-digit',
       hour12: true
@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById("timePeriod").textContent = slotTime;
       calendar.addEvent({start: startT, end: endT});
       appendSlot(time, date);
-      //$('#addEventSlot').modal('show');
     }
   });
   calendar.render();
@@ -48,7 +47,7 @@ function appendSlot(time, date, slotNumber) {
     var input = document.createElement("input");
     input.setAttribute('type', 'text');
     input.setAttribute('class', 'form-control w-100');
-    input.setAttribute('name', 'slot');
+    input.setAttribute('name', 'slots');
     input.setAttribute('id', 'slot' + slotNumber);
     input.value = date + time;
     document.getElementById('timeSlot').appendChild(input);

@@ -117,6 +117,7 @@ router.post('/create', async function (req, res, next) {
 		description = req.body.description,
 		visibility = req.body.attendeeNameVisibility,
 		emails = req.body.emails;
+		slots = req.body.slots;
 
 	if (typeof emails === 'string') {
 		emails = [emails];
