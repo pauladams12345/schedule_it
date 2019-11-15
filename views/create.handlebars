@@ -99,43 +99,21 @@
   <!-- Calendar -->
   <p>Choose time slots:</p>
 
- <div class="modal fade" id="addEventSlot" tabindex="-1" role="dialog" aria-labelledby="addEventSlotLabel" aria-hidden="true">
-   <div class="modal-dialog" role="document">
-     <div class="modal-content">
-       <div class="modal-header">
-         <h5 class="modal-title" id="addEventSlotLabel">Add Event Slot</h5>
-       </div>
-       <div class="modal-body">
-         <form>
-           <div class="form-group">
-             <label for="location" class="col-form-label">Location:</label>
-             <input type="text" class="form-control" id="location">
-           </div>
-           <div class="form-group">
-             <label for="max-attendees" class="col-form-label">Max Attendees:</label>
-             <input type="number" class="form-control" id="max-attendees">
-           </div>
-           <div class="form-group">
-             <input type="hidden" id="start"/>
-             <input type="hidden" id="end"/>
-           </div>
-           <div class="form-group">
-             <div class="control-group">
-               <label class="control-label" for="timePeriod">Time:</label>
-               <div class="controls controls-row" id="timePeriod"></div>
-             </div>
-           </div>
-         </form>
-       </div>
-       <div class="modal-footer">
-         <button type="button" class="btn btn-secondary" 
-         data-dismiss="modal">Cancel</button>
-         <button type="button" class="btn btn-primary" name="modal-form" 
-         id="submitButton">Save changes</button>
-       </div>
-     </div>
-   </div>
- </div> 
+  <div class="modal fade" id="addEventSlot" tabindex="-1" role="dialog" aria-labelledby="addEventSlotLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addEventSlotLabel">Slot details</h5>
+        </div>
+        <div class="modal-body" id="modalBody">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="modalSave"
+          data-dismiss="modal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div> 
 
   <div id='calendar' class='m-1 p-1'></div>
 
@@ -149,21 +127,21 @@
   <!-- Email addresses -->
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group" id="emailsDiv">
-     <label for="emailAddresses">
-     Enter email addresses of people you'd like to invite:</label>
-     <small id="emailAddressesHelpText" class="form-text text-muted mt-0">
-     You can always send more invitations later.</small>
+      <label for="emailAddresses">
+      Enter email addresses of people you'd like to invite:</label>
+      <small id="emailAddressesHelpText" class="form-text text-muted mt-0">
+      You can always send more invitations later.</small>
 
-     <!-- User enters email addresses into textarea -->
-     <textarea class="form-control" name="emailAddresses"
-     id="emailAddresses" rows="3"></textarea>
-     <button type="button" role="button" class="btn btn-primary mb-5" id="addEmailsButton">Add emails</button>
+      <!-- User enters email addresses into textarea -->
+      <textarea class="form-control" name="emailAddresses"
+      id="emailAddresses" rows="3"></textarea>
+      <button type="button" role="button" class="btn btn-primary mb-5" id="addEmailsButton">Add emails</button>
 
-     <!-- Email addresses are extracted from textarea and
+      <!-- Email addresses are extracted from textarea and
       placed in individual email inputs -->
     </div>
  </div>
 
- <!-- Submit button -->
- <button class="btn btn-primary mb-5" type="submit">Create event</button>
+  <!-- Submit button -->
+  <button class="btn btn-primary mb-5" type="submit">Create event</button>
 </form>
