@@ -156,7 +156,7 @@ router.post('/create', async function (req, res, next) {
 		let dateTime = await helpers.parseDateTimeString(timeSlot);
 		await slot.createSlot(eventId, location, dateTime[0], dateTime[1]);
 	}
-	res.redirect('/manage');
+	res.redirect('/create');
 });
 
 // Use this route to test locally without constantly re-deploying to Heroku
