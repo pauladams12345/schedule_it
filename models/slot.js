@@ -69,7 +69,7 @@ module.exports.createSlot = async function(eventId, location, date, time, durati
 	try{
 		const connection = await sql.createConnection(dbcon);
 		await connection.query("INSERT INTO `indaba_db`.`Slot` " +
-		"(`fk_event_id`, `slot_location`, `slot_date`, `start_time`) VALUES (?, ?, ?, ?, ?);", [eventId, location, date, time, duration]);
+		"(`fk_event_id`, `slot_location`, `slot_date`, `start_time`, `duration`) VALUES (?, ?, ?, ?, ?);", [eventId, location, date, time, duration]);
 		connection.end();
 	}
 	catch (err) {
