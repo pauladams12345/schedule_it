@@ -128,7 +128,7 @@ router.post('/create', async function (req, res, next) {
 		description = req.body.description,
 		visibility = req.body.attendeeNameVisibility,
 		emails = req.body.emails,
-		slots = req.body.slots;
+		slots = req.body.slotStartTime;  //slots = req.body.slots;
 
 	if (typeof emails === 'string') {
 		emails = [emails];
@@ -143,12 +143,12 @@ router.post('/create', async function (req, res, next) {
 
 	//js returns a sting if one slot, but if more than one slot it returns an
 	//array.  here if we have a one slot string we push it to an array.
-	console.log(req.body.slots);
-	if (!Array.isArray(req.body.slots)){
-		slotArray.push(req.body.slots);
+	console.log(req.body.slotStartTime);
+	if (!Array.isArray(req.body.slotStartTime)){
+		slotArray.push(req.body.slotStartTime);
 	}
 	else{
-		slotArray = req.body.slots;
+		slotArray = req.body.slotStartTime;
 	}
 
 	//parse slot date/time substring

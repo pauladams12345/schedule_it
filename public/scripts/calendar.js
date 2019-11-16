@@ -83,7 +83,7 @@ function appendSlot(startTime, endTime, slotId, calenderEvent) {
   // Event start time (remains hidden)
   var start = document.createElement('input');
   start.setAttribute('type', 'text');
-  start.setAttribute('name', 'slot' + slotId);
+  start.setAttribute('name', 'slotStartTime');  //start.setAttribute('name', 'slot' + slotId);
   start.setAttribute('id', 'slotStart' + slotId);
   start.value = startTime;
   start.hidden = true;
@@ -155,7 +155,7 @@ function appendSlot(startTime, endTime, slotId, calenderEvent) {
   slot.appendChild(locationDiv);
   slot.appendChild(deleteButton);
 
-  // Hide form. Will become visible in the modal when user clicks 
+  // Hide form. Will become visible in the modal when user clicks
   // on correspondingevent in the calendar
   slot.hidden = true;
 
