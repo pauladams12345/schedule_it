@@ -96,6 +96,16 @@ router.get('/create', async function (req, res, next) {
 	res.render('create', context);
 });
 
+// Displays "Manage Event" page
+router.get('/manage', async function (req, res, next) {
+	let context = {};
+	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
+	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
+	context.scripts = ['calendar.js', 'create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
+	res.render('create', context);
+});
+
 // Use this route to test locally without constantly re-deploying to Heroku
 router.get('/create-test', async function (req, res, next) {
 	req.session.onid = 'williaev';
