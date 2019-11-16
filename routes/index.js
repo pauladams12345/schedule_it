@@ -143,6 +143,7 @@ router.post('/create', async function (req, res, next) {
 
 	//js returns a sting if one slot, but if more than one slot it returns an
 	//array.  here if we have a one slot string we push it to an array.
+	console.log(req.body.slots);
 	if (!Array.isArray(req.body.slots)){
 		slotArray.push(req.body.slots);
 	}
@@ -152,11 +153,10 @@ router.post('/create', async function (req, res, next) {
 
 	//parse slot date/time substring
 	for (let timeSlot of slotArray){
-		console.log(timeSlot);
 		let dateTime = await helpers.parseDateTimeString(timeSlot);
 		await slot.createSlot(eventId, location, dateTime[0], dateTime[1]);
 	}
-	res.redirect('/create');
+	res.redirect('/manage');
 });
 
 // Use this route to test locally without constantly re-deploying to Heroku
