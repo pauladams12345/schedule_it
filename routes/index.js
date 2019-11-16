@@ -103,7 +103,7 @@ router.get('/manage', async function (req, res, next) {
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
 	context.scripts = ['calendar.js', 'create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
-	res.render('create', context);
+	res.render('manage', context);
 });
 
 // Use this route to test locally without constantly re-deploying to Heroku
