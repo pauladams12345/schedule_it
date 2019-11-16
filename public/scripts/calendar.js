@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var hours = parseInt(document.getElementById('defaultDurationHours').value, 10);
       var minutes = parseInt(document.getElementById('defaultDurationMinutes').value, 10);
       var duration = (60 * hours) + minutes;
+      console.log(duration);
       info.end.setTime(info.start.getTime() + duration * 60000);
       var calenderEvent = calendar.addEvent({id: slotId, start: info.start, end: info.end});
       appendSlot(info.startStr, info.endStr, slotId, calenderEvent);//appendSlot(info.start, info.end, slotId, calenderEvent);
@@ -91,7 +92,7 @@ function appendSlot(startTime, endTime, slotId, calenderEvent) {
   // Event end time (remaind hidden)
   var end = document.createElement('input');
   end.setAttribute('type', 'text');
-  end.setAttribute('name', 'slot' + slotId);
+  end.setAttribute('name', 'slotEndTime' + slotId);  //end.setAttribute('name', 'slot' + slotId);
   end.setAttribute('id', 'slotEnd' + slotId);
   end.value = endTime;
   end.hidden = true;
