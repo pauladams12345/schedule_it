@@ -154,7 +154,7 @@ router.post('/create', async function (req, res, next) {
 	//parse slot date/time substring
 	for (let timeSlot of slotArray){
 		let dateTime = await helpers.parseDateTimeString(timeSlot);
-		await slot.createSlot(eventId, location, dateTime[0], dateTime[1], '01:00:00');
+		await slot.createSlot(eventId, location, dateTime[0], dateTime[1], duration);
 	}
 	res.redirect('/manage');
 });
