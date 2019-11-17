@@ -2,7 +2,7 @@ var	dbcon = 	require('../middleware/dbcon.js'),
 	sql =   	require('mysql2/promise');
 
 // Create an event with the given parameters
-module.exports.createEvent = async function(eventName, location, 
+module.exports.createEvent = async function(eventName, location,
 	maxAttendeePerSlot, maxResvPerAttendee, description, visibility) {
 	try {
 		const connection = await sql.createConnection(dbcon);
@@ -76,7 +76,7 @@ module.exports.getTimeInterval = async function(startTime, duration) {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
 			"SELECT ADDTIME ('" + startTime + "','" + duration + "') AS end_time");
-		let startTimeAMPM = await convertTime(startTime, rows[0].end_time);
+		let startTimeAMPM = await convertTime(startTime);//let startTimeAMPM = await convertTime(startTime, rows[0].end_time);
 		let endTimeAMPM = await convertTime(rows[0].end_time);
 		connection.end();
 		return startTimeAMPM + "-" + endTimeAMPM;
