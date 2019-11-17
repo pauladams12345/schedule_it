@@ -56,7 +56,7 @@ module.exports.getEventCreator = async function(eventId) {
 };
 
 //takes a time in MySQL 24h time format and converts to 12h format
-convertTime = async function(slotTime){
+let convertTime = async function(slotTime){
 	try{
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
@@ -76,7 +76,7 @@ module.exports.getTimeInterval = async function(startTime, duration) {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
 			"SELECT ADDTIME ('" + startTime + "','" + duration + "') AS end_time");
-		let startTimeAMPM = await convertTime(startTime, rows[0].end_time);
+		let startTimeAMPM = await convertTime(startTime);//let startTimeAMPM = await convertTime(startTime, rows[0].end_time);
 		let endTimeAMPM = await convertTime(rows[0].end_time);
 		connection.end();
 		return startTimeAMPM + "-" + endTimeAMPM;

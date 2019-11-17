@@ -96,6 +96,16 @@ router.get('/create', async function (req, res, next) {
 	res.render('create', context);
 });
 
+// Displays "Manage Event" page
+router.get('/manage', async function (req, res, next) {
+	let context = {};
+	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
+	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
+	context.scripts = ['calendar.js', 'create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
+	res.render('manage', context);
+});
+
 // Use this route to test locally without constantly re-deploying to Heroku
 router.get('/create-test', async function (req, res, next) {
 	req.session.onid = 'williaev';
@@ -137,6 +147,7 @@ router.post('/create', async function (req, res, next) {
 	// Store the invitations (users emails) in the database
 	await invitation.createInvitations(eventId, emails);
 
+
 	// // TODO: handle time zone conversions
 	// Process all slots
 	let i = 0;
@@ -167,28 +178,9 @@ router.post('/create', async function (req, res, next) {
 	}
 
 	// Redirect user to their homepage
-	res.redirect('/home');
+	res.redirect('/manage');
 });
 
-// Use this route to test locally without constantly re-deploying to Heroku
-router.get('/home-test', async function (req, res, next) {
-
-	req.session.onid = 'adamspa';
-	req.session.firstName = 'Paul';
-	let context = {};
-
-	context.eventsManaging = await createsEvent.getUserEvents('adamspa');
-
-	// Find all slots a user is registered for
-	let [reservations, fields] = await slot.findUserSlots(req.session.onid);
-
-	// Process response from database into a handlebars-friendly format
-	context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
-
-	context.firstName = req.session.firstName;
-	context.stylesheets = ['main.css', 'login.css', 'home.css'];
-	res.render('home', context);
-});
 
 
 
