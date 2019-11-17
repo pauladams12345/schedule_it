@@ -144,7 +144,7 @@ router.post('/create', async function (req, res, next) {
 
 	//js returns a sting if one slot, but if more than one slot it returns an
 	//array.  here if we have a one slot string we push it to an array.
-	console.log("test");
+	console.log(duration);
 	if (!Array.isArray(req.body.slotStartTime)){
 		slotArray.push(req.body.slotStartTime);
 	}

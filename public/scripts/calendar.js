@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
 function appendSlot(startTime, endTime, slotId, calenderEvent, slotDuration) {
+  console.log(slotDuration);
   var slot = document.createElement('div');
   slot.setAttribute('id', 'slot' + slotId);
 
@@ -105,7 +106,7 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotDuration) {
     end.setAttribute('id', 'slotEnd' + slotId);
     end.value = slotDuration;
     end.hidden = true;
-  }
+  };
 
   // Slot location. Defaults to null. Will be replaced with defaultLocation
   // upon form submission if not explicitly specified.
