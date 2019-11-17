@@ -100,7 +100,7 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
   var duration = document.createElement('input');
   duration.setAttribute('type', 'number');
   duration.setAttribute('name', 'slotDuration');  //end.setAttribute('name', 'slot' + slotId);
-  duration.setAttribute('id', 'slotEnd' + slotId);
+  duration.setAttribute('id', 'slotDuration' + slotId);
   duration.value = slotD;
   duration.hidden = false;
 
