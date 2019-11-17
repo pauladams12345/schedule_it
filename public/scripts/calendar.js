@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var duration = (60 * hours) + minutes;
       info.end.setTime(info.start.getTime() + duration * 60000);
       var calenderEvent = calendar.addEvent({id: slotId, start: info.start, end: info.end});
-      appendSlot(info.startStr, info.endStr, slotId, calenderEvent);//appendSlot(info.start, info.end, slotId, calenderEvent);
+      appendSlot(info.startStr, info.endStr, slotId, calenderEvent, duration);//appendSlot(info.start, info.end, slotId, calenderEvent);
     },
     // Upon clicking an existing slot, show the modal to edit details
     eventClick: function(clickInfo) {
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
-function appendSlot(startTime, endTime, slotId, calenderEvent) {
+function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
   var slot = document.createElement('div');
   slot.setAttribute('id', 'slot' + slotId);
 
