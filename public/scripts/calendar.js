@@ -98,12 +98,11 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
 
   // Event duration (remains hidden)
   var duration = document.createElement('input');
-  duration.setAttribute('type', 'text');
+  duration.setAttribute('type', 'number');
   duration.setAttribute('name', 'slotDuration');  //end.setAttribute('name', 'slot' + slotId);
   duration.setAttribute('id', 'slotEnd' + slotId);
   duration.value = slotD;
   duration.hidden = false;
-  console.log(duration);
 
   // Slot location. Defaults to null. Will be replaced with defaultLocation
   // upon form submission if not explicitly specified.
