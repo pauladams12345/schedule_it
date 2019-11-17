@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
       info.end.setTime(info.start.getTime() + duration * 60000);
       var calenderEvent = calendar.addEvent({id: slotId, start: info.start, end: info.end});
       console.log(duration);
-      //appendSlot(info.startStr, info.endStr, slotId, calenderEvent, duration);//appendSlot(info.start, info.end, slotId, calenderEvent);
+      appendSlot(info.startStr, info.endStr, slotId, calenderEvent, 60);//appendSlot(info.start, info.end, slotId, calenderEvent);
     },
     // Upon clicking an existing slot, show the modal to edit details
     eventClick: function(clickInfo) {
