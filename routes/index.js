@@ -118,34 +118,43 @@ router.post('/create', async function (req, res, next) {
 		description = req.body.description,
 		visibility = req.body.attendeeNameVisibility,
 		emails = req.body.emails,
-		slots = req.body.slots;
+		numSlots = req.body.numSlots;
 
 	if (typeof emails === 'string') {
 		emails = [emails];
 	}
 
 	// Store values in database
-	let eventId = await event.createEvent(eventName, location,
-		maxAttendeePerSlot, maxResvPerAttendee, description, visibility);
-	await createsEvent.createCreatesEvent(eventId, req.session.onid);
-	await invitation.createInvitations(eventId, emails);
+	// let eventId = await event.createEvent(eventName, location,
+	// 	maxAttendeePerSlot, maxResvPerAttendee, description, visibility);
+	// await createsEvent.createCreatesEvent(eventId, req.session.onid);
+	// await invitation.createInvitations(eventId, emails);
 
+	let i = 0;
+	let processedSlots = 0;
+	while (processedSlots < numSlots) {
+		if (req.body['slotStart' + i]) {
+			console.log('slot', i);
+			processedSlots++;
+		}
+		i++;
+	}
 
-	//js returns a sting if one slot, but if more than one slot it returns an
-	//array.  here if we have a one slot string we push it to an array.
-	if (!Array.isArray(req.body.slots)){
-		slotArray.push(req.body.slots);
-	}
-	else{
-		slotArray = req.body.slots;
-	}
+	// //js returns a sting if one slot, but if more than one slot it returns an
+	// //array.  here if we have a one slot string we push it to an array.
+	// if (!Array.isArray(req.body.slots)){
+	// 	slotArray.push(req.body.slots);
+	// }
+	// else{
+	// 	slotArray = req.body.slots;
+	// }
 
-	//parse slot date/time substring
-	for (let timeSlot of slotArray){
-		console.log(timeSlot);
-		let dateTime = await helpers.parseDateTimeString(timeSlot);
-		await slot.createSlot(eventId, location, dateTime[0], dateTime[1]);
-	}
+	// //parse slot date/time substring
+	// for (let timeSlot of slotArray){
+	// 	console.log(timeSlot);
+	// 	let dateTime = await helpers.parseDateTimeString(timeSlot);
+	// 	await slot.createSlot(eventId, location, dateTime[0], dateTime[1]);
+	// }
 	res.redirect('/home');
 });
 
