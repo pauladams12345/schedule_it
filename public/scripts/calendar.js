@@ -71,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
     eventResize: function(resizeInfo) {
       var endInput = document.getElementById("slotEnd" + resizeInfo.event.id);
       endInput.value = resizeInfo.event.end;
-      console.log(document.getElementById('slotStart0').value);
     }
   });
   calendar.render();
