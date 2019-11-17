@@ -98,12 +98,12 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
   end.hidden = true;
 
   // Event duration (remains hidden)
-  var end = document.createElement('input');
-  end.setAttribute('type', 'number');
-  end.setAttribute('name', 'slotDuration');  //end.setAttribute('name', 'slot' + slotId);
-  end.setAttribute('id', 'slotDuration' + slotId);
-  end.value = slotD;
-  end.hidden = true;
+  var duration = document.createElement('input');
+  duration.setAttribute('type', 'number');
+  duration.setAttribute('name', 'slotDuration');  //end.setAttribute('name', 'slot' + slotId);
+  duration.setAttribute('id', 'slotDuration' + slotId);
+  duration.value = slotD;
+  duration.hidden = true;
 
   // Slot location. Defaults to null. Will be replaced with defaultLocation
   // upon form submission if not explicitly specified.
@@ -160,6 +160,7 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
   // Append all the pieces together
   slot.appendChild(start);
   slot.appendChild(end);
+  slot.appendChild(duration);
   slot.appendChild(maxAttendeesDiv);
   slot.appendChild(locationDiv);
   slot.appendChild(deleteButton);
