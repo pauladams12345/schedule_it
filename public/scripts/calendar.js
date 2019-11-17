@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
       var duration = (60 * hours) + minutes;
       info.end.setTime(info.start.getTime() + duration * 60000);
       var calenderEvent = calendar.addEvent({id: slotId, start: info.start, end: info.end});
-      console.log(duration);
       appendSlot(info.startStr, info.endStr, slotId, calenderEvent, duration);//appendSlot(info.start, info.end, slotId, calenderEvent);
     },
     // Upon clicking an existing slot, show the modal to edit details
@@ -98,16 +97,12 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotDuration) {
   end.hidden = true;
 
   // Event duration (remains hidden)
-  // Ensures only one input is created otherwise will have parsing issuses in index.js
-  if (document.getElementsByName('slotDuration').length == 0){
-    //console.log(document.getElementsByName('slotDuration').length);
-    var duration = document.createElement('input');
-    duration.setAttribute('type', 'text');
-    duration.setAttribute('name', 'slotDuration');  //end.setAttribute('name', 'slot' + slotId);
-    duration.setAttribute('id', 'slotEnd' + slotId);
-    duration.value = slotDuration;
-    duration.hidden = true;
-  }
+  var duration = document.createElement('input');
+  duration.setAttribute('type', 'text');
+  duration.setAttribute('name', 'slotDuration');  //end.setAttribute('name', 'slot' + slotId);
+  duration.setAttribute('id', 'slotEnd' + slotId);
+  duration.value = slotDuration;
+  duration.hidden = true;
 
   // Slot location. Defaults to null. Will be replaced with defaultLocation
   // upon form submission if not explicitly specified.

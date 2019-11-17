@@ -134,7 +134,7 @@ router.post('/create', async function (req, res, next) {
 	if (typeof emails === 'string') {
 		emails = [emails];
 	}
-
+	console.log(duration);
 	// Store values in database
 	let eventId = await event.createEvent(eventName, location,
 		maxAttendeePerSlot, maxResvPerAttendee, description, visibility);
