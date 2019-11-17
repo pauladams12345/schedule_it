@@ -128,8 +128,8 @@ router.post('/create', async function (req, res, next) {
 		description = req.body.description,
 		visibility = req.body.attendeeNameVisibility,
 		emails = req.body.emails,
-		duration = 60, 
-		slots = req.body.slotStartTime;  //slots = req.body.slots;
+		duration = 60,
+		slots = req.body.slotStartTime;  
 
 	if (typeof emails === 'string') {
 		emails = [emails];
