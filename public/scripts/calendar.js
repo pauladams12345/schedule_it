@@ -77,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
 function appendSlot(startTime, endTime, slotId, calenderEvent) {
-  console.log('test');
   var slot = document.createElement('div');
   slot.setAttribute('id', 'slot' + slotId);
 
@@ -99,9 +98,6 @@ function appendSlot(startTime, endTime, slotId, calenderEvent) {
 
   // Event duration (remains hidden)
   var duration = document.createElement('input');
-  var hours = parseInt(document.getElementById('defaultDurationHours').value, 10);
-  var minutes = parseInt(document.getElementById('defaultDurationMinutes').value, 10);
-  var slotD = (60 * hours) + minutes;
   duration.setAttribute('type', 'number');
   duration.setAttribute('name', 'slotDuration');  //end.setAttribute('name', 'slot' + slotId);
   duration.setAttribute('id', 'slotDuration' + slotId);
