@@ -166,22 +166,6 @@ router.post('/create', async function (req, res, next) {
 		i++;
 	}
 
-	// //js returns a sting if one slot, but if more than one slot it returns an
-	// //array.  here if we have a one slot string we push it to an array.
-	// if (!Array.isArray(req.body.slots)){
-	// 	slotArray.push(req.body.slots);
-	// }
-	// else{
-	// 	slotArray = req.body.slots;
-	// }
-
-	// //parse slot date/time substring
-	// for (let timeSlot of slotArray){
-	// 	console.log(timeSlot);
-	// 	let dateTime = await helpers.parseDateTimeString(timeSlot);
-	// 	await slot.createSlot(eventId, location, dateTime[0], dateTime[1]);
-	// }
-
 	// Redirect user to their homepage
 	res.redirect('/home');
 });
