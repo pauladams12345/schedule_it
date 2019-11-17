@@ -98,7 +98,9 @@
 
   <!-- Calendar -->
   <p>Choose time slots:</p>
+  <div id='calendar' class='m-1 p-1'></div>
 
+  <!-- Time slot inputs. Dynamically generated and hidden in the modal until slot in calendar is clicked -->
   <div class="modal fade" id="addEventSlot" tabindex="-1" role="dialog" aria-labelledby="addEventSlotLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -115,14 +117,8 @@
     </div>
   </div> 
 
-  <div id='calendar' class='m-1 p-1'></div>
-
-  <!-- Time slot -->
- <div class="form-row">
-   <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group" id="timeSlot">
-   </div>
- </div>
-
+  <!-- Hidden input counting current number of time slots -->
+  <input type="number" name="numSlots" id="numSlots" value="0" hidden>
 
   <!-- Email addresses -->
   <div class="form-row">
