@@ -2,7 +2,7 @@ var	dbcon = 	require('../middleware/dbcon.js'),
 	sql =   	require('mysql2/promise');
 
 // Create an event with the given parameters
-module.exports.createEvent = async function(eventName, location,
+module.exports.createEvent = async function(eventName, location, 
 	maxAttendeePerSlot, maxResvPerAttendee, description, visibility) {
 	try {
 		const connection = await sql.createConnection(dbcon);
@@ -56,7 +56,7 @@ module.exports.getEventCreator = async function(eventId) {
 };
 
 //takes a time in MySQL 24h time format and converts to 12h format
-convertTime = async function(slotTime){
+let convertTime = async function(slotTime){
 	try{
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
