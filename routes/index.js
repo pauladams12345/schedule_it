@@ -147,6 +147,7 @@ router.post('/create', async function (req, res, next) {
 	// Store the invitations (users emails) in the database
 	await invitation.createInvitations(eventId, emails);
 
+
 	// // TODO: handle time zone conversions
 	// Process all slots
 	let i = 0;

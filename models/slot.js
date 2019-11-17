@@ -65,6 +65,7 @@ module.exports.findSlotAttendees = async function(slotId) {
 	}
 };
 
+
 //convert duration in minutes to hh:mm:ss for MySQL table
 // durationTime = async function(duration){
 // 	try{
