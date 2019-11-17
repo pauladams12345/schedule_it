@@ -80,7 +80,6 @@ durationTime = async function(duration){
 
 module.exports.createSlot = async function(eventId, location, date, time, duration){
 	try{
-	  console.log(duration);
 		const connection = await sql.createConnection(dbcon);
 		let slotDuration = await durationTime(duration);
 		await connection.query("INSERT INTO `indaba_db`.`Slot` " +
