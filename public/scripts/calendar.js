@@ -98,14 +98,15 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotDuration) {
 
   // Event duration (remains hidden)
   // Ensures only one input is created otherwise will have parsing issuses in index.js
-  //if (!document.getElementsByName('slotDuration')){
-  var end = document.createElement('input');
-  end.setAttribute('type', 'text');
-  end.setAttribute('name', 'slotDuration');  //end.setAttribute('name', 'slot' + slotId);
-  end.setAttribute('id', 'slotEnd' + slotId);
-  end.value = slotDuration;
-  end.hidden = true;
-  //};
+  var elementExists = document.getElementByName('slotDuration');
+  if (typeof(elementExists) == 'undefined' || elementExists == null){
+    var duration = document.createElement('input');
+    duration.setAttribute('type', 'text');
+    duration.setAttribute('name', 'slotDuration');  //end.setAttribute('name', 'slot' + slotId);
+    duration.setAttribute('id', 'slotEnd' + slotId);
+    duration.value = slotDuration;
+    duration.hidden = true;
+  };
 
   // Slot location. Defaults to null. Will be replaced with defaultLocation
   // upon form submission if not explicitly specified.
