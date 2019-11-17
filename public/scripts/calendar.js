@@ -98,12 +98,15 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
   end.hidden = true;
 
   // Event duration (remains hidden)
-  var duration = document.createElement('input');
-  duration.setAttribute('type', 'number');
-  duration.setAttribute('name', 'slotDuration');  //end.setAttribute('name', 'slot' + slotId);
-  duration.setAttribute('id', 'slotDuration' + slotId);
-  duration.value = slotD;
-  duration.hidden = true;
+  var check = document.getElementsByName("slotDuration");
+  if(check.length == 0){
+    var duration = document.createElement('input');
+    duration.setAttribute('type', 'number');
+    duration.setAttribute('name', 'slotDuration');  //end.setAttribute('name', 'slot' + slotId);
+    duration.setAttribute('id', 'slotDuration' + slotId);
+    duration.value = slotD;
+    duration.hidden = true;
+  }
 
   // Slot location. Defaults to null. Will be replaced with defaultLocation
   // upon form submission if not explicitly specified.
@@ -166,7 +169,7 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
   slot.appendChild(deleteButton);
 
   // Hide form. Will become visible in the modal when user clicks
-  // on correspondingevent in the calendar
+  // on corresponding event in the calendar
   slot.hidden = true;
 
   // Append all new elements to the modal
