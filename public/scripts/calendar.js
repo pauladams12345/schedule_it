@@ -41,8 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var duration = (60 * hours) + minutes;
       info.end.setTime(info.start.getTime() + duration * 60000);
       var calenderEvent = calendar.addEvent({id: slotId, start: info.start, end: info.end});
-      console.log(duration);
-      appendSlot(info.startStr, info.endStr, slotId, calenderEvent, 60);//appendSlot(info.start, info.end, slotId, calenderEvent);
+      appendSlot(info.start, info.end, slotId, calenderEvent);
     },
     // Upon clicking an existing slot, show the modal to edit details
     eventClick: function(clickInfo) {
@@ -77,43 +76,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
-function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
+function appendSlot(startTime, endTime, slotId, calenderEvent) {
   var slot = document.createElement('div');
   slot.setAttribute('id', 'slot' + slotId);
 
   // Event start time (remains hidden)
   var start = document.createElement('input');
   start.setAttribute('type', 'text');
-  start.setAttribute('name', 'slotStartTime');  //start.setAttribute('name', 'slot' + slotId);
+  start.setAttribute('name', 'slotStart' + slotId);
   start.setAttribute('id', 'slotStart' + slotId);
   start.value = startTime;
   start.hidden = true;
 
-  // Event end time (remains hidden)
+  // Event end time (remaind hidden)
   var end = document.createElement('input');
   end.setAttribute('type', 'text');
-  end.setAttribute('name', 'slotEndTime');  //end.setAttribute('name', 'slot' + slotId);
+  end.setAttribute('name', 'slotEnd' + slotId);
   end.setAttribute('id', 'slotEnd' + slotId);
   end.value = endTime;
   end.hidden = true;
-
-  // Event duration (remains hidden)
-  var check = document.getElementsByName("slotDuration");
-  if(check.length == 0){
-    var duration = document.createElement('input');
-    duration.setAttribute('type', 'number');
-    duration.setAttribute('name', 'slotDuration');  //end.setAttribute('name', 'slot' + slotId);
-    duration.setAttribute('id', 'slotDuration' + slotId);
-    duration.value = slotD;
-    duration.hidden = true;
-  }
 
   // Slot location. Defaults to null. Will be replaced with defaultLocation
   // upon form submission if not explicitly specified.
   var location = document.createElement('input');
   location.setAttribute('type', 'text');
   location.setAttribute('class', 'form-control')
-  location.setAttribute('name', 'slot' + slotId);
+  location.setAttribute('name', 'slotLocation' + slotId);
   location.setAttribute('id', 'slotLocation' + slotId);
 
   // Label for location input
@@ -127,7 +115,7 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
   var maxAttendees = document.createElement('input');
   maxAttendees.setAttribute('type', 'number');
   maxAttendees.setAttribute('class', 'form-control');
-  maxAttendees.setAttribute('name', 'slot' + slotId);
+  maxAttendees.setAttribute('name', 'slotMaxAttendees' + slotId);
   maxAttendees.setAttribute('id', 'slotMaxAttendees' + slotId);
 
   // Label for max attendees input
@@ -146,6 +134,8 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
   deleteButton.addEventListener('click', function(event) {
     calenderEvent.remove();
     slot.parentNode.removeChild(slot);
+    let numSlots = document.getElementById('numSlots');
+    numSlots.value = parseInt(numSlots.value, 10) - 1;
     $('#addEventSlot').modal('hide');
   });
 
@@ -163,13 +153,12 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
   // Append all the pieces together
   slot.appendChild(start);
   slot.appendChild(end);
-  slot.appendChild(duration);
   slot.appendChild(maxAttendeesDiv);
   slot.appendChild(locationDiv);
   slot.appendChild(deleteButton);
 
-  // Hide form. Will become visible in the modal when user clicks
-  // on corresponding event in the calendar
+  // Hide form. Will become visible in the modal when user clicks 
+  // on correspondingevent in the calendar
   slot.hidden = true;
 
   // Append all new elements to the modal
