@@ -100,7 +100,7 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotDuration) {
   // Ensures only one input is created otherwise will have parsing issuses in index.js
   console.log(document.getElementsByName('slotDuration').length);
   if (document.getElementsByName('slotDuration').length === 0){
-    console.log(document.getElementsByName('slotDuration').length);
+    //console.log(document.getElementsByName('slotDuration').length);
     var duration = document.createElement('input');
     duration.setAttribute('type', 'text');
     duration.setAttribute('name', 'slotDuration');  //end.setAttribute('name', 'slot' + slotId);
