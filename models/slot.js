@@ -69,9 +69,9 @@ module.exports.findSlotAttendees = async function(slotId) {
 durationTime = async function(duration){
 	try{
 		const connection = await sql.createConnection(dbcon);
-		let slotDuration = await connection.query("SELECT SEC_TO_TIME(" + duration + "* 60)");
+		const [rows, fields] = await connection.query("SELECT SEC_TO_TIME(" + duration + "* 60) AS slot_duration");
 		connection.end();
-		return slotDuration;
+		return rows[0].slot_duration;
 	}
 	catch (err) {
 		console.log(err);
