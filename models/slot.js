@@ -68,7 +68,7 @@ module.exports.findSlotAttendees = async function(slotId) {
 //convert duration in minutes to hh:mm:ss for MySQL table
 durationTime = async function(duration){
 	try{
-		let slotDuration = await connection.query(SELECT SEC_TO_TIME(duration * 60));
+		let slotDuration = await connection.query("SELECT SEC_TO_TIME(" + duration + "* 60)");
 		connection.end();
 		return slotDuration;
 	}
