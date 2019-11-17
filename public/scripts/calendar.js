@@ -91,7 +91,7 @@ function appendSlot(startTime, endTime, slotId, calenderEvent) {
   // Event end time (remaind hidden)
   var end = document.createElement('input');
   end.setAttribute('type', 'text');
-  end.setAttribute('name', 'slotEndTime' + slotId);  //end.setAttribute('name', 'slot' + slotId);
+  end.setAttribute('name', 'slotEndTime');  //end.setAttribute('name', 'slot' + slotId);
   end.setAttribute('id', 'slotEnd' + slotId);
   end.value = endTime;
   end.hidden = true;
