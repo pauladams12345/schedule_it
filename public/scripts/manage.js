@@ -13,7 +13,8 @@ let resvTable = async function(eventId){
   }
 };
 
-createResvTable(table){
-}
+function createResvTable(table){
+  console.log("test");
+};
 
 resvTable(eventId);
