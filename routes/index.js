@@ -177,7 +177,7 @@ router.post('/create', async function (req, res, next) {
 	}
 
 	// Redirect user to their homepage
-	res.redender('/manage');
+	res.redirect('/home');
 });
 
 // Use this route to test locally without constantly re-deploying to Heroku

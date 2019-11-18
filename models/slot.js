@@ -65,12 +65,7 @@ module.exports.findSlotAttendees = async function(slotId) {
 	}
 };
 
-<<<<<<< HEAD
-//convert duration in minutes to hh:mm:ss for MySQL table
-durationTime = async function(duration){
-=======
 module.exports.createSlot = async function(eventId, location, date, time, duration, maxAttendees){
->>>>>>> master
 	try{
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT SEC_TO_TIME(" + duration + "* 60) AS slot_duration");
@@ -87,12 +82,8 @@ module.exports.createSlot = async function(eventId, location, date, time, durati
 		const connection = await sql.createConnection(dbcon);
 		let slotDuration = await durationTime(duration);
 		await connection.query("INSERT INTO `indaba_db`.`Slot` " +
-<<<<<<< HEAD
-		"(`fk_event_id`, `slot_location`, `slot_date`, `start_time`, `duration`) VALUES (?, ?, ?, ?, ?)", [eventId, location, date, time, slotDuration]);
-=======
 		"(`fk_event_id`, `slot_location`, `slot_date`, `start_time`, `duration`, max_attendees) VALUES (?, ?, ?, ?, ?, ?);",
 		 [eventId, location, date, time, duration, maxAttendees]);
->>>>>>> master
 		connection.end();
 	}
 	catch (err) {

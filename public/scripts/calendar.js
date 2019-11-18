@@ -47,7 +47,10 @@ document.addEventListener('DOMContentLoaded', function() {
       appendSlot(info.start, info.end, slotId, calenderEvent);
       let numSlots = document.getElementById('numSlots');
       numSlots.value = parseInt(numSlots.value, 10) + 1;
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> origin/master
     },
     // Upon clicking an existing slot, show the modal to edit details
     eventClick: function(clickInfo) {
@@ -90,10 +93,14 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
   var start = document.createElement('input');
   start.setAttribute('type', 'text');
 <<<<<<< HEAD
+<<<<<<< HEAD
   start.setAttribute('name', 'slotStartTime');  //start.setAttribute('name', 'slot' + slotId);
 =======
   start.setAttribute('name', 'slotStart' + slotId);
 >>>>>>> master
+=======
+  start.setAttribute('name', 'slotStart' + slotId);
+>>>>>>> origin/master
   start.setAttribute('id', 'slotStart' + slotId);
   start.value = startTime;
   start.hidden = true;
@@ -102,10 +109,14 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
   var end = document.createElement('input');
   end.setAttribute('type', 'text');
 <<<<<<< HEAD
+<<<<<<< HEAD
   end.setAttribute('name', 'slotEndTime');  //end.setAttribute('name', 'slot' + slotId);
 =======
   end.setAttribute('name', 'slotEnd' + slotId);
 >>>>>>> master
+=======
+  end.setAttribute('name', 'slotEnd' + slotId);
+>>>>>>> origin/master
   end.setAttribute('id', 'slotEnd' + slotId);
   end.value = endTime;
   end.hidden = true;
