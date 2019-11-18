@@ -1,7 +1,6 @@
 //Pulls table with reservation info from database.
 //and calls function to create table on page.
 
- paeatea
 let eventId = 173;
 console.log(eventId);
 
