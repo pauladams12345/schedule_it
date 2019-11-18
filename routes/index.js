@@ -120,6 +120,7 @@ router.get('/create-test', async function (req, res, next) {
 // Process event creation form
 router.post('/create', async function (req, res, next) {
 	// Get values from request
+	let context = {};
 	let slotArray = [];
 	let eventName = req.body.eventName,
 		defaultLocation = req.body.defaultLocation,
@@ -177,8 +178,12 @@ router.post('/create', async function (req, res, next) {
 		i++;
 	}
 
-	// Redirect user to their manage event page
-	res.render('manage');
+	// Render the manage event page
+	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
+	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
+	context.scripts = ['calendar.js', 'create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
+	res.render('manage', context);
 });
 
 
