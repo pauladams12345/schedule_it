@@ -178,7 +178,7 @@ router.post('/create', async function (req, res, next) {
 	}
 
 	// Redirect user to their manage event page
-	res.redirect('/manage');
+	res.render('/manage');
 });
 
 
