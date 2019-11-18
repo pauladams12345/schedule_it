@@ -177,12 +177,8 @@ router.post('/create', async function (req, res, next) {
 		i++;
 	}
 
-	// Redirect user to their homepage
-<<<<<<< HEAD
-	res.redirect('/home');
-=======
+	// Redirect user to their manage event page
 	res.redirect('/manage');
->>>>>>> origin/master
 });
 
 
