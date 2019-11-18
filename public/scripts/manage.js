@@ -1,21 +1,9 @@
 //Pulls table with reservation info from database.
 //and calls function to create table on page.
+validateForm();
 
-let eventId = 173;
-console.log(eventId);
-
-let resvTable = async function(eventId){
-  try {
-    let table = await slot.eventSlotResv(eventId);
-    createResvTable(table);
-  }
-  catch (err) {
-    console.log(err);
-  }
-};
-
-function createResvTable(table){
+// Disable form submissions if there are invalid fields
+// Adapted from https://getbootstrap.com/docs/4.0/components/forms/
+function validateForm() {
   console.log("test");
-};
-
-resvTable(eventId);
+}
