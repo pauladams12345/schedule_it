@@ -12,5 +12,5 @@ let resvTable = async function(eventId){
 };
 
 let createResvTable = async function(table){
-  console.log(table);
+  console.log("test");
 }
