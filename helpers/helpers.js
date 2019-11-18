@@ -93,9 +93,14 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 		}
 
 		//  Create a nested  object for the current reservation
+		let dateTime = new Date(resv.slot_date + 'T' + resv.start_time);
+		let dateString = dateTime.toLocaleDateString('en-US', {weekday: 'long', month: 'short', day: 'numeric' , year: 'numeric'});
+		let timeString = dateTime.toLocaleTimeString('en-US') + ' - ';
+		timeString += new Date(dateTime.getTime() + resv.duration * 60000).toLocaleTimeString('en-US');
+		
 		events[id].reservations[resv.slot_id] = {
-			date: resv.slot_date,		// example of how to store data
-			time: await event.getTimeInterval(resv.start_time,resv.duration),
+			date: dateString,
+			time:  timeString,
 			location: resv.slot_location,
 			attendees: {}
 		};
