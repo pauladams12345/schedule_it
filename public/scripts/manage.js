@@ -17,4 +17,3 @@ createResvTable(table){
 }
 
 resvTable(eventId);
-//console.log("test");
