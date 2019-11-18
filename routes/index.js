@@ -183,7 +183,7 @@ router.post('/create', async function (req, res, next) {
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
 	context.scripts = ['manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
-	context.event = [eventID];
+	context.event = [eventId];
 	res.render('manage', context);
 });
 
