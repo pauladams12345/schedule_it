@@ -51,7 +51,7 @@ router.get('/home', async function (req, res, next) {
 		context.eventsManaging = await createsEvent.getUserEvents(req.session.onid);
 
 		// Find all slots a user is registered for
-		let [reservations, fields] = await slot.findUserSlots(req.session.onid);
+		let [reservations, fields] = await slot.findFutureUserSlots(req.session.onid);
 
 		// Process response from database into a handlebars-friendly format
 		context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
@@ -118,19 +118,27 @@ router.get('/create-test', async function (req, res, next) {
 });
 
 router.get('/past-reservations', async function (req, res, next) {
-	let context = {};
 	
-	context.eventsManaging = await createsEvent.getUserEvents(req.session.onid);
+	// If there is no session established, redirect to the landing page
+	if (!req.session.onid) {
+		res.redirect('../login');
+	}
 
-	// Find all slots a user is registered for
-	let [reservations, fields] = await slot.findUserSlots(req.session.onid);
+	// If there is a session, render users past reservations
+	else {
+		let context = {};
+		
+		context.eventsManaging = await createsEvent.getUserEvents(req.session.onid);
 
-	// Process response from database into a handlebars-friendly format
-	context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
+		// Find all slots a user registered for in the past
+		let [reservations, fields] = await slot.findPastUserSlots(req.session.onid);
 
-	req.session.onid = 'adamspa';
-	context.stylesheets = ['main.css', 'home.css']
-	res.render('past-reservations', context);
+		// Process response from database into a handlebars-friendly format
+		context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
+
+		context.stylesheets = ['main.css', 'home.css']
+		res.render('past-reservations', context);
+	}
 })
 
 router.get('/past-test', async function (req, res, next) {
@@ -140,12 +148,11 @@ router.get('/past-test', async function (req, res, next) {
 	context.eventsManaging = await createsEvent.getUserEvents(req.session.onid);
 
 	// Find all slots a user is registered for
-	let [reservations, fields] = await slot.findUserSlots(req.session.onid);
+	let [reservations, fields] = await slot.findPastUserSlots(req.session.onid);
 
 	// Process response from database into a handlebars-friendly format
 	context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
 
-	req.session.onid = 'adamspa';
 	context.stylesheets = ['main.css', 'home.css']
 	res.render('past-reservations', context);
 })

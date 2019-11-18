@@ -1,9 +1,9 @@
 var	dbcon = 	require('../middleware/dbcon.js'),
 	sql =   	require('mysql2/promise');
 
-// Query database for all slots which a user has reserved and return all columns
-// from the Slot, Reserve_Slot, and Event tables
-module.exports.findUserSlots = async function(onid) {
+// Query database for all slots which a user has reserved with a 
+// date of yesterday or earlier
+module.exports.findPastUserSlots = async function(onid) {
 	try {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
@@ -12,7 +12,29 @@ module.exports.findUserSlots = async function(onid) {
 			" event_name, description, event_id FROM `Slot` s " +
 			"INNER JOIN `Reserve_Slot` rs ON s.slot_id = rs.fk_slot_id " +
 			"RIGHT JOIN `Event` e ON s.fk_event_id = e.event_id " +
-			"WHERE fk_onid = ? " +
+			"WHERE fk_onid = ? AND slot_date < CURDATE() - INTERVAL 1 DAY " +
+			"ORDER BY s.slot_date",
+			[onid]);
+		connection.end();
+		return [rows, fields];
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+// Query database for all slots which a user has reserved with a 
+// date of yesterday or later
+module.exports.findFutureUserSlots = async function(onid) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+			"SELECT slot_id, DATE_FORMAT(slot_date, '%Y-%m-%d') slot_date," +
+			"start_time, duration, slot_location," +
+			" event_name, description, event_id FROM `Slot` s " +
+			"INNER JOIN `Reserve_Slot` rs ON s.slot_id = rs.fk_slot_id " +
+			"RIGHT JOIN `Event` e ON s.fk_event_id = e.event_id " +
+			"WHERE fk_onid = ? AND slot_date >= CURDATE() - INTERVAL 1 DAY " +
 			"ORDER BY s.slot_date",
 			[onid]);
 		connection.end();
