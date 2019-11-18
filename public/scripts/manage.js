@@ -1,5 +1,6 @@
 //Pulls table with reservation info from database.
 //and calls function to create table on page.
+console.log("test");
 let eventId = 173;
 resvTable(eventId);
 
