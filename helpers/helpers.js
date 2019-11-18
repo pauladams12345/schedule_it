@@ -68,8 +68,8 @@ module.exports.createUserIfNew = async function(attributes){
 };
 
 module.exports.parseDateTimeString = async function (slot){
-	let date = '' + slot.getFullYear() + '-' + (slot.getMonth() + 1) + '-' + slot.getDate();
-	let time = '' + slot.getHours() + ':' + slot.getMinutes() + ':00' ;
+	let date = slot.toISOString().substring(0,10);
+	let time = slot.toISOString().substring(11,19);
 	return [date, time];
 };
 

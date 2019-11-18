@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
       info.end.setTime(info.start.getTime() + duration * 60000);
       var calenderEvent = calendar.addEvent({id: slotId, start: info.start, end: info.end});
 <<<<<<< HEAD
+<<<<<<< HEAD
       appendSlot(info.startStr, info.endStr, slotId, calenderEvent, duration);//appendSlot(info.start, info.end, slotId, calenderEvent);
 =======
       appendSlot(info.start, info.end, slotId, calenderEvent);
@@ -50,6 +51,11 @@ document.addEventListener('DOMContentLoaded', function() {
 <<<<<<< HEAD
 >>>>>>> master
 =======
+>>>>>>> origin/master
+=======
+      appendSlot(info.start, info.end, slotId, calenderEvent);
+      let numSlots = document.getElementById('numSlots');
+      numSlots.value = parseInt(numSlots.value, 10) + 1;
 >>>>>>> origin/master
     },
     // Upon clicking an existing slot, show the modal to edit details
@@ -85,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
-function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
+function appendSlot(startTime, endTime, slotId, calenderEvent) {
   var slot = document.createElement('div');
   slot.setAttribute('id', 'slot' + slotId);
 
@@ -94,10 +100,14 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
   start.setAttribute('type', 'text');
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   start.setAttribute('name', 'slotStartTime');  //start.setAttribute('name', 'slot' + slotId);
 =======
   start.setAttribute('name', 'slotStart' + slotId);
 >>>>>>> master
+=======
+  start.setAttribute('name', 'slotStart' + slotId);
+>>>>>>> origin/master
 =======
   start.setAttribute('name', 'slotStart' + slotId);
 >>>>>>> origin/master
@@ -110,6 +120,7 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
   end.setAttribute('type', 'text');
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   end.setAttribute('name', 'slotEndTime');  //end.setAttribute('name', 'slot' + slotId);
 =======
   end.setAttribute('name', 'slotEnd' + slotId);
@@ -117,10 +128,14 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
 =======
   end.setAttribute('name', 'slotEnd' + slotId);
 >>>>>>> origin/master
+=======
+  end.setAttribute('name', 'slotEnd' + slotId);
+>>>>>>> origin/master
   end.setAttribute('id', 'slotEnd' + slotId);
   end.value = endTime;
   end.hidden = true;
 
+<<<<<<< HEAD
   // Event duration (remains hidden)
   //var check = document.getElementsByName("slotDuration");
   //if(check.length == 0){
@@ -132,6 +147,8 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
   duration.hidden = true;
   //}
 
+=======
+>>>>>>> origin/master
   // Slot location. Defaults to null. Will be replaced with defaultLocation
   // upon form submission if not explicitly specified.
   var location = document.createElement('input');
@@ -189,12 +206,11 @@ function appendSlot(startTime, endTime, slotId, calenderEvent, slotD) {
   // Append all the pieces together
   slot.appendChild(start);
   slot.appendChild(end);
-  slot.appendChild(duration);
   slot.appendChild(maxAttendeesDiv);
   slot.appendChild(locationDiv);
   slot.appendChild(deleteButton);
 
-  // Hide form. Will become visible in the modal when user clicks
+  // Hide form. Will become visible in the modal when user clicks 
   // on corresponding event in the calendar
   slot.hidden = true;
 
