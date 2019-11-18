@@ -145,4 +145,4 @@ module.exports.createTable = async function (tableRows) {  //Builds table
    div1 = document.getElementById("resv");
    div1.appendChild(para);
    div1.appendChild(table1);
-}
+};
