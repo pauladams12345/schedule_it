@@ -153,9 +153,9 @@ router.get('/get-past-reservations', async function (req, res, next) {
 	let [reservations, fields] = await slot.findPastUserSlots(req.session.onid);
 
 	// Process response from database into a handlebars-friendly format
-	let eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
+	// let eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
 
-	res.send(JSON.stringify(eventsAttending));
+	res.send(JSON.stringify(reservations));
 })
 
 // Process event creation form
