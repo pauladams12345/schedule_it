@@ -67,7 +67,6 @@ module.exports.findSlotAttendees = async function(slotId) {
 
 module.exports.eventSlotResv = async function(eventId){
 	try{
-	  console.log("test");
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT * FROM  `Event` " +
 		"INNER JOIN `Slot` ON fk_event_id = event_id INNER JOIN `Reserve_Slot` ON " +
