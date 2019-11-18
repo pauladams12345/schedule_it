@@ -103,6 +103,7 @@ router.get('/manage', async function (req, res, next) {
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
 	context.scripts = ['calendar.js', 'manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
+	console.log("test");
 	res.render('manage', context);
 });
 
