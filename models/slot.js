@@ -65,19 +65,19 @@ module.exports.findSlotAttendees = async function(slotId) {
 	}
 };
 
-
-//convert duration in minutes to hh:mm:ss for MySQL table
-// durationTime = async function(duration){
-// 	try{
-// 		const connection = await sql.createConnection(dbcon);
-// 		const [rows, fields] = await connection.query("SELECT SEC_TO_TIME(" + duration + "* 60) AS slot_duration");
-// 		connection.end();
-// 		return rows[0].slot_duration;
-// 	}
-// 	catch (err) {
-// 		console.log(err);
-// 	}
-// };
+module.exports.eventSlotResv = async function(eventId){
+	try{
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query("SELECT * FROM  `Event` " +
+		"INNER JOIN `Slot` ON fk_event_id = event_id INNER JOIN `Reserve_Slot` ON " +
+		"fk_slot_id = slot_id INNER JOIN `OSU_member` ON fk_onid = onid WHERE event_id =173");
+		return [rows, fields];
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
 
 module.exports.createSlot = async function(eventId, location, date, time, duration, maxAttendees){
 	try{
