@@ -2,7 +2,7 @@
 //and calls function to create table on page.
 
 let eventId = 173;
-console.log(eventId);
+console.log(slot.eventSlotResv(eventId));
 
 let resvTable = async function(eventId){
   try {
