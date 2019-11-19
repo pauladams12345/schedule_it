@@ -75,8 +75,8 @@ module.exports.parseDateTimeString = async function (slot){
 
 module.exports.processReservationsForDisplay = async function (reservations, user_ONID){
 	let event_ids = []; 	// Keep track of which events we've added
-	let events = [];		// Store the details of each event in a handlebars-friendly format
-	let i = 0;
+	let events = {};		// Store the details of each event in a handlebars-friendly format
+
 	// Loop over each reservation to fill the events object
 	for (let resv of reservations) {
 		let id = resv.event_id;
@@ -84,12 +84,12 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 		// If we haven't seen this event before, create a nested object for it
 		if ( !event_ids.includes(id) ){
 			event_ids.push(id);								// add current event ID to tracking array
-			events.push({									// create event object
+			events[id] = {									// create event object
 				title: resv.event_name,
 				creator: await event.getEventCreator(id),
 				description: resv.description,
-				reservations: []
-			});
+				reservations: {}
+			};
 		}
 
 		//  Create a nested  object for the current reservation
@@ -98,14 +98,12 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 		let timeString = dateTime.toLocaleTimeString('en-US') + ' - ';
 		timeString += new Date(dateTime.getTime() + resv.duration * 60000).toLocaleTimeString('en-US');
 		
-		console.log(events);
-		console.log(events[i]);
-		events[i]['reservations'].push({
+		events[id].reservations[resv.slot_id] = {
 			date: dateString,
 			time:  timeString,
 			location: resv.slot_location,
-			attendees: []
-		});
+			attendees: {}
+		};
 		const [attendees, fields] = await slot.findSlotAttendees(resv.slot_id);
 		for (let attendee of attendees){
 			if(attendee.onid != user_ONID){
@@ -116,7 +114,6 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 				};
 			}
 		}
-		i++;
 	}
 	return events;
 };
