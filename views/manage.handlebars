@@ -6,12 +6,6 @@
   <a class="btn btn-primary btn-lg" href="/manage" role="button">Reserve Time Slot</a> <!--update href later -->
 </div>
 
-<!--{{#each slotResv}}
-<p class="mb-0"><b>{{this.slot_date}}</b></p>
-<p class="mb-0">test</p>
-<p class="mb-0">{{this.location}}</p>
-{{/each}}-->
-
 <div class="table-responsive-md" id = "resv">
   <table class="table table-bordered table-light">
   <thead>
@@ -27,7 +21,7 @@
   <tbody>
     {{#each slotResv}}
     <tr>
-      <th scope="row"></th>
+      <!--<th scope="row"></th>-->
       <td>{{this.first_name}}</td>
       <td>{{this.last_name}}</td>
       <td>{{this.ONID_email}}</td>
