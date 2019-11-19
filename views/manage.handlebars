@@ -21,14 +21,15 @@
   <tbody>
     <tr>
       <th scope="row"></th>
-      {{#each this.slotResv}}
-      <td>{{this.first_name}}</td>
+      {{#each slotResv}}
+      {{this.first_name}}
+      {{/each}}
+      <!--<td>{{this.first_name}}</td>
       <td>{{this.last_name}}</td>
       <td>{{this.ONID_email}}</td>
       <td>{{this.slot_date}}</td>
       <td>{{this.start_time}}</td>
-      <td>{{this.location}}</td>
-      {{/each}}
+      <td>{{this.location}}</td>-->
     </tr>
   </tbody>
 </table>
