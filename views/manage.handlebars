@@ -25,8 +25,8 @@
     </tr>
   </thead>
   <tbody>
+    {{#each slotResv}}
     <tr>
-      {{#each slotResv}}
       <th scope="row"></th>
       <td>{{this.first_name}}</td>
       <td>{{this.last_name}}</td>
@@ -34,8 +34,8 @@
       <td>{{this.slot_date}}</td>
       <td>{{this.start_time}}</td>
       <td>{{this.location}}</td>
-      {{/each}}
     </tr>
+    {{/each}}
   </tbody>
 </table>
 </div>
