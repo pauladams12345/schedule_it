@@ -124,6 +124,7 @@ module.exports.processEventSlotsForDisplay = async function (reservations, event
 		time: resv.start_time,
 		locale: resv.location
 		};
+		resv.push(slot);
 	}
 	return resv;
 };
