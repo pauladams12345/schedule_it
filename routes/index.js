@@ -100,7 +100,7 @@ router.get('/create', async function (req, res, next) {
 router.get('/manage', async function (req, res, next) {
 	let context = {};
 	let [reservations, fields] = await slot.eventSlotResv(173);
-	res.send(JSON.stringify(reservations));
+	res.send(reservations);
 });
 
 /*router.get('/manage', async function (req, res, next) {
