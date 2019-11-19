@@ -112,20 +112,3 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 	}
 	return events;
 };
-
-module.exports.processEventSlotsForDisplay = async function (reservations, eventId){
-	let slots = {};
-	let id = 0;
-	// Loop over each reservation to fill the events object
-	for (let resv of reservations) {
-		slots[id] = {firstName: resv.first_name,
-		lastName: resv.last_name,
-		email: resv.ONID_email,
-		date: resv.slot_date,
-		time: resv.start_time,
-		locale: resv.location
-		};
-		id++;
-	}
-	return slots;
-};
