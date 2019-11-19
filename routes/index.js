@@ -188,7 +188,7 @@ router.post('/create', async function (req, res, next) {
 	context.scripts = ['manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 	context.event = [eventId];
-	res.render('manage', context);
+	res.redirect('/manage');
 });
 
 
