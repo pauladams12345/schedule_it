@@ -181,6 +181,10 @@ router.post('/create', async function (req, res, next) {
 		}
 		i++;
 	}
+	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
+	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
+	context.scripts = ['calendar.js', 'create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 	res.redirect('/manage/?eventId=' + eventId);
 });
 
