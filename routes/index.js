@@ -96,15 +96,12 @@ router.get('/create', async function (req, res, next) {
 	res.render('create', context);
 });
 
-// Displays "Manage Event" page
-/*router.get('/manage', async function (req, res, next) {
-	let context = {};
-	let [reservations, fields] = await slot.eventSlotResv(173);
-	res.send(JSON.stringify(reservations));
-});*/
 
 router.get('/manage', async function (req, res, next) {
-	let context = {};
+	let context = {};;
+	let [reservations, fields] = await slot.eventSlotResv(173);
+	context.slotResv = await helpers.processEventSlotsForDisplay(reservations);
+	console.log(context.slotResv);
 	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
 	context.scripts = ['manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
