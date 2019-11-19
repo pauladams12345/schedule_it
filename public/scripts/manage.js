@@ -1,12 +1,11 @@
-console.log("test");
-/*$.ajax({
+$.ajax({
   type: 'GET',
   url: '/slots_for_manage',
   success: function(resp){
     var reservations = JSON.parse(resp);
     console.log(reservations);
   }
-});*/
+});
 
 
 
