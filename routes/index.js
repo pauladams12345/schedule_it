@@ -90,7 +90,7 @@ router.get('/create', async function (req, res, next) {
 	let context = {};
 	context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
-	context.scripts = ['calendar.js', 'create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	context.scripts = ['calendarCreate.js', 'create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 	res.render('create', context);
 });
@@ -102,10 +102,23 @@ router.get('/manage/:eventId', async function (req, res, next) {
 	let [reservations, fields] = await slot.eventSlotResv(eventId);
 	context.eventDetails = await event.findEvent(eventId);
 	context.slotResv = reservations;
-	console.log(context.eventDetails);
+
+	let existingSlots = await slot.findEventSlots(eventId);
+	console.log('existingSlots: ', existingSlots);
+	for (let slot of existingSlots) {
+		let startTime = new Date(slot.slot_date);												// get date of slot start
+		startTime.setUTCHours(slot.start_time.substring(0,2), slot.start_time.substring(3,5));	// set time of slot start
+		let endTime = new Date(startTime.getTime() + slot.duration * 60000);					// set date/time of slot end
+		slot['start_time'] = startTime;
+		slot['end_time'] = endTime;
+	}
+	console.log('existingSlots: ', existingSlots);
+
+
+	console.log('eventDetails: ', context.eventDetails);
 	context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
-	context.scripts = ['calendar.js', 'create.js', 'manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	context.scripts = ['calendarManage.js', 'create.js', 'manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 	res.render('manage', context);
 });
@@ -117,7 +130,7 @@ router.get('/create-test', async function (req, res, next) {
 	let context = {};
 	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
-	context.scripts = ['calendar.js', 'create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	context.scripts = ['calendarCreate.js', 'create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 	res.render('create', context);
 });

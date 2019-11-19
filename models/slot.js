@@ -31,7 +31,8 @@ module.exports.findFutureUserSlots = async function(onid) {
 		const [rows, fields] = await connection.query(
 			"SELECT slot_id, DATE_FORMAT(slot_date, '%Y-%m-%d') slot_date," +
 			"start_time, duration, slot_location," +
-			" event_name, description, event_id FROM `Slot` s " +
+			" event_name, description, event_id " +
+			"FROM `Slot` s " +
 			"INNER JOIN `Reserve_Slot` rs ON s.slot_id = rs.fk_slot_id " +
 			"RIGHT JOIN `Event` e ON s.fk_event_id = e.event_id " +
 			"WHERE fk_onid = ? AND slot_date >= CURDATE() - INTERVAL 1 DAY " +
@@ -87,6 +88,25 @@ module.exports.findSlotAttendees = async function(slotId) {
 	}
 };
 
+module.exports.findEventSlots = async function(eventId) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+		"SELECT s.slot_id, s.slot_date, s.start_time, " +
+		"s.duration, s.slot_location, s.max_attendees " +
+		"FROM `Slot` s " +
+		"INNER JOIN `Event` e ON s.fk_event_id = e.event_id " +
+		"WHERE s.fk_event_id = ?", 
+		[eventId]);
+		connection.end();
+		return rows;
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+// Find all slot reservations for a given event
 module.exports.eventSlotResv = async function(eventId){
 	try{
 		const connection = await sql.createConnection(dbcon);
