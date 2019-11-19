@@ -11,7 +11,7 @@ var Router = 		require('express-promise-router'),
 // for users redirected from CAS login then redirects to personal homepage
 router.get('/', async function (req, res, next) {
 
-	// If there's no CAS ticket in the string, redirect to the landing page
+	// If there's no CAS ticket in the query string, redirect to the landing page
 	if (!req.query.ticket) {
 		res.redirect('/login');
 	}
@@ -127,6 +127,8 @@ router.get('/past-reservations', async function (req, res, next) {
 	// If there is a session, render users past reservations
 	else {
 		let context = {};
+		
+		context.eventsManaging = await createsEvent.getUserEvents(req.session.onid);
 
 		// Find all slots a user registered for in the past
 		let [reservations, fields] = await slot.findPastUserSlots(req.session.onid);
@@ -137,25 +139,22 @@ router.get('/past-reservations', async function (req, res, next) {
 		context.stylesheets = ['main.css', 'home.css']
 		res.render('past-reservations', context);
 	}
-});
+})
 
 router.get('/past-test', async function (req, res, next) {
 	let context = {};
 	req.session.onid = 'adamspa';
-	context.scripts = ['pastReservations.js'];
-	context.stylesheets = ['main.css', 'home.css'];
-	res.render('past-reservations', context);
-});
-
-router.get('/get-past-reservations', async function (req, res, next) {
+	
+	context.eventsManaging = await createsEvent.getUserEvents(req.session.onid);
 
 	// Find all slots a user is registered for
 	let [reservations, fields] = await slot.findPastUserSlots(req.session.onid);
 
 	// Process response from database into a handlebars-friendly format
-	let eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
+	context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
 
-	res.send(JSON.stringify(eventsAttending));
+	context.stylesheets = ['main.css', 'home.css']
+	res.render('past-reservations', context);
 })
 
 // Process event creation form
