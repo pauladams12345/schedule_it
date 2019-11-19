@@ -71,7 +71,7 @@ module.exports.eventSlotResv = async function(eventId){
 		const [rows, fields] = await connection.query("SELECT first_name, last_name, " +
 		"ONID_email, slot_date, start_time, location FROM  `Event` " +
 		"INNER JOIN `Slot` ON fk_event_id = event_id INNER JOIN `Reserve_Slot` ON " +
-		"fk_slot_id = slot_id INNER JOIN `OSU_member` ON fk_onid = onid WHERE event_id = ?", [eventId]);
+		"fk_slot_id = slot_id INNER JOIN `OSU_member` ON fk_onid = onid WHERE event_id = ? ORDER BY slot_date", [eventId]);
 		return [rows, fields];
 		connection.end();
 	}
