@@ -5,3 +5,32 @@
   <p class="lead">Need to reserve a time slot for yourself.  Just click below:</p>
   <a class="btn btn-primary btn-lg" href="/manage" role="button">Reserve Time Slot</a> <!--update href later -->
 </div>
+<br><b><p class="lead">Reservations:</p></b>
+<div class="table-responsive-md" id = "resv">
+  <table class="table table-bordered table-light">
+  <thead>
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      <th scope="col">Location</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each slotResv}}
+    <tr>
+      <td>{{this.first_name}}</td>
+      <td>{{this.last_name}}</td>
+      <td>{{this.ONID_email}}</td>
+      <td>{{this.slot_date}}</td>
+      <td>{{this.start_time}}</td>
+      <td>{{this.location}}</td>
+      <td><button type="button" class="btn btn-primary">Delete</button></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>

@@ -159,7 +159,7 @@ function appendSlot(startTime, endTime, slotId, calenderEvent) {
   slot.appendChild(locationDiv);
   slot.appendChild(deleteButton);
 
-  // Hide form. Will become visible in the modal when user clicks 
+  // Hide form. Will become visible in the modal when user clicks
   // on corresponding event in the calendar
   slot.hidden = true;
 
