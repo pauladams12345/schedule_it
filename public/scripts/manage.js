@@ -1,6 +1,6 @@
 //Builds table
 
- var table1 = document.createElement("table");  //create a table node
+ /*var table1 = document.createElement("table");  //create a table node
  table1.setAttribute("id", "table1");
  table1.setAttribute("class", "table table-light");
 
@@ -14,7 +14,7 @@
    head.appendChild(headRow);
  }
  table1.appendChild(head);
- /*var tableBody = document.createElement("tbody");
+ var tableBody = document.createElement("tbody");
  for(var j = 0; j < row; j++){
    var newRow = document.createElement("tr");
    for (var prop in tableRows[j]) {
@@ -23,13 +23,13 @@
        newRow.appendChild(rowElement);
      }
      tableBody.appendChild(newRow);
-   }*/
+   }
  var para = document.createElement('p');
  para.textContent = "reservations";
  //table1.appendChild(tableBody);
  div1 = document.getElementById("resv");
  //div1.appendChild(para);
- div1.appendChild(table1);
+ div1.appendChild(table1);*/
 
    /*var row = tableRows.length;
    var headers = ['First Name','Last Name', 'E-mail', 'Date', 'Time', 'Location'];
