@@ -114,11 +114,11 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 };
 
 module.exports.processEventSlotsForDisplay = async function (reservations, eventId){
-	let resv = {};
+	let slots = {};
 	let id = 0;
 	// Loop over each reservation to fill the events object
 	for (let resv of reservations) {
-		resv[id] = {firstName: resv.first_name,
+		slots[id] = {firstName: resv.first_name,
 		lastName: resv.last_name,
 		email: resv.ONID_email,
 		date: resv.slot_date,
@@ -127,5 +127,5 @@ module.exports.processEventSlotsForDisplay = async function (reservations, event
 		};
 		id++;
 	}
-	return resv;
+	return slots;
 };
