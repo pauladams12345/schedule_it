@@ -1,3 +1,4 @@
+console.log("test");
 /*$.ajax({
   type: 'GET',
   url: '/slots_for_manage',
