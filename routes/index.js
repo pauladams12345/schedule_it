@@ -97,15 +97,21 @@ router.get('/create', async function (req, res, next) {
 });
 
 // Displays "Manage Event" page
-router.get('/manage', async function (req, res, next) {
+router.get('/slots_for_manage', async function (req, res, next) {
 	let context = {};
 	let [reservations, fields] = await slot.eventSlotResv(173);
+	res.send(JSON.stringify(reservations));
+});
+
+router.get('/manage', async function (req, res, next) {
+	let context = {};
 	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
-	context.scripts = ['calendar.js', 'create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	context.scripts = ['manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
-	res.send(JSON.stringify(reservations), context);
+	res.render('manage', context);
 });
+
 
 // Use this route to test locally without constantly re-deploying to Heroku
 router.get('/create-test', async function (req, res, next) {
