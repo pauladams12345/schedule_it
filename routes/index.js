@@ -182,7 +182,7 @@ router.post('/create', async function (req, res, next) {
 		}
 		i++;
 	}
-	req.session.eventId = eventId;
+	req.session.eventId = 173;
 	res.redirect('/manage');
 });
 
