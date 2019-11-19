@@ -99,7 +99,7 @@ router.get('/create', async function (req, res, next) {
 
 router.get('/manage', async function (req, res, next) {
 	let context = {};;
-	let [reservations, fields] = await slot.eventSlotResv(req.query.eventId);
+	let [reservations, fields] = await slot.eventSlotResv(req.session.eventId);
 	context.slotResv = reservations;
 	//console.log(context.slotResv);
 	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
@@ -181,6 +181,7 @@ router.post('/create', async function (req, res, next) {
 		}
 		i++;
 	}
+	req.session.eventId = eventId;
 	res.redirect('/manage');
 });
 
