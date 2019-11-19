@@ -97,13 +97,14 @@ router.get('/create', async function (req, res, next) {
 });
 
 
-router.get('/manage', async function (req, res, next) {
-	let context = {};;
-	let [reservations, fields] = await slot.eventSlotResv(req.session.eventId);
+router.get('/manage/:eventId', async function (req, res, next) {
+	let eventId = req.params.eventId;
+	let context = {};
+	let [reservations, fields] = await slot.eventSlotResv(eventId);
 	//let [reservations, fields] = await slot.eventSlotResv(173);
 	context.slotResv = reservations;
 	//console.log(context.slotResv);
-	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
+	context.stylesheets = ['main.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
 	context.scripts = ['manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
@@ -222,8 +223,7 @@ router.post('/create', async function (req, res, next) {
 		}
 		i++;
 	}
-	req.session.eventId = eventId;
-	res.redirect('/manage');
+	res.redirect('/manage/' + eventId);
 });
 
 
