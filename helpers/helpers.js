@@ -115,7 +115,7 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 
 module.exports.processEventSlotsForDisplay = async function (reservations, eventId){
 	let resv = {};
-	let count = 0;
+	let id = 0;
 	// Loop over each reservation to fill the events object
 	for (let resv of reservations) {
 		resv[id] = {firstName: resv.first_name,
