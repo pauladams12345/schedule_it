@@ -1,22 +1,4 @@
-<div class="jumbotron py-4 my-4">
-  <h1 class="display-4">Hello, {{firstName}}!</h1>
-  <p class="lead">Start organizing an event by clicking the button below.</p>
-  <a class="btn btn-primary btn-lg" href="/create" role="button">Create Event</a>
-</div>
-
-<h1>Events you're managing:</h1>
-<br>
-{{#each eventsManaging}}
-<p class="pl-2">
-  <a class="h3" href="#">{{this}}</a>
-</p>
-{{/each}}
-<br>
-<a class="btn btn-primary btn-lg" href="#" role="button">View past events</a>
-<br>
-<br>
-
-<h1>Events you're attending:</h1>
+<h1 class="mt-5">Your past reservations:</h1>
 <br>
 {{#each eventsAttending}}
 <div class="reservation-display mb-4 ml-2 w-auto">
@@ -56,4 +38,3 @@
 
 </div>
 {{/each}}
-<a class="btn btn-primary btn-lg mt-2 mb-5" href="/past-reservations" role="button">View past reservations</a>

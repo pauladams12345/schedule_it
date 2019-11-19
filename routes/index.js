@@ -48,10 +48,10 @@ router.get('/home', async function (req, res, next) {
 	else {
 		let context = {};
 
-		context.eventsManaging = await createsEvent.getUserEvents('adamspa');
+		context.eventsManaging = await createsEvent.getUserEvents(req.session.onid);
 
 		// Find all slots a user is registered for
-		let [reservations, fields] = await slot.findUserSlots(req.session.onid);
+		let [reservations, fields] = await slot.findFutureUserSlots(req.session.onid);
 
 		// Process response from database into a handlebars-friendly format
 		context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
@@ -121,6 +121,46 @@ router.get('/create-test', async function (req, res, next) {
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 	res.render('create', context);
 });
+
+router.get('/past-reservations', async function (req, res, next) {
+	
+	// If there is no session established, redirect to the landing page
+	if (!req.session.onid) {
+		res.redirect('../login');
+	}
+
+	// If there is a session, render users past reservations
+	else {
+		let context = {};
+		
+		context.eventsManaging = await createsEvent.getUserEvents(req.session.onid);
+
+		// Find all slots a user registered for in the past
+		let [reservations, fields] = await slot.findPastUserSlots(req.session.onid);
+
+		// Process response from database into a handlebars-friendly format
+		context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
+
+		context.stylesheets = ['main.css', 'home.css']
+		res.render('past-reservations', context);
+	}
+})
+
+router.get('/past-test', async function (req, res, next) {
+	let context = {};
+	req.session.onid = 'adamspa';
+	
+	context.eventsManaging = await createsEvent.getUserEvents(req.session.onid);
+
+	// Find all slots a user is registered for
+	let [reservations, fields] = await slot.findPastUserSlots(req.session.onid);
+
+	// Process response from database into a handlebars-friendly format
+	context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
+
+	context.stylesheets = ['main.css', 'home.css']
+	res.render('past-reservations', context);
+})
 
 // Process event creation form
 router.post('/create', async function (req, res, next) {
