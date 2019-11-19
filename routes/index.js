@@ -88,24 +88,24 @@ router.get('/logout', async function (req, res, next) {
 // Displays "Create New Event" page
 router.get('/create', async function (req, res, next) {
 	let context = {};
-	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
+	context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
 	context.scripts = ['calendar.js', 'create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 	res.render('create', context);
 });
 
-
+// TODO: restrict access to event creator
 router.get('/manage/:eventId', async function (req, res, next) {
 	let eventId = req.params.eventId;
 	let context = {};
 	let [reservations, fields] = await slot.eventSlotResv(eventId);
-	//let [reservations, fields] = await slot.eventSlotResv(173);
+	context.eventDetails = await event.findEvent(eventId);
 	context.slotResv = reservations;
-	//console.log(context.slotResv);
-	context.stylesheets = ['main.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
+	console.log(context.eventDetails);
+	context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
-	context.scripts = ['manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	context.scripts = ['calendar.js', 'create.js', 'manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 	res.render('manage', context);
 });

@@ -29,7 +29,7 @@ module.exports.findEvent = async function(eventId) {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT * FROM `Event` WHERE event_id = ?", [eventId]);
 		connection.end();
-		return [rows, fields];
+		return rows[0];
 	}
 	catch (err) {
 		console.log(err);
