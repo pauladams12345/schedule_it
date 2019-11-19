@@ -7,32 +7,28 @@
 </div>
 
 <div class="table-responsive-md" id = "resv">
-  <table class="table table-bordered">
+  <table class="table table-bordered table-light">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      <th scope="col">Location</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
+      {{#each slotResv}}
+      <td>this.first_name</td>
+      <td>this.last_name</td>
+      <td>this.ONID_email</td>
+      <td>this.slot_date</td>
+      <td>this.start_time</td>
+      <td>this.location</td>
+      {{/each}}
     </tr>
   </tbody>
 </table>
