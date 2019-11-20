@@ -113,6 +113,7 @@ router.get('/manage/:eventId', async function (req, res, next) {
 		slot['end_time'] = endTime;
 	}
 	console.log('existingSlots: ', existingSlots);
+	context.existingSlots = existingSlots;
 
 
 	console.log('eventDetails: ', context.eventDetails);

@@ -115,6 +115,30 @@
           <h5 class="modal-title" id="addEventSlotLabel">Slot details</h5>
         </div>
         <div class="modal-body" id="modalBody">
+            {{#each existingSlots}}
+            <div class="existingSlot" id="slot{{this.slot_id}}" hidden>
+              <input type="number" name="slotExistsInDatabase{{this.slot_id}}" 
+              id="slotExistsInDatabase{{this.slot_id}}" value="1" hidden>
+              <input type="text" name="slotStart{{this.slot_id}}" 
+              id="slotStart{{this.slot_id}}" value="{{this.start_time}}" hidden>
+              <input type="text" name="slotEnd{{this.slot_id}}" 
+              id="slotEnd{{this.slot_id}}" value="{{this.end_time}}" hidden>
+              <div class="form-group">
+                <label for="slotMaxAttendees{{this.slot_id}}" 
+                class="col-form-label">Max attendees</label>
+                <input type="number" class="form-control" value="{{this.max_attendees}}" 
+                name="slotMaxAttendees{{this.slot_id}}" id="slotMaxAttendees{{this.slot_id}}">
+              </div>
+              <div class="form-group">
+                <label for="slotLocation{{this.slot_id}}" 
+                class="col-form-label">Location</label>
+                <input type="text" class="form-control" value = "{{this.slot_location}}"
+                name="slotLocation{{this.slot_id}}" id="slotLocation{{this.slot_id}}">
+              </div>
+              <button type="button" class="btn btn-danger" 
+              id="slotDelete{{this.slot_id}}">Delete slot</button>
+            </div>
+            {{/each}}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" id="modalSave"
@@ -123,31 +147,6 @@
       </div>
     </div>
   </div> 
-
-  {{#each existingSlots}}
-  <div id="slot{{existingSlot.slot_id}}" hidden>
-    <input type="number" name="slotExistsInDatabase{{this.slot_id}}" 
-    id="slotExistsInDatabase{{this.slot_id}}" value="1" hidden>
-    <input type="text" name="slotStart{{this.slot_id}}" 
-    id="slotStart{{this.slot_id}}" value="this.start_time" hidden>
-    <input type="text" name="slotEnd{{this.slot_id}}" 
-    id="slotEnd{{this.slot_id}}" value="this.end_time" hidden>
-    <div class="form-group">
-      <label for="slotMaxAttendees{{this.slot_id}}" 
-      class="col-form-label">Max attendees</label>
-      <input type="number" class="form-control" value="this.max_attendees" 
-      name="slotMaxAttendees{{this.slot_id}}" id="slotMaxAttendees{{this.slot_id}}">
-    </div>
-    <div class="form-group">
-      <label for="slotLocation{{this.slot_id}}" 
-      class="col-form-label">Location</label>
-      <input type="text" class="form-control" value = "this.slot_location"
-      name="slotLocation{{this.slot_id}}" id="slotLocation{{this.slot_id}}">
-    </div>
-    <button type="button" class="btn btn-danger" 
-    id="slotDelete{{this.slot_id}}">Delete slot</button>
-  </div>
-  {{/each}}
 
   <!-- Hidden input counting current number of time slots -->
   <input type="number" name="numSlots" id="numSlots" value="0" hidden>

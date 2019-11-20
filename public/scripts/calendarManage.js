@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
       var minutes = parseInt(document.getElementById('defaultDurationMinutes').value, 10);
       var duration = (60 * hours) + minutes;
       info.end.setTime(info.start.getTime() + duration * 60000);
-      var calenderEvent = calendar.addEvent({id: slotId, start: info.start, end: info.end});
-      appendSlot(info.start, info.end, slotId, calenderEvent);
+      var calendarEvent = calendar.addEvent({id: slotId, start: info.start, end: info.end});
+      appendSlot(info.start, info.end, slotId, calendarEvent);
       let numSlots = document.getElementById('numSlots');
       numSlots.value = parseInt(numSlots.value, 10) + 1;
     },
@@ -74,13 +74,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   // for every slot input, create an event
-
+  var existingSlots = document.getElementsByClassName('existingSlot');
+  for (var i = 0; i < existingSlots.length; i++) {
+    var slotId = existingSlots[i].getAttribute('id').substring(4);
+    var startTime = new Date(document.getElementById('slotStart' + slotId).value);
+    var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
+    calendar.addEvent({id: slotId, start: startTime, end: endTime});
+  }
   calendar.render();
 });
 
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
-function appendSlot(startTime, endTime, slotId, calenderEvent, existsInDatabase) {
+function appendSlot(startTime, endTime, slotId, calendarEvent, existsInDatabase) {
   var slot = document.createElement('div');
   slot.setAttribute('id', 'slot' + slotId);
 
