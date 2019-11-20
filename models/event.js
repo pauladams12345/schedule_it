@@ -87,3 +87,19 @@ module.exports.getTimeInterval = async function(startTime, duration) {
 		console.log(err);
 	}
 };
+
+// Update the name for a given event to the specified value
+module.exports.editName = async function(eventId, name) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+			"UPDATE `Event` " +
+			"SET `event_name`= ? " +
+			"WHERE `event_id`= ?;",
+			[name, eventId]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+}

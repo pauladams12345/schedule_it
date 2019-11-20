@@ -104,7 +104,6 @@ router.get('/manage/:eventId', async function (req, res, next) {
 	context.slotResv = reservations;
 
 	let existingSlots = await slot.findEventSlots(eventId);
-	console.log('existingSlots: ', existingSlots);
 	for (let slot of existingSlots) {
 		let startTime = new Date(slot.slot_date);												// get date of slot start
 		startTime.setUTCHours(slot.start_time.substring(0,2), slot.start_time.substring(3,5));	// set time of slot start
@@ -112,17 +111,23 @@ router.get('/manage/:eventId', async function (req, res, next) {
 		slot['start_time'] = startTime;
 		slot['end_time'] = endTime;
 	}
-	console.log('existingSlots: ', existingSlots);
 	context.existingSlots = existingSlots;
 
-
-	console.log('eventDetails: ', context.eventDetails);
 	context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
 	context.scripts = ['calendarManage.js', 'create.js', 'manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 	res.render('manage', context);
 });
+
+router.post('/manage/:eventId/editName', async function (req, res, next) {
+	let eventId = req.params.eventId;
+	let eventName = req.body.eventName;
+	console.log('eventId: ', eventId);
+	console.log('eventName: ', eventName);
+	await event.editName(eventId, eventName);
+	res.redirect('/manage/' + eventId);
+})
 
 
 // Use this route to test locally without constantly re-deploying to Heroku

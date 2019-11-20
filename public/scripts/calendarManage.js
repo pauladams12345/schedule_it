@@ -2,6 +2,8 @@
 // Maybe pick a random starting value tied to the date/time? Want to
 // avoid overlap.
 //Script to create and manipulate the calendar on the create event page
+validateForm();
+
 document.addEventListener('DOMContentLoaded', function() {
   dateFormat = {}
   var context = {};
@@ -86,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
-function appendSlot(startTime, endTime, slotId, calendarEvent, existsInDatabase) {
+function appendSlot(startTime, endTime, slotId, calendarEvent) {
   var slot = document.createElement('div');
   slot.setAttribute('id', 'slot' + slotId);
 
@@ -134,9 +136,9 @@ function appendSlot(startTime, endTime, slotId, calendarEvent, existsInDatabase)
   maxAttendeesLabel.setAttribute('class', 'col-form-label');
   maxAttendeesLabel.textContent = "Max attendees";
 
-  var existsInDatabase = document.createElemtn('input');
+  var existsInDatabase = document.createElement('input');
   existsInDatabase.setAttribute('type', 'number');
-  existsInDatabase.setAttribute('value', existsInDatabase);
+  existsInDatabase.setAttribute('value', 0);
   existsInDatabase.hidden = true;
 
   // Delete button. Deletes all slot inputs and the corresponding
@@ -181,3 +183,20 @@ function appendSlot(startTime, endTime, slotId, calendarEvent, existsInDatabase)
   var modalBody = document.getElementById('modalBody');
   modalBody.appendChild(slot);
 };
+
+function validateForm() {
+   window.addEventListener('load', function() {
+       // Fetch all the forms we want to apply custom Bootstrap validation styles to
+       var forms = document.getElementsByClassName('needs-validation');
+       // Loop over them and prevent submission
+       var validation = Array.prototype.filter.call(forms, function(form) {
+           form.addEventListener('submit', function(event) {
+               if (form.checkValidity() === false) {
+                 event.preventDefault();
+                 event.stopPropagation();
+               }
+               form.classList.add('was-validated');
+           }, false);
+       });
+   }, false);
+}
