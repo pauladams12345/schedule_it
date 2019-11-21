@@ -31,6 +31,7 @@ router.get('/create-test', async function (req, res, next) {
 
 // Process event creation form
 router.post('/create', async function (req, res, next) {
+
 	// Get values from request
 	let context = {};
 	let slotArray = [];
@@ -41,7 +42,12 @@ router.post('/create', async function (req, res, next) {
 		description = req.body.description,
 		visibility = req.body.attendeeNameVisibility,
 		emails = req.body.emails,
-		numSlots = req.body.numSlots;
+		numSlots = req.body.numSlots,
+		slotIds = req.body.slotIds;
+	console.log(slotIds);
+	if (slotIds.length > 0) {
+		slotIds = slotIds.split(',');
+	}
 
 	// Handle edge cases of 1 or 0 emails, convert to an array
 	if (typeof emails === 'string') {
@@ -60,23 +66,20 @@ router.post('/create', async function (req, res, next) {
 	// Store the invitations (users emails) in the database
 	await invitation.createInvitations(eventId, emails);
 
-
-	// // TODO: handle time zone conversions
 	// Process all slots
-	let i = 0;
-	let processedSlots = 0;
-	while (processedSlots < numSlots) {
-		if (req.body['slotStart' + i]) {
-			let start = new Date(req.body['slotStart' + i]);	// start date/time
-			let end = new Date(req.body['slotEnd' + i]);		// end date/time
+	for (let id of slotIds) {
+		if (req.body['slotState' + id] == 'new') {
+			
+			let start = new Date(req.body['slotStart' + id]);	// start date/time
+			let end = new Date(req.body['slotEnd' + id]);		// end date/time
 			let duration = (end - start) / 60000;				// duration in minutes
-			let location = req.body['slotLocation' + i];		// location
+			let location = req.body['slotLocation' + id];		// location
 
 			if (location == '') {								// if not specified, use default
 				location = defaultLocation;
 			}
 
-			let maxAttendees = req.body['slotMaxAttendees' + i];// maximum number of attendees
+			let maxAttendees = req.body['slotMaxAttendees' + id];// maximum number of attendees
 			if (maxAttendees == '') {							// if not specified, use default
 				maxAttendees = defaultMaxAttendees;
 			}
@@ -84,12 +87,9 @@ router.post('/create', async function (req, res, next) {
 			let [date, time] = await helpers.parseDateTimeString(start);	//convert start date/time to MySQL-compatible format
 
 			await slot.createSlot(eventId, location, date, time, duration, maxAttendees);	// Store slots in database
-
-			processedSlots++;
 		}
-		i++;
 	}
-	res.redirect('/manage/' + eventId) + "/";
+	res.send('/manage/' + eventId);
 });
 
 module.exports = router;
