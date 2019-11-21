@@ -7,8 +7,7 @@
 </div>
 
 <!-- Event name -->
-<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-name" 
-method="post" novalidate>
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-name" method="post" id="editNameForm" novalidate>
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
       <label for="eventName">Event name:</label>
@@ -21,7 +20,7 @@ method="post" novalidate>
 
 <!-- Description -->
 <form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-description" 
-method="post" novalidate>
+method="post" id="editDescriptionForm" novalidate>
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
       <label for="description">Description (optional):</label>
@@ -56,7 +55,7 @@ method="post" novalidate>
 
 <!-- Max reservations per attendee -->
 <form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-max-reservations" 
-method="post" novalidate>
+method="post" id="editMaxReservationsPerAttendeeForm" novalidate>
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
       <label for="maxReservationsPerAttendee">
@@ -89,7 +88,7 @@ method="post" novalidate>
 
 <!-- Show/hide registrant names -->
 <form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-visibility" 
-method="post" novalidate>
+method="post" id="attendeeNameVisibilityForm" novalidate>
   <div class="form-row">
    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-check">
       <fieldset class="form-group">
@@ -122,8 +121,8 @@ method="post" novalidate>
 <div id='calendar' class='m-1 p-1'></div>
 
 <!-- Time slot inputs. Dynamically generated and hidden in the modal until slot in calendar is clicked -->
-<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-visibility" 
-method="post" novalidate>
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-slots" 
+method="post" id="editSlotsForm" novalidate>
   <div class="modal fade" id="addEventSlot" tabindex="-1" role="dialog" aria-labelledby="addEventSlotLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -163,13 +162,13 @@ method="post" novalidate>
       </div>
     </div>
   </div> 
-
   <!-- Hidden input counting current number of time slots -->
   <input type="number" name="numSlots" id="numSlots" value="0" hidden>
+  <button class="btn btn-primary my-2" id="editSlots" type="submit">Save time slot changes</button>
 </form>
 
   <!-- Email addresses -->
-  <div class="form-row">
+  <div class="form-row mt-4">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group" id="emailsDiv">
       <label for="emailAddresses">
       Enter email addresses of people you'd like to invite:</label>
@@ -179,14 +178,14 @@ method="post" novalidate>
       <!-- User enters email addresses into textarea -->
       <textarea class="form-control" name="emailAddresses"
       id="emailAddresses" rows="3"></textarea>
-      <button type="button" role="button" class="btn btn-primary mb-5" id="addEmailsButton">Add emails</button>
+      <button type="button" role="button" class="btn btn-primary my-2" id="addEmailsButton">Add emails</button>
 
       <!-- Email addresses are extracted from textarea and
       placed in individual email inputs -->
     </div>
  </div>
 
- <br><b><p class="lead">Reservations:</p></b>
+<p class="lead"><b>Reservations:</b></p>
 <div class="table-responsive-md" id = "resv">
   <table class="table table-bordered table-light">
   <thead>

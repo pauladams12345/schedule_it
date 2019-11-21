@@ -87,6 +87,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var button = document.getElementById('slotDelete' + slotId);
     bindDelete(button, calendarEvent, existingSlots[i], numSlots)
   }
+
+  configureFormSubmissions();
+
   calendar.render();
 });
 
@@ -209,3 +212,75 @@ function bindDelete(button, calendarEvent, slot, numSlots) {
     $('#addEventSlot').modal('hide');
   });
 };
+
+// Configure form submissions to stay on current page and send
+// form details via ajax
+function configureFormSubmissions() {
+  // Submit name form with ajax to prevent page refresh
+  $('#editNameForm').on('submit', function(e) {
+    e.preventDefault();
+    $.ajax({
+      url : $(this).attr('action'),
+      type: $(this).attr('method'),
+      data: $(this).serialize(),
+      error: function (jXHR, textStatus, errorThrown) {
+        alert(errorThrown);
+      }
+    });
+  });
+
+  // Submit description form with ajax to prevent page refresh
+  $('#editDescriptionForm').on('submit', function(e) {
+    e.preventDefault();
+    $.ajax({
+      url : $(this).attr('action'),
+      type: $(this).attr('method'),
+      data: $(this).serialize(),
+      error: function (jXHR, textStatus, errorThrown) {
+        alert(errorThrown);
+      }
+    });
+  });
+
+  // Submit max reservations form with ajax to prevent page refresh
+  $('#editMaxReservationsPerAttendeeForm').on('submit', function(e) {
+    e.preventDefault();
+    $.ajax({
+      url : $(this).attr('action'),
+      type: $(this).attr('method'),
+      data: $(this).serialize(),
+      error: function (jXHR, textStatus, errorThrown) {
+        alert(errorThrown);
+      }
+    });
+  });
+
+  // Submit visibility form with ajax to prevent page refresh
+  $('#attendeeNameVisibilityForm').on('submit', function(e) {
+    e.preventDefault();
+    $.ajax({
+      url : $(this).attr('action'),
+      type: $(this).attr('method'),
+      data: $(this).serialize(),
+      error: function (jXHR, textStatus, errorThrown) {
+        alert(errorThrown);
+      }
+    });
+  });
+
+  // Submit visibility form with ajax to prevent page refresh
+  $('#editSlotsForm').on('submit', function(e) {
+    e.preventDefault();
+    $.ajax({
+      url : $(this).attr('action'),
+      type: $(this).attr('method'),
+      data: $(this).serialize(),
+      error: function (jXHR, textStatus, errorThrown) {
+        alert(errorThrown);
+      }
+    });
+  });
+
+};
+
+
