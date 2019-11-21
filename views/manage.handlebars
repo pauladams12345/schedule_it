@@ -6,8 +6,9 @@
   <a class="btn btn-primary btn-lg" href="/manage" role="button">Reserve Time Slot</a> <!--update href later -->
 </div>
 
-  <!-- Event name -->
-<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/editName" method="post" novalidate>
+<!-- Event name -->
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-name" 
+method="post" novalidate>
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
       <label for="eventName">Event name:</label>
@@ -18,7 +19,9 @@
   </div>
 </form>
 
-  <!-- Description -->
+<!-- Description -->
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-description" 
+method="post" novalidate>
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
       <label for="description">Description (optional):</label>
@@ -27,30 +30,33 @@
       <button class="btn btn-primary my-2" id="editDescription" type="submit">Save description change</button>
     </div>
   </div>
+</form>
 
-  <!-- Location -->
-  <div class="form-row" hidden>
-    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
-      <label for="defaultLocation">Location:</label>
-      <small id="locationHelpText" class="form-text text-muted mt-0">
-      You can change this for individual slots.</small>
-      <input type="text" class="form-control" name="defaultLocation"
-     id="defaultLocation" value="{{eventDetails.location}}" required>
-   </div>
-  </div>
+<!-- Location -->
+<div class="form-row" hidden>
+  <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
+    <label for="defaultLocation">Location:</label>
+    <small id="locationHelpText" class="form-text text-muted mt-0">
+    You can change this for individual slots.</small>
+    <input type="text" class="form-control" name="defaultLocation"
+   id="defaultLocation" value="{{eventDetails.location}}" required>
+ </div>
+</div>
 
-  <!-- Max attendees per slot -->
-  <div class="form-row" hidden>
-    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
-      <label for="defaultMaxAttendees">Max attendees per time slot:</label>
-      <small id="locationHelpText" class="form-text text-muted mt-0">
-      You can change this for individual slots. Leave blank for no limit.</small>
-      <input type="number" class="form-control" name="defaultMaxAttendees"
-      id="defaultMaxAttendees" value="{{eventDetails.max_attendee_per_slot}}">
-    </div>  
-  </div>
+<!-- Max attendees per slot -->
+<div class="form-row" hidden>
+  <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
+    <label for="defaultMaxAttendees">Max attendees per time slot:</label>
+    <small id="locationHelpText" class="form-text text-muted mt-0">
+    You can change this for individual slots. Leave blank for no limit.</small>
+    <input type="number" class="form-control" name="defaultMaxAttendees"
+    id="defaultMaxAttendees" value="{{eventDetails.max_attendee_per_slot}}">
+  </div>  
+</div>
 
-  <!-- Max reservations per attendee -->
+<!-- Max reservations per attendee -->
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-max-reservations" 
+method="post" novalidate>
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
       <label for="maxReservationsPerAttendee">
@@ -62,25 +68,28 @@
       <button class="btn btn-primary my-2" id="editMaxReservationsPerAttendee" type="submit">Save change</button>
     </div>
   </div>
+</form>
 
-  <!-- Time slot duration -->
-  <fieldset class="form-group" hidden>
-   <legend class="col-form-label">Time slot duration:</legend>
-   <small id="defaultDurationHelpText" class="form-text text-muted mt-0">
-   You can change this for individual slots.</small>
-    <div class="form-row">
-      <div class="col col-sm-8 col-md-6 col-lg-5 col-xl-4 form-group form-inline">
-        <input type="number" class="form-control w-25"
-        name="defaultDurationHours" id="defaultDurationHours" value="1" required>
-        <label for="defaultDurationHours" class="mx-2">hours</label>
-        <input type="number" class="form-control w-25" name="defaultDurationMinutes"
-        id="defaultDurationMinutes" value="0">
-        <label for="defaultDurationMinutes" class="ml-2">minutes</label>
-      </div>
+<!-- Time slot duration -->
+<fieldset class="form-group" hidden>
+ <legend class="col-form-label">Time slot duration:</legend>
+ <small id="defaultDurationHelpText" class="form-text text-muted mt-0">
+ You can change this for individual slots.</small>
+  <div class="form-row">
+    <div class="col col-sm-8 col-md-6 col-lg-5 col-xl-4 form-group form-inline">
+      <input type="number" class="form-control w-25"
+      name="defaultDurationHours" id="defaultDurationHours" value="1" required>
+      <label for="defaultDurationHours" class="mx-2">hours</label>
+      <input type="number" class="form-control w-25" name="defaultDurationMinutes"
+      id="defaultDurationMinutes" value="0">
+      <label for="defaultDurationMinutes" class="ml-2">minutes</label>
     </div>
-  </fieldset>
+  </div>
+</fieldset>
 
-  <!-- Show/hide registrant names -->
+<!-- Show/hide registrant names -->
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-visibility" 
+method="post" novalidate>
   <div class="form-row">
    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-check">
       <fieldset class="form-group">
@@ -102,15 +111,19 @@
         </div>
       </fieldset>
       <button class="btn btn-primary my-2" id="editVisibility" type="submit">Save change</button>
-
    </div>
   </div>
-  <br>
-  <!-- Calendar -->
-  <h3>Edit time slots:</h3>
-  <div id='calendar' class='m-1 p-1'></div>
+</form>
 
-  <!-- Time slot inputs. Dynamically generated and hidden in the modal until slot in calendar is clicked -->
+ <br>
+
+<!-- Calendar -->
+<h3>Edit time slots:</h3>
+<div id='calendar' class='m-1 p-1'></div>
+
+<!-- Time slot inputs. Dynamically generated and hidden in the modal until slot in calendar is clicked -->
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-visibility" 
+method="post" novalidate>
   <div class="modal fade" id="addEventSlot" tabindex="-1" role="dialog" aria-labelledby="addEventSlotLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -153,6 +166,7 @@
 
   <!-- Hidden input counting current number of time slots -->
   <input type="number" name="numSlots" id="numSlots" value="0" hidden>
+</form>
 
   <!-- Email addresses -->
   <div class="form-row">

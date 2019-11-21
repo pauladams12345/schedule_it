@@ -115,20 +115,38 @@ router.get('/manage/:eventId', async function (req, res, next) {
 
 	context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
-	context.scripts = ['calendarManage.js', 'create.js', 'manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	context.scripts = ['calendarManage.js', 'manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 	res.render('manage', context);
 });
 
-router.post('/manage/:eventId/editName', async function (req, res, next) {
+router.post('/manage/:eventId/edit-name', async function (req, res, next) {
 	let eventId = req.params.eventId;
 	let eventName = req.body.eventName;
-	console.log('eventId: ', eventId);
-	console.log('eventName: ', eventName);
 	await event.editName(eventId, eventName);
 	res.redirect('/manage/' + eventId);
-})
+});
 
+router.post('/manage/:eventId/edit-description', async function (req, res, next) {
+	let eventId = req.params.eventId;
+	let description = req.body.description;
+	await event.editDescription(eventId, description);
+	res.redirect('/manage/' + eventId);
+});
+
+router.post('/manage/:eventId/edit-max-reservations', async function (req, res, next) {
+	let eventId = req.params.eventId;
+	let maxReservations = req.body.maxReservationsPerAttendee;
+	await event.editMaxResvPerAttendee(eventId, maxReservations);
+	res.redirect('/manage/' + eventId);
+});
+
+router.post('/manage/:eventId/edit-visibility', async function (req, res, next) {
+	let eventId = req.params.eventId;
+	let visibility = req.body.attendeeNameVisibility;
+	await event.editVisibility(eventId, visibility);
+	res.redirect('/manage/' + eventId);
+});
 
 // Use this route to test locally without constantly re-deploying to Heroku
 router.get('/create-test', async function (req, res, next) {

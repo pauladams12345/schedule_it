@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
       info.end.setTime(info.start.getTime() + duration * 60000);
       var calendarEvent = calendar.addEvent({id: slotId, start: info.start, end: info.end});
       appendSlot(info.start, info.end, slotId, calendarEvent);
-      let numSlots = document.getElementById('numSlots');
+      var numSlots = document.getElementById('numSlots');
       numSlots.value = parseInt(numSlots.value, 10) + 1;
     },
     // Upon clicking an existing slot, show the modal to edit details
@@ -75,13 +75,17 @@ document.addEventListener('DOMContentLoaded', function() {
       endInput.value = resizeInfo.event.end;
     }
   });
-  // for every slot input, create an event
+  // for every existing slot input, create an event and register its delete button
   var existingSlots = document.getElementsByClassName('existingSlot');
   for (var i = 0; i < existingSlots.length; i++) {
     var slotId = existingSlots[i].getAttribute('id').substring(4);
     var startTime = new Date(document.getElementById('slotStart' + slotId).value);
     var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
-    calendar.addEvent({id: slotId, start: startTime, end: endTime});
+    var calendarEvent = calendar.addEvent({id: slotId, start: startTime, end: endTime});
+    var numSlots = document.getElementById('numSlots');
+    numSlots.value = parseInt(numSlots.value, 10) + 1;
+    var button = document.getElementById('slotDelete' + slotId);
+    bindDelete(button, calendarEvent, existingSlots[i], numSlots)
   }
   calendar.render();
 });
@@ -137,6 +141,8 @@ function appendSlot(startTime, endTime, slotId, calendarEvent) {
   maxAttendeesLabel.textContent = "Max attendees";
 
   var existsInDatabase = document.createElement('input');
+  existsInDatabase.setAttribute('name', 'slotExistsInDatabase' + slotId);
+  existsInDatabase.setAttribute('id', 'slotExistsInDatabase' + slotId);
   existsInDatabase.setAttribute('type', 'number');
   existsInDatabase.setAttribute('value', 0);
   existsInDatabase.hidden = true;
@@ -148,13 +154,7 @@ function appendSlot(startTime, endTime, slotId, calendarEvent) {
   deleteButton.setAttribute('class', 'btn btn-danger');
   deleteButton.setAttribute('id', 'slotDelete' + slotId);
   deleteButton.textContent = 'Delete slot';
-  deleteButton.addEventListener('click', function(event) {
-    calenderEvent.remove();
-    slot.parentNode.removeChild(slot);
-    let numSlots = document.getElementById('numSlots');
-    numSlots.value = parseInt(numSlots.value, 10) - 1;
-    $('#addEventSlot').modal('hide');
-  });
+  bindDelete(deleteButton, calendarEvent, slot, numSlots)
 
   // Div to hold location portion of form
   var locationDiv = document.createElement('div');
@@ -200,3 +200,12 @@ function validateForm() {
        });
    }, false);
 }
+
+function bindDelete(button, calendarEvent, slot, numSlots) {
+  button.addEventListener('click', function(event) {
+    calendarEvent.remove();
+    slot.parentNode.removeChild(slot);
+    numSlots.value = parseInt(numSlots.value, 10) - 1;
+    $('#addEventSlot').modal('hide');
+  });
+};
