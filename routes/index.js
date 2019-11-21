@@ -99,8 +99,8 @@ router.get('/create', async function (req, res, next) {
 
 router.get('/manage', async function (req, res, next) {
 	let context = {};;
-	let [reservations, fields] = await slot.eventSlotResv(req.session.eventId);
-	//let [reservations, fields] = await slot.eventSlotResv(173);
+	//let [reservations, fields] = await slot.eventSlotResv(req.session.eventId);
+	let [reservations, fields] = await slot.eventSlotResv(173);
 	context.slotResv = reservations;
 	context.stylesheets = ['main.css', 'login.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
