@@ -91,9 +91,16 @@ function configureCalendar() {
       slotStates['slotState' + slotId] = 'existingUnmodified';
       slotIds.push(slotId);
       var deleteButton = document.getElementById('slotDelete' + slotId);
-      bindDelete(deleteButton, calendarEvent, existingSlots[i], slotId)
+      bindSlotDelete(deleteButton, calendarEvent, existingSlots[i], slotId)
       var saveButton = document.getElementById('slotSave' + slotId);
-      bindSave(saveButton, slotId, existingSlots[i]);
+      bindSlotSave(saveButton, slotId, existingSlots[i]);
+    }
+    // for every reservation, bind the delete button
+    var buttons = document.getElementsByClassName('reservation-delete');
+    for (var i = 0; i < buttons.length; i++) {
+      var reservation = buttons[i].parentNode.parentNode;
+      var reservationId = buttons[i].getAttribute('id').substring(17);
+      bindReservationDelete(buttons[i], reservation, reservationId)
     }
     configureFormSubmissions();
 
@@ -158,7 +165,7 @@ function appendSlot(startTime, endTime, slotId, calendarEvent) {
   deleteButton.setAttribute('class', 'btn btn-danger');
   deleteButton.setAttribute('id', 'slotDelete' + slotId);
   deleteButton.textContent = 'Delete slot';
-  bindDelete(deleteButton, calendarEvent, slot, slotId)
+  bindSlotDelete(deleteButton, calendarEvent, slot, slotId)
 
   // Save button. Hides the slot's form in the modal
   var saveButton = document.createElement('button');
@@ -167,7 +174,7 @@ function appendSlot(startTime, endTime, slotId, calendarEvent) {
   saveButton.setAttribute('id', 'slotSave' + slotId);
   saveButton.setAttribute('data-dismiss', 'modal');
   saveButton.textContent = 'Save changes';
-  bindSave(saveButton, slotId, slot);
+  bindSlotSave(saveButton, slotId, slot);
 
   // Div to hold location portion of form
   var locationDiv = document.createElement('div');
@@ -214,10 +221,16 @@ function configureFormValidation() {
   }, false);
 };
 
+function bindReservationDelete(button, reservation, reservationId) {
+  button.addEventListener('click', function(event) {
+    reservation.parentNode.removeChild(reservation);
+  })
+}
+
 // Bind the delete button in a slot's form. Deletes the form and the corresponding 
 // event in FullCalendar. Changes existing slot's status to existingDeleted and new slots
 // status to notUsed
-function bindDelete(button, calendarEvent, slot, slotId) {
+function bindSlotDelete(button, calendarEvent, slot, slotId) {
   button.addEventListener('click', function(event) {
     if (slotStates['slotState' + slotId] == "new") {
       slotStates['slotState' + slotId] = 'notUsed';
@@ -233,7 +246,7 @@ function bindDelete(button, calendarEvent, slot, slotId) {
 
 // Bind the save button in a slot's form. For slots with a status of existingUnmodified,
 //changes the status to existingModified. Hides the modal
-function bindSave(saveButton, slotId, slot) {
+function bindSlotSave(saveButton, slotId, slot) {
   saveButton.addEventListener('click', function(event) {
     if (slotStates['slotState' + slotId] == "existingUnmodified") {
       slotStates['slotState' + slotId] = 'existingModified';
