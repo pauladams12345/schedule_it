@@ -83,7 +83,7 @@ function configureCalendar() {
         info.end.setTime(info.start.getTime() + duration * 60000);
         var calenderEvent = calendar.addEvent({id: slotId, start: info.start, end: info.end});
         appendSlot(info.start, info.end, slotId, calenderEvent);
-        slotStates["slotState" + slotId] = "new";
+        slotStates["slotState" + slotId] = 'new';
         slotIds.push(slotId);
       },
       // Upon clicking an existing slot, show the modal to edit details

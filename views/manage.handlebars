@@ -1,8 +1,7 @@
 <div class="jumbotron py-4 my-4">
   <h1 class="display-4">Welcome to the Organizer Portal!</h1>
   <p class="lead">Edit event details, modify or create time slots, and manage attendance all from this page.</p>
-  <br>
-  <p class="lead">Need to reserve a time slot for yourself.  Just click below:</p>
+  <p class="lead">Need to reserve a time slot for yourself? Just click below:</p>
   <a class="btn btn-primary btn-lg" href="/manage" role="button">Reserve Time Slot</a> <!--update href later -->
 </div>
 
@@ -30,28 +29,6 @@ method="post" id="editDescriptionForm" novalidate>
     </div>
   </div>
 </form>
-
-<!-- Location -->
-<div class="form-row" hidden>
-  <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
-    <label for="defaultLocation">Location:</label>
-    <small id="locationHelpText" class="form-text text-muted mt-0">
-    You can change this for individual slots.</small>
-    <input type="text" class="form-control" name="defaultLocation"
-   id="defaultLocation" value="{{eventDetails.location}}" required>
- </div>
-</div>
-
-<!-- Max attendees per slot -->
-<div class="form-row" hidden>
-  <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
-    <label for="defaultMaxAttendees">Max attendees per time slot:</label>
-    <small id="locationHelpText" class="form-text text-muted mt-0">
-    You can change this for individual slots. Leave blank for no limit.</small>
-    <input type="number" class="form-control" name="defaultMaxAttendees"
-    id="defaultMaxAttendees" value="{{eventDetails.max_attendee_per_slot}}">
-  </div>  
-</div>
 
 <!-- Max reservations per attendee -->
 <form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-max-reservations" 
@@ -132,7 +109,7 @@ method="post" id="editSlotsForm" novalidate>
         <div class="modal-body" id="modalBody">
             {{#each existingSlots}}
             <div class="existingSlot" id="slot{{this.slot_id}}" hidden>
-              <input type="number" name="slotExistsInDatabase{{this.slot_id}}" 
+              <input type="number" name="slot{{this.slot_id}}" 
               id="slotExistsInDatabase{{this.slot_id}}" value="1" hidden>
               <input type="text" name="slotStart{{this.slot_id}}" 
               id="slotStart{{this.slot_id}}" value="{{this.start_time}}" hidden>
@@ -152,18 +129,20 @@ method="post" id="editSlotsForm" novalidate>
               </div>
               <button type="button" class="btn btn-danger" 
               id="slotDelete{{this.slot_id}}">Delete slot</button>
+              <button type="button" class="btn btn-success" id="slotSave{{this.slot_id}}"
+              data-dismiss="modal">Save changes</button>
             </div>
             {{/each}}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="modalSave"
-          data-dismiss="modal">Save changes</button>
         </div>
       </div>
     </div>
   </div> 
-  <!-- Hidden input counting current number of time slots -->
-  <input type="number" name="numSlots" id="numSlots" value="0" hidden>
+    <!-- Default location -->
+    <input type="text" class="form-control" name="defaultLocation"
+   id="defaultLocation" value="{{eventDetails.location}}" required hidden>
+    <!-- Default max attendees per slot -->
+    <input type="number" class="form-control" name="defaultMaxAttendees"
+    id="defaultMaxAttendees" value="{{eventDetails.max_attendee_per_slot}}" hidden>
   <button class="btn btn-primary my-2" id="editSlots" type="submit">Save time slot changes</button>
 </form>
 

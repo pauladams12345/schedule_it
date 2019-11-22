@@ -88,6 +88,7 @@ module.exports.findSlotAttendees = async function(slotId) {
 	}
 };
 
+// Find all slots for a given event
 module.exports.findEventSlots = async function(eventId) {
 	try {
 		const connection = await sql.createConnection(dbcon);
@@ -122,12 +123,42 @@ module.exports.eventSlotResv = async function(eventId){
 	}
 };
 
+// Create a slot with the given info
 module.exports.createSlot = async function(eventId, location, date, time, duration, maxAttendees){
 	try{
 		const connection = await sql.createConnection(dbcon);
 		await connection.query("INSERT INTO `indaba_db`.`Slot` " +
 		"(`fk_event_id`, `slot_location`, `slot_date`, `start_time`, `duration`, max_attendees) VALUES (?, ?, ?, ?, ?, ?);",
 		 [eventId, location, date, time, duration, maxAttendees]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+// Update a slot with the given info
+module.exports.editSlot = async function(location, date, time, duration, maxAttendees, slotId){
+	try{
+		const connection = await sql.createConnection(dbcon);
+		await connection.query("UPDATE `Slot` " +
+		"SET `slot_location` = ?, `slot_date` = ?, `start_time` = ?, `duration` = ?, max_attendees = ?" +
+		"WHERE `slot_id` = ?",
+		 [location, date, time, duration, maxAttendees, slotId]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+// Delete slot with the given ID
+module.exports.deleteSlot = async function(slotId){
+	try{
+		const connection = await sql.createConnection(dbcon);
+		await connection.query("DELETE FROM `Slot` " +
+		"WHERE `slot_id` = ?;",
+		 [slotId]);
 		connection.end();
 	}
 	catch (err) {

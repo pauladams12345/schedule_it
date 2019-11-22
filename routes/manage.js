@@ -60,9 +60,73 @@ router.post('/manage/:eventId/edit-visibility', async function (req, res, next) 
 });
 
 router.post('/manage/:eventId/edit-slots', async function (req, res, next) {
-	let eventId = req.params.eventId;
 	console.log(req.body);
-	res.send('Success');
-})
+	// Get values from request
+	let context = {};
+	let eventId = req.params.eventId;
+	let defaultLocation = req.body.defaultLocation;
+	let defaultMaxAttendees = req.body.defaultMaxAttendees;
+	let slotIds = req.body.slotIds;
+
+	if (slotIds.length > 0) {
+		slotIds = slotIds.split(',');
+	}
+
+	// Check if user requested to delete a slot with reservations
+	// If yes, send an error message and don't proceed with requested modifications
+	let modificationsAllowed = true;
+	for (let id of slotIds) {
+		let state = req.body['slotState' + id];
+		if (state == 'existingDeleted') {
+			let [rows, fields] = await slot.findSlotAttendees(id);
+			if (rows.length > 0) {
+				modificationsAllowed = false;
+				res.send("Error! You cannot delete a slot with active registrations. Delete these reservations below and try again.");
+			}
+		}
+	}
+
+	// Make all additions, modifications, and deletions requested by the user
+	if (modificationsAllowed) {
+		for (let id of slotIds) {
+			let state = req.body['slotState' + id];
+
+			// Skip over slots that are unused or unmodified
+			if (state == 'notUsed' || state == 'existingUnmodified') {
+				continue;
+			}
+
+			// Delete slot from database
+			else if (state == 'existingDeleted') {
+				slot.deleteSlot(id);
+				continue;
+			}
+
+			// Get slot info
+			let start = new Date(req.body['slotStart' + id]);	// start date/time
+			let end = new Date(req.body['slotEnd' + id]);		// end date/time
+			let duration = (end - start) / 60000;				// duration in minutes
+			let location = req.body['slotLocation' + id];		// location
+			let maxAttendees = req.body['slotMaxAttendees' + id];// maximum number of attendees
+			if (location == '') {								// if not specified, use default
+				location = defaultLocation;
+			}
+			if (maxAttendees == '') {							// if not specified, use default
+				maxAttendees = defaultMaxAttendees;
+			}
+			let [date, time] = await helpers.parseDateTimeString(start);	//convert start date/time to MySQL-compatible format
+
+			// If new slot, create it
+			if (req.body['slotState' + id] == 'new') {
+				await slot.createSlot(eventId, location, date, time, duration, maxAttendees);	// Store slots in database
+			}
+			// If existing slot, update its info
+			else if (req.body['slotState' + id] == 'existingModified') {
+				await slot.editSlot(location, date, time, duration, maxAttendees, id);
+			}
+		}
+		res.send('Changes to time slots were successful.');
+	}
+});
 
 module.exports = router;

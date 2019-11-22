@@ -34,17 +34,15 @@ router.post('/create', async function (req, res, next) {
 
 	// Get values from request
 	let context = {};
-	let slotArray = [];
-	let eventName = req.body.eventName,
-		defaultLocation = req.body.defaultLocation,
-		defaultMaxAttendees = req.body.defaultMaxAttendees,
-		maxResvPerAttendees = req.body.maxReservationsPerAttendee,
-		description = req.body.description,
-		visibility = req.body.attendeeNameVisibility,
-		emails = req.body.emails,
-		numSlots = req.body.numSlots,
-		slotIds = req.body.slotIds;
-	console.log(slotIds);
+	let eventName = req.body.eventName;
+	let defaultLocation = req.body.defaultLocation;
+	let defaultMaxAttendees = req.body.defaultMaxAttendees;
+	let maxResvPerAttendees = req.body.maxReservationsPerAttendee;
+	let description = req.body.description;
+	let visibility = req.body.attendeeNameVisibility;
+	let emails = req.body.emails;
+	let slotIds = req.body.slotIds;
+
 	if (slotIds.length > 0) {
 		slotIds = slotIds.split(',');
 	}
@@ -74,12 +72,10 @@ router.post('/create', async function (req, res, next) {
 			let end = new Date(req.body['slotEnd' + id]);		// end date/time
 			let duration = (end - start) / 60000;				// duration in minutes
 			let location = req.body['slotLocation' + id];		// location
-
+			let maxAttendees = req.body['slotMaxAttendees' + id];// maximum number of attendees
 			if (location == '') {								// if not specified, use default
 				location = defaultLocation;
 			}
-
-			let maxAttendees = req.body['slotMaxAttendees' + id];// maximum number of attendees
 			if (maxAttendees == '') {							// if not specified, use default
 				maxAttendees = defaultMaxAttendees;
 			}
