@@ -239,8 +239,8 @@ method="post" id="deleteEventForm" novalidate>
 </form>-->
 
 <!-- Delete Event -->
-<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/delete-event"
-method="post" id="deleteEventForm" novalidate>
+<form action="/manage/{{eventDetails.event_id}}/delete-event"
+method="post" id="deleteEventForm">
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
       <button class="btn btn-primary my-2" id="deleteEvent" type="submit">Delete Event</button>
