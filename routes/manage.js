@@ -71,9 +71,9 @@ router.post('/manage/:eventId/edit-visibility', async function (req, res, next) 
 
 router.post('/manage/:eventId/delete-event', async function (req, res, next) {
 	console.log("test");
-	let eventId = req.params.eventId;
-	let description = req.body.description;
-	await event.editDescription(eventId, description);
+	//let eventId = req.params.eventId;
+	//let description = req.body.description;
+	//await event.editDescription(eventId, description);
 	res.send('Success');
 /*console.log("test");
 	let slots = [];
