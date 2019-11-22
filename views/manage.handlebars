@@ -146,27 +146,55 @@ method="post" id="editSlotsForm" novalidate>
   <button class="btn btn-primary my-2" id="editSlots" type="submit">Save time slot changes</button>
 </form>
 
-  <!-- Email addresses -->
+<!-- Email addresses -->
+<p class="lead mt-3"><b>Invitations</b></p>
+
+<div class="table-responsive-sm" id="existingInvitations">
+  <table class="table table-sm table-striped table-light">
+  <thead>
+    <tr>
+      <th scope="col">You've already sent invitations to:</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each invitations}}
+    <tr>
+      <td>{{this.email_address}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/send-invitations" 
+method="post" id="invitationsForm" novalidate>
   <div class="form-row mt-4">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group" id="emailsDiv">
       <label for="emailAddresses">
-      Enter email addresses of people you'd like to invite:</label>
+      Enter email addresses below to invite more people:</label>
       <small id="emailAddressesHelpText" class="form-text text-muted mt-0">
       You can always send more invitations later.</small>
 
       <!-- User enters email addresses into textarea -->
       <textarea class="form-control" name="emailAddresses"
       id="emailAddresses" rows="3"></textarea>
-      <button type="button" role="button" class="btn btn-primary my-2" id="addEmailsButton">Add emails</button>
-
+      <button type="button" role="button" class="btn btn-primary my-2" 
+      id="addEmailsButton">Add emails</button>
       <!-- Email addresses are extracted from textarea and
       placed in individual email inputs -->
     </div>
- </div>
+  </div>
+  <div class="form-row">
+    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6" id="emailsSubmitDiv">
+    <button type="submit" role="button" class="btn btn-primary my-2" 
+    id="sendInvitations" hidden>Send invitations</button>
+    </div>
+  </div>
+</form>
 
 <p class="lead"><b>Reservations:</b></p>
-<div class="table-responsive-md" id = "resv">
-  <table class="table table-bordered table-light">
+<div class="table-responsive-md" id="resv">
+  <table class="table table-sm table-striped table-light">
   <thead>
     <tr>
       <th scope="col">First Name</th>

@@ -221,26 +221,6 @@ function bindDelete(input, button) {
   });
 };
 
-// Configure form submission
-function configureFormSubmission() {
-  // Submit name form with ajax to prevent page refresh
-  $('#createEventForm').on('submit', function(e) {
-    e.preventDefault();
-    $.ajax({
-      url : $(this).attr('action'),
-      type: $(this).attr('method'),
-      data: $(this).serialize(),
-      success: function(data) {
-         console.log(data);
-      },
-      error: function (jXHR, textStatus, errorThrown) {
-        alert(errorThrown);
-      }
-    });
-  });
-
-};
-
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
 function appendSlot(startTime, endTime, slotId, calenderEvent) {

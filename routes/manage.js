@@ -14,6 +14,7 @@ router.get('/manage/:eventId/', async function (req, res, next) {
 	let [reservations, fields] = await slot.eventSlotResv(eventId);
 	context.eventDetails = await event.findEvent(eventId);
 	context.slotResv = reservations;
+	context.invitations = await invitation.findEventInvitations(eventId);
 
 	let existingSlots = await slot.findEventSlots(eventId);
 	for (let slot of existingSlots) {
@@ -35,8 +36,6 @@ router.get('/manage/:eventId/', async function (req, res, next) {
 router.post('/manage/delete-reservation/', async function (req, res, next) {
 	let onid = req.body.onid;
 	let slotId = req.body.slotId;
-	console.log('onid: ', onid);
-	console.log('slotId: ', slotId);
 	await reserveSlot.deleteReservation(onid, slotId);
 	res.send('Success');
 });
@@ -69,8 +68,24 @@ router.post('/manage/:eventId/edit-visibility', async function (req, res, next) 
 	res.send('Success');
 });
 
+router.post('/manage/:eventId/send-invitations', async function (req, res, next) {
+	let eventId = req.params.eventId;
+	let emails = req.body.emails;
+
+	// Handle edge cases of 1 or 0 emails, convert to an array
+	if (typeof emails === 'string') {
+		emails = [emails];
+	} else if (typeof email === 'undefined') {
+		emails = [];
+	}
+
+	// Store the invitations (users emails) in the database
+	await invitation.createInvitations(eventId, emails);
+
+	res.send('Success');
+});
+
 router.post('/manage/:eventId/edit-slots', async function (req, res, next) {
-	console.log(req.body);
 	// Get values from request
 	let context = {};
 	let eventId = req.params.eventId;

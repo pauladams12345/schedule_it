@@ -50,7 +50,7 @@ router.post('/create', async function (req, res, next) {
 	// Handle edge cases of 1 or 0 emails, convert to an array
 	if (typeof emails === 'string') {
 		emails = [emails];
-	} else if (typeof email === 'undefined') {
+	} else if (typeof emails === 'undefined') {
 		emails = [];
 	}
 
