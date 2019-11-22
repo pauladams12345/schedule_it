@@ -139,15 +139,16 @@ router.post('/manage/:eventId/edit-slots', async function (req, res, next) {
 			if (maxAttendees == '') {							// if not specified, use default
 				maxAttendees = defaultMaxAttendees;
 			}
-			let [date, time] = await helpers.parseDateTimeString(start);	//convert start date/time to MySQL-compatible format
+			let [startDate, startTime] = await helpers.parseDateTimeString(start);	//convert start date/time to MySQL-compatible format
+			let [endDate, endTime] = await helpers.parseDateTimeString(end);			//convert end date/time to MySQL-compatible format
 
 			// If new slot, create it
 			if (req.body['slotState' + id] == 'new') {
-				await slot.createSlot(eventId, location, date, time, duration, maxAttendees);	// Store slots in database
+				await slot.createSlot(eventId, location, startDate, startTime, endTime, duration, maxAttendees);	// Store slots in database
 			}
 			// If existing slot, update its info
 			else if (req.body['slotState' + id] == 'existingModified') {
-				await slot.editSlot(location, date, time, duration, maxAttendees, id);
+				await slot.editSlot(location, startDate, startTime, endTime, duration, maxAttendees, id);
 			}
 		}
 		res.send('Changes to time slots were successful.');
