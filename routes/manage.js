@@ -81,7 +81,7 @@ router.post('/manage/:eventId/delete-event', async function (req, res, next) {
 	await slot.deleteSlotByEventId(eventId);
 	await event.deleteEvent(eventId);
 	context.stylesheets = ['main.css', 'home.css'];
-	res.render('home', context);
+	//res.render('home', context);
 });
 
 router.post('/manage/:eventId/send-invitations', async function (req, res, next) {
