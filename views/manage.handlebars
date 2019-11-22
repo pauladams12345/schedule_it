@@ -228,4 +228,14 @@ method="post" id="invitationsForm" novalidate>
 </table>
 </div>
 
-<br><br><button type="button" class="btn btn-primary reservation-delete">Delete Event</button>
+<!-- Edit description -->
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/delete-event"
+method="post" id="deleteEventForm" novalidate>
+  <div class="form-row">
+    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
+      <textarea class="form-control" name="description"
+     id="description" rows="3">{{eventDetails.event_id}}</textarea>
+      <button class="btn btn-primary my-2" id="deleteEvent" type="submit">Delete Event</button>
+    </div>
+  </div>
+</form>

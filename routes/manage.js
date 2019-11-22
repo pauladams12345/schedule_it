@@ -68,6 +68,12 @@ router.post('/manage/:eventId/edit-visibility', async function (req, res, next) 
 	res.send('Success');
 });
 
+router.post('/manage/:eventId/event-delete', async function (req, res, next) {
+	let eventId = req.params.eventId;
+	await event.deleteEvent(eventId);
+	res.send('Success');
+});
+
 router.post('/manage/:eventId/send-invitations', async function (req, res, next) {
 	let eventId = req.params.eventId;
 	let emails = req.body.emails;
