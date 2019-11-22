@@ -67,7 +67,7 @@ router.post('/create', async function (req, res, next) {
 	// Process all slots
 	for (let id of slotIds) {
 		if (req.body['slotState' + id] == 'new') {
-			
+
 			let start = new Date(req.body['slotStart' + id]);	// start date/time
 			let end = new Date(req.body['slotEnd' + id]);		// end date/time
 			let duration = (end - start) / 60000;				// duration in minutes
@@ -86,7 +86,8 @@ router.post('/create', async function (req, res, next) {
 			await slot.createSlot(eventId, location, start_date, start_time, end_time, duration, maxAttendees);	// Store slots in database
 		}
 	}
-	res.send('/manage/' + eventId);
+	//res.send('/manage/' + eventId);
+	res.send('/manage/' + 212);
 });
 
 module.exports = router;

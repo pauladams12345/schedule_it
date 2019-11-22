@@ -30,3 +30,18 @@ module.exports.deleteReservation = async function(onid, slotId){
 		console.log(err);
 	}
 };
+
+// Delete a reserved slot for a given event
+module.exports.deleteReservedSlotReservations = async function(slotId){
+	try{
+		const connection = await sql.createConnection(dbcon);
+		await connection.query(
+		"DELETE FROM `Reserve_Slot` " +
+		"WHERE `fk_slot_id` = ?;",
+		 [slotId]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};

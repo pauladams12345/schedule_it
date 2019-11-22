@@ -153,3 +153,17 @@ module.exports.deleteSlot = async function(slotId){
 		console.log(err);
 	}
 };
+
+// Delete slot with the given ID
+module.exports.deleteSlotByEventId = async function(eventId){
+	try{
+		const connection = await sql.createConnection(dbcon);
+		await connection.query("DELETE FROM `Slot` " +
+		"WHERE `slot_id` = ?;",
+		 [eventId]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};

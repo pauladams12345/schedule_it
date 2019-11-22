@@ -33,3 +33,18 @@ module.exports.findEventInvitations = async function(eventId) {
 		console.log(err);
 	}
 }
+
+// Delete slot with the given ID
+module.exports.deleteInvitation = async function(eventId){
+	try{
+		const connection = await sql.createConnection(dbcon);
+		await connection.query(
+		"DELETE FROM `Invitation` " +
+		"WHERE `fk_event_id` = ?;",
+		 [eventId]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
