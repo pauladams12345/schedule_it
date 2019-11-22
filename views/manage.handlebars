@@ -229,11 +229,24 @@ method="post" id="invitationsForm" novalidate>
 </div>
 
 <!-- Edit description -->
-<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/delete-event"
+<!--<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/delete-event"
 method="post" id="deleteEventForm" novalidate>
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
       <br><br><br><button class="btn btn-primary my-2" id="deleteEvent" type="submit">Delete Event</button>
+    </div>
+  </div>
+</form>-->
+
+<!-- Edit description -->
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/delete-event"
+method="post" id="editDescriptionForm" novalidate>
+  <div class="form-row">
+    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
+      <label for="description">Description (optional):</label>
+      <textarea class="form-control" name="description"
+     id="description" rows="3">{{eventDetails.description}}</textarea>
+      <button class="btn btn-primary my-2" id="editDescription" type="submit">Save description change</button>
     </div>
   </div>
 </form>
