@@ -68,7 +68,7 @@ router.post('/manage/:eventId/edit-visibility', async function (req, res, next) 
 	res.send('Success');
 });
 
-router.post('/manage/:eventId/event-delete', async function (req, res, next) {
+router.post('/manage/:eventId/delete-event', async function (req, res, next) {
 	console.log("test");
 	let slots = [];
 	let eventId = req.params.eventId;
