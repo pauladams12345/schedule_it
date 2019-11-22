@@ -99,8 +99,11 @@ function configureCalendar() {
     var buttons = document.getElementsByClassName('reservation-delete');
     for (var i = 0; i < buttons.length; i++) {
       var reservation = buttons[i].parentNode.parentNode;
-      var reservationId = buttons[i].getAttribute('id').substring(17);
-      bindReservationDelete(buttons[i], reservation, reservationId)
+      var onid = reservation.firstElementChild.textContent;
+      var slotId = reservation.firstElementChild.nextElementSibling.textContent;
+      console.log('onid: ', onid);
+      console.log('slotId: ', slotId);
+      bindReservationDelete(buttons[i], reservation, onid, slotId);
     }
     configureFormSubmissions();
 
@@ -221,8 +224,17 @@ function configureFormValidation() {
   }, false);
 };
 
-function bindReservationDelete(button, reservation, reservationId) {
+function bindReservationDelete(button, reservation, onid, slotId) {
   button.addEventListener('click', function(event) {
+    // Send ajax request to delete reservation
+    $.ajax({
+      url : '/manage/delete-reservation',
+      type: 'POST',
+      data: $.param({"onid": onid, "slotId": slotId}),
+      error: function (jXHR, textStatus, errorThrown) {
+        alert(errorThrown);
+      }
+    });
     reservation.parentNode.removeChild(reservation);
   })
 }

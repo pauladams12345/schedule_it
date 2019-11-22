@@ -4,7 +4,8 @@ var Router = 		require('express-promise-router'),
 	slot =			require('../models/slot.js'),
 	event =			require('../models/event.js'),
 	invitation =	require('../models/invitation.js'),
-	createsEvent =	require('../models/createsEvent.js');
+	createsEvent =	require('../models/createsEvent.js'),
+	reserveSlot =	require('../models/reserveSlot.js');
 
 // TODO: restrict access to event creator
 router.get('/manage/:eventId/', async function (req, res, next) {
@@ -29,6 +30,15 @@ router.get('/manage/:eventId/', async function (req, res, next) {
 	context.scripts = ['calendarManage.js', 'manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 	res.render('manage', context);
+});
+
+router.post('/manage/delete-reservation/', async function (req, res, next) {
+	let onid = req.body.onid;
+	let slotId = req.body.slotId;
+	console.log('onid: ', onid);
+	console.log('slotId: ', slotId);
+	await reserveSlot.deleteReservation(onid, slotId);
+	res.send('Success');
 });
 
 router.post('/manage/:eventId/edit-name', async function (req, res, next) {

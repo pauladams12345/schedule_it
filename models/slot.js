@@ -46,19 +46,6 @@ module.exports.findFutureUserSlots = async function(onid) {
 	}
 };
 
-// Create row in Reserve_Slot with the given information
-module.exports.reserveSlot = async function(onid, slot) {
-	try {
-		const connection = await sql.createConnection(dbcon);
-		await connection.query("INSERT INTO indaba_db.Reserve_Slot (`fk_onid`,`fk_slot_id`) VALUES (?,?)",
-		  [onid, slot]);
-		connection.end();
-	}
-	catch (err) {
-		console.log(err);
-	}
-};
-
 // Query database for slot by its ID and return all columns for that row
 module.exports.findSlot = async function(slotId) {
 	try {
@@ -111,7 +98,7 @@ module.exports.findEventSlots = async function(eventId) {
 module.exports.eventSlotResv = async function(eventId){
 	try{
 		const connection = await sql.createConnection(dbcon);
-		const [rows, fields] = await connection.query("SELECT first_name, last_name, " +
+		const [rows, fields] = await connection.query("SELECT first_name, last_name, slot_id, onid, " +
 		"ONID_email, DATE_FORMAT(slot_date, '%a %b %D %Y') slot_date, start_time, location FROM  `Event` " +
 		"INNER JOIN `Slot` ON fk_event_id = event_id INNER JOIN `Reserve_Slot` ON " +
 		"fk_slot_id = slot_id INNER JOIN `OSU_member` ON fk_onid = onid WHERE event_id = ? ORDER BY slot_date", [eventId]);
