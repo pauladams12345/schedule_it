@@ -87,7 +87,7 @@ router.post('/create', async function (req, res, next) {
 		}
 	}
 	//res.send('/manage/' + eventId);
-	res.send('/manage/' + 212);
+	res.send('/manage/212');
 });
 
 module.exports = router;
