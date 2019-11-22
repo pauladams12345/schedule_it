@@ -80,9 +80,10 @@ router.post('/create', async function (req, res, next) {
 				maxAttendees = defaultMaxAttendees;
 			}
 
-			let [date, time] = await helpers.parseDateTimeString(start);	//convert start date/time to MySQL-compatible format
+			let [start_date, start_time] = await helpers.parseDateTimeString(start);	//convert start date/time to MySQL-compatible format
+			let [end_date, end_time] = await helpers.parseDateTimeString(end);			//convert end date/time to MySQL-compatible format
 
-			await slot.createSlot(eventId, location, date, time, duration, maxAttendees);	// Store slots in database
+			await slot.createSlot(eventId, location, start_date, start_time, end_time, duration, maxAttendees);	// Store slots in database
 		}
 	}
 	res.send('/manage/' + eventId);

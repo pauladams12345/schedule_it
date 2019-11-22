@@ -195,14 +195,16 @@ method="post" id="invitationsForm" novalidate>
 
 <p class="lead"><b>Reservations:</b></p>
 <div class="table-responsive-md" id="resv">
-  <table class="table table-sm table-striped table-light">
+  <table class="table table-sm table-striped table-light" id="eventReservations">
   <thead>
     <tr>
+      <th scope="col" hidden></th>
       <th scope="col">First Name</th>
       <th scope="col">Last Name</th>
       <th scope="col">Email</th>
       <th scope="col">Date</th>
-      <th scope="col">Time</th>
+      <th scope="col">Start Time</th>
+      <th scope="col">End Time</th>
       <th scope="col">Location</th>
       <th scope="col"></th>
     </tr>
@@ -217,6 +219,7 @@ method="post" id="invitationsForm" novalidate>
       <td>{{this.ONID_email}}</td>
       <td>{{this.slot_date}}</td>
       <td>{{this.start_time}}</td>
+      <td>{{this.end_time}}</td>
       <td>{{this.location}}</td>
       <td><button type="button" class="btn btn-primary reservation-delete">Delete</button></td>
     </tr>

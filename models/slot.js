@@ -99,7 +99,7 @@ module.exports.eventSlotResv = async function(eventId){
 	try{
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT first_name, last_name, slot_id, onid, " +
-		"ONID_email, DATE_FORMAT(slot_date, '%a %b %D %Y') slot_date, start_time, location FROM  `Event` " +
+		"ONID_email, DATE_FORMAT(slot_date, '%a %b %D %Y') slot_date, start_time, end_time, location FROM  `Event` " +
 		"INNER JOIN `Slot` ON fk_event_id = event_id INNER JOIN `Reserve_Slot` ON " +
 		"fk_slot_id = slot_id INNER JOIN `OSU_member` ON fk_onid = onid WHERE event_id = ? ORDER BY slot_date", [eventId]);
 		return [rows, fields];
@@ -111,12 +111,13 @@ module.exports.eventSlotResv = async function(eventId){
 };
 
 // Create a slot with the given info
-module.exports.createSlot = async function(eventId, location, date, time, duration, maxAttendees){
+module.exports.createSlot = async function(eventId, location, date, start_time, end_time, duration, maxAttendees){
 	try{
 		const connection = await sql.createConnection(dbcon);
 		await connection.query("INSERT INTO `indaba_db`.`Slot` " +
-		"(`fk_event_id`, `slot_location`, `slot_date`, `start_time`, `duration`, max_attendees) VALUES (?, ?, ?, ?, ?, ?);",
-		 [eventId, location, date, time, duration, maxAttendees]);
+		"(`fk_event_id`, `slot_location`, `slot_date`, `start_time`, `end_time`, " +
+		"`duration`, max_attendees) VALUES (?, ?, ?, ?, ?, ?, ?);",
+		 [eventId, location, date, start_time, end_time, duration, maxAttendees]);
 		connection.end();
 	}
 	catch (err) {
