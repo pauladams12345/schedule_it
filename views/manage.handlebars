@@ -10,6 +10,7 @@
   <table class="table table-bordered table-light">
   <thead>
     <tr>
+      <th scope="col" type = "hidden">id</th>
       <th scope="col">First Name</th>
       <th scope="col">Last Name</th>
       <th scope="col">Email</th>
@@ -23,6 +24,7 @@
   <tbody>
     {{#each slotResv}}
     <tr>
+      <td>{{this.slot_id}}</td>
       <td>{{this.first_name}}</td>
       <td>{{this.last_name}}</td>
       <td>{{this.ONID_email}}</td>
