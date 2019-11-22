@@ -1,8 +1,10 @@
 var numEmails = 0;        // Used to create unique id for email inputs as they're dynamically created
 var slotIds = [];         // Store all id of every slot created
 var slotStates = {};      // Track state of each slot. Options: new, notUsed, existingUnmodified, existingModified, existingDeleted
-configureFormValidation();
 configureCalendar();
+configureFormSubmissions();
+configureReservations();
+configureFormValidation();
 
 //Script to create and manipulate the calendar on the create event page
 function configureCalendar() {
@@ -95,7 +97,118 @@ function configureCalendar() {
       var saveButton = document.getElementById('slotSave' + slotId);
       bindSlotSave(saveButton, slotId, existingSlots[i]);
     }
-    // for every reservation, bind the delete button
+    document.getElementById('addEmailsButton').addEventListener('click', splitEmails);
+
+    calendar.render();
+  });
+}
+
+// Configure form submissions to stay on current page and send
+// form details via ajax
+function configureFormSubmissions() {
+   document.addEventListener('DOMContentLoaded', function() {
+
+    // Submit name form with ajax to prevent page refresh
+    $('#editNameForm').on('submit', function(e) {
+      e.preventDefault();
+      $.ajax({
+        url : $(this).attr('action'),
+        type: $(this).attr('method'),
+        data: $(this).serialize(),
+        error: function (jXHR, textStatus, errorThrown) {
+          alert(errorThrown);
+        }
+      });
+    });
+
+    // Submit description form with ajax to prevent page refresh
+    $('#editDescriptionForm').on('submit', function(e) {
+      e.preventDefault();
+      $.ajax({
+        url : $(this).attr('action'),
+        type: $(this).attr('method'),
+        data: $(this).serialize(),
+        error: function (jXHR, textStatus, errorThrown) {
+          alert(errorThrown);
+        }
+      });
+    });
+
+    // Submit max reservations form with ajax to prevent page refresh
+    $('#editMaxReservationsPerAttendeeForm').on('submit', function(e) {
+      e.preventDefault();
+      $.ajax({
+        url : $(this).attr('action'),
+        type: $(this).attr('method'),
+        data: $(this).serialize(),
+        error: function (jXHR, textStatus, errorThrown) {
+          alert(errorThrown);
+        }
+      });
+    });
+
+    // Submit visibility form with ajax to prevent page refresh
+    $('#attendeeNameVisibilityForm').on('submit', function(e) {
+      e.preventDefault();
+      $.ajax({
+        url : $(this).attr('action'),
+        type: $(this).attr('method'),
+        data: $(this).serialize(),
+        error: function (jXHR, textStatus, errorThrown) {
+          alert(errorThrown);
+        }
+      });
+    });
+
+    // Submit visibility form with ajax to prevent page refresh
+    $('#invitationsForm').on('submit', function(e) {
+      e.preventDefault();
+      $.ajax({
+        url : $(this).attr('action'),
+        type: $(this).attr('method'),
+        data: $(this).serialize(),
+        success: function(data) {
+          window.location.reload();
+        },
+        error: function (jXHR, textStatus, errorThrown) {
+          alert(errorThrown);
+        }
+      });
+    });
+
+    // Submit visibility form with ajax to prevent page refresh
+    $('#editSlotsForm').on('submit', function(e) {
+      var data = $(this).serialize();
+      data += "&" + $.param(slotStates);
+      data += "&slotIds=" + encodeURIComponent(slotIds); 
+      $.ajax({
+        url : $(this).attr('action'),
+        type: $(this).attr('method'),
+        data: data,
+        success: function(data) {
+          // If changes could not be applied, display error and reload page
+          if (data.substring(0,5) == 'Error') {
+            if(!alert(data)) {
+              window.location.reload();
+            }
+          }
+          // Else changes were successful, alert user
+          else {
+            alert(data)
+          }
+
+        },
+        error: function (jXHR, textStatus, errorThrown) {
+          alert(errorThrown);
+        }
+      });
+    });
+  });
+};
+
+// For every reservation, bind the delete button
+function configureReservations() {
+  document.addEventListener('DOMContentLoaded', function() {
     var buttons = document.getElementsByClassName('reservation-delete');
     for (var i = 0; i < buttons.length; i++) {
       var reservation = buttons[i].parentNode.parentNode;
@@ -103,12 +216,8 @@ function configureCalendar() {
       var slotId = reservation.firstElementChild.nextElementSibling.textContent;
       bindReservationDelete(buttons[i], reservation, onid, slotId);
     }
-    configureFormSubmissions();
-    document.getElementById('addEmailsButton').addEventListener('click', splitEmails);
-
-    calendar.render();
   });
-}
+};
 
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
@@ -369,105 +478,3 @@ function bindEmailDelete(input, button) {
     button.remove();
   });
 };
-
-// Configure form submissions to stay on current page and send
-// form details via ajax
-function configureFormSubmissions() {
-  // Submit name form with ajax to prevent page refresh
-  $('#editNameForm').on('submit', function(e) {
-    e.preventDefault();
-    $.ajax({
-      url : $(this).attr('action'),
-      type: $(this).attr('method'),
-      data: $(this).serialize(),
-      error: function (jXHR, textStatus, errorThrown) {
-        alert(errorThrown);
-      }
-    });
-  });
-
-  // Submit description form with ajax to prevent page refresh
-  $('#editDescriptionForm').on('submit', function(e) {
-    e.preventDefault();
-    $.ajax({
-      url : $(this).attr('action'),
-      type: $(this).attr('method'),
-      data: $(this).serialize(),
-      error: function (jXHR, textStatus, errorThrown) {
-        alert(errorThrown);
-      }
-    });
-  });
-
-  // Submit max reservations form with ajax to prevent page refresh
-  $('#editMaxReservationsPerAttendeeForm').on('submit', function(e) {
-    e.preventDefault();
-    $.ajax({
-      url : $(this).attr('action'),
-      type: $(this).attr('method'),
-      data: $(this).serialize(),
-      error: function (jXHR, textStatus, errorThrown) {
-        alert(errorThrown);
-      }
-    });
-  });
-
-  // Submit visibility form with ajax to prevent page refresh
-  $('#attendeeNameVisibilityForm').on('submit', function(e) {
-    e.preventDefault();
-    $.ajax({
-      url : $(this).attr('action'),
-      type: $(this).attr('method'),
-      data: $(this).serialize(),
-      error: function (jXHR, textStatus, errorThrown) {
-        alert(errorThrown);
-      }
-    });
-  });
-
-  // Submit visibility form with ajax to prevent page refresh
-  $('#invitationsForm').on('submit', function(e) {
-    e.preventDefault();
-    $.ajax({
-      url : $(this).attr('action'),
-      type: $(this).attr('method'),
-      data: $(this).serialize(),
-      success: function(data) {
-        window.location.reload();
-      },
-      error: function (jXHR, textStatus, errorThrown) {
-        alert(errorThrown);
-      }
-    });
-  });
-
-  // Submit visibility form with ajax to prevent page refresh
-  $('#editSlotsForm').on('submit', function(e) {
-    var data = $(this).serialize();
-    data += "&" + $.param(slotStates);
-    data += "&slotIds=" + encodeURIComponent(slotIds); 
-    $.ajax({
-      url : $(this).attr('action'),
-      type: $(this).attr('method'),
-      data: data,
-      success: function(data) {
-        // If changes could not be applied, display error and reload page
-        if (data.substring(0,5) == 'Error') {
-          if(!alert(data)) {
-            window.location.reload();
-          }
-        }
-        // Else changes were successful, alert user
-        else {
-          alert(data)
-        }
-
-      },
-      error: function (jXHR, textStatus, errorThrown) {
-        alert(errorThrown);
-      }
-    });
-  });
-};
-
-
