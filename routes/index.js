@@ -48,7 +48,7 @@ router.get('/home', async function (req, res, next) {
 	else {
 		let context = {};
 
-		context.eventsManaging = await createsEvent.getUserEvents('adamspa');
+		context.eventsManaging = await createsEvent.getUserEvents(req.session.onid);
 
 		// Find all slots a user is registered for
 		let [reservations, fields] = await slot.findUserSlots(req.session.onid);
