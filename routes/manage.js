@@ -69,8 +69,7 @@ router.post('/manage/:eventId/edit-visibility', async function (req, res, next) 
 });
 
 router.post('/manage/:eventId/delete-event', async function (req, res, next) {
-	res.render('test');
-	/*console.log("test");
+	console.log("test");
 	let slots = [];
 	let eventId = req.params.eventId;
 	await invitation.deleteInvitation(eventId);
@@ -81,7 +80,7 @@ router.post('/manage/:eventId/delete-event', async function (req, res, next) {
 	await slot.deleteSlotByEventId(eventId);
 	await event.deleteEvent(eventId);
 	context.stylesheets = ['main.css', 'home.css'];
-	res.render('home', context);*/
+	res.render('home', context);
 });
 
 router.post('/manage/:eventId/send-invitations', async function (req, res, next) {
