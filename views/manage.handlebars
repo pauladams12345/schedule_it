@@ -1,13 +1,13 @@
+<!-- Welcome jumbotron -->
 <div class="jumbotron py-4 my-4">
   <h1 class="display-4">Welcome to the Organizer Portal!</h1>
   <p class="lead">Edit event details, modify or create time slots, and manage attendance all from this page.</p>
-  <br>
-  <p class="lead">Need to reserve a time slot for yourself.  Just click below:</p>
+  <p class="lead">Need to reserve a time slot for yourself? Just click below:</p>
   <a class="btn btn-primary btn-lg" href="/manage" role="button">Reserve Time Slot</a> <!--update href later -->
 </div>
 
-  <!-- Event name -->
-<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/editName" method="post" novalidate>
+<!-- Edit event name -->
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-name" method="post" id="editNameForm" novalidate>
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
       <label for="eventName">Event name:</label>
@@ -18,7 +18,9 @@
   </div>
 </form>
 
-  <!-- Description -->
+<!-- Edit description -->
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-description" 
+method="post" id="editDescriptionForm" novalidate>
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
       <label for="description">Description (optional):</label>
@@ -27,30 +29,11 @@
       <button class="btn btn-primary my-2" id="editDescription" type="submit">Save description change</button>
     </div>
   </div>
+</form>
 
-  <!-- Location -->
-  <div class="form-row" hidden>
-    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
-      <label for="defaultLocation">Location:</label>
-      <small id="locationHelpText" class="form-text text-muted mt-0">
-      You can change this for individual slots.</small>
-      <input type="text" class="form-control" name="defaultLocation"
-     id="defaultLocation" value="{{eventDetails.location}}" required>
-   </div>
-  </div>
-
-  <!-- Max attendees per slot -->
-  <div class="form-row" hidden>
-    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
-      <label for="defaultMaxAttendees">Max attendees per time slot:</label>
-      <small id="locationHelpText" class="form-text text-muted mt-0">
-      You can change this for individual slots. Leave blank for no limit.</small>
-      <input type="number" class="form-control" name="defaultMaxAttendees"
-      id="defaultMaxAttendees" value="{{eventDetails.max_attendee_per_slot}}">
-    </div>  
-  </div>
-
-  <!-- Max reservations per attendee -->
+<!-- Edit default max reservations per attendee -->
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-max-reservations" 
+method="post" id="editMaxReservationsPerAttendeeForm" novalidate>
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
       <label for="maxReservationsPerAttendee">
@@ -62,25 +45,28 @@
       <button class="btn btn-primary my-2" id="editMaxReservationsPerAttendee" type="submit">Save change</button>
     </div>
   </div>
+</form>
 
-  <!-- Time slot duration -->
-  <fieldset class="form-group" hidden>
-   <legend class="col-form-label">Time slot duration:</legend>
-   <small id="defaultDurationHelpText" class="form-text text-muted mt-0">
-   You can change this for individual slots.</small>
-    <div class="form-row">
-      <div class="col col-sm-8 col-md-6 col-lg-5 col-xl-4 form-group form-inline">
-        <input type="number" class="form-control w-25"
-        name="defaultDurationHours" id="defaultDurationHours" value="1" required>
-        <label for="defaultDurationHours" class="mx-2">hours</label>
-        <input type="number" class="form-control w-25" name="defaultDurationMinutes"
-        id="defaultDurationMinutes" value="0">
-        <label for="defaultDurationMinutes" class="ml-2">minutes</label>
-      </div>
+<!-- Hidden: Time slot duration -->
+<fieldset class="form-group" hidden>
+ <legend class="col-form-label">Time slot duration:</legend>
+ <small id="defaultDurationHelpText" class="form-text text-muted mt-0">
+ You can change this for individual slots.</small>
+  <div class="form-row">
+    <div class="col col-sm-8 col-md-6 col-lg-5 col-xl-4 form-group form-inline">
+      <input type="number" class="form-control w-25"
+      name="defaultDurationHours" id="defaultDurationHours" value="1" required>
+      <label for="defaultDurationHours" class="mx-2">hours</label>
+      <input type="number" class="form-control w-25" name="defaultDurationMinutes"
+      id="defaultDurationMinutes" value="0">
+      <label for="defaultDurationMinutes" class="ml-2">minutes</label>
     </div>
-  </fieldset>
+  </div>
+</fieldset>
 
-  <!-- Show/hide registrant names -->
+<!-- Edit Show/hide registrant names -->
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-visibility" 
+method="post" id="attendeeNameVisibilityForm" novalidate>
   <div class="form-row">
    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-check">
       <fieldset class="form-group">
@@ -102,15 +88,19 @@
         </div>
       </fieldset>
       <button class="btn btn-primary my-2" id="editVisibility" type="submit">Save change</button>
-
    </div>
   </div>
-  <br>
-  <!-- Calendar -->
-  <h3>Edit time slots:</h3>
-  <div id='calendar' class='m-1 p-1'></div>
+</form>
 
-  <!-- Time slot inputs. Dynamically generated and hidden in the modal until slot in calendar is clicked -->
+ <br>
+
+<!-- Calendar -->
+<h3>Edit time slots:</h3>
+<div id='calendar' class='m-1 p-1'></div>
+
+<!-- Time slot inputs. Dynamically generated and hidden in the modal until slot in calendar is clicked -->
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-slots" 
+method="post" id="editSlotsForm" novalidate>
   <div class="modal fade" id="addEventSlot" tabindex="-1" role="dialog" aria-labelledby="addEventSlotLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -120,7 +110,7 @@
         <div class="modal-body" id="modalBody">
             {{#each existingSlots}}
             <div class="existingSlot" id="slot{{this.slot_id}}" hidden>
-              <input type="number" name="slotExistsInDatabase{{this.slot_id}}" 
+              <input type="number" name="slot{{this.slot_id}}" 
               id="slotExistsInDatabase{{this.slot_id}}" value="1" hidden>
               <input type="text" name="slotStart{{this.slot_id}}" 
               id="slotStart{{this.slot_id}}" value="{{this.start_time}}" hidden>
@@ -140,41 +130,72 @@
               </div>
               <button type="button" class="btn btn-danger" 
               id="slotDelete{{this.slot_id}}">Delete slot</button>
+              <button type="button" class="btn btn-success" id="slotSave{{this.slot_id}}"
+              data-dismiss="modal">Save changes</button>
             </div>
             {{/each}}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="modalSave"
-          data-dismiss="modal">Save changes</button>
         </div>
       </div>
     </div>
   </div> 
+    <!-- Default location -->
+    <input type="text" class="form-control" name="defaultLocation"
+   id="defaultLocation" value="{{eventDetails.location}}" required hidden>
+    <!-- Default max attendees per slot -->
+    <input type="number" class="form-control" name="defaultMaxAttendees"
+    id="defaultMaxAttendees" value="{{eventDetails.max_attendee_per_slot}}" hidden>
+  <button class="btn btn-primary my-2" id="editSlots" type="submit">Save time slot changes</button>
+</form>
 
-  <!-- Hidden input counting current number of time slots -->
-  <input type="number" name="numSlots" id="numSlots" value="0" hidden>
+<!-- Email addresses -->
+<p class="lead mt-3"><b>Invitations</b></p>
 
-  <!-- Email addresses -->
-  <div class="form-row">
+<div class="table-responsive-sm" id="existingInvitations">
+  <table class="table table-sm table-striped table-light">
+  <thead>
+    <tr>
+      <th scope="col">You've already sent invitations to:</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each invitations}}
+    <tr>
+      <td>{{this.email_address}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/send-invitations" 
+method="post" id="invitationsForm" novalidate>
+  <div class="form-row mt-4">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group" id="emailsDiv">
       <label for="emailAddresses">
-      Enter email addresses of people you'd like to invite:</label>
+      Enter email addresses below to invite more people:</label>
       <small id="emailAddressesHelpText" class="form-text text-muted mt-0">
       You can always send more invitations later.</small>
 
       <!-- User enters email addresses into textarea -->
       <textarea class="form-control" name="emailAddresses"
       id="emailAddresses" rows="3"></textarea>
-      <button type="button" role="button" class="btn btn-primary mb-5" id="addEmailsButton">Add emails</button>
-
+      <button type="button" role="button" class="btn btn-primary my-2" 
+      id="addEmailsButton">Add emails</button>
       <!-- Email addresses are extracted from textarea and
       placed in individual email inputs -->
     </div>
- </div>
+  </div>
+  <div class="form-row">
+    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6" id="emailsSubmitDiv">
+    <button type="submit" role="button" class="btn btn-primary my-2" 
+    id="sendInvitations" hidden>Send invitations</button>
+    </div>
+  </div>
+</form>
 
- <br><b><p class="lead">Reservations:</p></b>
-<div class="table-responsive-md" id = "resv">
-  <table class="table table-bordered table-light">
+<p class="lead"><b>Reservations:</b></p>
+<div class="table-responsive-md" id="resv">
+  <table class="table table-sm table-striped table-light">
   <thead>
     <tr>
       <th scope="col">First Name</th>
@@ -189,13 +210,15 @@
   <tbody>
     {{#each slotResv}}
     <tr>
+      <td hidden>{{this.onid}}</td>
+      <td hidden>{{this.slot_id}}</td>
       <td>{{this.first_name}}</td>
       <td>{{this.last_name}}</td>
       <td>{{this.ONID_email}}</td>
       <td>{{this.slot_date}}</td>
       <td>{{this.start_time}}</td>
       <td>{{this.location}}</td>
-      <td><button type="button" class="btn btn-primary">Delete</button></td>
+      <td><button type="button" class="btn btn-primary reservation-delete">Delete</button></td>
     </tr>
     {{/each}}
   </tbody>

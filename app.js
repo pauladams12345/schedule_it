@@ -32,7 +32,10 @@ app.use(session({
 }));
 
 // set up routes
-app.use(require('./routes'));
+app.use(require('./routes/index.js'));
+app.use(require('./routes/manage.js'));
+app.use(require('./routes/create.js'));
+app.use(require('./routes/pastReservations.js'));
 
 // handle errors
 app.use(function(req,res){

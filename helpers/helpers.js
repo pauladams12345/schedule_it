@@ -54,12 +54,6 @@ module.exports.createUserIfNew = async function(attributes){
 		// If not, add an entry
 		if (rows.length == 0) {
 			await user.createUser(attributes.onid, attributes.firstName, attributes.lastName, attributes.email);
-
-			// TODO: REMOVE THIS AFTER MIDPOINT CHECK IS GRADED
-			// Create sample reservations for new users
-			await slot.reserveSlot(attributes.onid, 1);
-			await slot.reserveSlot(attributes.onid, 2);
-			await slot.reserveSlot(attributes.onid, 4);
 		}
 	}
 	catch (err){

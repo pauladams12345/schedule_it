@@ -102,4 +102,52 @@ module.exports.editName = async function(eventId, name) {
 	catch (err) {
 		console.log(err);
 	}
-}
+};
+
+// Update the description for a given event to the specified value
+module.exports.editDescription = async function(eventId, description) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+			"UPDATE `Event` " +
+			"SET `description`= ? " +
+			"WHERE `event_id`= ?;",
+			[description, eventId]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+// Update the maximum number of reservations per attendee for a given event to the specified value
+module.exports.editMaxResvPerAttendee = async function(eventId, max_resv_per_attendee) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+			"UPDATE `Event` " +
+			"SET `max_resv_per_attendee`= ? " +
+			"WHERE `event_id`= ?;",
+			[max_resv_per_attendee, eventId]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+// Update the attendee name visibility for a given event to the specified value
+module.exports.editVisibility = async function(eventId, visibility) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+			"UPDATE `Event` " +
+			"SET `visibility`= ? " +
+			"WHERE `event_id`= ?;",
+			[visibility, eventId]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
