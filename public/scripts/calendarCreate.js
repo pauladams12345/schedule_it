@@ -81,8 +81,8 @@ function configureCalendar() {
         var minutes = parseInt(document.getElementById('defaultDurationMinutes').value, 10);
         var duration = (60 * hours) + minutes;
         info.end.setTime(info.start.getTime() + duration * 60000);
-        var calenderEvent = calendar.addEvent({id: slotId, start: info.start, end: info.end});
-        appendSlot(info.start, info.end, slotId, calenderEvent);
+        var calendarEvent = calendar.addEvent({id: slotId, start: info.start, end: info.end});
+        appendSlot(info.start, info.end, slotId, calendarEvent);
         slotStates["slotState" + slotId] = 'new';
         slotIds.push(slotId);
       },
@@ -95,10 +95,6 @@ function configureCalendar() {
         location.placeholder = document.getElementById('defaultLocation').value;
         maxAttendees.placeholder = document.getElementById('defaultMaxAttendees').value;
         slot.hidden = false;
-        var saveButton = document.getElementById('modalSave');
-        saveButton.addEventListener('click', function(event) {
-          slot.hidden = true;
-        });
         $('#addEventSlot').modal('show');
       },
       // Upon dragging and dropping an event, update the start and end times
@@ -141,7 +137,7 @@ function splitEmails(event) {
     numEmails++;
     var newInput = createEmailInput(email, numEmails)   // create input
     var newDeleteButton = createDeleteButton();         // create delete button
-    bindDelete(newInput, newDeleteButton);              // bind delete button to input
+    bindEmailDelete(newInput, newDeleteButton);              // bind delete button to input
 
     if ( newInput.checkValidity() ) {                   // do initial input validation
       newInput.classList.add('is-valid');
@@ -214,16 +210,35 @@ function appendInputAndButton(input, button) {
 
 // Sets the supplied button to delete the corresponding
 // input (and itself) upon being clicked
-function bindDelete(input, button) {
+function bindEmailDelete(input, button) {
   button.addEventListener('click', function(event) {
     input.remove();
     button.remove();
   });
 };
 
+// bind the delete button in a slot's form. Deletes the input and the 
+// corresponding event in the calendar.
+function bindSlotDelete(deleteButton, calendarEvent, slot, slotId) {
+    deleteButton.addEventListener('click', function(event) {
+    calendarEvent.remove();
+    slot.parentNode.removeChild(slot);
+    slotStates["slotState" + slotId] = "notUsed";
+    $('#addEventSlot').modal('hide');
+  });
+};
+
+// Bind the save button in a slot's form. For slots with a status of existingUnmodified,
+//changes the status to existingModified. Hides the modal
+function bindSlotSave(saveButton, slot) {
+  saveButton.addEventListener('click', function(event) {
+    slot.hidden = true;
+  });
+};
+
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
-function appendSlot(startTime, endTime, slotId, calenderEvent) {
+function appendSlot(startTime, endTime, slotId, calendarEvent) {
   var slot = document.createElement('div');
   slot.setAttribute('id', 'slot' + slotId);
 
@@ -278,12 +293,16 @@ function appendSlot(startTime, endTime, slotId, calenderEvent) {
   deleteButton.setAttribute('class', 'btn btn-danger');
   deleteButton.setAttribute('id', 'slotDelete' + slotId);
   deleteButton.textContent = 'Delete slot';
-  deleteButton.addEventListener('click', function(event) {
-    calenderEvent.remove();
-    slot.parentNode.removeChild(slot);
-    slotStates["slotState" + slotId] = "notUsed";
-    $('#addEventSlot').modal('hide');
-  });
+  bindSlotDelete(deleteButton, calendarEvent, slot, slotId);
+
+  // Save button. Hides the slot's input in the modal
+  var saveButton = document.createElement('button');
+  saveButton.setAttribute('type', 'button');
+  saveButton.setAttribute('class', 'btn btn-success');
+  saveButton.setAttribute('id', 'slotSave' + slotId);
+  saveButton.setAttribute('data-dismiss', 'modal');
+  saveButton.textContent = 'Save changes';
+  bindSlotSave(saveButton, slot);
 
   // Div to hold location portion of form
   var locationDiv = document.createElement('div');
@@ -302,6 +321,7 @@ function appendSlot(startTime, endTime, slotId, calenderEvent) {
   slot.appendChild(maxAttendeesDiv);
   slot.appendChild(locationDiv);
   slot.appendChild(deleteButton);
+  slot.appendChild(saveButton);
 
   // Hide form. Will become visible in the modal when user clicks
   // on corresponding event in the calendar
