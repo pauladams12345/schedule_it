@@ -7,5 +7,6 @@ module.exports = {
   database        : 'indaba_db',
   port            : 3306,
   waitForConnections: true,
-  queueLimit: 0
+  queueLimit: 0,
+  timezone: 'Z'
 };

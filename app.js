@@ -1,7 +1,7 @@
 var express =       require('express'),
     bodyParser =    require('body-parser'),
     session =       require('express-session'),
-    handlebars =    require('express-handlebars').create({defaultLayout: 'main'}),
+    handlebars =    require('express-handlebars'),
     request =       require('request'),
     dbcon =         require('./middleware/dbcon.js'),
     MySQLStore =    require('express-mysql-session')(session),
@@ -14,7 +14,10 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
 // set handlebars as view engine, allow omission of .handlebars extension
-app.engine('handlebars', handlebars.engine);
+app.engine('handlebars', handlebars({
+    defaultLayout: 'main',
+    helpers: require('./helpers/handlebarsHelpers.js')
+}));
 app.set('view engine', 'handlebars');
 
 // set up access to public folder
@@ -29,7 +32,10 @@ app.use(session({
 }));
 
 // set up routes
-app.use(require('./routes'));
+app.use(require('./routes/index.js'));
+app.use(require('./routes/manage.js'));
+app.use(require('./routes/create.js'));
+app.use(require('./routes/pastReservations.js'));
 
 // handle errors
 app.use(function(req,res){

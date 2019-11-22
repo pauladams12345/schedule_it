@@ -29,7 +29,7 @@ module.exports.findEvent = async function(eventId) {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT * FROM `Event` WHERE event_id = ?", [eventId]);
 		connection.end();
-		return [rows, fields];
+		return rows[0];
 	}
 	catch (err) {
 		console.log(err);
@@ -73,13 +73,79 @@ let convertTime = async function(slotTime){
 //Note: this function uses convertTime to convert to 12h format.
 module.exports.getTimeInterval = async function(startTime, duration) {
 	try {
+		// const connection = await sql.createConnection(dbcon);
+		// const [rows, fields] = await connection.query(
+		// 	"SELECT ADDTIME ('" + startTime + "','" + duration + "') AS end_time");
+		// let startTimeAMPM = await convertTime(startTime);//let startTimeAMPM = await convertTime(startTime, rows[0].end_time);
+		// let endTimeAMPM = await convertTime(rows[0].end_time);
+		// connection.end();
+		// return startTimeAMPM + "-" + endTimeAMPM;
+
+		
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+// Update the name for a given event to the specified value
+module.exports.editName = async function(eventId, name) {
+	try {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
-			"SELECT ADDTIME ('" + startTime + "','" + duration + "') AS end_time");
-		let startTimeAMPM = await convertTime(startTime);//let startTimeAMPM = await convertTime(startTime, rows[0].end_time);
-		let endTimeAMPM = await convertTime(rows[0].end_time);
+			"UPDATE `Event` " +
+			"SET `event_name`= ? " +
+			"WHERE `event_id`= ?;",
+			[name, eventId]);
 		connection.end();
-		return startTimeAMPM + "-" + endTimeAMPM;
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+// Update the description for a given event to the specified value
+module.exports.editDescription = async function(eventId, description) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+			"UPDATE `Event` " +
+			"SET `description`= ? " +
+			"WHERE `event_id`= ?;",
+			[description, eventId]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+// Update the maximum number of reservations per attendee for a given event to the specified value
+module.exports.editMaxResvPerAttendee = async function(eventId, max_resv_per_attendee) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+			"UPDATE `Event` " +
+			"SET `max_resv_per_attendee`= ? " +
+			"WHERE `event_id`= ?;",
+			[max_resv_per_attendee, eventId]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+// Update the attendee name visibility for a given event to the specified value
+module.exports.editVisibility = async function(eventId, visibility) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+			"UPDATE `Event` " +
+			"SET `visibility`= ? " +
+			"WHERE `event_id`= ?;",
+			[visibility, eventId]);
+		connection.end();
 	}
 	catch (err) {
 		console.log(err);
