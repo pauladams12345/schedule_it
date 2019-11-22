@@ -1,3 +1,4 @@
+<!-- Welcome jumbotron -->
 <div class="jumbotron py-4 my-4">
   <h1 class="display-4">Welcome to the Organizer Portal!</h1>
   <p class="lead">Edit event details, modify or create time slots, and manage attendance all from this page.</p>
@@ -5,7 +6,7 @@
   <a class="btn btn-primary btn-lg" href="/manage" role="button">Reserve Time Slot</a> <!--update href later -->
 </div>
 
-<!-- Event name -->
+<!-- Edit event name -->
 <form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-name" method="post" id="editNameForm" novalidate>
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
@@ -17,7 +18,7 @@
   </div>
 </form>
 
-<!-- Description -->
+<!-- Edit description -->
 <form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-description" 
 method="post" id="editDescriptionForm" novalidate>
   <div class="form-row">
@@ -30,7 +31,7 @@ method="post" id="editDescriptionForm" novalidate>
   </div>
 </form>
 
-<!-- Max reservations per attendee -->
+<!-- Edit default max reservations per attendee -->
 <form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-max-reservations" 
 method="post" id="editMaxReservationsPerAttendeeForm" novalidate>
   <div class="form-row">
@@ -46,7 +47,7 @@ method="post" id="editMaxReservationsPerAttendeeForm" novalidate>
   </div>
 </form>
 
-<!-- Time slot duration -->
+<!-- Hidden: Time slot duration -->
 <fieldset class="form-group" hidden>
  <legend class="col-form-label">Time slot duration:</legend>
  <small id="defaultDurationHelpText" class="form-text text-muted mt-0">
@@ -63,7 +64,7 @@ method="post" id="editMaxReservationsPerAttendeeForm" novalidate>
   </div>
 </fieldset>
 
-<!-- Show/hide registrant names -->
+<!-- Edit Show/hide registrant names -->
 <form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-visibility" 
 method="post" id="attendeeNameVisibilityForm" novalidate>
   <div class="form-row">
