@@ -86,8 +86,8 @@ router.post('/create', async function (req, res, next) {
 			await slot.createSlot(eventId, location, start_date, start_time, end_time, duration, maxAttendees);	// Store slots in database
 		}
 	}
-	//res.send('/manage/' + eventId);
-	res.send('/manage/212');
+	res.send('/manage/' + eventId);
+	//res.send('/manage/212');
 });
 
 module.exports = router;
