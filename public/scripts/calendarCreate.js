@@ -131,7 +131,7 @@ function configureSlotLocationDisplay(calendar) {
       }
     }
   });
-}
+};
 
 // Extract email addresses from textarea, create a separate email input
 // for each, and do input validation
@@ -248,10 +248,11 @@ function bindSlotDelete(deleteButton, calendarEvent, slot, slotId) {
 
 // Bind the save button in a slot's form. For slots with a status of existingUnmodified,
 //changes the status to existingModified. Hides the modal
-function bindSlotSave(saveButton, calendarEvent, slot, location) {
+function bindSlotSave(saveButton, calendarEvent, slot, slotId) {
   saveButton.addEventListener('click', function(event) {
-    if (location.value != '') {
-      calendarEvent.setProp('title', location.value);
+    let location = document.getElementById('slotLocation' + slotId).value
+    if (location != '') {
+      calendarEvent.setProp('title', location);
     }
     slot.hidden = true;
   });
@@ -323,7 +324,7 @@ function appendSlot(startTime, endTime, slotId, calendarEvent) {
   saveButton.setAttribute('id', 'slotSave' + slotId);
   saveButton.setAttribute('data-dismiss', 'modal');
   saveButton.textContent = 'Save changes';
-  bindSlotSave(saveButton, calendarEvent, slot, location);
+  bindSlotSave(saveButton, calendarEvent, slot, slotId);
 
   // Div to hold location portion of form
   var locationDiv = document.createElement('div');
