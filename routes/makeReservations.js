@@ -4,12 +4,12 @@ var Router = 		require('express-promise-router'),
 	slot =			require('../models/slot.js'),
 	event =			require('../models/event.js'),
 	invitation =	require('../models/invitation.js'),
-	createsEvent =	require('../models/createsEvent.js');
+	createsEvent =	require('../models/createsEvent.js'),
 	helpers = 		require('../helpers/helpers.js');
 
 
-	router.get('/reservations', async function (req, res, next) {
-			res.send('Success');
-	});
+router.get('/reservations', async function (req, res, next) {
+		res.send('Success');
+});
 
 module.exports = router;
