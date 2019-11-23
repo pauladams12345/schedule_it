@@ -81,6 +81,7 @@ router.post('/manage/:eventId/delete-event', async function (req, res, next) {
 	await slot.deleteSlotByEventId(eventId);
 	console.log("test");
 	await event.deleteEvent(eventId);
+	console.log("test1");
 	res.send('Success');
 });
 
