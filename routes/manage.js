@@ -8,7 +8,7 @@ var Router = 		require('express-promise-router'),
 	reserveSlot =	require('../models/reserveSlot.js');
 
 // TODO: restrict access to event creator
-router.get('/manage/:eventId/', async function (req, res, next) {
+router.get('/manage/:eventId', async function (req, res, next) {
 	let eventId = req.params.eventId;
 	let context = {};
 	let [reservations, fields] = await slot.eventSlotResv(eventId);
@@ -33,7 +33,7 @@ router.get('/manage/:eventId/', async function (req, res, next) {
 	res.render('manage', context);
 });
 
-router.post('/manage/delete-reservation/', async function (req, res, next) {
+router.post('/manage/delete-reservation', async function (req, res, next) {
 	let onid = req.body.onid;
 	let slotId = req.body.slotId;
 	await reserveSlot.deleteReservation(onid, slotId);
