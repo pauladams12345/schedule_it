@@ -180,7 +180,7 @@ function configureFormSubmissions() {
     $('#editSlotsForm').on('submit', function(e) {
       var data = $(this).serialize();
       data += "&" + $.param(slotStates);
-      data += "&slotIds=" + encodeURIComponent(slotIds); 
+      data += "&slotIds=" + encodeURIComponent(slotIds);
       $.ajax({
         url : $(this).attr('action'),
         type: $(this).attr('method'),
@@ -347,7 +347,21 @@ function bindReservationDelete(button, reservation, onid, slotId) {
   })
 }
 
-// Bind the delete button in a slot's form. Deletes the form and the corresponding 
+function bindEventDelete(button, eventId) {
+  button.addEventListener('click', function(event) {
+    // Send ajax request to delete event
+    $.ajax({
+      url : '/manage/delete-event',
+      type: 'POST',
+      data: $.param({"eventId": eventId}),
+      error: function (jXHR, textStatus, errorThrown) {
+        alert(errorThrown);
+      }
+    });
+  })
+}
+
+// Bind the delete button in a slot's form. Deletes the form and the corresponding
 // event in FullCalendar. Changes existing slot's status to existingDeleted and new slots
 // status to notUsed
 function bindSlotDelete(button, calendarEvent, slot, slotId) {

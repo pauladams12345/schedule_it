@@ -48,9 +48,10 @@ router.post('/manage/:eventId/edit-name', async function (req, res, next) {
 });
 
 router.post('/manage/:eventId/edit-description', async function (req, res, next) {
-	let eventId = req.params.eventId;
-	let description = req.body.description;
-	await event.editDescription(eventId, description);
+	console.log("test");
+	//let eventId = req.params.eventId;
+	//let description = req.body.description;
+	//await event.editDescription(eventId, description);
 	res.send('Success');
 });
 
@@ -66,6 +67,21 @@ router.post('/manage/:eventId/edit-visibility', async function (req, res, next) 
 	let visibility = req.body.attendeeNameVisibility;
 	await event.editVisibility(eventId, visibility);
 	res.send('Success');
+});
+
+router.post('/manage/:eventId/delete-event', async function (req, res, next) {
+	let slots = [];
+	let eventId = req.params.eventId;
+	await invitation.deleteInvitation(eventId);
+	let eventSlots = await slot.findEventSlots(eventId);
+	for (let slot of eventSlots){
+		await reserveSlot.deleteReservedSlotReservations(slot.slot_id);
+	}
+	await createsEvent.removeUserFromCreatesEvent(eventId);
+	await slot.deleteSlotByEventId(eventId);
+	await event.deleteEvent(eventId);
+	res.redirect('/home');
+	//res.send('Success');
 });
 
 router.post('/manage/:eventId/send-invitations', async function (req, res, next) {

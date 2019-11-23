@@ -2,7 +2,7 @@ var	dbcon = 	require('../middleware/dbcon.js'),
 	sql =   	require('mysql2/promise');
 
 // Create an event with the given parameters
-module.exports.createEvent = async function(eventName, location, 
+module.exports.createEvent = async function(eventName, location,
 	maxAttendeePerSlot, maxResvPerAttendee, description, visibility) {
 	try {
 		const connection = await sql.createConnection(dbcon);
@@ -81,7 +81,7 @@ module.exports.getTimeInterval = async function(startTime, duration) {
 		// connection.end();
 		// return startTimeAMPM + "-" + endTimeAMPM;
 
-		
+
 	}
 	catch (err) {
 		console.log(err);
@@ -151,8 +151,21 @@ module.exports.editVisibility = async function(eventId, visibility) {
 		console.log(err);
 	}
 };
+// Delete slot with the given ID
+module.exports.deleteEvent = async function(eventId){
+	try{
+		const connection = await sql.createConnection(dbcon);
+		await connection.query("DELETE FROM `Event` " +
+		"WHERE `event_id` = ?;",
+		 [eventId]);
+    connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
 
-// Update the expiration date for a given event to the specified value
+// Update the expiration date for the given event to the specified value
 module.exports.editExpirationDate = async function(eventId, expirationDate) {
 	try {
 		const connection = await sql.createConnection(dbcon);
@@ -168,6 +181,7 @@ module.exports.editExpirationDate = async function(eventId, expirationDate) {
 	}
 };
 
+// Set the expiration date for the given event to NULL
 module.exports.nullifyExpirationDate = async function(eventId) {
 	try {
 		const connection = await sql.createConnection(dbcon);

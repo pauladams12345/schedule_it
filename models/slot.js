@@ -1,7 +1,7 @@
 var	dbcon = 	require('../middleware/dbcon.js'),
 	sql =   	require('mysql2/promise');
 
-// Query database for all slots which a user has reserved with a 
+// Query database for all slots which a user has reserved with a
 // date of yesterday or earlier
 module.exports.findPastUserSlots = async function(onid) {
 	try {
@@ -23,7 +23,7 @@ module.exports.findPastUserSlots = async function(onid) {
 	}
 };
 
-// Query database for all slots which a user has reserved with a 
+// Query database for all slots which a user has reserved with a
 // date of yesterday or later
 module.exports.findFutureUserSlots = async function(onid) {
 	try {
@@ -84,7 +84,7 @@ module.exports.findEventSlots = async function(eventId) {
 		"s.duration, s.slot_location, s.max_attendees " +
 		"FROM `Slot` s " +
 		"INNER JOIN `Event` e ON s.fk_event_id = e.event_id " +
-		"WHERE s.fk_event_id = ?", 
+		"WHERE s.fk_event_id = ?",
 		[eventId]);
 		connection.end();
 		return rows;
@@ -147,6 +147,20 @@ module.exports.deleteSlot = async function(slotId){
 		await connection.query("DELETE FROM `Slot` " +
 		"WHERE `slot_id` = ?;",
 		 [slotId]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+// Delete slot with the given ID
+module.exports.deleteSlotByEventId = async function(eventId){
+	try{
+		const connection = await sql.createConnection(dbcon);
+		await connection.query("DELETE FROM `Slot` " +
+		"WHERE `fk_event_id` = ?;",
+		 [eventId]);
 		connection.end();
 	}
 	catch (err) {

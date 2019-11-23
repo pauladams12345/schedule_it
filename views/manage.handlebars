@@ -19,7 +19,7 @@
 </form>
 
 <!-- Edit description -->
-<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-description" 
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-description"
 method="post" id="editDescriptionForm" novalidate>
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
@@ -32,7 +32,7 @@ method="post" id="editDescriptionForm" novalidate>
 </form>
 
 <!-- Edit default max reservations per attendee -->
-<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-max-reservations" 
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-max-reservations"
 method="post" id="editMaxReservationsPerAttendeeForm" novalidate>
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
@@ -65,7 +65,7 @@ method="post" id="editMaxReservationsPerAttendeeForm" novalidate>
 </fieldset>
 
 <!-- Edit Show/hide registrant names -->
-<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-visibility" 
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-visibility"
 method="post" id="attendeeNameVisibilityForm" novalidate>
   <div class="form-row">
    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-check">
@@ -99,7 +99,7 @@ method="post" id="attendeeNameVisibilityForm" novalidate>
 <div id='calendar' class='m-1 p-1'></div>
 
 <!-- Time slot inputs. Dynamically generated and hidden in the modal until slot in calendar is clicked -->
-<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-slots" 
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/edit-slots"
 method="post" id="editSlotsForm" novalidate>
   <div class="modal fade" id="addEventSlot" tabindex="-1" role="dialog" aria-labelledby="addEventSlotLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -110,25 +110,25 @@ method="post" id="editSlotsForm" novalidate>
         <div class="modal-body" id="modalBody">
             {{#each existingSlots}}
             <div class="existingSlot" id="slot{{this.slot_id}}" hidden>
-              <input type="number" name="slot{{this.slot_id}}" 
+              <input type="number" name="slot{{this.slot_id}}"
               id="slotExistsInDatabase{{this.slot_id}}" value="1" hidden>
-              <input type="text" name="slotStart{{this.slot_id}}" 
+              <input type="text" name="slotStart{{this.slot_id}}"
               id="slotStart{{this.slot_id}}" value="{{this.start_time}}" hidden>
-              <input type="text" name="slotEnd{{this.slot_id}}" 
+              <input type="text" name="slotEnd{{this.slot_id}}"
               id="slotEnd{{this.slot_id}}" value="{{this.end_time}}" hidden>
               <div class="form-group">
-                <label for="slotMaxAttendees{{this.slot_id}}" 
+                <label for="slotMaxAttendees{{this.slot_id}}"
                 class="col-form-label">Max attendees</label>
-                <input type="number" class="form-control" value="{{this.max_attendees}}" 
+                <input type="number" class="form-control" value="{{this.max_attendees}}"
                 name="slotMaxAttendees{{this.slot_id}}" id="slotMaxAttendees{{this.slot_id}}">
               </div>
               <div class="form-group">
-                <label for="slotLocation{{this.slot_id}}" 
+                <label for="slotLocation{{this.slot_id}}"
                 class="col-form-label">Location</label>
                 <input type="text" class="form-control" value = "{{this.slot_location}}"
                 name="slotLocation{{this.slot_id}}" id="slotLocation{{this.slot_id}}">
               </div>
-              <button type="button" class="btn btn-danger" 
+              <button type="button" class="btn btn-danger"
               id="slotDelete{{this.slot_id}}">Delete slot</button>
               <button type="button" class="btn btn-success" id="slotSave{{this.slot_id}}"
               data-dismiss="modal">Save changes</button>
@@ -137,7 +137,7 @@ method="post" id="editSlotsForm" novalidate>
         </div>
       </div>
     </div>
-  </div> 
+  </div>
     <!-- Default location -->
     <input type="text" class="form-control" name="defaultLocation"
    id="defaultLocation" value="{{eventDetails.location}}" required hidden>
@@ -167,7 +167,7 @@ method="post" id="editSlotsForm" novalidate>
 </table>
 </div>
 
-<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/send-invitations" 
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/send-invitations"
 method="post" id="invitationsForm" novalidate>
   <div class="form-row mt-4">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group" id="emailsDiv">
@@ -179,7 +179,7 @@ method="post" id="invitationsForm" novalidate>
       <!-- User enters email addresses into textarea -->
       <textarea class="form-control" name="emailAddresses"
       id="emailAddresses" rows="3"></textarea>
-      <button type="button" role="button" class="btn btn-primary my-2" 
+      <button type="button" role="button" class="btn btn-primary my-2"
       id="addEmailsButton">Add emails</button>
       <!-- Email addresses are extracted from textarea and
       placed in individual email inputs -->
@@ -187,7 +187,7 @@ method="post" id="invitationsForm" novalidate>
   </div>
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6" id="emailsSubmitDiv">
-    <button type="submit" role="button" class="btn btn-primary my-2" 
+    <button type="submit" role="button" class="btn btn-primary my-2"
     id="sendInvitations" hidden>Send invitations</button>
     </div>
   </div>
@@ -228,5 +228,12 @@ method="post" id="invitationsForm" novalidate>
 </table>
 </div>
 
-
-
+<!-- Delete Event -->
+<form action="/manage/{{eventDetails.event_id}}/delete-event"
+method="post" id="deleteEventForm">
+  <div class="form-row">
+    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
+      <button class="btn btn-primary my-2" id="deleteEvent" type="submit">Delete Event</button>
+    </div>
+  </div>
+</form>

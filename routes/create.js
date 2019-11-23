@@ -69,7 +69,7 @@ router.post('/create', async function (req, res, next) {
 	// Process all slots
 	for (let id of slotIds) {
 		if (req.body['slotState' + id] == 'new') {
-			
+
 			let start = new Date(req.body['slotStart' + id]);	// start date/time
 			let end = new Date(req.body['slotEnd' + id]);		// end date/time
 			let duration = (end - start) / 60000;				// duration in minutes
