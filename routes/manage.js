@@ -80,7 +80,6 @@ router.post('/manage/:eventId/delete-event', async function (req, res, next) {
 	await slot.deleteSlotByEventId(eventId);
 	await event.deleteEvent(eventId);
 	res.redirect('/home');
-	//res.send('Success');
 });
 
 router.post('/manage/:eventId/send-invitations', async function (req, res, next) {
@@ -133,7 +132,7 @@ router.post('/manage/:eventId/edit-slots', async function (req, res, next) {
 		for (let id of slotIds) {
 			let state = req.body['slotState' + id];
 
-			// Skip over slots that are unused 
+			// Skip over slots that are unused
 			if (state == 'notUsed') {
 				continue;
 			}
@@ -168,14 +167,14 @@ router.post('/manage/:eventId/edit-slots', async function (req, res, next) {
 			let [endDate, endTime] = await helpers.parseDateTimeString(end);			//convert end date/time to MySQL-compatible format
 
 			// Check if this is the latest ending slot
-			if (lastSlotEndDate < end) {						
+			if (lastSlotEndDate < end) {
 				lastSlotEndDate = end;
 			}
 
 			// If new slot, create it
 			if (req.body['slotState' + id] == 'new') {
 				await slot.createSlot(eventId, location, startDate, // Store slots in database
-				startTime, endTime, duration, maxAttendees);	
+				startTime, endTime, duration, maxAttendees);
 			}
 			// If existing slot, update its info
 			else if (req.body['slotState' + id] == 'existingModified') {
