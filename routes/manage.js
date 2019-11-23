@@ -70,7 +70,6 @@ router.post('/manage/:eventId/edit-visibility', async function (req, res, next) 
 });
 
 router.post('/manage/:eventId/delete-event', async function (req, res, next) {
-	console.log("test");
 	let slots = [];
 	let eventId = req.params.eventId;
 	await invitation.deleteInvitation(eventId);
@@ -78,6 +77,7 @@ router.post('/manage/:eventId/delete-event', async function (req, res, next) {
 	for (let slot of eventSlots){
 		await reserveSlot.deleteReservedSlotReservations(slot.slot_id);
 	}
+	console.log("test");
 	await createsEvent.removeUserFromCreatesEvent(eventId);
 	await slot.deleteSlotByEventId(eventId);
 	await event.deleteEvent(eventId);
