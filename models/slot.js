@@ -159,7 +159,7 @@ module.exports.deleteSlotByEventId = async function(eventId){
 	try{
 		const connection = await sql.createConnection(dbcon);
 		await connection.query("DELETE FROM `Slot` " +
-		"WHERE `slot_id` = ?;",
+		"WHERE `fk_event_id` = ?;",
 		 [eventId]);
 		connection.end();
 	}
