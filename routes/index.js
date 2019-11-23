@@ -85,8 +85,4 @@ router.get('/logout', async function (req, res, next) {
 	}
 });
 
-/*router.get('/reservations', async function (req, res, next) {
-		res.send('Success');
-});*/
-
 module.exports = router;
