@@ -8,7 +8,7 @@ module.exports.createEvent = async function(eventName, location,
 		const connection = await sql.createConnection(dbcon);
 		await connection.query("INSERT INTO `indaba_db`.`Event` " +
 		"(`event_name`, `location`, `max_attendee_per_slot`, " +
-		"`max_resv_per_attendee`, `description`, visibility) " +
+		"`max_resv_per_attendee`, `description`, `visibility`) " +
 		"VALUES (?, ?, ?, ?, ?, ?);",
 		  [eventName, location, maxAttendeePerSlot, maxResvPerAttendee,
 		  description, visibility]);
@@ -151,7 +151,6 @@ module.exports.editVisibility = async function(eventId, visibility) {
 		console.log(err);
 	}
 };
-
 // Delete slot with the given ID
 module.exports.deleteEvent = async function(eventId){
 	try{
@@ -159,9 +158,41 @@ module.exports.deleteEvent = async function(eventId){
 		await connection.query("DELETE FROM `Event` " +
 		"WHERE `event_id` = ?;",
 		 [eventId]);
+    connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+// Update the expiration date for the given event to the specified value
+module.exports.editExpirationDate = async function(eventId, expirationDate) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+			"UPDATE `Event` " +
+			"SET `expiration_date`= ? " +
+			"WHERE `event_id`= ?;",
+			[expirationDate, eventId]);
 		connection.end();
 	}
 	catch (err) {
 		console.log(err);
 	}
 };
+
+// Set the expiration date for the given event to NULL
+module.exports.nullifyExpirationDate = async function(eventId) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+			"UPDATE `Event` " +
+			"SET `expiration_date`= NULL " +
+			"WHERE `event_id`= ?;",
+			[eventId]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}	
+}
