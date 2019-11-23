@@ -167,3 +167,18 @@ module.exports.editExpirationDate = async function(eventId, expirationDate) {
 		console.log(err);
 	}
 };
+
+module.exports.nullifyExpirationDate = async function(eventId) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+			"UPDATE `Event` " +
+			"SET `expiration_date`= NULL " +
+			"WHERE `event_id`= ?;",
+			[eventId]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}	
+}
