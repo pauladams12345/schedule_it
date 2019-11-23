@@ -8,7 +8,7 @@ var Router = 		require('express-promise-router'),
 	helpers = 		require('../helpers/helpers.js');
 
 
-router.get('/make-reservations', async function (req, res, next) {
+router.get('/make-reservations/:eventId', async function (req, res, next) {
 	// If there is no session established, redirect to the landing page
 	if (!req.session.onid) {
 		res.redirect('../login');
@@ -17,6 +17,7 @@ router.get('/make-reservations', async function (req, res, next) {
 	// If there is a session, render users past reservations
 	else {
 		let context = {};
+		eventId = req.params.eventId;
 
 		context.eventsManaging = await createsEvent.getUserEvents(req.session.onid);
 
