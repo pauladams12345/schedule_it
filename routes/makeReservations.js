@@ -7,7 +7,7 @@ var Router = 		require('express-promise-router'),
 	createsEvent =	require('../models/createsEvent.js');
 	helpers = 		require('../helpers/helpers.js');
 
-	router.get('/make-reservations', async function (req, res, next) {
+	router.get('/reservations', async function (req, res, next) {
 		let context = {};
 		context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 		'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
