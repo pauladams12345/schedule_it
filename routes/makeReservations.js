@@ -8,7 +8,7 @@ var Router = 		require('express-promise-router'),
 	helpers = 		require('../helpers/helpers.js');
 
 
-router.get('/reservations', async function (req, res, next) {
+router.get('/make-reservations', async function (req, res, next) {
 		res.send('Success');
 });
 
