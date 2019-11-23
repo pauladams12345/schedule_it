@@ -27,7 +27,10 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 		// Process response from database into a handlebars-friendly format
 		//context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
 
-		context.stylesheets = ['main.css', 'home.css']
+		context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
+		'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
+		context.scripts = ['calendarReservation.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+		'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 		res.render('make-reservations', context);
 	}
 });
