@@ -7,7 +7,7 @@ var Router = 		require('express-promise-router'),
 	createsEvent =	require('../models/createsEvent.js');
 	helpers = 		require('../helpers/helpers.js');
 
-router.get('/make-reservations', async function (req, res, next) {
+router.post('/make-reservations', async function (req, res, next) {
 	res.send('success');
 });
 
