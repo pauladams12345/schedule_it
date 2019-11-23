@@ -81,7 +81,8 @@ function configureCalendar() {
         var minutes = parseInt(document.getElementById('defaultDurationMinutes').value, 10);
         var duration = (60 * hours) + minutes;
         info.end.setTime(info.start.getTime() + duration * 60000);
-        var calendarEvent = calendar.addEvent({id: slotId, start: info.start, end: info.end});
+        var defaultLocation = document.getElementById('defaultLocation').value;
+        var calendarEvent = calendar.addEvent({id: slotId, start: info.start, end: info.end, title: defaultLocation});
         appendSlot(info.start, info.end, slotId, calendarEvent);
         slotStates["slotState" + slotId] = 'new';
         slotIds.push(slotId);
@@ -111,7 +112,24 @@ function configureCalendar() {
       }
     });
     calendar.render();
+    configureSlotLocationDisplay(calendar);
     document.getElementById('addEmailsButton').addEventListener('click', splitEmails);
+  });
+}
+
+// When focus blurs from the default location input, update the title of all events
+// that don't have a custom location (set in modal)
+function configureSlotLocationDisplay(calendar) {
+  var defaultLocationInput = document.getElementById('defaultLocation');
+  defaultLocationInput.addEventListener('blur', function (e){
+    var events = calendar.getEvents();
+    console.log(events);
+    for (var i = 0; i < events.length; i++) {
+      console.log(document.getElementById('slotLocation' + events[i].id).value)
+      if (document.getElementById('slotLocation' + events[i].id).value == '') {
+        events[i].setProp('title', defaultLocationInput.value);
+      }
+    }
   });
 }
 
@@ -230,8 +248,11 @@ function bindSlotDelete(deleteButton, calendarEvent, slot, slotId) {
 
 // Bind the save button in a slot's form. For slots with a status of existingUnmodified,
 //changes the status to existingModified. Hides the modal
-function bindSlotSave(saveButton, slot) {
+function bindSlotSave(saveButton, calendarEvent, slot, location) {
   saveButton.addEventListener('click', function(event) {
+    if (location.value != '') {
+      calendarEvent.setProp('title', location.value);
+    }
     slot.hidden = true;
   });
 };
@@ -302,7 +323,7 @@ function appendSlot(startTime, endTime, slotId, calendarEvent) {
   saveButton.setAttribute('id', 'slotSave' + slotId);
   saveButton.setAttribute('data-dismiss', 'modal');
   saveButton.textContent = 'Save changes';
-  bindSlotSave(saveButton, slot);
+  bindSlotSave(saveButton, calendarEvent, slot, location);
 
   // Div to hold location portion of form
   var locationDiv = document.createElement('div');
