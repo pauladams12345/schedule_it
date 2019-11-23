@@ -79,10 +79,9 @@ router.post('/manage/:eventId/delete-event', async function (req, res, next) {
 	}
 	await createsEvent.removeUserFromCreatesEvent(eventId);
 	await slot.deleteSlotByEventId(eventId);
-	console.log("test");
 	await event.deleteEvent(eventId);
-	console.log("test1");
-	res.send('Success');
+	res.redirect('/home');
+	//res.send('Success');
 });
 
 router.post('/manage/:eventId/send-invitations', async function (req, res, next) {
