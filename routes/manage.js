@@ -76,7 +76,7 @@ router.post('/manage/:eventId/delete-event', async function (req, res, next) {
 	await invitation.deleteInvitation(eventId);
 	let eventSlots = await slot.findEventSlots(eventId);
 	for (let slot of eventSlots){
-		await deleteReservedSlotReservations(slot.slot_id);
+		await reserveSlot.deleteReservedSlotReservations(slot.slot_id);
 	}
 	await slot.deleteSlotByEventId(eventId);
 	await event.deleteEvent(eventId);
