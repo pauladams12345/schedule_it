@@ -27,7 +27,7 @@ router.get('/make-reservations', async function (req, res, next) {
 		context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
 
 		context.stylesheets = ['main.css', 'home.css']
-		res.render('past-reservations', context);
+		res.render('make-reservations', context);
 	}
 });
 
