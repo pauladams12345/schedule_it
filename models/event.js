@@ -8,7 +8,7 @@ module.exports.createEvent = async function(eventName, location,
 		const connection = await sql.createConnection(dbcon);
 		await connection.query("INSERT INTO `indaba_db`.`Event` " +
 		"(`event_name`, `location`, `max_attendee_per_slot`, " +
-		"`max_resv_per_attendee`, `description`, visibility) " +
+		"`max_resv_per_attendee`, `description`, `visibility`) " +
 		"VALUES (?, ?, ?, ?, ?, ?);",
 		  [eventName, location, maxAttendeePerSlot, maxResvPerAttendee,
 		  description, visibility]);
@@ -145,6 +145,22 @@ module.exports.editVisibility = async function(eventId, visibility) {
 			"SET `visibility`= ? " +
 			"WHERE `event_id`= ?;",
 			[visibility, eventId]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+// Update the expiration date for a given event to the specified value
+module.exports.editExpirationDate = async function(eventId, expirationDate) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+			"UPDATE `Event` " +
+			"SET `expiration_date`= ? " +
+			"WHERE `event_id`= ?;",
+			[expirationDate, eventId]);
 		connection.end();
 	}
 	catch (err) {

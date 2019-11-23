@@ -64,6 +64,8 @@ router.post('/create', async function (req, res, next) {
 	// Store the invitations (users emails) in the database
 	await invitation.createInvitations(eventId, emails);
 
+	let lastSlotEndDate = null;
+
 	// Process all slots
 	for (let id of slotIds) {
 		if (req.body['slotState' + id] == 'new') {
@@ -80,12 +82,25 @@ router.post('/create', async function (req, res, next) {
 				maxAttendees = defaultMaxAttendees;
 			}
 
-			let [start_date, start_time] = await helpers.parseDateTimeString(start);	//convert start date/time to MySQL-compatible format
-			let [end_date, end_time] = await helpers.parseDateTimeString(end);			//convert end date/time to MySQL-compatible format
+			let [startDate, startTime] = await helpers.parseDateTimeString(start);	//convert start date/time to MySQL-compatible format
+			let [endDate, endTime] = await helpers.parseDateTimeString(end);			//convert end date/time to MySQL-compatible format
 
-			await slot.createSlot(eventId, location, start_date, start_time, end_time, duration, maxAttendees);	// Store slots in database
+			if (lastSlotEndDate === null) {
+				lastSlotEndDate = end;
+			}
+			else if (lastSlotEndDate < end) {
+				lastSlotEndDate = end;
+			}
+
+			await slot.createSlot(eventId, location, startDate, startTime, endTime, duration, maxAttendees);	// Store slots in database
 		}
 	}
+	// Set the expiration date to the end date of the latest slot
+	if (lastSlotEndDate) {
+		let [expirationDate, expirationTime] = await helpers.parseDateTimeString(lastSlotEndDate);
+		await event.editExpirationDate(eventId, expirationDate);
+	}
+
 	res.send('/manage/' + eventId);
 });
 
