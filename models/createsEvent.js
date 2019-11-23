@@ -20,10 +20,24 @@ module.exports.getUserEvents = async function(onid) {
 		const [rows, fields] = await connection.query("SELECT e.event_name, e.event_id FROM `Event` e " +
 		"INNER JOIN `Creates_Event` ce ON e.event_id = ce.fk_event_id " +
 		"WHERE ce.fk_onid = ?;", [onid]);
-		connection.end();	
+		connection.end();
 		return rows;
 	}
 	catch (err) {
 		console.log(err);
 	}
 }
+
+// removes user from creates event table.
+module.exports.removeUserFromCreatesEvent = async function(eventId) {
+	try{
+		const connection = await sql.createConnection(dbcon);
+		await connection.query("DELETE FROM `Creates_Event` " +
+		"WHERE `fk_event_id` = ?;",
+		 [eventId]);
+		connection.end();
+	}
+	catch (err) {
+		console.log(err);
+	}
+};

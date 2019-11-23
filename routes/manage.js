@@ -79,6 +79,7 @@ router.post('/manage/:eventId/delete-event', async function (req, res, next) {
 		await reserveSlot.deleteReservedSlotReservations(slot.slot_id);
 	}
 	await slot.deleteSlotByEventId(eventId);
+	await createsEvent.removeUserFromCreatesEvent(eventId);
 	await event.deleteEvent(eventId);
 	res.send('Success');
 });
