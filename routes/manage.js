@@ -8,7 +8,7 @@ var Router = 		require('express-promise-router'),
 	reserveSlot =	require('../models/reserveSlot.js');
 
 // TODO: restrict access to event creator
-router.get('/manage/:eventId/', async function (req, res, next) {
+router.get('/manage/:eventId', async function (req, res, next) {
 	let eventId = req.params.eventId;
 	let context = {};
 	let [reservations, fields] = await slot.eventSlotResv(eventId);
@@ -33,7 +33,7 @@ router.get('/manage/:eventId/', async function (req, res, next) {
 	res.render('manage', context);
 });
 
-router.post('/manage/delete-reservation/', async function (req, res, next) {
+router.post('/manage/delete-reservation', async function (req, res, next) {
 	let onid = req.body.onid;
 	let slotId = req.body.slotId;
 	await reserveSlot.deleteReservation(onid, slotId);
@@ -111,13 +111,15 @@ router.post('/manage/:eventId/edit-slots', async function (req, res, next) {
 		}
 	}
 
+	let lastSlotEndDate = null;		// track the ending date of the latest slot
+
 	// Make all additions, modifications, and deletions requested by the user
 	if (modificationsAllowed) {
 		for (let id of slotIds) {
 			let state = req.body['slotState' + id];
 
-			// Skip over slots that are unused or unmodified
-			if (state == 'notUsed' || state == 'existingUnmodified') {
+			// Skip over slots that are unused 
+			if (state == 'notUsed') {
 				continue;
 			}
 
@@ -127,7 +129,15 @@ router.post('/manage/:eventId/edit-slots', async function (req, res, next) {
 				continue;
 			}
 
-			// Get slot info
+			// Check the ending date of slots that won't be modified
+			else if (state == 'existingUnmodified') {
+				let end = new Date(req.body['slotEnd' + id]);		// end date/time
+				if (lastSlotEndDate < end) {						// check if this is the latest ending slot
+					lastSlotEndDate = end;
+				}
+			}
+
+			// Else slot is new or already exists and will be modified. Get details
 			let start = new Date(req.body['slotStart' + id]);	// start date/time
 			let end = new Date(req.body['slotEnd' + id]);		// end date/time
 			let duration = (end - start) / 60000;				// duration in minutes
@@ -142,15 +152,32 @@ router.post('/manage/:eventId/edit-slots', async function (req, res, next) {
 			let [startDate, startTime] = await helpers.parseDateTimeString(start);	//convert start date/time to MySQL-compatible format
 			let [endDate, endTime] = await helpers.parseDateTimeString(end);			//convert end date/time to MySQL-compatible format
 
+			// Check if this is the latest ending slot
+			if (lastSlotEndDate < end) {						
+				lastSlotEndDate = end;
+			}
+
 			// If new slot, create it
 			if (req.body['slotState' + id] == 'new') {
-				await slot.createSlot(eventId, location, startDate, startTime, endTime, duration, maxAttendees);	// Store slots in database
+				await slot.createSlot(eventId, location, startDate, // Store slots in database
+				startTime, endTime, duration, maxAttendees);	
 			}
 			// If existing slot, update its info
 			else if (req.body['slotState' + id] == 'existingModified') {
 				await slot.editSlot(location, startDate, startTime, endTime, duration, maxAttendees, id);
 			}
 		}
+
+		// Set the expiration date to the end date of the latest slot
+		if (lastSlotEndDate) {				// there is at least one slot and thus a latest ending time
+			let [expirationDate, expirationTime] = await helpers.parseDateTimeString(lastSlotEndDate);
+			await event.editExpirationDate(eventId, expirationDate);
+		}
+		else {								// there are no slots, so set expiration to null
+			await event.nullifyExpirationDate(eventId);
+		}
+
+
 		res.send('Changes to time slots were successful.');
 	}
 });
