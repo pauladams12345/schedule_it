@@ -2,7 +2,6 @@ var numEmails = 0;        // Used to create unique id for email inputs as they'r
 var slotIds = [];         // Store all id of every slot created
 var slotStates = {};      // Track state of each slot. Options: new, notUsed, existingUnmodified, existingModified, existingDeleted
 configureCalendar();
-console.log(document.getElementById('existingSlots')[0]);
 //configureFormSubmissions();
 //configureReservations();
 //configureFormValidation();
@@ -85,6 +84,14 @@ function configureCalendar() {
     });
     calendar.render();
   });
+  var existingSlots = document.getElementById('existingSlot');
+  for (var i = 0; i < existingSlots.length; i++) {
+    var slotId = existingSlots[i].getAttribute('id').substring(4);
+    var startTime = new Date(document.getElementById('slotStart' + slotId).value);
+    var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
+    var location = document.getElementById('slotLocation' + slotId).value;
+    var calendarEvent = calendar.addEvent({id: slotId, start: startTime, end: endTime, title: location});
+  }
 }
 /*
 // When focus blurs from the default location input, update the title of all events
