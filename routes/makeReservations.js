@@ -29,7 +29,7 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 			slot['start_time'] = startTime;
 			slot['end_time'] = endTime;
 		}
-		context.existingSlots = await helpers.processEventSlots(existingSlots, eventId);
+		context.existingSlots = await helpers.processEventSlots(eventSlots, eventId);
 		//context.existingSlots = existingSlots;
 		// Find all slots a user registered for in the past
 		//let [reservations, fields] = await slot.findPastUserSlots(req.session.onid);
