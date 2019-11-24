@@ -11,5 +11,7 @@
 </div>
 
 <!-- Calendar -->
-<p>{{existingSlots.slot_id}}</p>
+{{#each existingSlots.slot_id}}
+<p>{{this.slot_id}}</p>
+{{/each}}
 <div id='calendar' class='m-1 p-1'></div>
