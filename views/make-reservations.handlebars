@@ -22,6 +22,12 @@
   <input type="text" name="slotLocation{{this.slot_id}}"
   id="slotLocation{{this.slot_id}}" value = "{{this.slot_location}}" hidden>
   {{#each this.attendees}}
+    <input type="number" name="slot{{this.slot_id}}"
+    id="firstName{{this.slot_id}}" value="{{this.firstName}}">
+    <input type="number" name="slot{{this.slot_id}}"
+    id="lastName{{this.slot_id}}" value="{{this.lastName}}">
+    <input type="number" name="slot{{this.slot_id}}"
+    id="email{{this.slot_id}}" value="{{this.email}}">
     <p>{{this.firstName}}</p>
   {{/each}}
 </div>
