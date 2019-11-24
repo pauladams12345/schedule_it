@@ -55,9 +55,9 @@ function configureCalendar() {
         var slotId = clickInfo.event.id;
         var slot = document.getElementById('slot' + slotId);
         var location = document.getElementById('slotLocation' + slotId);
-        var maxAttendees = document.getElementById('slotMaxAttendees' + slotId);
-        location.placeholder = document.getElementById('defaultLocation').value;
-        maxAttendees.placeholder = document.getElementById('defaultMaxAttendees').value;
+        //var maxAttendees = document.getElementById('slotMaxAttendees' + slotId);
+        //location.placeholder = document.getElementById('defaultLocation').value;
+        m//axAttendees.placeholder = document.getElementById('defaultMaxAttendees').value;
         slot.hidden = false;
         $('#addEventSlot').modal('show');
       },
