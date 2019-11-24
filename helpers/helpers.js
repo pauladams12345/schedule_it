@@ -91,7 +91,7 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 		let dateString = dateTime.toLocaleDateString('en-US', {weekday: 'long', month: 'short', day: 'numeric' , year: 'numeric'});
 		let timeString = dateTime.toLocaleTimeString('en-US') + ' - ';
 		timeString += new Date(dateTime.getTime() + resv.duration * 60000).toLocaleTimeString('en-US');
-		
+
 		events[id].reservations[resv.slot_id] = {
 			date: dateString,
 			time:  timeString,
@@ -111,3 +111,47 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 	}
 	return events;
 };
+
+/*module.exports.processEventSlots = async function (eventId){
+	let slots = {};		// Store the details of each slot in a handlebars-friendly format
+
+	// Loop over each reservation to fill the events object
+	for (let resv of reservations) {
+		let id = resv.event_id;
+
+		// If we haven't seen this event before, create a nested object for it
+		if ( !event_ids.includes(id) ){
+			event_ids.push(id);								// add current event ID to tracking array
+			events[id] = {									// create event object
+				title: resv.event_name,
+				creator: await event.getEventCreator(id),
+				description: resv.description,
+				reservations: {}
+			};
+		}
+
+		//  Create a nested  object for the current reservation
+		let dateTime = new Date(resv.slot_date + 'T' + resv.start_time);
+		let dateString = dateTime.toLocaleDateString('en-US', {weekday: 'long', month: 'short', day: 'numeric' , year: 'numeric'});
+		let timeString = dateTime.toLocaleTimeString('en-US') + ' - ';
+		timeString += new Date(dateTime.getTime() + resv.duration * 60000).toLocaleTimeString('en-US');
+
+		events[id].reservations[resv.slot_id] = {
+			date: dateString,
+			time:  timeString,
+			location: resv.slot_location,
+			attendees: {}
+		};
+		const [attendees, fields] = await slot.findSlotAttendees(resv.slot_id);
+		for (let attendee of attendees){
+			if(attendee.onid != user_ONID){
+				events[id].reservations[resv.slot_id].attendees[attendee.onid] = {
+					firstName: attendee.first_name,
+					lastName: attendee.last_name,
+					email: attendee.ONID_email
+				};
+			}
+		}
+	}
+	return events;
+};*/
