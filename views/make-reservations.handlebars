@@ -33,7 +33,7 @@ aria-labelledby="resvSlotLabel" aria-hidden="true" data-backdrop="static">
         <h5 class="modal-title" id="resvSlotLabel">Who signed up</h5>
       </div>
       <div class="modal-body" id="modalBody">
-          <{{#each existingSlots}}
+          <{{#each existingSlots}}>
           <div class="existingSlot" id="slot{{this.slot_id}}" hidden>
             <input type="number" name="slot{{this.slot_id}}"
             id="slotExistsInDatabase{{this.slot_id}}" value="1" hidden>
@@ -56,7 +56,7 @@ aria-labelledby="resvSlotLabel" aria-hidden="true" data-backdrop="static">
             <button type="button" class="btn btn-danger"
             id="slotDelete{{this.slot_id}}">Delete slot</button>
             <button type="button" class="btn btn-success" id="slotSave{{this.slot_id}}"
-            data-dismiss="modal">Save changes</button> 
+            data-dismiss="modal">Save changes</button>
           </div>
           {{/each}}
       </div>
