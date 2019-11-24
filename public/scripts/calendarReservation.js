@@ -88,7 +88,7 @@ function configureCalendar() {
       var startTime = new Date(document.getElementById('slotStart' + slotId).value);
       var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
       var location = document.getElementById('slotLocation' + slotId).value;
-      console.log(slotId);
+      console.log(startTime);
       var calendarEvent = calendar.addEvent({id: slotId, start: startTime, end: endTime, title: location});
     }
     calendar.render();
