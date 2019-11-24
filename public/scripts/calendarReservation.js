@@ -57,9 +57,9 @@ function configureCalendar() {
         var location = document.getElementById('slotLocation' + slotId);
         //var maxAttendees = document.getElementById('slotMaxAttendees' + slotId);
         //location.placeholder = document.getElementById('defaultLocation').value;
-        m//axAttendees.placeholder = document.getElementById('defaultMaxAttendees').value;
+        //maxAttendees.placeholder = document.getElementById('defaultMaxAttendees').value;
         slot.hidden = false;
-        $('#addEventSlot').modal('show');
+        $('#resvSlot').modal('show');
       },
       // Upon dragging and dropping an event, update the start and end times
       eventDrop: function(dropInfo) {

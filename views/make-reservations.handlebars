@@ -24,3 +24,42 @@
 </div>
 {{/each}}
 <div id='calendar' class='m-1 p-1'></div>
+
+<div class="modal fade" id="resvSlot" tabindex="-1" role="dialog"
+aria-labelledby="resvSlotLabel" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="resvSlotLabel">Slot details</h5>
+      </div>
+      <div class="modal-body" id="modalBody">
+          <!--{{#each existingSlots}}
+          <div class="existingSlot" id="slot{{this.slot_id}}" hidden>
+            <input type="number" name="slot{{this.slot_id}}"
+            id="slotExistsInDatabase{{this.slot_id}}" value="1" hidden>
+            <input type="text" name="slotStart{{this.slot_id}}"
+            id="slotStart{{this.slot_id}}" value="{{this.start_time}}" hidden>
+            <input type="text" name="slotEnd{{this.slot_id}}"
+            id="slotEnd{{this.slot_id}}" value="{{this.end_time}}" hidden>
+            <div class="form-group">
+              <label for="slotMaxAttendees{{this.slot_id}}"
+              class="col-form-label">Max attendees</label>
+              <input type="number" class="form-control" value="{{this.max_attendees}}"
+              name="slotMaxAttendees{{this.slot_id}}" id="slotMaxAttendees{{this.slot_id}}">
+            </div>
+            <div class="form-group">
+              <label for="slotLocation{{this.slot_id}}"
+              class="col-form-label">Location</label>
+              <input type="text" class="form-control" value = "{{this.slot_location}}"
+              name="slotLocation{{this.slot_id}}" id="slotLocation{{this.slot_id}}">
+            </div>
+            <button type="button" class="btn btn-danger"
+            id="slotDelete{{this.slot_id}}">Delete slot</button>
+            <button type="button" class="btn btn-success" id="slotSave{{this.slot_id}}"
+            data-dismiss="modal">Save changes</button>
+          </div>
+          {{/each}}-->
+      </div>
+    </div>
+  </div>
+</div>
