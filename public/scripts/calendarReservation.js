@@ -52,7 +52,7 @@ function configureCalendar() {
       },
       // Upon clicking an existing slot, show the modal to edit details
       eventClick: function(clickInfo) {
-        var slotId = clickInfo.event.id;
+        var slotId = clickInfo.event.id;  //retrives slot id #
         var slot = document.getElementById('slot' + slotId);
         var location = document.getElementById('slotLocation' + slotId);
         //var maxAttendees = document.getElementById('slotMaxAttendees' + slotId);
@@ -85,6 +85,7 @@ function configureCalendar() {
     var existingSlots = document.getElementsByClassName('existingSlots');
     for (var i = 0; i < existingSlots.length; i++) {
       var slotId = existingSlots[i].getAttribute('id').substring(4);
+      console.log(existingSlots[i].getAttribute('id'));
       var startTime = new Date(document.getElementById('slotStart' + slotId).value);
       var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
       var location = document.getElementById('slotLocation' + slotId).value;
