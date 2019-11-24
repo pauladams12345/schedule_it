@@ -21,7 +21,7 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 
 		context.eventDetails = await event.findEvent(eventId);
 		context.eventCreator = await event.getEventCreator(eventId);
-		let [existingSlots, fields] = await slot.findEventSlots(eventId);
+		let existingSlots = await slot.findEventSlots(eventId);
 		for (let slot of existingSlots) {
 			let startTime = new Date(slot.slot_date);												// get date of slot start
 			startTime.setUTCHours(slot.start_time.substring(0,2), slot.start_time.substring(3,5));	// set time of slot start
