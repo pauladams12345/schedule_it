@@ -12,7 +12,7 @@
 
 <!-- Calendar -->
 {{#each existingSlots}}
-<div class="existingSlots" id="slot{{this.slot_id}}" hidden>
+<div class="existingSlots" id="slot{{this.slot_id}}">
   <input type="number" name="slot{{this.slot_id}}"
   id="slotExistsInDatabase{{this.slot_id}}" value="1" hidden>
   <input type="text" name="slotStart{{this.slot_id}}"
@@ -21,7 +21,11 @@
   id="slotEnd{{this.slot_id}}" value="{{this.end_time}}" hidden>
   <input type="text" name="slotLocation{{this.slot_id}}"
   id="slotLocation{{this.slot_id}}" value = "{{this.slot_location}}" hidden>
-  <p>test</p>
+  {{#each existingSlots.attendees}}
+    <p>test</p>
+    <input type="number" name="slot{{this.slot_id}}"
+    id="slotExistsInDatabase{{this.slot_id}}" value="1">
+  {{/each}}
 </div>
 {{/each}}
 
