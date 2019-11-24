@@ -12,15 +12,15 @@
 
 <!-- Calendar -->
 {{#each existingSlots}}
-<div class="existingSlots" id="slot{{this.slot_id}}" >
-  <input type="number" name="slot{{this.slot_id}}"
-  id="slotExistsInDatabase{{this.slot_id}}" value="1" >
-  <input type="text" name="slotStart{{this.slot_id}}"
-  id="slotStart{{this.slot_id}}" value="{{this.start_time}}" >
-  <input type="text" name="slotEnd{{this.slot_id}}"
-  id="slotEnd{{this.slot_id}}" value="{{this.end_time}}" >
-  <input type="text" name="slotLocation{{this.slot_id}}"
-  id="slotLocation{{this.slot_id}}" value = "{{this.slot_location}}">
+<div class="existingSlots" id="slot{{this.slot_id}}" hidden>
+  <p type="number" name="slot{{this.slot_id}}"
+  id="slotExistsInDatabase{{this.slot_id}}" value="1" hidden></p>
+  <p type="text" name="slotStart{{this.slot_id}}"
+  id="slotStart{{this.slot_id}}" value="{{this.start_time}}" hidden></p>
+  <p type="text" name="slotEnd{{this.slot_id}}"
+  id="slotEnd{{this.slot_id}}" value="{{this.end_time}}" hidden></p>
+  <p type="text" name="slotLocation{{this.slot_id}}"
+  id="slotLocation{{this.slot_id}}" value = "{{this.slot_location}}" hidden></p>
 </div>
 {{/each}}
 <div id='calendar' class='m-1 p-1'></div>
