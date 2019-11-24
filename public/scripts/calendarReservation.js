@@ -84,8 +84,8 @@ function configureCalendar() {
     });
     calendar.render();
   });
-  console.log(document.getElementById('existingSlot'));
-  var existingSlots = document.getElementById('existingSlot');
+  console.log(document.getElementById('existingSlots'));
+  var existingSlots = document.getElementById('existingSlots');
   for (var i = 0; i < existingSlots.length; i++) {
     var slotId = existingSlots[i].getAttribute('id').substring(4);
     var startTime = new Date(document.getElementById('slotStart' + slotId).value);
