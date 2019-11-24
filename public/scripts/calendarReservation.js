@@ -84,6 +84,7 @@ function configureCalendar() {
     });
     calendar.render();
   });
+  console.log(document.getElementById('existingSlot'));
   var existingSlots = document.getElementById('existingSlot');
   for (var i = 0; i < existingSlots.length; i++) {
     var slotId = existingSlots[i].getAttribute('id').substring(4);
