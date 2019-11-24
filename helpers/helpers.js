@@ -127,8 +127,8 @@ module.exports.processEventSlots = async function (existingSlots){
 		const [attendees, fields] = await slot.findSlotAttendees(resv.slot_id);
 		for (let attendee of attendees){
 			//if(attendee.onid != user_ONID){
-			//slots[resv.slot_id].attendees[attendee.onid] = {
-			slots[resv.slot_id].attendees = {
+			slots[resv.slot_id].attendees[attendee.onid] = {
+			//slots[resv.slot_id].attendees = {
 				firstName: attendee.first_name,
 				lastName: attendee.last_name,
 				email: attendee.ONID_email
