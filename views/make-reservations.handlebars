@@ -21,6 +21,11 @@
   id="slotEnd{{this.slot_id}}" value="{{this.end_time}}" hidden>
   <input type="text" name="slotLocation{{this.slot_id}}"
   id="slotLocation{{this.slot_id}}" value = "{{this.slot_location}}" hidden>
+  {{#each existingSlots}}
+    <input type="number" name="slot{{this.attendees.slot_id}}"
+    id="slotExistsInDatabase{{this.slot_id}}" value="1">
+  {{/each}}
+
 </div>
 {{/each}}
 <div id='calendar' class='m-1 p-1'></div>
@@ -34,7 +39,7 @@ aria-labelledby="resvSlotLabel" aria-hidden="true" data-backdrop="static">
       </div>
       <div class="modal-body" id="modalBody">
           <{{#each existingSlots}}>
-          <div class="existingSlot" id="slot{{this.slot_id}}" hidden>
+          <!--<div class="existingSlot" id="slot{{this.slot_id}}" hidden>
             <input type="number" name="slot{{this.slot_id}}"
             id="slotExistsInDatabase{{this.slot_id}}" value="1" hidden>
             <input type="text" name="slotStart{{this.slot_id}}"
@@ -57,7 +62,7 @@ aria-labelledby="resvSlotLabel" aria-hidden="true" data-backdrop="static">
             id="slotDelete{{this.slot_id}}">Delete slot</button>
             <button type="button" class="btn btn-success" id="slotSave{{this.slot_id}}"
             data-dismiss="modal">Save changes</button>
-          </div>
+          </div>-->
           {{/each}}
       </div>
     </div>

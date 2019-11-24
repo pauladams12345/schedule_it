@@ -30,12 +30,6 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 			slot['end_time'] = endTime;
 		}
 		context.existingSlots = await helpers.processEventSlots(eventSlots, eventId);
-		//context.existingSlots = existingSlots;
-		// Find all slots a user registered for in the past
-		//let [reservations, fields] = await slot.findPastUserSlots(req.session.onid);
-
-		// Process response from database into a handlebars-friendly format
-		//context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
 
 		context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 		'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
