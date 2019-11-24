@@ -87,11 +87,11 @@ function configureCalendar() {
   console.log(document.getElementById('existingSlots'));
   var existingSlots = document.getElementById('existingSlots');
   for (var i = 0; i < existingSlots.length; i++) {
+    console.log("test");
     var slotId = existingSlots[i].getAttribute('id').substring(4);
     var startTime = new Date(document.getElementById('slotStart' + slotId).value);
     var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
     var location = document.getElementById('slotLocation' + slotId).value;
-    console.log(location);
     var calendarEvent = calendar.addEvent({id: slotId, start: startTime, end: endTime, title: location});
   }
 }
