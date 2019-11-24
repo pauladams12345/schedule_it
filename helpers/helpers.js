@@ -99,6 +99,7 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 			attendees: {}
 		};
 		const [attendees, fields] = await slot.findSlotAttendees(resv.slot_id);
+		console.log(attendees);
 		for (let attendee of attendees){
 			if(attendee.onid != user_ONID){
 				events[id].reservations[resv.slot_id].attendees[attendee.onid] = {
@@ -125,7 +126,6 @@ module.exports.processEventSlots = async function (existingSlots){
 			attendees: {}
 		};
 		const [attendees, fields] = await slot.findSlotAttendees(resv.slot_id);
-		console.log(attendees);
 		for (let attendee of attendees){
 			//if(attendee.onid != user_ONID){
 			slots[resv.slot_id].attendees[attendee.onid] = {
@@ -137,6 +137,5 @@ module.exports.processEventSlots = async function (existingSlots){
 			//}
 		}
 	}
-	console.log(slots);
 	return slots;
 };
