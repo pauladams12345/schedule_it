@@ -10,6 +10,7 @@
    <h5>(you can pick as many as you like!!)</h5>
 </div>
 
+  <p>test</p>
 <!-- Calendar -->
 {{#each existingSlots}}
 <div class="existingSlots" id="slot{{this.slot_id}}" hidden>
@@ -21,7 +22,6 @@
   id="slotEnd{{this.slot_id}}" value="{{this.end_time}}" hidden>
   <input type="text" name="slotLocation{{this.slot_id}}"
   id="slotLocation{{this.slot_id}}" value = "{{this.slot_location}}" hidden>
-  <p>test</p>
   {{#each existingSlots.slot_id}}
     <input type="number" name="slot{{this.attendees.slot_id}}"
     id="slotExistsInDatabase{{this.slot_id}}" value="1">
