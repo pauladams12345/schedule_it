@@ -29,8 +29,8 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 			slot['start_time'] = startTime;
 			slot['end_time'] = endTime;
 		}
-		//context.slotAttendees = await helpers.processEventSlots(slots, eventId);
-		context.existingSlots = existingSlots;
+		context.slotAttendees = await helpers.processEventSlots(existingSlots, eventId);
+		//context.existingSlots = existingSlots;
 		// Find all slots a user registered for in the past
 		//let [reservations, fields] = await slot.findPastUserSlots(req.session.onid);
 
@@ -41,7 +41,8 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 		'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
 		context.scripts = ['calendarReservation.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 		'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
-		res.render('make-reservations', context);
+		res.send(context.slotAttendees);
+		//res.render('make-reservations', context);
 	}
 });
 
