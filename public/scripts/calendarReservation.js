@@ -82,17 +82,16 @@ function configureCalendar() {
         }
       }
     });
+    var existingSlots = document.getElementsByClassName('existingSlots');
+    for (var i = 0; i < existingSlots.length; i++) {
+      var slotId = existingSlots[i].getAttribute('id').substring(4);
+      var startTime = new Date(document.getElementById('slotStart' + slotId).value);
+      var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
+      var location = document.getElementById('slotLocation' + slotId).value;
+      var calendarEvent = calendar.addEvent({id: slotId, start: startTime, end: endTime, title: location});
+    }
     calendar.render();
   });
-  console.log(document.getElementsByClassName('existingSlots'));
-  var existingSlots = document.getElementsByClassName('existingSlots');
-  for (var i = 0; i < existingSlots.length; i++) {
-    var slotId = existingSlots[i].getAttribute('id').substring(4);
-    var startTime = new Date(document.getElementById('slotStart' + slotId).value);
-    var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
-    var location = document.getElementById('slotLocation' + slotId).value;
-    var calendarEvent = calendar.addEvent({id: slotId, start: startTime, end: endTime, title: location});
-  }
 }
 /*
 // When focus blurs from the default location input, update the title of all events
