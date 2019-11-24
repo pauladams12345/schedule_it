@@ -2,6 +2,7 @@ var numEmails = 0;        // Used to create unique id for email inputs as they'r
 var slotIds = [];         // Store all id of every slot created
 var slotStates = {};      // Track state of each slot. Options: new, notUsed, existingUnmodified, existingModified, existingDeleted
 configureCalendar();
+console.log(document.getElementById('existingSlot'));
 //configureFormSubmissions();
 //configureReservations();
 //configureFormValidation();
