@@ -85,11 +85,10 @@ function configureCalendar() {
     var existingSlots = document.getElementsByClassName('existingSlots');
     for (var i = 0; i < existingSlots.length; i++) {
       var slotId = existingSlots[i].getAttribute('id').substring(4);
-      console.log(existingSlots[i].getAttribute('id'));
       var startTime = new Date(document.getElementById('slotStart' + slotId).value);
       var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
       var location = document.getElementById('slotLocation' + slotId).value;
-      var calendarEvent = calendar.addEvent({id: slotId, start: startTime, end: endTime, title: location});
+      var calendarEvent = calendar.addEvent({id: slotId, start: startTime, end: endTime, title: location , attendees: ["bob", "Willis"]});
     }
     calendar.render();
   });
