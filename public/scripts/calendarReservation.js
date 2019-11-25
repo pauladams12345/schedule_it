@@ -1,12 +1,6 @@
-var numEmails = 0;        // Used to create unique id for email inputs as they're dynamically created
-var slotIds = [];         // Store all id of every slot created
-var slotStates = {};      // Track state of each slot. Options: new, notUsed, existingUnmodified, existingModified, existingDeleted
 configureCalendar();
-//configureFormSubmissions();
-//configureReservations();
-//configureFormValidation();
 
-//Script to create and manipulate the calendar on the create event page
+//Script to create and manipulate the calendar on the reservations page
 function configureCalendar() {
   document.addEventListener('DOMContentLoaded', function() {
     dateFormat = {}
@@ -54,27 +48,8 @@ function configureCalendar() {
       eventClick: function(clickInfo) {
         var slotId = clickInfo.event.id;  //retrives slot id #
         createModalBody(slotId);
+        createSlotInputForm(slotId);
       },
-      // Upon dragging and dropping an event, update the start and end times
-      eventDrop: function(dropInfo) {
-        var slotId = dropInfo.event.id;
-        var startInput = document.getElementById("slotStart" + dropInfo.event.id);
-        var endInput = document.getElementById("slotEnd" + dropInfo.event.id);
-        startInput.value = dropInfo.event.start;
-        endInput.value = dropInfo.event.end;
-        if (slotStates['slotState' + slotId] == "existingUnmodified") {
-         slotStates['slotState' + slotId] = 'existingModified';
-        }
-      },
-      // Upon resizing an event, update the end time
-      eventResize: function(resizeInfo) {
-        var slotId = resizeInfo.event.id;
-        var endInput = document.getElementById("slotEnd" + resizeInfo.event.id);
-        endInput.value = resizeInfo.event.end;
-        if (slotStates['slotState' + slotId] == "existingUnmodified") {
-         slotStates['slotState' + slotId] = 'existingModified';
-        }
-      }
     });
     var existingSlots = document.getElementsByClassName('existingSlots');
     for (var i = 0; i < existingSlots.length; i++) {
@@ -92,6 +67,7 @@ function configureCalendar() {
 // for a new slot and appends to the modal. Hidden by default.
 function createModalBody(slotId) {
 
+  //check if modal body already exists if so remove in order to create a new modal body.
   let element = document.getElementById("modalBodyDiv");
   console.log(element);
   if(element){
@@ -118,3 +94,29 @@ function createModalBody(slotId) {
   modalBody.appendChild(slot);
   $('#resvSlot').modal('show');
 };
+
+function createSlotInputForm(slotId){
+  var startTime = document.getElementsByName('slotStart' + slotId);
+  var start = document.createElement('input');
+  start.setAttribute('type', 'text');
+  start.setAttribute('name', 'resvSlotStart' + slotId);
+  start.setAttribute('id', 'resvSlotStart' + slotId);
+  start.value = endTime;
+  start.hidden = false;
+
+  var endTime = document.getElementsByName('slotEnd' + slotId);
+  var end = document.createElement('input');
+  end.setAttribute('type', 'text');
+  end.setAttribute('name', 'resvSlotEnd' + slotId);
+  end.setAttribute('id', 'resvSlotEnd' + slotId);
+  end.value = endTime;
+  end.hidden = false;
+
+  var location = document.getElementsByName('slotLocation' + slotId);
+  var loc = document.createElement('input');
+  loc.setAttribute('type', 'text');
+  loc.setAttribute('name', 'resvSlotLocation' + slotId);
+  loc.setAttribute('id', 'resvSlotLocation' + slotId);
+  loc.value = location;
+  loc.hidden = false;
+}
