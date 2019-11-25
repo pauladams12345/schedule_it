@@ -116,15 +116,15 @@ function createSlotInputForm(slotId, s, e, l){
   var location = document.getElementsByName('slotLocation' + slotId).value;
   var loc = document.createElement('input');
   loc.setAttribute('type', 'text');
-  loc.setAttribute('name', 'resvSlotLocation' + slotLocation);
-  loc.setAttribute('id', 'resvSlotLocation' + slotLocation);
+  loc.setAttribute('name', 'resvSlotLocation' + slotId);
+  loc.setAttribute('id', 'resvSlotLocation' + slotId);
   loc.value = l;
   loc.hidden = false;
 
   var id = document.createElement('input');
   id.setAttribute('type', 'text');
-  id.setAttribute('name', 'resvSlotLocation' + slotId);
-  id.setAttribute('id', 'resvSlotLocation' + slotId);
+  id.setAttribute('name', 'resvSlotId' + slotId);
+  id.setAttribute('id', 'resvSlotId' + slotId);
   id.value = slotId;
   id.hidden = false;
 
