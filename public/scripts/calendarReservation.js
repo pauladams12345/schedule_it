@@ -96,7 +96,7 @@ function createModalBody(slotId) {
   var slot = document.createElement('div');
   slot.setAttribute('id', 'modalslot' + slotId);
 
-  var name = getElementsByName('name' + slotid);
+  var name = getElementsByName('name' + slotId);
   console.log(name);
   for (var i = 0; i < name.length; i++){
     var modalParagraph = document.createElement('p');
