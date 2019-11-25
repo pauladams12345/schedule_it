@@ -54,7 +54,6 @@ function configureCalendar() {
       eventClick: function(clickInfo) {
         var slotId = clickInfo.event.id;  //retrives slot id #
         createModalBody(slotId);
-        console.log("test");
       },
       // Upon dragging and dropping an event, update the start and end times
       eventDrop: function(dropInfo) {
@@ -97,7 +96,7 @@ function createModalBody(slotId) {
   if (modalDiv !== null){
     //let element = document.getElementById("top");
     while (modalDiv.firstChild) {
-      modalDiv.removeChild(element.firstChild);
+      modalDiv.removeChild(modalDiv.firstChild);
     }
   }
 
