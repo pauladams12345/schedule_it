@@ -16,7 +16,29 @@ router.get('/past-events', async function (req, res, next) {
 
 	// If there is a session, render users past reservations
 	else {
+		let pastEvents = await createsEvent.getPastUserEvents(req.session.onid);
+		let events = []
 
+		for (let pastEvent of pastEvents) {
+			let eventDetails = await event.findEvent(pastEvent.event_id);
+			eventDetails['reservations'] = await slot.eventSlotResv(pastEvent.event_id);
+			eventDetails['invitations'] = await invitation.findEventInvitations(pastEvent.event_id);
+			eventDetails['organizers'] = await createsEvent.getEventOrganizers(pastEvent.event_id)
+			eventDetails['slots'] = await slot.findEventSlots(pastEvent.event_id);
+			
+			// Add the hour to the start date so that the client can convert time zones correctly
+			helpers.combineDateAndTime(eventDetails.slots);
+			helpers.combineDateAndTime(eventDetails.reservations);
+
+			events.push(eventDetails);
+		}
+
+		// console.log(JSON.stringify(events, null, 2));
+		let context = {};
+		context.events = events;
+		context.stylesheets = ['main.css'];
+		context.scripts = ['convertISOToLocal.js'];
+		res.render('past-events', context);
 	}
 });
 
