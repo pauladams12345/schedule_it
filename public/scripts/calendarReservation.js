@@ -92,12 +92,9 @@ function configureCalendar() {
 // for a new slot and appends to the modal. Hidden by default.
 function createModalBody(slotId) {
 
-  var modalDiv = document.getElementById('modalBodyDiv');
-  if (modalDiv !== null){
-    //let element = document.getElementById("top");
-    while (modalDiv.firstChild) {
-      modalDiv.removeChild(modal.firstChild);
-    }
+  let element = document.getElementById("modalBodyDiv");
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
   }
 
   var slot = document.createElement('div');
