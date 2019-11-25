@@ -69,25 +69,6 @@ let convertTime = async function(slotTime){
 	}
 };
 
-//takes the events time and duration and returns the end time for the event
-//Note: this function uses convertTime to convert to 12h format.
-module.exports.getTimeInterval = async function(startTime, duration) {
-	try {
-		// const connection = await sql.createConnection(dbcon);
-		// const [rows, fields] = await connection.query(
-		// 	"SELECT ADDTIME ('" + startTime + "','" + duration + "') AS end_time");
-		// let startTimeAMPM = await convertTime(startTime);//let startTimeAMPM = await convertTime(startTime, rows[0].end_time);
-		// let endTimeAMPM = await convertTime(rows[0].end_time);
-		// connection.end();
-		// return startTimeAMPM + "-" + endTimeAMPM;
-
-
-	}
-	catch (err) {
-		console.log(err);
-	}
-};
-
 // Update the name for a given event to the specified value
 module.exports.editName = async function(eventId, name) {
 	try {

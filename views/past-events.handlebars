@@ -1,1 +1,66 @@
-<h1>Past events</h1>
+<h1 class="mt-5">Your past events</h1>
+<br>
+{{#each events}}
+
+<h3>{{this.event_name}}</h3>
+<p>Description: {{this.description}}</p>
+<p class="lead"><b>Time slots:</b></p>
+<div class="table-responsive-md" id="resv">
+  <table class="table table-sm table-striped table-light">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Start Time</th>
+      <th scope="col">End Time</th>
+      <th scope="col">Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.slots}}
+    <tr>
+      <td class="date" hidden>{{this.slot_date}}</td>
+      <td class="time" hidden>{{this.start_time}}</td>
+      <td class="time" hidden>{{this.end_time}}</td>
+      <td>{{this.slot_location}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+
+<p class="lead"><b>Reservations:</b></p>
+
+<div class="table-responsive-md mb-5" id="resv">
+  <table class="table table-sm table-striped table-light">
+  <thead>
+    <tr>
+      <th scope="col" hidden></th>
+      <th scope="col" hidden></th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Date</th>
+      <th scope="col">Start Time</th>
+      <th scope="col">End Time</th>
+      <th scope="col">Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.reservations}}
+    <tr>
+      <td hidden>{{this.onid}}</td>
+      <td hidden>{{this.slot_id}}</td>
+      <td>{{this.first_name}}</td>
+      <td>{{this.last_name}}</td>
+      <td>{{this.ONID_email}}</td>
+      <td class="date">{{this.slot_date}}</td>
+      <td class="time">{{this.start_time}}</td>
+      <td class="time">{{this.end_time}}</td>
+      <td>{{this.location}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+
+{{/each}}

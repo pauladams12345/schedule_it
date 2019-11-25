@@ -37,6 +37,8 @@ app.use(require('./routes/manage.js'));
 app.use(require('./routes/create.js'));
 app.use(require('./routes/pastReservations.js'));
 app.use(require('./routes/makeReservations.js'));
+app.use(require('./routes/pastEvents.js'));
+
 
 // handle errors
 app.use(function(req,res){

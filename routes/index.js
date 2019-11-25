@@ -50,7 +50,7 @@ router.get('/home', async function (req, res, next) {
 
 		context.eventsManaging = await createsEvent.getUserEvents(req.session.onid);
 		// Find all slots a user is registered for
-		let [reservations, fields] = await slot.findFutureUserSlots(req.session.onid);
+		let [reservations, fields] = await slot.findUpcomingUserSlots(req.session.onid);
 
 		// Process response from database into a handlebars-friendly format
 		context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
