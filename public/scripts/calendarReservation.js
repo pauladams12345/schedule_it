@@ -93,6 +93,7 @@ function configureCalendar() {
 function createModalBody(slotId) {
 
   let element = document.getElementById("modalBodyDiv");
+  console.log(element);
   if(element){
     while (element.firstChild) {
       element.removeChild(element.firstChild);
