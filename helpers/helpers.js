@@ -128,6 +128,7 @@ module.exports.processEventSlots = async function (existingSlots){
 		for (let attendee of attendees){
 			//if(attendee.onid != user_ONID){
 			slots[resv.slot_id].attendees[attendee.onid] = {
+				slotId: resv.slot_id,
 				name: attendee.first_name + ' ' + attendee.last_name,
 				//lastName: attendee.last_name,
 				email: attendee.ONID_email
