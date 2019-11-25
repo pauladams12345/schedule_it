@@ -96,7 +96,7 @@ function createModalBody(slotId) {
 };
 
 function createSlotInputForm(slotId){
-  var startTime = document.getElementById('slotStart' + slotId);
+  var startTime = document.getElementsByName('slotStart' + slotId).value;
   console.log(startTime);
   var start = document.createElement('input');
   start.setAttribute('type', 'text');
@@ -105,7 +105,7 @@ function createSlotInputForm(slotId){
   start.value = endTime;
   start.hidden = false;
 
-  var endTime = document.getElementsByName('slotEnd' + slotId);
+  var endTime = document.getElementsByName('slotEnd' + slotId).value;
   var end = document.createElement('input');
   end.setAttribute('type', 'text');
   end.setAttribute('name', 'resvSlotEnd' + slotId);
@@ -113,7 +113,7 @@ function createSlotInputForm(slotId){
   end.value = endTime;
   end.hidden = false;
 
-  var location = document.getElementsByName('slotLocation' + slotId);
+  var location = document.getElementsByName('slotLocation' + slotId).value;
   var loc = document.createElement('input');
   loc.setAttribute('type', 'text');
   loc.setAttribute('name', 'resvSlotLocation' + slotId);
