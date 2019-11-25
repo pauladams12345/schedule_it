@@ -100,7 +100,7 @@ function createModalBody(slotId) {
       modalDiv.removeChild(element.firstChild);
     }
   }
-  
+
   var slot = document.createElement('div');
   slot.setAttribute('id', 'modalBodyDiv');
 
@@ -112,8 +112,6 @@ function createModalBody(slotId) {
     modalParagraph.appendChild(attendeeName);
     slot.appendChild(modalParagraph);
   }
-}
-
 
   // Append all new elements to the modal
   var modalBody = document.getElementById('modalBody');
