@@ -84,12 +84,12 @@ function createModalBody(slotId) {
 
 function createSlotInputForm(slotId, s, e, l){
 
-  var startTime = document.getElementById('slotStart' + slotId).value;
+  var slotTime = document.getElementById('slotStart' + slotId).value;
   var time = document.createElement('p');
   time.setAttribute('type', 'text');
-  time.setAttribute('name', 'resvSlotTime' + slotId);
-  time.setAttribute('id', 'resvSlotTime' + slotId);
-  time.value = s + '-' + e + '         ' + l;
+  time.setAttribute('name', 'resvTime' + slotId);
+  time.setAttribute('id', 'resvTime' + slotId);
+  time.value = s;
   time.hidden = false;
 
   var startTime = document.getElementById('slotStart' + slotId).value;
@@ -127,5 +127,5 @@ function createSlotInputForm(slotId, s, e, l){
   slotsDivison.appendChild(time);
   //slotsDivison.appendChild(end);
   //slotsDivison.appendChild(loc);
-  slotsDivison.appendChild(id);
+  //slotsDivison.appendChild(id);
 }
