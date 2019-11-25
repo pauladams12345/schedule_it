@@ -69,7 +69,6 @@ function createModalBody(slotId) {
 
   //check if modal body already exists if so remove in order to create a new modal body.
   let element = document.getElementById("modalBodyDiv");
-  console.log(element);
   if(element){
     while (element.firstChild) {
       element.removeChild(element.firstChild);
@@ -96,6 +95,7 @@ function createModalBody(slotId) {
 };
 
 function createSlotInputForm(slotId){
+  console.log(slotId);
   var startTime = document.getElementById('slotStart' + slotId).value;
   var start = document.createElement('input');
   start.setAttribute('type', 'text');
