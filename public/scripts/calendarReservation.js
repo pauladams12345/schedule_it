@@ -51,7 +51,7 @@ function configureCalendar() {
         var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
         var location = document.getElementById('slotLocation' + slotId).value;
         createModalBody(slotId);
-        createSlotInputForm(slotId, startTime, endTime location);
+        createSlotInputForm(slotId, startTime, endTime, location);
       },
     });
     var existingSlots = document.getElementsByClassName('existingSlots');
