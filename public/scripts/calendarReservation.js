@@ -131,5 +131,5 @@ function createSlotInputForm(slotId){
   slotsDivison.appendChild(start);
   slotsDivison.appendChild(end);
   slotsDivison.appendChild(loc);
-  slotsDivison.appendChild(slotId);
+  slotsDivison.appendChild(id);
 }
