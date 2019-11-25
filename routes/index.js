@@ -56,8 +56,6 @@ router.get('/home', async function (req, res, next) {
 		context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
 		context.firstName = req.session.firstName;
 		context.stylesheets = ['main.css', 'home.css'];
-		context.scripts = ['convertISOToLocal.js'];
-		helpers.combineDateAndTime(reservations);
 		res.render('home', context);
 	}
 
