@@ -98,6 +98,7 @@ function createModalBody(slotId) {
     while (element.firstChild) {
       element.removeChild(element.firstChild);
     }
+    element.parentNode.removeChild(element);
   }
 
   var slot = document.createElement('div');
