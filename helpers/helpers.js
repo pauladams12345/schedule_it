@@ -129,8 +129,8 @@ module.exports.processEventSlots = async function (existingSlots){
 			//if(attendee.onid != user_ONID){
 			slots[resv.slot_id].attendees[attendee.onid] = {
 			//slots[resv.slot_id].attendees = {
-				firstName: attendee.first_name + ' ' + attendee.last_name,
-				lastName: attendee.last_name,
+				name: attendee.first_name + ' ' + attendee.last_name,
+				//lastName: attendee.last_name,
 				email: attendee.ONID_email
 				};
 			//}
