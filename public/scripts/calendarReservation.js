@@ -54,7 +54,6 @@ function configureCalendar() {
       eventClick: function(clickInfo) {
         var slotId = clickInfo.event.id;  //retrives slot id #
         createModalBody(slotId);
-        $('#resvSlot').modal('show');
       },
       // Upon dragging and dropping an event, update the start and end times
       eventDrop: function(dropInfo) {
@@ -107,4 +106,5 @@ function createModalBody(slotId) {
   // Append all new elements to the modal
   var modalBody = document.getElementById('modalBody');
   modalBody.appendChild(slot);
+  $('#resvSlot').modal('show');
 };
