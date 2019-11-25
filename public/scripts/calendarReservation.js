@@ -83,6 +83,15 @@ function createModalBody(slotId) {
 };
 
 function createSlotInputForm(slotId, s, e, l){
+
+  var startTime = document.getElementById('slotStart' + slotId).value;
+  var time = document.createElement('p');
+  start.setAttribute('type', 'text');
+  start.setAttribute('name', 'resvSlotTime' + slotId);
+  start.setAttribute('id', 'resvSlotTime' + slotId);
+  start.value = s + '-' + e + '         ' + l;
+  start.hidden = false;
+
   var startTime = document.getElementById('slotStart' + slotId).value;
   var start = document.createElement('input');
   start.setAttribute('type', 'text');
@@ -115,8 +124,8 @@ function createSlotInputForm(slotId, s, e, l){
   id.hidden = false;
 
   var slotsDivison = document.getElementById('slots');
-  slotsDivison.appendChild(start);
-  slotsDivison.appendChild(end);
-  slotsDivison.appendChild(loc);
+  slotsDivison.appendChild(time);
+  //slotsDivison.appendChild(end);
+  //slotsDivison.appendChild(loc);
   slotsDivison.appendChild(id);
 }
