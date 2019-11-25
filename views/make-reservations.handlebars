@@ -42,32 +42,14 @@ aria-labelledby="resvSlotLabel" aria-hidden="true" data-backdrop="static">
         <h5 class="modal-title" id="resvSlotLabel">Who signed up</h5>
       </div>
       <div class="modal-body" id="modalBody">
-          <!--<{{#each existingSlots}}>
-          <div class="existingSlot" id="slot{{this.slot_id}}" hidden>
-            <input type="number" name="slot{{this.slot_id}}"
-            id="slotExistsInDatabase{{this.slot_id}}" value="1" hidden>
-            <input type="text" name="slotStart{{this.slot_id}}"
-            id="slotStart{{this.slot_id}}" value="{{this.start_time}}" hidden>
-            <input type="text" name="slotEnd{{this.slot_id}}"
-            id="slotEnd{{this.slot_id}}" value="{{this.end_time}}" hidden>
-            <div class="form-group">
-              <label for="slotMaxAttendees{{this.slot_id}}"
-              class="col-form-label">Max attendees</label>
-              <input type="number" class="form-control" value="{{this.max_attendees}}"
-              name="slotMaxAttendees{{this.slot_id}}" id="slotMaxAttendees{{this.slot_id}}"
-            </div>
-            <div class="form-group">
-              <label for="slotLocation{{this.slot_id}}"
-              class="col-form-label">Location</label>
-              <input type="text" class="form-control" value = "{{this.slot_location}}"
-              name="slotLocation{{this.slot_id}}" id="slotLocation{{this.slot_id}}">
-            </div>
-            <button type="button" class="btn btn-danger"
-            id="slotDelete{{this.slot_id}}">Delete slot</button>
-            <button type="button" class="btn btn-success" id="slotSave{{this.slot_id}}"
-            data-dismiss="modal">Save changes</button>
-          </div>
-          {{/each}}-->
+        {{#each existingSlots.attendees}}
+          <input type="text" name="name{{this.slot_id}}"
+          id="name{{this.slot_id}}" value="{{this.name}}">
+          <!--<input type="text" name="lastName{{this.slot_id}}"
+          id="lastName{{this.slot_id}}" value="{{this.lastName}}" hidden>-->
+          <input type="text" name="email{{this.slot_id}}"
+          id="email{{this.slot_id}}" value="{{this.email}}" hidden>
+        {{/each}}
       </div>
     </div>
   </div>
