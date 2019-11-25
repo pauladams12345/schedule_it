@@ -53,7 +53,7 @@ function configureCalendar() {
       // Upon clicking an existing slot, show the modal to edit details
       eventClick: function(clickInfo) {
         var slotId = clickInfo.event.id;  //retrives slot id #
-        createModalBody(slotId);
+        //createModalBody(slotId);
         $('#resvSlot').modal('show');
       },
       // Upon dragging and dropping an event, update the start and end times
