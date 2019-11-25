@@ -95,22 +95,13 @@ function createModalBody(slotId) {
   var slot = document.createElement('div');
   slot.setAttribute('id', 'modalslot' + slotId);
 
-  var name = getElementsByName('lastName' + slotid);
+  var name = getElementsByName('name' + slotid);
   for (var i = 0; i < name.length; i++){
-    var fname = document.getElementsById('modalBody')
     var modalParagraph = document.createElement('p');
-    var attendeeName = document.createTextNode(fname + ' ' + lname);
-    slot.appendChild(attendeeName);
+    var attendeeName = document.createTextNode(name[i]);
+    modalParagraph.appendChild(attendeeName);
+    slot.appendChild(modalParagraph);
   }
-  slot.appendChild(modalParagraph);
-
-  // Append all the pieces together
-  slot.appendChild(start);
-  slot.appendChild(end);
-  slot.appendChild(maxAttendeesDiv);
-  slot.appendChild(locationDiv);
-  slot.appendChild(deleteButton);
-  slot.appendChild(saveButton);
 
   // Append all new elements to the modal
   var modalBody = document.getElementById('modalBody');
