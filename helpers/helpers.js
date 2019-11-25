@@ -91,7 +91,7 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 		let dateString = dateTime.toLocaleDateString('en-US', {weekday: 'long', month: 'short', day: 'numeric' , year: 'numeric'});
 		let timeString = dateTime.toLocaleTimeString('en-US') + ' - ';
 		timeString += new Date(dateTime.getTime() + resv.duration * 60000).toLocaleTimeString('en-US');
-		
+
 		events[id].reservations[resv.slot_id] = {
 			date: dateString,
 			time:  timeString,
@@ -110,6 +110,32 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 		}
 	}
 	return events;
+};
+
+module.exports.processEventSlots = async function (existingSlots){
+	let slots = {};		// Store the details of each slot in a handlebars-friendly format
+
+	// Loop over each reservation to fill the events object
+	for (let resv of existingSlots) {
+		slots[resv.slot_id] = {
+			slot_id: resv.slot_id,
+			start_time: resv.start_time,
+			end_time: resv.end_time,
+			location: resv.slot_location,
+			attendees: {}
+		};
+		const [attendees, fields] = await slot.findSlotAttendees(resv.slot_id);
+		for (let attendee of attendees){
+			//if(attendee.onid != user_ONID){
+			slots[resv.slot_id].attendees[attendee.onid] = {
+				slotId: resv.slot_id,
+				name: attendee.first_name + ' ' + attendee.last_name,
+				//lastName: attendee.last_name,
+				email: attendee.ONID_email
+				};
+		}
+	}
+	return slots;
 };
 
 module.exports.combineDateAndTime = function(slots) {

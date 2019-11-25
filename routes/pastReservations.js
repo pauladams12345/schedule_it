@@ -8,7 +8,7 @@ var Router = 		require('express-promise-router'),
 	helpers = 		require('../helpers/helpers.js');
 
 router.get('/past-reservations', async function (req, res, next) {
-	
+
 	// If there is no session established, redirect to the landing page
 	if (!req.session.onid) {
 		res.redirect('../login');
@@ -17,7 +17,7 @@ router.get('/past-reservations', async function (req, res, next) {
 	// If there is a session, render users past reservations
 	else {
 		let context = {};
-		
+
 		context.eventsManaging = await createsEvent.getUserEvents(req.session.onid);
 
 		// Find all slots a user registered for in the past

@@ -1,0 +1,52 @@
+<h1 class="mt-5">Make a reservation</h1>
+<br>
+<div class="event-display mb-4 ml-2 w-auto">
+   <h4>Event name: {{eventDetails.event_name}}</h4>
+   <h4>Created by: {{eventCreator}}</h4>
+   <h4>Description: {{eventDetails.description}}</h4>
+   <br>
+   <br>
+   <h5>Click on a time slot to select it:</h5>
+   <h5>(you can pick as many as you like!!)</h5>
+</div>
+
+<!-- Calendar -->
+{{#each existingSlots}}
+<div class="existingSlots" id="slot{{this.slot_id}}">
+  <input type="number" name="slot{{this.slot_id}}"
+  id="slotExistsInDatabase{{this.slot_id}}" value="1" hidden>
+  <input type="text" name="slotStart{{this.slot_id}}"
+  id="slotStart{{this.slot_id}}" value="{{this.start_time}}" hidden>
+  <input type="text" name="slotEnd{{this.slot_id}}"
+  id="slotEnd{{this.slot_id}}" value="{{this.end_time}}" hidden>
+  <input type="text" name="slotLocation{{this.slot_id}}"
+  id="slotLocation{{this.slot_id}}" value = "{{this.slot_location}}" hidden>
+  {{#each this.attendees}}
+    <input type="text" name="name{{this.slotId}}"
+    id="name{{this.slotId}}" value="{{this.name}}" hidden>
+    <input type="text" name="email{{this.slotId}}"
+    id="email{{this.slotId}}" value="{{this.email}}" hidden>
+  {{/each}}
+</div>
+{{/each}}
+
+<div id='calendar' class='m-1 p-1'></div>
+
+<div class="modal fade" id="resvSlot" tabindex="-1" role="dialog"
+aria-labelledby="resvSlotLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="resvSlotLabel">Who signed up</h5>
+      </div>
+      <div class="modal-body" id="modalBody">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mb-4 ml-2 w-auto" id="selectedSlots">
+  <h1 class="mt-5">Selected time slots:</h1>
+  <div class="mb-4 ml-2 w-auto" id="slots">
+  </div>
+</div>
