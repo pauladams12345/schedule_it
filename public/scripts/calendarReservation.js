@@ -119,4 +119,17 @@ function createSlotInputForm(slotId){
   loc.setAttribute('id', 'resvSlotLocation' + slotId);
   loc.value = location;
   loc.hidden = false;
+
+  var id = document.createElement('input');
+  id.setAttribute('type', 'text');
+  id.setAttribute('name', 'resvSlotLocation' + slotId);
+  id.setAttribute('id', 'resvSlotLocation' + slotId);
+  id.value = slotId;
+  id.hidden = false;
+
+  var slotsDivison = document.getElementById('slots');
+  slotsDivison.appendChild(start);
+  slotsDivison.appendChild(end);
+  slotsDivison.appendChild(location);
+  slotsDivison.appendChild(slotId);
 }
