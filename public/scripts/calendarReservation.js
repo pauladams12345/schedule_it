@@ -123,8 +123,8 @@ function createSlotInputForm(slotId, s, e, l){
 
   var id = document.createElement('input');
   id.setAttribute('type', 'text');
-  id.setAttribute('name', 'resvSlotLocation' + slotId);
-  id.setAttribute('id', 'resvSlotLocation' + slotId);
+  id.setAttribute('name', 'resvSlotLocation' + slotLocation);
+  id.setAttribute('id', 'resvSlotLocation' + slotLocation);
   id.value = slotId;
   id.hidden = false;
 
