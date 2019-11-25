@@ -100,7 +100,7 @@ function createModalBody(slotId) {
   console.log(name);
   for (var i = 0; i < name.length; i++){
     var modalParagraph = document.createElement('p');
-    var attendeeName = document.createTextNode(name[i]);
+    var attendeeName = document.createTextNode(name[i].value);
     modalParagraph.appendChild(attendeeName);
     slot.appendChild(modalParagraph);
   }
