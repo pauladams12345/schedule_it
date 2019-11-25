@@ -92,9 +92,17 @@ function configureCalendar() {
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
 function createModalBody(slotId) {
-  console.log(slotId);
+
+  var modalDiv = document.getElementById('modalBodyDiv');
+  if (modalDiv !== null){
+    //let element = document.getElementById("top");
+    while (modalDiv.firstChild) {
+      modalDiv.removeChild(element.firstChild);
+    }
+  }
+  
   var slot = document.createElement('div');
-  slot.setAttribute('id', 'modalslot' + slotId);
+  slot.setAttribute('id', 'modalBodyDiv');
 
   var name = document.getElementsByName('name' + slotId);
   console.log(name);
@@ -104,6 +112,8 @@ function createModalBody(slotId) {
     modalParagraph.appendChild(attendeeName);
     slot.appendChild(modalParagraph);
   }
+}
+
 
   // Append all new elements to the modal
   var modalBody = document.getElementById('modalBody');
