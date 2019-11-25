@@ -11,9 +11,8 @@ var Router = 		require('express-promise-router'),
 router.get('/manage/:eventId', async function (req, res, next) {
 	let eventId = req.params.eventId;
 	let context = {};
-	let [reservations, fields] = await slot.eventSlotResv(eventId);
+	context.slotResv = await slot.eventSlotResv(eventId);
 	context.eventDetails = await event.findEvent(eventId);
-	context.slotResv = reservations;
 	context.invitations = await invitation.findEventInvitations(eventId);
 
 	let existingSlots = await slot.findEventSlots(eventId);
