@@ -33,8 +33,8 @@ function configureCalendar() {
       // Upon clicking an existing slot, show the modal to edit details
       eventClick: function(clickInfo) {
         var slotId = clickInfo.event.id;  //retrives slot id #
-        var startTime = document.getElementById('slotStart' + slotId).value;
-        var endTime = document.getElementById('slotEnd' + slotId).value;
+        var startTime = document.getElementById('slotStart' + slotId).value.substring(0,21);
+        var endTime = document.getElementById('slotEnd' + slotId).value.substring(0,21);
         var location = document.getElementById('slotLocation' + slotId).value;
         createModalBody(slotId);
         createSlotInputForm(slotId, startTime, endTime, location);
