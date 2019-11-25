@@ -47,8 +47,11 @@ function configureCalendar() {
       // Upon clicking an existing slot, show the modal to edit details
       eventClick: function(clickInfo) {
         var slotId = clickInfo.event.id;  //retrives slot id #
+        var startTime = new Date(document.getElementById('slotStart' + slotId).value);
+        var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
+        var location = document.getElementById('slotLocation' + slotId).value;
         createModalBody(slotId);
-        createSlotInputForm(slotId);
+        createSlotInputForm(slotId, startTime, endTime location);
       },
     });
     var existingSlots = document.getElementsByClassName('existingSlots');
@@ -93,13 +96,13 @@ function createModalBody(slotId) {
   $('#resvSlot').modal('show');
 };
 
-function createSlotInputForm(slotId){
+function createSlotInputForm(slotId, s, e, l){
   var startTime = document.getElementById('slotStart' + slotId).value;
   var start = document.createElement('input');
   start.setAttribute('type', 'text');
   start.setAttribute('name', 'resvSlotStart' + slotId);
   start.setAttribute('id', 'resvSlotStart' + slotId);
-  start.value = endTime;
+  start.value = s;
   start.hidden = false;
 
   var endTime = document.getElementsByName('slotEnd' + slotId).value;
@@ -107,7 +110,7 @@ function createSlotInputForm(slotId){
   end.setAttribute('type', 'text');
   end.setAttribute('name', 'resvSlotEnd' + slotId);
   end.setAttribute('id', 'resvSlotEnd' + slotId);
-  end.value = endTime;
+  end.value = e;
   end.hidden = false;
 
   var location = document.getElementsByName('slotLocation' + slotId).value;
@@ -115,7 +118,7 @@ function createSlotInputForm(slotId){
   loc.setAttribute('type', 'text');
   loc.setAttribute('name', 'resvSlotLocation' + slotId);
   loc.setAttribute('id', 'resvSlotLocation' + slotId);
-  loc.value = location;
+  loc.value = l;
   loc.hidden = false;
 
   var id = document.createElement('input');
