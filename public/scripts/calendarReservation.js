@@ -30,25 +30,11 @@ function configureCalendar() {
         minute: '2-digit',
         hour12: true
       },
-      // Upon clicking an empty spot on calendar, create new slot using defaults
-      select: function(info) {
-        var slotId = slotCounter;
-        slotCounter++;
-        var hours = parseInt(document.getElementById('defaultDurationHours').value, 10);
-        var minutes = parseInt(document.getElementById('defaultDurationMinutes').value, 10);
-        var duration = (60 * hours) + minutes;
-        info.end.setTime(info.start.getTime() + duration * 60000);
-        var defaultLocation = document.getElementById('defaultLocation').value;
-        var calendarEvent = calendar.addEvent({id: slotId, start: info.start, end: info.end, title: defaultLocation});
-        appendSlot(info.start, info.end, slotId, calendarEvent);
-        slotStates["slotState" + slotId] = 'new';
-        slotIds.push(slotId);
-      },
       // Upon clicking an existing slot, show the modal to edit details
       eventClick: function(clickInfo) {
         var slotId = clickInfo.event.id;  //retrives slot id #
-        var startTime = new Date(document.getElementById('slotStart' + slotId).value);
-        var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
+        var startTime = document.getElementById('slotStart' + slotId).value;
+        var endTime = document.getElementById('slotEnd' + slotId).value;
         var location = document.getElementById('slotLocation' + slotId).value;
         createModalBody(slotId);
         createSlotInputForm(slotId, startTime, endTime, location);
