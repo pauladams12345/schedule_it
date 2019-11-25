@@ -80,7 +80,6 @@ function createModalBody(slotId) {
   slot.setAttribute('id', 'modalBodyDiv');
 
   var name = document.getElementsByName('name' + slotId);
-  console.log(name);
   for (var i = 0; i < name.length; i++){
     var modalParagraph = document.createElement('p');
     var attendeeName = document.createTextNode(name[i].value);
@@ -95,7 +94,7 @@ function createModalBody(slotId) {
 };
 
 function createSlotInputForm(slotId){
-  console.log(slotId);
+  console.log(document.getElementById('slotStart' + slotId).value);
   var startTime = document.getElementById('slotStart' + slotId).value;
   var start = document.createElement('input');
   start.setAttribute('type', 'text');
