@@ -96,7 +96,7 @@ function createModalBody(slotId) {
 };
 
 function createSlotInputForm(slotId){
-  var startTime = document.getElementsByName('slotStart' + slotId);
+  var startTime = document.getElementById('slotStart' + slotId);
   console.log(startTime);
   var start = document.createElement('input');
   start.setAttribute('type', 'text');
