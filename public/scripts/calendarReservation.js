@@ -86,11 +86,11 @@ function createSlotInputForm(slotId, s, e, l){
 
   var startTime = document.getElementById('slotStart' + slotId).value;
   var time = document.createElement('p');
-  start.setAttribute('type', 'text');
-  start.setAttribute('name', 'resvSlotTime' + slotId);
-  start.setAttribute('id', 'resvSlotTime' + slotId);
-  start.value = s;
-  start.hidden = false;
+  time.setAttribute('type', 'text');
+  time.setAttribute('name', 'resvSlotTime' + slotId);
+  time.setAttribute('id', 'resvSlotTime' + slotId);
+  time.value = s + '-' + e + '         ' + l;
+  time.hidden = false;
 
   var startTime = document.getElementById('slotStart' + slotId).value;
   var start = document.createElement('input');
