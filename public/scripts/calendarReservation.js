@@ -109,5 +109,4 @@ function createModalBody(slotId) {
   var modalBody = document.getElementById('modalBody');
   modalBody.appendChild(slot);
   $('#resvSlot').modal('show');
-  $('#resvSlot').modal('hide');
 };
