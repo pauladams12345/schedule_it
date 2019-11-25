@@ -54,6 +54,7 @@ function configureCalendar() {
       eventClick: function(clickInfo) {
         var slotId = clickInfo.event.id;  //retrives slot id #
         createModalBody(slotId);
+        console.log("test");
       },
       // Upon dragging and dropping an event, update the start and end times
       eventDrop: function(dropInfo) {
@@ -91,6 +92,7 @@ function configureCalendar() {
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
 function createModalBody(slotId) {
+  consolel.lot("test1")
   var slot = document.createElement('div');
   slot.setAttribute('id', 'modalslot' + slotId);
 
