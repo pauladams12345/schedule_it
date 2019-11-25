@@ -18,7 +18,7 @@ router.get('/past-reservations', async function (req, res, next) {
 	else {
 		let context = {};
 
-		context.eventsManaging = await createsEvent.getUserEvents(req.session.onid);
+		context.eventsManaging = await createsEvent.getPastUserEvents(req.session.onid);
 
 		// Find all slots a user registered for in the past
 		let [reservations, fields] = await slot.findPastUserSlots(req.session.onid);
