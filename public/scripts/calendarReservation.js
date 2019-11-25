@@ -53,7 +53,7 @@ function configureCalendar() {
       // Upon clicking an existing slot, show the modal to edit details
       eventClick: function(clickInfo) {
         var slotId = clickInfo.event.id;  //retrives slot id #
-        createModalBody(slotId);
+        //createModalBody(slotId);
         $('#resvSlot').modal('show');
       },
       // Upon dragging and dropping an event, update the start and end times
@@ -91,82 +91,18 @@ function configureCalendar() {
 
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
-function createModalBody(slotId) {
+/*function createModalBody(slotId) {
   var slot = document.createElement('div');
-  slot.setAttribute('id', 'slot' + slotId);
+  slot.setAttribute('id', 'modalslot' + slotId);
 
-  // Event start time (remains hidden)
-  var start = document.createElement('input');
-  start.setAttribute('type', 'text');
-  start.setAttribute('name', 'slotStart' + slotId);
-  start.setAttribute('id', 'slotStart' + slotId);
-  start.value = startTime;
-  start.hidden = true;
-
-  // Event end time (remains hidden)
-  var end = document.createElement('input');
-  end.setAttribute('type', 'text');
-  end.setAttribute('name', 'slotEnd' + slotId);
-  end.setAttribute('id', 'slotEnd' + slotId);
-  end.value = endTime;
-  end.hidden = true;
-
-  // Slot location. Defaults to null. Will be replaced with defaultLocation
-  // upon form submission if not explicitly specified.
-  var location = document.createElement('input');
-  location.setAttribute('type', 'text');
-  location.setAttribute('class', 'form-control')
-  location.setAttribute('name', 'slotLocation' + slotId);
-  location.setAttribute('id', 'slotLocation' + slotId);
-
-  // Label for location input
-  var locationLabel = document.createElement('label');
-  locationLabel.setAttribute('for', 'slotLocation' + slotId);
-  locationLabel.setAttribute('class', 'col-form-label');
-  locationLabel.textContent = "Location";
-
-  // Slot max attendees. Defaults to null. Will be replaced by defaultMaxAttendees
-  // upon form submission if not explicitly specified
-  var maxAttendees = document.createElement('input');
-  maxAttendees.setAttribute('type', 'number');
-  maxAttendees.setAttribute('class', 'form-control');
-  maxAttendees.setAttribute('name', 'slotMaxAttendees' + slotId);
-  maxAttendees.setAttribute('id', 'slotMaxAttendees' + slotId);
-
-  // Label for max attendees input
-  var maxAttendeesLabel = document.createElement('label');
-  maxAttendeesLabel.setAttribute('for', 'slotMaxAttendees' + slotId);
-  maxAttendeesLabel.setAttribute('class', 'col-form-label');
-  maxAttendeesLabel.textContent = "Max attendees";
-
-  // Delete button. Deletes all slot inputs and the corresponding
-  // event in the calendar
-  var deleteButton = document.createElement('button');
-  deleteButton.setAttribute('type', 'button');
-  deleteButton.setAttribute('class', 'btn btn-danger');
-  deleteButton.setAttribute('id', 'slotDelete' + slotId);
-  deleteButton.textContent = 'Delete slot';
-  bindSlotDelete(deleteButton, calendarEvent, slot, slotId)
-
-  // Save button. Hides the slot's form in the modal
-  var saveButton = document.createElement('button');
-  saveButton.setAttribute('type', 'button');
-  saveButton.setAttribute('class', 'btn btn-success');
-  saveButton.setAttribute('id', 'slotSave' + slotId);
-  saveButton.setAttribute('data-dismiss', 'modal');
-  saveButton.textContent = 'Save changes';
-  bindSlotSave(saveButton, calendarEvent, slot, slotId);
-
-  // Div to hold location portion of form
-  var locationDiv = document.createElement('div');
-  locationDiv.setAttribute('class', 'form-group');
-  locationDiv.appendChild(locationLabel);
-  locationDiv.appendChild(location);
-
-  // Div to hold max attendees portion of form
-  var maxAttendeesDiv = locationDiv.cloneNode();
-  maxAttendeesDiv.appendChild(maxAttendeesLabel);
-  maxAttendeesDiv.appendChild(maxAttendees);
+  var name = getElementsByName('lastName' + slotid);
+  for (var i = 0; i < name.length; i++){
+    var fname = document.getElementsById('modalBody')
+    var modalParagraph = document.createElement('p');
+    var attendeeName = document.createTextNode(fname + ' ' + lname);
+    slot.appendChild(attendeeName);
+  }
+  slot.appendChild(modalParagraph);
 
   // Append all the pieces together
   slot.appendChild(start);
@@ -176,11 +112,7 @@ function createModalBody(slotId) {
   slot.appendChild(deleteButton);
   slot.appendChild(saveButton);
 
-  // Hide form. Will become visible in the modal when user clicks
-  // on corresponding event in the calendar
-  slot.hidden = true;
-
   // Append all new elements to the modal
   var modalBody = document.getElementById('modalBody');
   modalBody.appendChild(slot);
-};
+};*/
