@@ -130,6 +130,6 @@ function createSlotInputForm(slotId){
   var slotsDivison = document.getElementById('slots');
   slotsDivison.appendChild(start);
   slotsDivison.appendChild(end);
-  slotsDivison.appendChild(location);
+  slotsDivison.appendChild(loc);
   slotsDivison.appendChild(slotId);
 }
