@@ -93,9 +93,12 @@ function configureCalendar() {
 function createModalBody(slotId) {
 
   var modalDiv = document.getElementById('modalBodyDiv');
+  if (modalDiv !== null){
+    //let element = document.getElementById("top");
     while (modalDiv.firstChild) {
-      modalDiv.removeChild(modalDiv.firstChild);
+      modalDiv.removeChild(modal.firstChild);
     }
+  }
 
   var slot = document.createElement('div');
   slot.setAttribute('id', 'modalBodyDiv');
