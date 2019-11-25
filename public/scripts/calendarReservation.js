@@ -53,12 +53,7 @@ function configureCalendar() {
       // Upon clicking an existing slot, show the modal to edit details
       eventClick: function(clickInfo) {
         var slotId = clickInfo.event.id;  //retrives slot id #
-        var slot = document.getElementById('slot' + slotId);
-        var location = document.getElementById('slotLocation' + slotId);
-        //var maxAttendees = document.getElementById('slotMaxAttendees' + slotId);
-        //location.placeholder = document.getElementById('defaultLocation').value;
-        //maxAttendees.placeholder = document.getElementById('defaultMaxAttendees').value;
-        slot.hidden = false;
+        createModalBody(slotId);
         $('#resvSlot').modal('show');
       },
       // Upon dragging and dropping an event, update the start and end times
@@ -96,7 +91,7 @@ function configureCalendar() {
 
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
-function appendSlot(startTime, endTime, slotId, calendarEvent) {
+function createModalBody(slotId) {
   var slot = document.createElement('div');
   slot.setAttribute('id', 'slot' + slotId);
 
