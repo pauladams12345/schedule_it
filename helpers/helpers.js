@@ -126,10 +126,9 @@ module.exports.processEventSlots = async function (existingSlots){
 		};
 		const [attendees, fields] = await slot.findSlotAttendees(resv.slot_id);
 		for (let attendee of attendees){
-			//if(attendee.onid != user_ONID){
 			slots[resv.slot_id].attendees[resv.onid] = {
+				slot_id: resv.slot_id,
 				name: attendee.first_name + ' ' + attendee.last_name,
-				//lastName: attendee.last_name,
 				email: attendee.ONID_email
 				};
 		}
