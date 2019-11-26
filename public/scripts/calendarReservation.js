@@ -85,39 +85,42 @@ function createModalBody(slotId) {
 function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
 
   //create table rows
-  var slotTimePeriod = slotStartTime + '-' + slotEndTime;
-  var body = document.getElementById('body');
-  var row = document.createElement('tr');
-  row.setAttribute('id','row' + slotId);
-  var cellTime = document.createElement('td');
-  var cellLocation = document.createElement('td');
-  var slot_Id = document.createElement('td');
-  var deleteButton = document.createElement('td');
-  var button = document.createElement('button');
-  button.setAttribute('class','btn btn-primary reservation-delete');
-  button.textContent = 'Delete';
-  cellTime.textContent = slotTimePeriod;
-  cellLocation.textContent = slotLocation;
-  slot_Id.textContent = slotId;
-  slot_Id.hidden = true;
-  deleteButton.appendChild(button);
-  row.appendChild(slot_Id);
-  row.appendChild(cellTime);
-  row.appendChild(cellLocation);
-  row.appendChild(deleteButton);
-  body.appendChild(row);
-  bindReservationDelete(button, slotId);
+  let element = document.getElementById('row' + slotId);
+  if(!element){
+    var slotTimePeriod = slotStartTime + '-' + slotEndTime;
+    var body = document.getElementById('body');
+    var row = document.createElement('tr');
+    row.setAttribute('id','row' + slotId);
+    var cellTime = document.createElement('td');
+    var cellLocation = document.createElement('td');
+    var slot_Id = document.createElement('td');
+    var deleteButton = document.createElement('td');
+    var button = document.createElement('button');
+    button.setAttribute('class','btn btn-primary reservation-delete');
+    button.textContent = 'Delete';
+    cellTime.textContent = slotTimePeriod;
+    cellLocation.textContent = slotLocation;
+    slot_Id.textContent = slotId;
+    slot_Id.hidden = true;
+    deleteButton.appendChild(button);
+    row.appendChild(slot_Id);
+    row.appendChild(cellTime);
+    row.appendChild(cellLocation);
+    row.appendChild(deleteButton);
+    body.appendChild(row);
+    bindReservationDelete(button, slotId);
 
-  //create inputs for form
-  var id = document.createElement('input');
-  id.setAttribute('type', 'text');
-  id.setAttribute('name', 'resvSlotId');
-  id.setAttribute('id', 'resvSlotId' + slotId);
-  id.value = slotId;
-  id.hidden = false;
+    //create inputs for form
+    var id = document.createElement('input');
+    id.setAttribute('type', 'text');
+    id.setAttribute('name', 'resvSlotId');
+    id.setAttribute('id', 'resvSlotId' + slotId);
+    id.value = slotId;
+    id.hidden = false;
 
-  var slotsDivison = document.getElementById('slots');
-  slotsDivison.appendChild(id);
+    var slotsDivison = document.getElementById('slots');
+    slotsDivison.appendChild(id);
+  }
 }
 
 /*function configureReservations() {
