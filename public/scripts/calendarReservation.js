@@ -82,14 +82,15 @@ function createModalBody(slotId) {
   $('#resvSlot').modal('show');
 };
 
-function createSlotInputForm(slotId, s, e, l){
+function createSlotInputForm(slotId, start, end, location){
 
   var slotTime = document.getElementById('slotStart' + slotId).value;
   var time = document.createElement('p');
-  var slotTimePeriod = s + '-' + e + &time&time&time + l;
+  var slotTimePeriod = start + '-' + end + '     ' + location;
   var slotTimePeriodNode = document.createTextNode(slotTimePeriod);
   time.appendChild(slotTimePeriodNode);
   time.setAttribute('type', 'text');
+  time.setAttribute("style", "background-color: white;");
   time.setAttribute('name', 'resvTime' + slotId);
   time.setAttribute('id', 'resvTime' + slotId);
   time.hidden = false;
