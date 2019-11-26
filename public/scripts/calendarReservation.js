@@ -101,40 +101,13 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   body.appendChild(row);
 
   //create inputs for form
-  var startTime = document.getElementById('slotStart' + slotId).value;
-  var start = document.createElement('input');
-  start.setAttribute('type', 'text');
-  start.setAttribute('name', 'resvSlotStart' + slotId);
-  start.setAttribute('id', 'resvSlotStart' + slotId);
-  start.value = slotStartTime;
-  start.hidden = false;
-
-  var endTime = document.getElementsByName('slotEnd' + slotId).value;
-  var end = document.createElement('input');
-  end.setAttribute('type', 'text');
-  end.setAttribute('name', 'resvSlotEnd' + slotId);
-  end.setAttribute('id', 'resvSlotEnd' + slotId);
-  end.value = slotEndTime;
-  end.hidden = false;
-
-  var location = document.getElementsByName('slotLocation' + slotId).value;
-  var loc = document.createElement('input');
-  loc.setAttribute('type', 'text');
-  loc.setAttribute('name', 'resvSlotLocation' + slotId);
-  loc.setAttribute('id', 'resvSlotLocation' + slotId);
-  loc.value = slotLocation;
-  loc.hidden = false;
-
   var id = document.createElement('input');
   id.setAttribute('type', 'text');
-  id.setAttribute('name', 'resvSlotId' + slotId);
+  id.setAttribute('name', 'resvSlotId');
   id.setAttribute('id', 'resvSlotId' + slotId);
   id.value = slotId;
   id.hidden = false;
 
   var slotsDivison = document.getElementById('slots');
-  slotsDivison.appendChild(start);
-  slotsDivison.appendChild(end);
-  slotsDivison.appendChild(loc);
   slotsDivison.appendChild(id);
 }

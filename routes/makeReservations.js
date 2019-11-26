@@ -42,15 +42,8 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 
 router.post('/make-reservations', async function (req, res, next) {
 	let context = {};
-	let eventName = req.body.eventName;
-	let defaultLocation = req.body.defaultLocation;
-	let defaultMaxAttendees = req.body.defaultMaxAttendees;
-	let maxResvPerAttendees = req.body.maxReservationsPerAttendee;
-	let description = req.body.description;
-	let visibility = req.body.attendeeNameVisibility;
-	let emails = req.body.emails;
-	let slotIds = req.body.slotIds;
-
+	let slotIds = req.body.resvSlotId;
+	res.send(slotIds);
 });
 
 module.exports = router;
