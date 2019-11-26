@@ -136,5 +136,7 @@ function bindReservationDelete(button, slotId) {
   button.addEventListener('click', function(event) {
     var row = document.getElementById('row' + slotId);
     row.parentNode.removeChild(row);
+    var input = document.getElementById('resvSlotId' + slotId);
+    input.parentNode.removeChild(input);
   })
 }
