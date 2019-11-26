@@ -1,6 +1,7 @@
 var Router = 		require('express-promise-router'),
 	router = 		new Router(),						// allows asynchronous route handlers
 	session = 		require('express-session'),
+	reserveSlot =   require('../models/reserveSlot.js');
 	slot =			require('../models/slot.js'),
 	event =			require('../models/event.js'),
 	invitation =	require('../models/invitation.js'),
