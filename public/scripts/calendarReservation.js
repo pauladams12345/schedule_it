@@ -99,9 +99,9 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   var cellTime = document.createElement('td');
   var cellLocation = document.createElement('td');
   var slot_Id = document.createElement('td');
-  cellTime.textContent = slotId;
-  cellLocation.textContent = slotId;
-  slot_Id.textContent = slotLocation;
+  cellTime.textContent = slotTimePeriodNode;
+  cellLocation.textContent = slotLocation;
+  slot_Id.textContent = slotId;
   row.appendChild(slot_Id);
   row.appendChild(cellTime);
   row.appendChild(cellLocation);
