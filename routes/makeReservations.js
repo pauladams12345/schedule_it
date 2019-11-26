@@ -43,7 +43,8 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 router.post('/make-reservations', async function (req, res, next) {
 	let context = {};
 	let slotIds = req.body.resvSlotId;
-	res.send(slotIds);
+	let onid = req.session.onid
+	res.send(onid);
 });
 
 module.exports = router;
