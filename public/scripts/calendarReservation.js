@@ -82,11 +82,11 @@ function createModalBody(slotId) {
   $('#resvSlot').modal('show');
 };
 
-function createSlotInputForm(slotId, start, end, location){
+function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
 
   var slotTime = document.getElementById('slotStart' + slotId).value;
   var time = document.createElement('p');
-  var slotTimePeriod = start + '-' + end + '     ' + location;
+  var slotTimePeriod = slotStartTime + '-' + slotEndTime + '     ' + slotLocation;
   var slotTimePeriodNode = document.createTextNode(slotTimePeriod);
   time.appendChild(slotTimePeriodNode);
   time.setAttribute('type', 'text');
@@ -100,7 +100,7 @@ function createSlotInputForm(slotId, start, end, location){
   start.setAttribute('type', 'text');
   start.setAttribute('name', 'resvSlotStart' + slotId);
   start.setAttribute('id', 'resvSlotStart' + slotId);
-  start.value = s;
+  start.value = slotStartTime;
   start.hidden = false;
 
   var endTime = document.getElementsByName('slotEnd' + slotId).value;
@@ -108,7 +108,7 @@ function createSlotInputForm(slotId, start, end, location){
   end.setAttribute('type', 'text');
   end.setAttribute('name', 'resvSlotEnd' + slotId);
   end.setAttribute('id', 'resvSlotEnd' + slotId);
-  end.value = e;
+  end.value = slotEndTime;
   end.hidden = false;
 
   var location = document.getElementsByName('slotLocation' + slotId).value;
@@ -116,7 +116,7 @@ function createSlotInputForm(slotId, start, end, location){
   loc.setAttribute('type', 'text');
   loc.setAttribute('name', 'resvSlotLocation' + slotId);
   loc.setAttribute('id', 'resvSlotLocation' + slotId);
-  loc.value = l;
+  loc.value = slotLocation;
   loc.hidden = false;
 
   var id = document.createElement('input');
