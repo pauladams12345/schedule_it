@@ -41,10 +41,18 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 });
 
 router.post('/make-reservations', async function (req, res, next) {
-	let context = {};
-	let slotIds = req.body.resvSlotId;
-	let onid = req.session.onid
-	res.send(onid);
+	if (!req.session.onid) {
+		res.redirect('../login');
+	}
+	else{
+		let context = {};
+		let slotIds = req.body.resvSlotId;
+		let onid = req.session.onid
+		for(let slot of slotIds){
+			reserveSlot.createReservation(onid, slot);
+		}
+		res.send(onid);
+	}
 });
 
 module.exports = router;
