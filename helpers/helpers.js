@@ -67,51 +67,51 @@ module.exports.parseDateTimeString = async function (slot){
 	return [date, time];
 };
 
-module.exports.processReservationsForDisplay = async function (reservations, user_ONID){
-	let event_ids = []; 	// Keep track of which events we've added
-	let events = {};		// Store the details of each event in a handlebars-friendly format
+// module.exports.processReservationsForDisplay = async function (reservations, user_ONID){
+// 	let event_ids = []; 	// Keep track of which events we've added
+// 	let events = {};		// Store the details of each event in a handlebars-friendly format
 
-	// Loop over each reservation to fill the events object
-	for (let resv of reservations) {
-		let id = resv.event_id;
+// 	// Loop over each reservation to fill the events object
+// 	for (let resv of reservations) {
+// 		let id = resv.event_id;
 
-		// If we haven't seen this event before, create a nested object for it
-		if ( !event_ids.includes(id) ){
-			event_ids.push(id);								// add current event ID to tracking array
-			events[id] = {									// create event object
-				title: resv.event_name,
-				creator: await event.getEventCreator(id),
-				description: resv.description,
-				reservations: {}
-			};
-		}
+// 		// If we haven't seen this event before, create a nested object for it
+// 		if ( !event_ids.includes(id) ){
+// 			event_ids.push(id);								// add current event ID to tracking array
+// 			events[id] = {									// create event object
+// 				title: resv.event_name,
+// 				creator: await event.getEventCreator(id),
+// 				description: resv.description,
+// 				reservations: {}
+// 			};
+// 		}
 
-		//  Create a nested  object for the current reservation
-		let dateTime = new Date(resv.slot_date + 'T' + resv.start_time);
-		let dateString = dateTime.toLocaleDateString('en-US', {weekday: 'long', month: 'short', day: 'numeric' , year: 'numeric'});
-		let timeString = dateTime.toLocaleTimeString('en-US') + ' - ';
-		timeString += new Date(dateTime.getTime() + resv.duration * 60000).toLocaleTimeString('en-US');
+// 		//  Create a nested  object for the current reservation
+// 		let dateTime = new Date(resv.slot_date + 'T' + resv.start_time);
+// 		let dateString = dateTime.toLocaleDateString('en-US', {weekday: 'long', month: 'short', day: 'numeric' , year: 'numeric'});
+// 		let timeString = dateTime.toLocaleTimeString('en-US') + ' - ';
+// 		timeString += new Date(dateTime.getTime() + resv.duration * 60000).toLocaleTimeString('en-US');
 
-		events[id].reservations[resv.slot_id] = {
-			event_id: id,
-			date: dateString,
-			time:  timeString,
-			location: resv.slot_location,
-			attendees: {}
-		};
-		const attendees = await slot.findSlotAttendees(resv.slot_id);
-		for (let attendee of attendees){
-			if(attendee.onid != user_ONID){
-				events[id].reservations[resv.slot_id].attendees[attendee.onid] = {
-					firstName: attendee.first_name,
-					lastName: attendee.last_name,
-					email: attendee.ONID_email
-				};
-			}
-		}
-	}
-	return events;
-};
+// 		events[id].reservations[resv.slot_id] = {
+// 			event_id: id,
+// 			date: dateString,
+// 			time:  timeString,
+// 			location: resv.slot_location,
+// 			attendees: {}
+// 		};
+// 		const attendees = await slot.findSlotAttendees(resv.slot_id);
+// 		for (let attendee of attendees){
+// 			if(attendee.onid != user_ONID){
+// 				events[id].reservations[resv.slot_id].attendees[attendee.onid] = {
+// 					firstName: attendee.first_name,
+// 					lastName: attendee.last_name,
+// 					email: attendee.ONID_email
+// 				};
+// 			}
+// 		}
+// 	}
+// 	return events;
+// };
 
 module.exports.processUpcomingReservationsForDisplay = async function(onid) {
 	let eventIds = [];
@@ -134,6 +134,37 @@ module.exports.processUpcomingReservationsForDisplay = async function(onid) {
 		// console.log(await slot.findSlotAttendees(upcomingSlot.slot_id));
 		upcomingSlot['attendees'] = await slot.findSlotAttendees(upcomingSlot.slot_id);
 		events[upcomingSlot.event_id].reservations.push(upcomingSlot);
+	}
+	// console.log(JSON.stringify(events, null, 4));
+
+	for (let id in events) {
+		helpers.combineDateAndTime(events[id].reservations);
+	}
+
+	return events;
+};
+
+module.exports.processPastReservationsForDisplay = async function(onid) {
+	let eventIds = [];
+	let events = {};
+	let pastSlots = await slot.findPastUserSlots(onid);
+
+	// Process each slot the user has reserved
+	for (let pastSlot of pastSlots) {
+
+		// If we haven't seen this event before, create a nested array for it
+		if ( !eventIds.includes(pastSlot.event_id) ){
+			eventIds.push(pastSlot.event_id);								// add current event ID to tracking array
+			events[pastSlot.event_id] = {									// create event object
+				title: pastSlot.event_name,
+				creator: pastSlot.creator_first_name + " " + pastSlot.creator_last_name,
+				description: pastSlot.description,
+				reservations: []
+			};
+		}
+		// console.log(await slot.findSlotAttendees(upcomingSlot.slot_id));
+		pastSlot['attendees'] = await slot.findSlotAttendees(pastSlot.slot_id);
+		events[pastSlot.event_id].reservations.push(pastSlot);
 	}
 	// console.log(JSON.stringify(events, null, 4));
 
