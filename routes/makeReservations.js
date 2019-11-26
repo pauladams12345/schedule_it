@@ -49,7 +49,7 @@ router.post('/make-reservations', async function (req, res, next) {
 		let slotIds = req.body.resvSlotId;
 		let onid = req.session.onid
 		for(let slot of slotIds){
-			reserveSlot.createReservation(onid, slot);
+			await reserveSlot.createReservation(onid, slot);
 		}
 		res.send(onid);
 	}
