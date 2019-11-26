@@ -22,7 +22,7 @@
   <input type="text" name="slotLocation{{this.slot_id}}"
   id="slotLocation{{this.slot_id}}" value = "{{this.location}}" hidden>
   <button type="button" class="btn btn-danger"
-  id="slotDelete{{this.slot_id}}">Delete slot</button>
+  id="slotDelete{{this.slot_id}}">Delete slot</button hidden>
   {{#each this.attendees}}
     <input type="text" name="name{{this.slotId}}"
     id="name{{this.slotId}}" value="{{this.name}}" hidden>
@@ -65,14 +65,14 @@ aria-labelledby="resvSlotLabel" aria-hidden="true">
   <thead>
     <tr>
       <th scope="col" hidden></th>
-      <th scope="col">First Name</th>
       <th scope="col">Time</th>
+      <th scope="col">Location</th>
     </tr>
   </thead>
-  <tbody>
-    <tr id=rows>
+  <tbody id=body>
+    <!--<tr id=rows>
       <td><button type="button" class="btn btn-primary reservation-delete">Delete</button></td>
-    </tr>
+    </tr>-->
   </tbody>
 </table>
 </div>
