@@ -52,8 +52,8 @@ router.post('/make-reservations', async function (req, res, next) {
 
 		// Handle edge cases of 1 or 0 emails, convert to an array
 		if (typeof slotIds === 'string') {
-			slotIds = [slotsIds];
-		} else if (typeof slotsIds === 'undefined') {
+			slotIds = [slotIds];
+		} else if (typeof slotIds === 'undefined') {
 			slotIds = [];
 		}
 
