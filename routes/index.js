@@ -61,6 +61,7 @@ router.get('/home', async function (req, res, next) {
 // Displays user's personal homepage
 router.get('/home-test', async function (req, res, next) {
 	req.session.onid = 'adamspa';
+	req.session.firstName = 'Paul';
 	let context = {};
 	context.eventsManaging = await createsEvent.getUpcomingUserEvents(req.session.onid);
 	context.eventsAttending = await helpers.processUpcomingReservationsForDisplay(req.session.onid);

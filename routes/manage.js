@@ -12,6 +12,7 @@ router.get('/manage/:eventId', async function (req, res, next) {
 	let eventId = req.params.eventId;
 	let context = {};
 	context.slotResv = await slot.eventSlotResv(eventId);
+	helpers.combineDateAndTime(context.slotResv);
 	context.eventDetails = await event.findEvent(eventId);
 	context.invitations = await invitation.findEventInvitations(eventId);
 
@@ -27,7 +28,7 @@ router.get('/manage/:eventId', async function (req, res, next) {
 
 	context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
-	context.scripts = ['calendarManage.js', 'manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	context.scripts = ['calendarManage.js', 'manage.js', 'convertISOToLocal.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 	res.render('manage', context);
 });
