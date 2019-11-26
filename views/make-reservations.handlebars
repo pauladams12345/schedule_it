@@ -52,7 +52,7 @@ aria-labelledby="resvSlotLabel" aria-hidden="true">
 </div>
 
 <!--Table for organizing reservation data with delete buttons-->
-<div class="table-responsive-md" id="resv">
+<div class="table-responsive-md col col-sm-10 col-md-9 col-lg-6 col-xl-6" id="resv">
   <table class="table table-sm table-striped table-light" id="eventReservations">
   <thead>
     <tr>
@@ -67,17 +67,10 @@ aria-labelledby="resvSlotLabel" aria-hidden="true">
 </div>
 
 <!--form for submitting reservations -->
-<!--<div class="mb-0 ml-0 w-auto" id="selectedSlots">
-  <h3 class="m-0">Selected time slots:</h3>
-  <div class="mb-0 ml-0 w-auto" id="slots">
-  </div>
-</div>-->
-
-<!--form for submitting reservations -->
 <form action="/make-reservations"
 method="post" id="addReservationsForm">
   <div class="form-row">
-    <div class="col col-sm-7 col-md-6 col-lg-3 col-xl-3 form-group" id="slots">
+    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group" id="slots">
       <button class="btn btn-primary my-2" id="addReservations" type="submit">Submit</button>
     </div>
   </div>
