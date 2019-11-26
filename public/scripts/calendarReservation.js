@@ -94,7 +94,7 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   time.setAttribute('id', 'resvTime' + slotId);
   time.hidden = false;
 
-  var rows = document.getElementById('rows');
+  var body = document.getElementById('body');
   var cellTime = document.createElement('td');
   var cellLocation = document.createElement('td');
   var slot_Id = document.createElement('td');
