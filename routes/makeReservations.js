@@ -52,7 +52,7 @@ router.post('/make-reservations', async function (req, res, next) {
 		for(let slot of slotIds){
 			await reserveSlot.createReservation(onid, slot);
 		}
-		res.send(onid);
+		res.send(slotIds);
 	}
 });
 
