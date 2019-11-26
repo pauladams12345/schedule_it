@@ -20,6 +20,7 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 		let context = {};
 		let onid = req.session.onid;
 		eventId = req.params.eventId;
+		console.log(onid);
 
 		context.userSlots = await slot.findUserSlots(onid);
 		context.eventDetails = await event.findEvent(eventId);
