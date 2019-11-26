@@ -102,6 +102,7 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   cellTime.textContent = slotTimePeriodNode;
   cellLocation.textContent = slotLocation;
   slot_Id.textContent = slotId;
+  slot_Id.hidden = true;
   row.appendChild(slot_Id);
   row.appendChild(cellTime);
   row.appendChild(cellLocation);
