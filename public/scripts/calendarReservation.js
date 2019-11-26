@@ -105,6 +105,7 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   row.appendChild(slot_Id);
   row.appendChild(cellTime);
   row.appendChild(cellLocation);
+  body.appendChild(row);
 
   var startTime = document.getElementById('slotStart' + slotId).value;
   var start = document.createElement('input');
