@@ -99,7 +99,7 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 			location: resv.slot_location,
 			attendees: {}
 		};
-		const [attendees, fields] = await slot.findSlotAttendees(resv.slot_id);
+		const attendees = await slot.findSlotAttendees(resv.slot_id);
 		for (let attendee of attendees){
 			if(attendee.onid != user_ONID){
 				events[id].reservations[resv.slot_id].attendees[attendee.onid] = {
@@ -110,6 +110,37 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 			}
 		}
 	}
+	return events;
+};
+
+module.exports.processUpcomingReservationsForDisplay = async function(onid) {
+	let eventIds = [];
+	let events = {};
+	let upcomingSlots = await slot.findUpcomingUserSlots(onid);
+
+	// Process each slot the user has reserved
+	for (let upcomingSlot of upcomingSlots) {
+
+		// If we haven't seen this event before, create a nested array for it
+		if ( !eventIds.includes(upcomingSlot.event_id) ){
+			eventIds.push(upcomingSlot.event_id);								// add current event ID to tracking array
+			events[upcomingSlot.event_id] = {									// create event object
+				title: upcomingSlot.event_name,
+				creator: upcomingSlot.creator_first_name + " " + upcomingSlot.creator_last_name,
+				description: upcomingSlot.description,
+				reservations: []
+			};
+		}
+		// console.log(await slot.findSlotAttendees(upcomingSlot.slot_id));
+		upcomingSlot['attendees'] = await slot.findSlotAttendees(upcomingSlot.slot_id);
+		events[upcomingSlot.event_id].reservations.push(upcomingSlot);
+	}
+	// console.log(JSON.stringify(events, null, 4));
+
+	for (let id in events) {
+		helpers.combineDateAndTime(events[id].reservations);
+	}
+
 	return events;
 };
 
@@ -125,7 +156,7 @@ module.exports.processEventSlots = async function (existingSlots){
 			location: resv.slot_location,
 			attendees: {}
 		};
-		const [attendees, fields] = await slot.findSlotAttendees(resv.slot_id);
+		const attendees = await slot.findSlotAttendees(resv.slot_id);
 		for (let attendee of attendees){
 			//if(attendee.onid != user_ONID){
 			slots[resv.slot_id].attendees[attendee.onid] = {

@@ -116,7 +116,7 @@ router.post('/manage/:eventId/edit-slots', async function (req, res, next) {
 	for (let id of slotIds) {
 		let state = req.body['slotState' + id];
 		if (state == 'existingDeleted') {
-			let [rows, fields] = await slot.findSlotAttendees(id);
+			let rows = await slot.findSlotAttendees(id);
 			if (rows.length > 0) {
 				modificationsAllowed = false;
 				res.send("Error! You cannot delete a slot with active registrations. Delete these reservations below and try again.");

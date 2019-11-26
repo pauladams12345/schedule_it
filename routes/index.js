@@ -63,6 +63,19 @@ router.get('/home', async function (req, res, next) {
 
 });
 
+// Displays user's personal homepage
+router.get('/home-test', async function (req, res, next) {
+	req.session.onid = 'adamspa';
+	let context = {};
+	context.eventsManaging = await createsEvent.getUpcomingUserEvents(req.session.onid);
+	context.eventsAttending = await helpers.processUpcomingReservationsForDisplay(req.session.onid);
+	context.firstName = req.session.firstName;
+	context.stylesheets = ['main.css', 'home.css'];
+	context.scripts = ['convertISOToLocal.js'];
+	console.log(JSON.stringify(context.eventsAttending, null, 4));
+	res.render('home', context);
+});
+
 // Displays landing page
 // TODO: redirect to homepage if there's a session???
 router.get('/login', async function (req, res, next) {

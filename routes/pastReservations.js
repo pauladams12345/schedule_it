@@ -21,7 +21,7 @@ router.get('/past-reservations', async function (req, res, next) {
 		context.eventsManaging = await createsEvent.getPastUserEvents(req.session.onid);
 
 		// Find all slots a user registered for in the past
-		let [reservations, fields] = await slot.findPastUserSlots(req.session.onid);
+		let reservations = await slot.findPastUserSlots(req.session.onid);
 
 		// Process response from database into a handlebars-friendly format
 		context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
