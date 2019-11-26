@@ -20,8 +20,8 @@
   <input type="text" name="slotEnd{{this.slot_id}}"
   id="slotEnd{{this.slot_id}}" value="{{this.end_time}}" hidden>
   <input type="text" name="slotLocation{{this.slot_id}}"
-  id="slotLocation{{this.slot_id}}" value = "{{this.slot_location}}" hidden>
-  {{#each this.attendees}}
+  id="slotLocation{{this.slot_id}}" value = "{{this.location}}" hidden>
+  <button type="button hidden" class="btn btn-danger"
     <input type="text" name="name{{this.slotId}}"
     id="name{{this.slotId}}" value="{{this.name}}" hidden>
     <input type="text" name="email{{this.slotId}}"
@@ -31,7 +31,11 @@
 {{/each}}
 
 <div id='calendar' class='m-1 p-1'></div>
+<br>
+<br>
+<br>
 
+<!--modal for showing slot attendees-->
 <div class="modal fade" id="resvSlot" tabindex="-1" role="dialog"
 aria-labelledby="resvSlotLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -45,8 +49,27 @@ aria-labelledby="resvSlotLabel" aria-hidden="true">
   </div>
 </div>
 
-<div class="mb-4 ml-2 w-auto" id="selectedSlots">
-  <h1 class="mt-5">Selected time slots:</h1>
-  <div class="mb-4 ml-2 w-auto" id="slots">
-  </div>
+<!--Table for organizing reservation data with delete buttons-->
+<div class="table-responsive-md" id="resv">
+  <table class="table table-sm table-striped table-light" id="eventReservations">
+  <thead>
+    <tr>
+      <th scope="col" hidden></th>
+      <th scope="col">Time</th>
+      <th scope="col">Location</th>
+    </tr>
+  </thead>
+  <tbody id=body>
+  </tbody>
+</table>
 </div>
+
+<!--form for submitting reservations -->
+<form action="/make-reservations"
+method="post" id="addReservationsForm">
+  <div class="form-row">
+    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group" id="slots">
+      <button class="btn btn-primary my-2" id="addReservations" type="submit">Submit</button>
+    </div>
+  </div>
+</form>

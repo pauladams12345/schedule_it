@@ -1,6 +1,7 @@
 var Router = 		require('express-promise-router'),
 	router = 		new Router(),						// allows asynchronous route handlers
 	session = 		require('express-session'),
+	reserveSlot =   require('../models/reserveSlot.js');
 	slot =			require('../models/slot.js'),
 	event =			require('../models/event.js'),
 	invitation =	require('../models/invitation.js'),
@@ -36,8 +37,22 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 		'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
 		context.scripts = ['calendarReservation.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 		'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
-		//res.send(context.existingSlots);
 		res.render('make-reservations', context);
+	}
+});
+
+router.post('/make-reservations', async function (req, res, next) {
+	if (!req.session.onid) {
+		res.redirect('../login');
+	}
+	else{
+		let context = {};
+		let slotIds = req.body.resvSlotId;
+		let onid = req.session.onid
+		for(let slot of slotIds){
+			await reserveSlot.createReservation(onid, slot);
+		}
+		res.send(onid);
 	}
 });
 
