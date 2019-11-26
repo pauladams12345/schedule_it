@@ -86,7 +86,7 @@ function createSlotInputForm(slotId, s, e, l){
 
   var slotTime = document.getElementById('slotStart' + slotId).value;
   var time = document.createElement('p');
-  var slotTimePeriod = s + '-' + e + '     ' + l;
+  var slotTimePeriod = s + '-' + e + &time&time&time + l;
   var slotTimePeriodNode = document.createTextNode(slotTimePeriod);
   time.appendChild(slotTimePeriodNode);
   time.setAttribute('type', 'text');
