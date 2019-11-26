@@ -22,7 +22,7 @@
   <input type="text" name="slotLocation{{this.slot_id}}"
   id="slotLocation{{this.slot_id}}" value = "{{this.location}}" hidden>
   <button type="button hidden" class="btn btn-danger"
-  id="slotDelete{{this.slot_id}}">Delete slot</button>
+  id="slotDelete{{this.slot_id}}" hidden>Delete slot</button>
   {{#each this.attendees}}
     <input type="text" name="name{{this.slotId}}"
     id="name{{this.slotId}}" value="{{this.name}}" hidden>
