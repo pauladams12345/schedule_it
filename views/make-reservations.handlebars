@@ -10,7 +10,7 @@
    <h5>(you can pick as many as you like!!)</h5>
 </div>
 
-<!-- Calendar -->
+<!-- event and attendee detail inputs from db -->
 {{#each existingSlots}}
 <div class="existingSlots" id="slot{{this.slot_id}}">
   <input type="number" name="slot{{this.slot_id}}"
@@ -21,8 +21,6 @@
   id="slotEnd{{this.slot_id}}" value="{{this.end_time}}" hidden>
   <input type="text" name="slotLocation{{this.slot_id}}"
   id="slotLocation{{this.slot_id}}" value = "{{this.location}}" hidden>
-  <!--<button type="button hidden" class="btn btn-danger"
-  id="slotDelete{{this.slot_id}}" hidden>Delete slot</button>-->
   {{#each this.attendees}}
     <input type="text" name="name{{this.slotId}}"
     id="name{{this.slotId}}" value="{{this.name}}" hidden>
@@ -32,6 +30,13 @@
 </div>
 {{/each}}
 
+<!-- attendee slot reservations from db -->
+{{#each userSlots}}
+  <input type="text" name="userSlot{{this.slot_id}}"
+  id="userSlot{{this.slot_id}}" value="{{this.fk_slot_id}}">
+{{/each}}
+
+<!-- Calendar -->
 <div id='calendar' class='m-1 p-1'></div>
 <br>
 <br>

@@ -18,8 +18,10 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 	// If there is a session, render users past reservations
 	else {
 		let context = {};
+		let onid = req.session.onid;
 		eventId = req.params.eventId;
 
+		context.usersSlots = await slot.findUserSlots(onid)
 		context.eventDetails = await event.findEvent(eventId);
 		context.eventCreator = await event.getEventCreator(eventId);
 		let eventSlots = await slot.findEventSlots(eventId);
