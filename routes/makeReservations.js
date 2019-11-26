@@ -49,12 +49,15 @@ router.post('/make-reservations', async function (req, res, next) {
 		let context = {};
 		let slotIds = req.body.resvSlotId;
 		let onid = req.session.onid;
-		if (typeof slotsIds === 'string') {
-			slotsIds = [slotsIds];
+
+		// Handle edge cases of 1 or 0 emails, convert to an array
+		if (typeof slotIds === 'string') {
+			slotIds = [slotsIds];
 		} else if (typeof slotsIds === 'undefined') {
-			slotsIds = [];
+			slotIds = [];
 		}
-		res.send(slotIds);
+
+		//loop through slots and create reservations
 		for(let slot of slotIds){
 			await reserveSlot.createReservation(onid, slot);
 		}
