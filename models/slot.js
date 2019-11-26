@@ -93,7 +93,8 @@ module.exports.findEventSlots = async function(eventId) {
 		"s.duration, s.slot_location, s.max_attendees " +
 		"FROM `Slot` s " +
 		"INNER JOIN `Event` e ON s.fk_event_id = e.event_id " +
-		"WHERE s.fk_event_id = ?",
+		"WHERE s.fk_event_id = ? " +
+		"ORDER BY s.slot_date",
 		[eventId]);
 		connection.end();
 		return rows;

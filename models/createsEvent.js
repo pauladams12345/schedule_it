@@ -65,7 +65,7 @@ module.exports.getPastUserEvents = async function(onid) {
 	}
 }
 
-// Get event all organizers for a given event
+// Get all organizers for a given event
 module.exports.getEventOrganizers = async function(eventId) {
 	try {
 		const connection = await sql.createConnection(dbcon);

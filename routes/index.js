@@ -42,7 +42,7 @@ router.get('/', async function (req, res, next) {
 router.get('/home', async function (req, res, next) {
 	// If there is no session established, redirect to the landing page
 	if (!req.session.onid) {
-		res.redirect('../login');
+		res.redirect('/login');
 	}
 	// If there is a session, render user's homepage
 	else {
