@@ -91,13 +91,19 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   var cellTime = document.createElement('td');
   var cellLocation = document.createElement('td');
   var slot_Id = document.createElement('td');
+  var deleteButton = document.createElement('td');
+  var button = document.createElement('button');
+  button.setAttribute('class','btn btn-primary reservation-delete');
+  button.textContent = 'Delete';
   cellTime.textContent = slotTimePeriod;
   cellLocation.textContent = slotLocation;
   slot_Id.textContent = slotId;
   slot_Id.hidden = true;
+  deleteButton.appendChild(button);
   row.appendChild(slot_Id);
   row.appendChild(cellTime);
   row.appendChild(cellLocation);
+  row.appendChild(deleteButton);
   body.appendChild(row);
 
   //create inputs for form
