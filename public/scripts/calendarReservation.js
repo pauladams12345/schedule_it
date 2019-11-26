@@ -88,6 +88,7 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   var slotTimePeriod = slotStartTime + '-' + slotEndTime;
   var body = document.getElementById('body');
   var row = document.createElement('tr');
+  row.setAttribute('id','row' + slotId);
   var cellTime = document.createElement('td');
   var cellLocation = document.createElement('td');
   var slot_Id = document.createElement('td');
@@ -116,4 +117,23 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
 
   var slotsDivison = document.getElementById('slots');
   slotsDivison.appendChild(id);
+}
+
+function configureReservations() {
+  document.addEventListener('DOMContentLoaded', function() {
+    var buttons = document.getElementsByClassName('reservation-delete');
+    for (var i = 0; i < buttons.length; i++) {
+      var reservation = buttons[i].parentNode.parentNode;
+      var onid = reservation.firstElementChild.textContent;
+      var slotId = reservation.firstElementChild.nextElementSibling.textContent;
+      bindReservationDelete(buttons[i], reservation, slotId);
+    }
+  });
+};
+
+function bindReservationDelete(button, slotId) {
+  button.addEventListener('click', function(event) {
+    var row = document.getElementById('row' + slotId);
+    row.parentNode.removeChild(row);
+  })
 }
