@@ -85,7 +85,7 @@ function createModalBody(slotId) {
 function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
 
   var time = document.createElement('p');
-  var slotTimePeriod = slotStartTime + '-' + slotEndTime + ' ' + slotLocation;
+  var slotTimePeriod = slotStartTime + '-' + slotEndTime;
   var slotTimePeriodNode = document.createTextNode(slotTimePeriod);
   time.appendChild(slotTimePeriodNode);
   time.setAttribute('type', 'text');
@@ -101,7 +101,7 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   var slot_Id = document.createElement('td');
   cellTime.textContent = slotId;
   cellLocation.textContent = slotId;
-  slot_Id.textContent = slotTimePeriod;
+  slot_Id.textContent = slotLocation;
   row.appendChild(slot_Id);
   row.appendChild(cellTime);
   row.appendChild(cellLocation);
