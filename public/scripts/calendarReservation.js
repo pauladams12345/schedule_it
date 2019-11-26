@@ -106,6 +106,7 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   row.appendChild(cellLocation);
   row.appendChild(deleteButton);
   body.appendChild(row);
+  bindReservationDelete(button, slotId);
 
   //create inputs for form
   var id = document.createElement('input');
@@ -119,7 +120,7 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   slotsDivison.appendChild(id);
 }
 
-function configureReservations() {
+/*function configureReservations() {
   document.addEventListener('DOMContentLoaded', function() {
     var buttons = document.getElementsByClassName('reservation-delete');
     for (var i = 0; i < buttons.length; i++) {
@@ -129,7 +130,7 @@ function configureReservations() {
       bindReservationDelete(buttons[i], reservation, slotId);
     }
   });
-};
+};*/
 
 function bindReservationDelete(button, slotId) {
   button.addEventListener('click', function(event) {
