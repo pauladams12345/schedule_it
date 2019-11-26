@@ -33,7 +33,6 @@ router.get('/past-events', async function (req, res, next) {
 			events.push(eventDetails);
 		}
 
-		// console.log(JSON.stringify(events, null, 2));
 		let context = {};
 		context.events = events;
 		context.stylesheets = ['main.css'];
@@ -61,9 +60,7 @@ router.get('/past-events-test', async function (req, res, next) {
 
 		events.push(eventDetails);
 	}
-	console.log(JSON.stringify(events, null, 4));
 
-	// console.log(JSON.stringify(events, null, 2));
 	let context = {};
 	context.events = events;
 	context.stylesheets = ['main.css'];

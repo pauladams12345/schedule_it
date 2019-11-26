@@ -52,7 +52,6 @@ router.get('/home', async function (req, res, next) {
 		context.firstName = req.session.firstName;
 		context.stylesheets = ['main.css', 'home.css'];
 		context.scripts = ['convertISOToLocal.js'];
-		console.log(JSON.stringify(context.eventsAttending, null, 4));
 		res.render('home', context);
 	}
 
@@ -68,7 +67,6 @@ router.get('/home-test', async function (req, res, next) {
 	context.firstName = req.session.firstName;
 	context.stylesheets = ['main.css', 'home.css'];
 	context.scripts = ['convertISOToLocal.js'];
-	console.log(JSON.stringify(context.eventsAttending, null, 4));
 	res.render('home', context);
 });
 

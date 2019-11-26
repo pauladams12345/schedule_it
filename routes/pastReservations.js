@@ -22,7 +22,6 @@ router.get('/past-reservations', async function (req, res, next) {
 		context.firstName = req.session.firstName;
 		context.stylesheets = ['main.css'];
 		context.scripts = ['convertISOToLocal.js'];
-		console.log(JSON.stringify(context.eventsAttending, null, 4));
 		res.render('past-reservations', context);
 	}
 });
@@ -35,7 +34,6 @@ router.get('/past-reservations-test', async function (req, res, next) {
 	context.firstName = req.session.firstName;
 	context.stylesheets = ['main.css'];
 	context.scripts = ['convertISOToLocal.js'];
-	console.log(JSON.stringify(context.eventsAttending, null, 4));
 	res.render('past-reservations', context);
 });
 

@@ -131,11 +131,9 @@ module.exports.processUpcomingReservationsForDisplay = async function(onid) {
 				reservations: []
 			};
 		}
-		// console.log(await slot.findSlotAttendees(upcomingSlot.slot_id));
 		upcomingSlot['attendees'] = await slot.findSlotAttendees(upcomingSlot.slot_id);
 		events[upcomingSlot.event_id].reservations.push(upcomingSlot);
 	}
-	// console.log(JSON.stringify(events, null, 4));
 
 	for (let id in events) {
 		helpers.combineDateAndTime(events[id].reservations);
@@ -162,11 +160,9 @@ module.exports.processPastReservationsForDisplay = async function(onid) {
 				reservations: []
 			};
 		}
-		// console.log(await slot.findSlotAttendees(upcomingSlot.slot_id));
 		pastSlot['attendees'] = await slot.findSlotAttendees(pastSlot.slot_id);
 		events[pastSlot.event_id].reservations.push(pastSlot);
 	}
-	// console.log(JSON.stringify(events, null, 4));
 
 	for (let id in events) {
 		helpers.combineDateAndTime(events[id].reservations);
