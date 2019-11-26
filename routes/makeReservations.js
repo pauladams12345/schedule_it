@@ -54,6 +54,7 @@ router.post('/make-reservations', async function (req, res, next) {
 		} else if (typeof slotsIds === 'undefined') {
 			slotsIds = [];
 		}
+		res.send(slotIds);
 		for(let slot of slotIds){
 			await reserveSlot.createReservation(onid, slot);
 		}
