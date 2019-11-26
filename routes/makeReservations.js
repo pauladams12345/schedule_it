@@ -51,6 +51,6 @@ router.post('/make-reservations', async function (req, res, next) {
 	let emails = req.body.emails;
 	let slotIds = req.body.slotIds;
 
-}
+});
 
 module.exports = router;
