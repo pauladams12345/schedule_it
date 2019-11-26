@@ -95,15 +95,16 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   time.hidden = false;
 
   var body = document.getElementById('body');
+  var row = document.createElement('tr');
   var cellTime = document.createElement('td');
   var cellLocation = document.createElement('td');
   var slot_Id = document.createElement('td');
   cellTime.textContent = slotId;
   cellLocation.textContent = slotId;
   slot_Id.textContent = slotTimePeriod;
-  rows.appendChild(slot_Id);
-  rows.appendChild(cellTime);
-  rows.appendChild(cellLocation);
+  row.appendChild(slot_Id);
+  row.appendChild(cellTime);
+  row.appendChild(cellLocation);
 
   var startTime = document.getElementById('slotStart' + slotId).value;
   var start = document.createElement('input');
