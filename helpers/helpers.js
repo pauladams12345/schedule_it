@@ -144,7 +144,7 @@ module.exports.processUserSlots = async function (existingSlots){
 	// Loop over each reservation to fill the events object
 	for (let resv of existingSlots) {
 		slots[resv.fk_slot_id] = {
-			slot_id: resv.fk_slot_id,
+			slot_id: resv.fk_slot_id
 		};
 	}
 	return slots;
