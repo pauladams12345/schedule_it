@@ -21,6 +21,8 @@
   id="slotEnd{{this.slot_id}}" value="{{this.end_time}}" hidden>
   <input type="text" name="slotLocation{{this.slot_id}}"
   id="slotLocation{{this.slot_id}}" value = "{{this.location}}" hidden>
+  <button type="button hidden" class="btn btn-danger"
+  id="slotDelete{{this.slot_id}}" hidden>Delete slot</button>
   {{#each this.attendees}}
     <input type="text" name="name{{this.slotId}}"
     id="name{{this.slotId}}" value="{{this.name}}" hidden>
@@ -57,7 +59,6 @@ aria-labelledby="resvSlotLabel" aria-hidden="true">
 </div>
 
 <!--Table for organizing reservation data with delete buttons-->
-<p class="lead"><b>Reservations:</b></p>
 <div class="table-responsive-md" id="resv">
   <table class="table table-sm table-striped table-light" id="eventReservations">
   <thead>
