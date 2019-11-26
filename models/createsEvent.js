@@ -14,12 +14,65 @@ module.exports.createCreatesEvent = async function(eventId, onid) {
 	}
 }
 
-module.exports.getUserEvents = async function(onid) {
+// Get name and event id for all events a user has created
+// module.exports.getUserEvents = async function(onid) {
+// 	try {
+// 		const connection = await sql.createConnection(dbcon);
+// 		const [rows, fields] = await connection.query("SELECT e.event_name, e.event_id FROM `Event` e " +
+// 		"INNER JOIN `Creates_Event` ce ON e.event_id = ce.fk_event_id " +
+// 		"WHERE ce.fk_onid = ?;", [onid]);
+// 		connection.end();
+// 		return rows;
+// 	}
+// 	catch (err) {
+// 		console.log(err);
+// 	}
+// }
+
+// Get name and event id for all events a user has created with an expiration date
+// of yesterday or later. Also returns events with a NULL expiration date.
+module.exports.getUpcomingUserEvents = async function(onid) {
 	try {
 		const connection = await sql.createConnection(dbcon);
-		const [rows, fields] = await connection.query("SELECT e.event_name, e.event_id FROM `Event` e " +
+		const [rows, fields] = await connection.query(
+		"SELECT e.event_name, e.event_id, ce.fk_onid AS organizer " +
+		"FROM `Event` e " +
 		"INNER JOIN `Creates_Event` ce ON e.event_id = ce.fk_event_id " +
-		"WHERE ce.fk_onid = ?;", [onid]);
+		"WHERE ce.fk_onid = ? AND (e.expiration_date >= CURDATE() - INTERVAL 1 DAY OR e.expiration_date IS NULL);", [onid]);
+		connection.end();
+		return rows;
+	}
+	catch (err) {
+		console.log(err);
+	}
+}
+
+// Get event id for all events a user has created with an expiration date
+// of yesterday or earlier
+module.exports.getPastUserEvents = async function(onid) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+		"SELECT e.event_id " +
+		"FROM `Event` e " +
+		"INNER JOIN `Creates_Event` ce ON e.event_id = ce.fk_event_id " +
+		"WHERE ce.fk_onid = ? AND e.expiration_date < CURDATE() - INTERVAL 1 DAY;", [onid]);
+		connection.end();
+		return rows;
+	}
+	catch (err) {
+		console.log(err);
+	}
+}
+
+// Get event all organizers for a given event
+module.exports.getEventOrganizers = async function(eventId) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+		"SELECT ce.fk_onid AS organizer " +
+		"FROM `Creates_Event` ce " +
+		"WHERE ce.fk_event_id = ?;", [eventId]);
 		connection.end();
 		return rows;
 	}

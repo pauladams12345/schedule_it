@@ -7,7 +7,7 @@ var Router = 		require('express-promise-router'),
 	createsEvent =	require('../models/createsEvent.js');
 	helpers = 		require('../helpers/helpers.js');
 
-router.get('/past-events/:eventId', async function (req, res, next) {
+router.get('/past-events', async function (req, res, next) {
 	
 	// If there is no session established, redirect to the landing page
 	if (!req.session.onid) {
@@ -16,34 +16,58 @@ router.get('/past-events/:eventId', async function (req, res, next) {
 
 	// If there is a session, render users past reservations
 	else {
+		let pastEvents = await createsEvent.getPastUserEvents(req.session.onid);
+		let events = []
 
+		for (let pastEvent of pastEvents) {
+			let eventDetails = await event.findEvent(pastEvent.event_id);
+			eventDetails['reservations'] = await slot.eventSlotResv(pastEvent.event_id);
+			eventDetails['invitations'] = await invitation.findEventInvitations(pastEvent.event_id);
+			eventDetails['organizers'] = await createsEvent.getEventOrganizers(pastEvent.event_id)
+			eventDetails['slots'] = await slot.findEventSlots(pastEvent.event_id);
+			
+			// Add the hour to the start date so that the client can convert time zones correctly
+			helpers.combineDateAndTime(eventDetails.slots);
+			helpers.combineDateAndTime(eventDetails.reservations);
+
+			events.push(eventDetails);
+		}
+
+		// console.log(JSON.stringify(events, null, 2));
+		let context = {};
+		context.events = events;
+		context.stylesheets = ['main.css'];
+		context.scripts = ['convertISOToLocal.js'];
+		res.render('past-events', context);
 	}
 });
 
 // TODO: restrict access to event creator
-router.get('/past-events-test/:eventId', async function (req, res, next) {
-	let eventId = req.params.eventId;
-	let context = {};
-	let [reservations, fields] = await slot.eventSlotResv(eventId);
-	context.eventDetails = await event.findEvent(eventId);
-	context.slotResv = reservations;
-	context.invitations = await invitation.findEventInvitations(eventId);
+router.get('/past-events-test', async function (req, res, next) {
+	let onid = 'adamspa';
+	let pastEvents = await createsEvent.getPastUserEvents(onid);
+	let events = []
 
-	let existingSlots = await slot.findEventSlots(eventId);
-	for (let slot of existingSlots) {
-		let startTime = new Date(slot.slot_date);												// get date of slot start
-		startTime.setUTCHours(slot.start_time.substring(0,2), slot.start_time.substring(3,5));	// set time of slot start
-		let endTime = new Date(startTime.getTime() + slot.duration * 60000);					// set date/time of slot end
-		slot['start_time'] = startTime;
-		slot['end_time'] = endTime;
+	for (let pastEvent of pastEvents) {
+		let eventDetails = await event.findEvent(pastEvent.event_id);
+		eventDetails['reservations'] = await slot.eventSlotResv(pastEvent.event_id);
+		eventDetails['invitations'] = await invitation.findEventInvitations(pastEvent.event_id);
+		eventDetails['organizers'] = await createsEvent.getEventOrganizers(pastEvent.event_id)
+		eventDetails['slots'] = await slot.findEventSlots(pastEvent.event_id);
+		
+		// Add the hour to the start date so that the client can convert time zones correctly
+		helpers.combineDateAndTime(eventDetails.slots);
+		helpers.combineDateAndTime(eventDetails.reservations);
+
+		events.push(eventDetails);
 	}
-	context.existingSlots = existingSlots;
 
-	context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
-	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
-	context.scripts = ['calendarManage.js', 'manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
-	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
-	res.render('manage', context);
+	// console.log(JSON.stringify(events, null, 2));
+	let context = {};
+	context.events = events;
+	context.stylesheets = ['main.css'];
+	context.scripts = ['convertISOToLocal.js'];
+	res.render('past-events', context);
 });
 
 module.exports = router;

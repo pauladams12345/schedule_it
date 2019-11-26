@@ -93,6 +93,7 @@ module.exports.processReservationsForDisplay = async function (reservations, use
 		timeString += new Date(dateTime.getTime() + resv.duration * 60000).toLocaleTimeString('en-US');
 
 		events[id].reservations[resv.slot_id] = {
+			event_id: id,
 			date: dateString,
 			time:  timeString,
 			location: resv.slot_location,
@@ -136,3 +137,11 @@ module.exports.processEventSlots = async function (existingSlots){
 	}
 	return slots;
 };
+
+module.exports.combineDateAndTime = function(slots) {
+	for (let slot of slots) {
+		let date = new Date(slot['slot_date']);
+		date.setUTCHours(slot['start_time'].substring(0,2));
+		slot['slot_date'] = date.toISOString();
+	}
+}
