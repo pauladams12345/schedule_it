@@ -84,16 +84,8 @@ function createModalBody(slotId) {
 
 function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
 
-  var time = document.createElement('p');
+  //create table rows
   var slotTimePeriod = slotStartTime + '-' + slotEndTime;
-  var slotTimePeriodNode = document.createTextNode(slotTimePeriod);
-  time.appendChild(slotTimePeriodNode);
-  time.setAttribute('type', 'text');
-  time.setAttribute("style", "background-color: white;");
-  time.setAttribute('name', 'resvTime' + slotId);
-  time.setAttribute('id', 'resvTime' + slotId);
-  time.hidden = false;
-
   var body = document.getElementById('body');
   var row = document.createElement('tr');
   var cellTime = document.createElement('td');
@@ -108,6 +100,7 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   row.appendChild(cellLocation);
   body.appendChild(row);
 
+  //create inputs for form
   var startTime = document.getElementById('slotStart' + slotId).value;
   var start = document.createElement('input');
   start.setAttribute('type', 'text');
@@ -140,8 +133,8 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   id.hidden = false;
 
   var slotsDivison = document.getElementById('slots');
-  slotsDivison.appendChild(time);
-  //slotsDivison.appendChild(end);
-  //slotsDivison.appendChild(loc);
-  //slotsDivison.appendChild(id);
+  slotsDivison.appendChild(start);
+  slotsDivison.appendChild(end);
+  slotsDivison.appendChild(loc);
+  slotsDivison.appendChild(id);
 }

@@ -36,9 +36,21 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 		'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
 		context.scripts = ['calendarReservation.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 		'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
-		//res.send(context.existingSlots);
 		res.render('make-reservations', context);
 	}
 });
+
+router.post('/make-reservations', async function (req, res, next) {
+	let context = {};
+	let eventName = req.body.eventName;
+	let defaultLocation = req.body.defaultLocation;
+	let defaultMaxAttendees = req.body.defaultMaxAttendees;
+	let maxResvPerAttendees = req.body.maxReservationsPerAttendee;
+	let description = req.body.description;
+	let visibility = req.body.attendeeNameVisibility;
+	let emails = req.body.emails;
+	let slotIds = req.body.slotIds;
+
+}
 
 module.exports = router;
