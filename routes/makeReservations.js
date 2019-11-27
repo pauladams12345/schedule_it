@@ -6,6 +6,7 @@ var Router = 		require('express-promise-router'),
 	event =			require('../models/event.js'),
 	invitation =	require('../models/invitation.js'),
 	createsEvent =	require('../models/createsEvent.js'),
+	respondsToRequest =    require('../models/respondsToRequest.js'),
 	helpers = 		require('../helpers/helpers.js');
 
 
