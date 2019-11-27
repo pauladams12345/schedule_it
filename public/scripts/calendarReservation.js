@@ -119,7 +119,7 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
     id.setAttribute('name', 'resvSlotId');
     id.setAttribute('id', 'resvSlotId' + slotId);
     id.value = slotId;
-    id.hidden = false;
+    id.hidden = true;
 
     var slotsDivison = document.getElementById('slots');
     slotsDivison.appendChild(id);
