@@ -33,9 +33,7 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 			slot['end_time'] = endTime;
 		}
 		context.userSlots = await helpers.processUserSlots(slots);
-		console.log(context.userSlots);
 		context.existingSlots = await helpers.processEventSlots(eventSlots, eventId);
-		console.log(context.existingSlots);
 
 		context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 		'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
@@ -65,7 +63,7 @@ router.post('/make-reservations', async function (req, res, next) {
 		for(let slot of slotIds){
 			await reserveSlot.createReservation(onid, slot);
 		}
-		res.send(slotIds);
+		res.redirect('/home');
 	}
 });
 
