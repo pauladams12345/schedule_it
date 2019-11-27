@@ -52,7 +52,7 @@ router.post('/make-reservations', async function (req, res, next) {
 		let context = {};
 		let slotIds = req.body.resvSlotId;
 		let onid = req.session.onid;
-		let attending = req.session.attend;
+		let attending = req.session.attend.value;
 		let eventId = req.session.eventId;
 		console.log(attending);
 		if (attending === 'no'){  //if not attending only update respondsToRequest with 1
