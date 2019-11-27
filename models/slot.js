@@ -9,7 +9,7 @@ module.exports.findPastUserSlots = async function(onid) {
 		const [rows, fields] = await connection.query(
 			"SELECT s.slot_id, s.slot_date," +
 			"s.start_time, s.end_time, s.duration, s.slot_location, " +
-			"e.event_name, e.description, e.event_id, " +
+			"e.event_name, e.description, e.event_id, e.visibility, " +
 			"om.first_name AS creator_first_name, om.last_name AS creator_last_name " +
 			"FROM `Slot` s " +
 			"INNER JOIN `Reserve_Slot` rs ON s.slot_id = rs.fk_slot_id " +
@@ -35,7 +35,7 @@ module.exports.findUpcomingUserSlots = async function(onid) {
 		const [rows, fields] = await connection.query(
 			"SELECT s.slot_id, s.slot_date," +
 			"s.start_time, s.end_time, s.duration, s.slot_location, " +
-			"e.event_name, e.description, e.event_id, " +
+			"e.event_name, e.description, e.event_id, e.visibility, " +
 			"om.first_name AS creator_first_name, om.last_name AS creator_last_name " +
 			"FROM `Slot` s " +
 			"INNER JOIN `Reserve_Slot` rs ON s.slot_id = rs.fk_slot_id " +

@@ -1,46 +1,68 @@
-<div class="jumbotron py-4 my-4">
-  <h1 class="display-4">Hello, {{firstName}}!</h1>
-  <p class="lead">Start organizing an event by clicking the button below.</p>
-  <a class="btn btn-primary btn-lg" href="/create" role="button">Create Event</a>
+<div class="row d-flex justify-content-center">
+  <div class="col-12">
+    <div class="jumbotron py-4 my-4">
+      <div class="row d-flex justify-content-center">
+        <div class="col-12 col-lg-10">
+          <h1 class="display-4">Hello, {{firstName}}!</h1>
+          <p class="lead">Start organizing an event by clicking the button below.</p>
+          <a class="btn btn-primary btn-lg" href="/create" role="button">Create Event</a>
+        </div>
+      </div>
+    </div> 
+  </div>
+</div>
+    
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-lg-10">
+    <h1>Events you're managing:</h1>
+    <br>
+    {{#each eventsManaging}}
+    <p class="pl-2">
+      <a class="h3" href="/manage/{{this.event_id}}">{{this.event_name}}</a>
+    </p>
+    {{/each}}
+    <br>
+    <a class="btn btn-primary btn-lg" href="/past-events" role="button">View past events</a>
+  </div>
 </div>
 
-<h1>Events you're managing:</h1>
-<br>
-{{#each eventsManaging}}
-<p class="pl-2">
-  <a class="h3" href="/manage/{{this.event_id}}">{{this.event_name}}</a>
-</p>
-{{/each}}
-<br>
-<a class="btn btn-primary btn-lg" href="/past-events" role="button">View past events</a>
 <br>
 <br>
 
-<h1>Events you're attending:</h1>
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-lg-10">
+    <h1 class="mt-5">Events you're attending:</h1>
+  </div>
+</div>
+
 <br>
+<br>
+
 {{#each eventsAttending}}
-<div class="reservation-display mb-4 ml-2 w-auto">
-	<h3>{{this.title}}</h3>
-	<p>Created by: {{this.creator}}</p>
-	<p>Description: {{this.description}}</p>
-
-	<h5>Your Reservation(s):</h5>
+<div class="reservation-display mb-4 w-auto">
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-lg-10">
+      <h3>{{this.title}}</h3>
+      <p class="mb-0 mt-3"><b>Created by:</b> {{this.creator}}</p>
+      <p><b>Description:</b> {{this.description}}</p>
+      <h5 class="mt-4">Your Reservation(s):</h5>
+    </div>
+  </div>
 
   <h6>{{#each this.reservations}}</h6>
-    <div class="row" style="padding-left: 3rem">
-      <div class="col-12 col-sm-5 col-md-4 col-lg-3">
-        <p class="mb-0 date"><b>{{this.slot_date}}</b></p>
-        <p class="mb-0"><span class="time">{{this.start_time}}</span> - <span class="time">{{this.end_time}}</span></p>
-        <p class="mb-0">{{this.location}}</p>
-      </div>
-      <div class="col-12 col-sm-7 col-md-8 col-lg-9">
-        <a class="btn btn-primary btn-sm mb-3 py-2" style="text-indent: 0" href="/make-reservations/{{this.event_id}}">Edit reservation</a>
-      </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-lg-10">
+      <b><p class="mb-0 date">{{this.slot_date}}</p></b>
+      <p class="mb-0"><span class="time">{{this.start_time}}</span> - <span class="time">{{this.end_time}}</span></p>
+      <p class="mb-0">{{this.slot_location}}</p>
+      <h6 class="mt-3">Who signed up:</h6>
     </div>
+  </div>
 
-    <h6 class="mt-3 pl-5">Who's signed up:</h6>
-    <div class="row pl-5">
-      <div class="table-responsive-md" id="resv">
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-lg-10">
+      {{#if this.visibility}}
+      <div class="table-responsive" id="resv">
         <table class="table table-sm table-striped table-light">
         <thead>
           <tr>
@@ -60,9 +82,24 @@
         </tbody>
       </table>
       </div>
+      {{else}}
+      <p>Sorry, attendee information for this event is private</p>
+      {{/if}}
     </div>
-    <br>
-	{{/each}}
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-lg-10">
+      <a class="btn btn-primary btn-sm mb-4 py-2" href="/make-reservations/{{this.event_id}}">Edit your reservation</a>  
+    </div>
+  </div>
+
+  <br>
+  {{/each}}
 </div>
 {{/each}}
-<a class="btn btn-primary btn-lg mt-2 mb-5" href="/past-reservations" role="button">View past reservations</a>
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-lg-10">
+    <a class="btn btn-primary btn-lg mt-2 mb-5" href="/past-reservations" role="button">View past reservations</a>
+  </div>
+</div>

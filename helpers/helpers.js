@@ -128,6 +128,7 @@ module.exports.processUpcomingReservationsForDisplay = async function(onid) {
 				title: upcomingSlot.event_name,
 				creator: upcomingSlot.creator_first_name + " " + upcomingSlot.creator_last_name,
 				description: upcomingSlot.description,
+				visibility: upcomingSlot.visibility,
 				reservations: []
 			};
 		}
@@ -157,6 +158,7 @@ module.exports.processPastReservationsForDisplay = async function(onid) {
 				title: pastSlot.event_name,
 				creator: pastSlot.creator_first_name + " " + pastSlot.creator_last_name,
 				description: pastSlot.description,
+				visibility: pastSlot.visibility,
 				reservations: []
 			};
 		}
