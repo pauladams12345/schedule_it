@@ -13,7 +13,7 @@ var Router = 		require('express-promise-router'),
 router.get('/make-reservations/:eventId', async function (req, res, next) {
 	// If there is no session established, redirect to the landing page
 	if (!req.session.onid) {
-		res.redirect('../login');
+		res.redirect('/login');
 	}
 
 	// If there is a session, render users past reservations

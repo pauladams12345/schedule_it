@@ -218,23 +218,49 @@ method="post" id="invitationsForm" novalidate>
       <td>{{this.first_name}}</td>
       <td>{{this.last_name}}</td>
       <td>{{this.ONID_email}}</td>
-      <td>{{this.slot_date}}</td>
-      <td>{{this.start_time}}</td>
-      <td>{{this.end_time}}</td>
+      <td class="date">{{this.slot_date}}</td>
+      <td class="time">{{this.start_time}}</td>
+      <td class="time">{{this.end_time}}</td>
       <td>{{this.location}}</td>
-      <td><button type="button" class="btn btn-primary reservation-delete">Delete</button></td>
+      <td><button type="button" class="btn btn-danger btn-sm reservation-delete">Delete</button></td>
     </tr>
     {{/each}}
   </tbody>
 </table>
 </div>
 
+<form class="needs-validation" action="/manage/{{eventDetails.event_id}}/manual-reservation"
+method="post" id="manualReservationForm" novalidate>
+  <div class="form-row mt-4">
+    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
+      <label for="manualReservationONID">
+      Manually make a reservation for somone:</label>
+      <select class="custom-select" id="manualReservationONID"
+      name="manualReservationONID">
+        {{#each attendees}}
+        <option value="{{this.onid}}">{{this.first_name}} {{this.last_name}} - {{this.ONID_email}}</option>
+        {{/each}}
+      </select>  
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
+      <select class="custom-select" id="manualReservationSlotId"
+      name="manualReservationSlotId">
+      </select> 
+    </div>
+  </div>
+  <button type="submit" role="button" class="btn btn-primary my-2"
+    id="sendManualReservation">Make reservation</button>
+</form>
+
 <!-- Delete Event -->
+<p class="lead mt-3"><b>Delete Event:</b></p>
 <form action="/manage/{{eventDetails.event_id}}/delete-event"
 method="post" id="deleteEventForm">
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group">
-      <button class="btn btn-primary my-2" id="deleteEvent" type="submit">Delete Event</button>
+      <button class="btn btn-lg btn-danger mb-5" id="deleteEvent" type="submit">Delete Event</button>
     </div>
   </div>
 </form>

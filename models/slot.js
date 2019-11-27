@@ -7,16 +7,20 @@ module.exports.findPastUserSlots = async function(onid) {
 	try {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
-			"SELECT slot_id, DATE_FORMAT(slot_date, '%Y-%m-%d') slot_date," +
-			"start_time, duration, slot_location," +
-			" event_name, description, event_id FROM `Slot` s " +
+			"SELECT s.slot_id, s.slot_date," +
+			"s.start_time, s.end_time, s.duration, s.slot_location, " +
+			"e.event_name, e.description, e.event_id, " +
+			"om.first_name AS creator_first_name, om.last_name AS creator_last_name " +
+			"FROM `Slot` s " +
 			"INNER JOIN `Reserve_Slot` rs ON s.slot_id = rs.fk_slot_id " +
-			"RIGHT JOIN `Event` e ON s.fk_event_id = e.event_id " +
-			"WHERE fk_onid = ? AND slot_date < CURDATE() - INTERVAL 1 DAY " +
+			"INNER JOIN `Event` e ON s.fk_event_id = e.event_id " +
+			"INNER JOIN `Creates_Event` ce ON s.fk_event_id = ce.fk_event_id " +
+			"INNER JOIN `OSU_member` om ON ce.fk_onid = om.onid " +
+			"WHERE rs.fk_onid = ? AND s.slot_date < CURDATE() - INTERVAL 1 DAY " +
 			"ORDER BY s.slot_date",
 			[onid]);
 		connection.end();
-		return [rows, fields];
+		return rows;
 	}
 	catch (err) {
 		console.log(err);
@@ -29,17 +33,20 @@ module.exports.findUpcomingUserSlots = async function(onid) {
 	try {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
-			"SELECT slot_id, DATE_FORMAT(slot_date, '%Y-%m-%d') slot_date," +
-			"start_time, duration, slot_location," +
-			" event_name, description, event_id " +
+			"SELECT s.slot_id, s.slot_date," +
+			"s.start_time, s.end_time, s.duration, s.slot_location, " +
+			"e.event_name, e.description, e.event_id, " +
+			"om.first_name AS creator_first_name, om.last_name AS creator_last_name " +
 			"FROM `Slot` s " +
 			"INNER JOIN `Reserve_Slot` rs ON s.slot_id = rs.fk_slot_id " +
-			"RIGHT JOIN `Event` e ON s.fk_event_id = e.event_id " +
-			"WHERE fk_onid = ? AND slot_date >= CURDATE() - INTERVAL 1 DAY " +
+			"INNER JOIN `Event` e ON s.fk_event_id = e.event_id " +
+			"INNER JOIN `Creates_Event` ce ON s.fk_event_id = ce.fk_event_id " +
+			"INNER JOIN `OSU_member` om ON ce.fk_onid = om.onid " +
+			"WHERE rs.fk_onid = ? AND s.slot_date >= CURDATE() - INTERVAL 1 DAY " +
 			"ORDER BY s.slot_date",
 			[onid]);
 		connection.end();
-		return [rows, fields];
+		return rows;
 	}
 	catch (err) {
 		console.log(err);
@@ -63,12 +70,14 @@ module.exports.findSlot = async function(slotId) {
 module.exports.findSlotAttendees = async function(slotId) {
 	try {
 		const connection = await sql.createConnection(dbcon);
-		//const [rows, fields] = await connection.query("SELECT * FROM `Slot` WHERE slot_id = ?", [slotId]);
 		const [rows, fields] = await connection.query(
-		"SELECT * FROM `Reserve_Slot` INNER JOIN `Slot`" +
-		"ON fk_slot_id = slot_id INNER JOIN `OSU_member` ON fk_onid = onid WHERE slot_id = ?", [slotId]);
+		"SELECT om.first_name, om.last_name, om.ONID_email " +
+		"FROM `Reserve_Slot` rs " +
+		"INNER JOIN `Slot` s ON rs.fk_slot_id = s.slot_id " +
+		"INNER JOIN `OSU_member` om ON rs.fk_onid = om.onid " +
+		"WHERE slot_id = ?", [slotId]);
 		connection.end();
-		return [rows, fields];
+		return rows;
 	}
 	catch (err) {
 		console.log(err);
@@ -84,7 +93,8 @@ module.exports.findEventSlots = async function(eventId) {
 		"s.duration, s.slot_location, s.max_attendees " +
 		"FROM `Slot` s " +
 		"INNER JOIN `Event` e ON s.fk_event_id = e.event_id " +
-		"WHERE s.fk_event_id = ?",
+		"WHERE s.fk_event_id = ? " +
+		"ORDER BY s.slot_date",
 		[eventId]);
 		connection.end();
 		return rows;

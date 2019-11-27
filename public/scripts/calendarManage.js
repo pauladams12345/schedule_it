@@ -5,6 +5,7 @@ configureCalendar();
 configureFormSubmissions();
 configureReservations();
 configureFormValidation();
+configureManualRegistration();
 
 //Script to create and manipulate the calendar on the create event page
 function configureCalendar() {
@@ -112,9 +113,7 @@ function configureSlotLocationDisplay(calendar) {
   var defaultLocationInput = document.getElementById('defaultLocation');
   defaultLocationInput.addEventListener('blur', function (e){
     var events = calendar.getEvents();
-    console.log(events);
     for (var i = 0; i < events.length; i++) {
-      console.log(document.getElementById('slotLocation' + events[i].id).value)
       if (document.getElementById('slotLocation' + events[i].id).value == '') {
         events[i].setProp('title', defaultLocationInput.value);
       }
@@ -213,7 +212,9 @@ function configureFormSubmissions() {
           }
           // Else changes were successful, alert user
           else {
-            alert(data)
+            if(!alert(data)){
+              window.location.reload();
+            }
           }
 
         },
@@ -222,8 +223,26 @@ function configureFormSubmissions() {
         }
       });
     });
+
+    // Submit visibility form with ajax to prevent page refresh
+    $('#manualReservationForm').on('submit', function(e) {
+      e.preventDefault();
+      $.ajax({
+        url : $(this).attr('action'),
+        type: $(this).attr('method'),
+        data: $(this).serialize(),
+        success: function(data) {
+          window.location.reload();
+        },
+        error: function (jXHR, textStatus, errorThrown) {
+          alert(errorThrown);
+        }
+      });
+    });
   });
 };
+
+
 
 // For every reservation, bind the delete button
 function configureReservations() {
@@ -349,6 +368,31 @@ function configureFormValidation() {
       }, false);
     });
   }, false);
+};
+
+//
+function configureManualRegistration() {
+  window.addEventListener('load', function() {
+    var existingSlots = document.getElementsByClassName('existingSlot');
+    options = [];
+    for (var i = 0; i < existingSlots.length; i++) {
+      var slotId = existingSlots[i].getAttribute('id').substring(4);
+      var startTime = new Date(document.getElementById('slotStart' + slotId).value);
+      var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
+      var location = document.getElementById('slotLocation' + slotId).value;
+      var dateStringOptions = {weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric'};
+      var timeStringOptions = {hour: '2-digit', minute: '2-digit', timeZoneName: 'short'};
+      options.push(
+         $('<option />')
+        .text(startTime.toLocaleDateString(undefined, dateStringOptions) + " " +
+          startTime.toLocaleTimeString(undefined, timeStringOptions) + ' - ' + 
+          endTime.toLocaleTimeString(undefined, timeStringOptions) + ' ' + 
+          location)
+        .val(slotId)
+      );
+    }
+    $('#manualReservationSlotId').append(options);
+  });
 };
 
 function bindReservationDelete(button, reservation, onid, slotId) {

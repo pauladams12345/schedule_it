@@ -42,23 +42,32 @@ router.get('/', async function (req, res, next) {
 router.get('/home', async function (req, res, next) {
 	// If there is no session established, redirect to the landing page
 	if (!req.session.onid) {
-		res.redirect('../login');
+		res.redirect('/login');
 	}
 	// If there is a session, render user's homepage
 	else {
 		let context = {};
-
 		context.eventsManaging = await createsEvent.getUpcomingUserEvents(req.session.onid);
-		// Find all slots a user is registered for
-		let [reservations, fields] = await slot.findUpcomingUserSlots(req.session.onid);
-
-		// Process response from database into a handlebars-friendly format
-		context.eventsAttending = await helpers.processReservationsForDisplay(reservations, req.session.onid);
+		context.eventsAttending = await helpers.processUpcomingReservationsForDisplay(req.session.onid);
 		context.firstName = req.session.firstName;
 		context.stylesheets = ['main.css', 'home.css'];
+		context.scripts = ['convertISOToLocal.js'];
 		res.render('home', context);
 	}
 
+});
+
+// Displays user's personal homepage
+router.get('/home-test', async function (req, res, next) {
+	req.session.onid = 'adamspa';
+	req.session.firstName = 'Paul';
+	let context = {};
+	context.eventsManaging = await createsEvent.getUpcomingUserEvents(req.session.onid);
+	context.eventsAttending = await helpers.processUpcomingReservationsForDisplay(req.session.onid);
+	context.firstName = req.session.firstName;
+	context.stylesheets = ['main.css', 'home.css'];
+	context.scripts = ['convertISOToLocal.js'];
+	res.render('home', context);
 });
 
 // Displays landing page
