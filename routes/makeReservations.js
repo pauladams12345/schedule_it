@@ -54,7 +54,7 @@ router.post('/make-reservations', async function (req, res, next) {
 		let onid = req.session.onid;
 		let attending = req.session.attend;
 		let eventId = req.session.eventId;
-
+		console.log(attending);
 		if (attending === 'no'){  //if not attending only update respondsToRequest with 1
 			await respondsToRequest.setRequest(onid, eventId, 1);
 		}
@@ -65,7 +65,6 @@ router.post('/make-reservations', async function (req, res, next) {
 			} else if (typeof slotIds === 'undefined') {
 				slotIds = [];
 			}
-
 			//loop through slots and create reservations
 			for(let slot of slotIds){
 				await reserveSlot.createReservation(onid, slot);
