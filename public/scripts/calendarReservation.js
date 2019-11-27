@@ -87,7 +87,7 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   //create table rows
   let userSlotExist = document.getElementById('row' + slotId);
   let rowExist = document.getElementById('userSlot' + slotId);
-  if(userSlotExist === null || rowExist === null){
+  if(userSlotExist === null && rowExist === null){
     var body = document.getElementById('body');
     var row = document.createElement('tr');
     row.setAttribute('id','row' + slotId);
