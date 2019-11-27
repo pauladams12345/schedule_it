@@ -191,10 +191,21 @@ module.exports.processEventSlots = async function (existingSlots){
 			slots[resv.slot_id].attendees[attendee.onid] = {
 				slotId: resv.slot_id,
 				name: attendee.first_name + ' ' + attendee.last_name,
-				//lastName: attendee.last_name,
 				email: attendee.ONID_email
 				};
 		}
+	}
+	return slots;
+};
+
+module.exports.processUserSlots = async function (existingSlots){
+	let slots = {};		// Store the details of each slot in a handlebars-friendly format
+
+	// Loop over each reservation to fill the events object
+	for (let resv of existingSlots) {
+		slots[resv.fk_slot_id] = {
+			slot_id: resv.fk_slot_id
+		};
 	}
 	return slots;
 };
