@@ -6,6 +6,7 @@ var Router = 		require('express-promise-router'),
 	event =			require('../models/event.js'),
 	invitation =	require('../models/invitation.js'),
 	createsEvent =	require('../models/createsEvent.js'),
+	respondsToRequest =    require('../models/respondsToRequest.js'),
 	helpers = 		require('../helpers/helpers.js');
 
 
@@ -18,10 +19,12 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 	// If there is a session, render users past reservations
 	else {
 		let context = {};
+		let onid = req.session.onid;
 		eventId = req.params.eventId;
 
 		context.eventDetails = await event.findEvent(eventId);
 		context.eventCreator = await event.getEventCreator(eventId);
+		let [slots, fields] = await slot.findUserSlots(onid);
 		let eventSlots = await slot.findEventSlots(eventId);
 		for (let slot of eventSlots) {
 			let startTime = new Date(slot.slot_date);												// get date of slot start
@@ -30,8 +33,8 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 			slot['start_time'] = startTime;
 			slot['end_time'] = endTime;
 		}
+		context.userSlots = await helpers.processUserSlots(slots);
 		context.existingSlots = await helpers.processEventSlots(eventSlots, eventId);
-		console.log(context.existingSlots);
 
 		context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 		'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
@@ -48,11 +51,26 @@ router.post('/make-reservations', async function (req, res, next) {
 	else{
 		let context = {};
 		let slotIds = req.body.resvSlotId;
-		let onid = req.session.onid
-		for(let slot of slotIds){
-			await reserveSlot.createReservation(onid, slot);
+		let onid = req.session.onid;
+		let attending = req.body.attend;
+		let eventId = req.body.eventId;
+		if (attending === 'no'){  //if not attending only update respondsToRequest with 1
+			await respondsToRequest.setRequest(onid, eventId, 1);
 		}
-		res.send(onid);
+		else{  // if attending update respondsToRequest with 0 and update associated slots
+			// Handle edge cases of 1 or 0 emails, convert to an array
+			if (typeof slotIds === 'string') {
+				slotIds = [slotIds];
+			} else if (typeof slotIds === 'undefined') {
+				slotIds = [];
+			}
+			//loop through slots and create reservations
+			for(let slot of slotIds){
+				await reserveSlot.createReservation(onid, slot);
+				await respondsToRequest.setRequest(onid, eventId, 0);
+			}
+		}
+		res.redirect('/home');
 	}
 });
 

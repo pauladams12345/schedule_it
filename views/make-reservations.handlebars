@@ -10,7 +10,7 @@
    <h5>(you can pick as many as you like!!)</h5>
 </div>
 
-<!-- Calendar -->
+<!-- event and attendee detail inputs from db -->
 {{#each existingSlots}}
 <div class="existingSlots" id="slot{{this.slot_id}}">
   <input type="number" name="slot{{this.slot_id}}"
@@ -21,7 +21,7 @@
   id="slotEnd{{this.slot_id}}" value="{{this.end_time}}" hidden>
   <input type="text" name="slotLocation{{this.slot_id}}"
   id="slotLocation{{this.slot_id}}" value = "{{this.location}}" hidden>
-  <button type="button hidden" class="btn btn-danger"
+  {{#each this.attendees}}
     <input type="text" name="name{{this.slotId}}"
     id="name{{this.slotId}}" value="{{this.name}}" hidden>
     <input type="text" name="email{{this.slotId}}"
@@ -30,9 +30,16 @@
 </div>
 {{/each}}
 
+<!-- attendee slot reservations from db -->
+{{#each userSlots}}
+<div class="userSlots" id="userSlots{{this.slot_id}}">
+  <input type="text" name="userSlot{{this.slot_id}}"
+  id="userSlot{{this.slot_id}}" value="{{this.slot_id}}" hidden>
+</div>
+{{/each}}
+
+<!-- Calendar -->
 <div id='calendar' class='m-1 p-1'></div>
-<br>
-<br>
 <br>
 
 <!--modal for showing slot attendees-->
@@ -49,13 +56,15 @@ aria-labelledby="resvSlotLabel" aria-hidden="true">
   </div>
 </div>
 
+<h3 class="mt-5">Selected time slots:</h3>
 <!--Table for organizing reservation data with delete buttons-->
 <div class="table-responsive-md" id="resv">
   <table class="table table-sm table-striped table-light" id="eventReservations">
   <thead>
     <tr>
       <th scope="col" hidden></th>
-      <th scope="col">Time</th>
+      <th scope="col">Start Time</th>
+      <th scope="col">End Time</th>
       <th scope="col">Location</th>
     </tr>
   </thead>
@@ -69,6 +78,10 @@ aria-labelledby="resvSlotLabel" aria-hidden="true">
 method="post" id="addReservationsForm">
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group" id="slots">
+      <input type="text" name="eventId" id="eventId" value="{{eventDetails.event_id}}" hidden>
+      <input type="checkbox" id="attend" name="attend" value="no">
+      <label for="attend">I can't make it (only check if you haven't selected any time slots)</label>
+      <br>
       <button class="btn btn-primary my-2" id="addReservations" type="submit">Submit</button>
     </div>
   </div>
