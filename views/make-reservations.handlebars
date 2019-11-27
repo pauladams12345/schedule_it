@@ -80,6 +80,7 @@ aria-labelledby="resvSlotLabel" aria-hidden="true">
 method="post" id="addReservationsForm">
   <div class="form-row">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group" id="slots">
+      <input type="text" name="eventId" id="eventId" value="{{eventDetails.event_id}}" hidden>
       <input type="checkbox" id="attend" name="attend" value="no">
       <label for="attend">I can't make it (only check if you haven't selected any time slots)</label>
       <br>
