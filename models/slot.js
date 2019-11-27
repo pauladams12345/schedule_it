@@ -172,7 +172,7 @@ module.exports.deleteSlotByEventId = async function(eventId){
 module.exports.findUserSlots = async function(onid) {
 	try {
 		const connection = await sql.createConnection(dbcon);
-		const [rows, fields] = await connection.query("SELECT fk_slot_id FROM `Reserve_Slot` " +
+		const [rows, fields] = await connection.query("SELECT * FROM `Reserve_Slot` " +
 		"INNER JOIN `OSU_member` ON fk_onid = onid WHERE `onid` = ?", [onid]);
 		connection.end();
 		return [rows, fields];
