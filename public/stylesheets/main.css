@@ -18,6 +18,11 @@ body {
 	box-shadow: none !important;
 }
 
+.btn-primary:disabled {
+	background-color: #888888 !important;
+	border-color: #888888 !important;
+}
+
 .reservation-display {
 	background-color: #e8e8e8;
 	padding: 1rem;

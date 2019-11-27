@@ -62,6 +62,7 @@ function configureCalendar() {
       selectable: true,
       eventLimit : true,
       longPressDelay: 20,
+      eventColor: '#000000',
       header: {
         left: 'prev,next today',
         center: 'title',

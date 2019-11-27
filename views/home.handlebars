@@ -14,29 +14,31 @@
     
 <div class="row d-flex justify-content-center">
   <div class="col-12 col-lg-10">
-    <h1>Events you're managing:</h1>
-    <br>
-    {{#each eventsManaging}}
-    <p class="pl-2">
-      <a class="h3" href="/manage/{{this.event_id}}">{{this.event_name}}</a>
-    </p>
-    {{/each}}
-    <br>
-    <a class="btn btn-primary btn-lg" href="/past-events" role="button">View past events</a>
+    <h1 class="mt-4 mb-5">Your events:</h1>
   </div>
 </div>
 
-<br>
-<br>
+{{#each eventsManaging}}
+<div class="reservation-display mb-4 w-auto">
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-lg-10">
+      <p class="pl-2">
+        <p class="h3 mb-3">{{this.event_name}}</p>
+        <a class="btn btn-primary btn-lg" href="/manage/{{this.event_id}}" 
+        role="button">View/edit details</a>
+        <a class="btn btn-dark btn-lg ml-3" href="/make-reservations/{{this.event_id}}" 
+        role="button">Reserve time slot</a>
+      </p>
+    </div>
+  </div>
+</div>
+{{/each}}
 
 <div class="row d-flex justify-content-center">
   <div class="col-12 col-lg-10">
-    <h1 class="mt-5">Events you're attending:</h1>
+    <h1 class="mt-4 mb-5">Your reservations:</h1>
   </div>
 </div>
-
-<br>
-<br>
 
 {{#each eventsAttending}}
 <div class="reservation-display mb-4 w-auto">
@@ -98,8 +100,3 @@
   {{/each}}
 </div>
 {{/each}}
-<div class="row d-flex justify-content-center">
-  <div class="col-12 col-lg-10">
-    <a class="btn btn-primary btn-lg mt-2 mb-5" href="/past-reservations" role="button">View past reservations</a>
-  </div>
-</div>
