@@ -4,6 +4,7 @@ var express =       require('express'),
     handlebars =    require('express-handlebars'),
     request =       require('request'),
     dbcon =         require('./middleware/dbcon.js'),
+    helmet =        require('helmet'),
     MySQLStore =    require('express-mysql-session')(session),
     sessionStore =  new MySQLStore(dbcon);
 
@@ -30,6 +31,9 @@ app.use(session({
     saveUninitialized: false,
     store: sessionStore
 }));
+
+// Set security-related http headers
+app.use(helmet());
 
 // set up routes
 app.use(require('./routes/index.js'));
