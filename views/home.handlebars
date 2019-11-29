@@ -43,60 +43,70 @@
 {{#each eventsAttending}}
 <div class="reservation-display mb-4 w-auto">
   <div class="row d-flex justify-content-center">
-    <div class="col-12 col-lg-10">
+    <div class="col-12 col-lg-6">
       <h3>{{this.title}}</h3>
       <p class="mb-0 mt-3"><b>Created by:</b> {{this.creator}}</p>
       <p><b>Description:</b> {{this.description}}</p>
+    </div>
+    <div class="col-12 col-lg-6">
+      <a class="btn btn-primary btn-md mt-3" href="/make-reservations/{{this.event_id}}">Make another reservation</a>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-lg-10">
       <h5 class="mt-4">Your Reservation(s):</h5>
     </div>
   </div>
 
-  <h6>{{#each this.reservations}}</h6>
-  <div class="row d-flex justify-content-center">
-    <div class="col-12 col-lg-10">
-      <b><p class="mb-0 date">{{this.slot_date}}</p></b>
-      <p class="mb-0"><span class="time">{{this.start_time}}</span> - <span class="time">{{this.end_time}}</span></p>
-      <p class="mb-0">{{this.slot_location}}</p>
-      <h6 class="mt-3">Who signed up:</h6>
-    </div>
-  </div>
-
-  <div class="row d-flex justify-content-center">
-    <div class="col-12 col-lg-10">
-      {{#if this.visibility}}
-      <div class="table-responsive" id="resv">
-        <table class="table table-sm table-striped table-light">
-        <thead>
-          <tr>
-            <th scope="col">First name</th>
-            <th scope="col">Last name</th>
-            <th scope="col">Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each this.attendees}}
-          <tr>
-            <td>{{this.first_name}}</td>
-            <td>{{this.last_name}}</td>
-            <td>{{this.ONID_email}}</td>
-          </tr>
-          {{/each}}
-        </tbody>
-      </table>
+  {{#each this.reservations}}
+  <div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-lg-10">
+        <b><p class="mb-0 date">{{this.slot_date}}</p></b>
+        <p class="mb-0"><span class="time">{{this.start_time}}</span> - <span class="time">{{this.end_time}}</span></p>
+        <p class="mb-0">{{this.slot_location}}</p>
+        <h6 class="mt-3">Who signed up:</h6>
       </div>
-      {{else}}
-      <p>Sorry, attendee information for this event is private</p>
-      {{/if}}
     </div>
-  </div>
 
-  <div class="row d-flex justify-content-center">
-    <div class="col-12 col-lg-10">
-      <a class="btn btn-primary btn-sm mb-4 py-2" href="/make-reservations/{{this.event_id}}">Edit your reservation</a>  
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-lg-10">
+        {{#if this.visibility}}
+        <div class="table-responsive" id="resv">
+          <table class="table table-sm table-striped table-light">
+          <thead>
+            <tr>
+              <th scope="col">First name</th>
+              <th scope="col">Last name</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each this.attendees}}
+            <tr>
+              <td>{{this.first_name}}</td>
+              <td>{{this.last_name}}</td>
+              <td>{{this.ONID_email}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        </div>
+        {{else}}
+        <p>Sorry, attendee information for this event is private</p>
+        {{/if}}
+      </div>
     </div>
-  </div>
 
-  <br>
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-lg-10">
+        <button class="btn btn-danger btn-sm mb-4 py-2 reservation-delete"
+        data-slot-id="{{this.slot_id}}">Cancel reservation</button>  
+      </div>
+    </div>
+
+    <br>
+  </div>
   {{/each}}
 </div>
 {{/each}}

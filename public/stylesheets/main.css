@@ -23,6 +23,11 @@ body {
 	border-color: #888888 !important;
 }
 
+.btn-danger {
+	background-color: #AD0017;
+	border-color: #AD0017;
+}
+
 .reservation-display {
 	background-color: #e8e8e8;
 	padding: 1rem;
