@@ -38,7 +38,7 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 
 		context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 		'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
-		context.scripts = ['calendarReservation.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+		context.scripts = ['make-reservations.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 		'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 		res.render('make-reservations', context);
 	}
@@ -72,6 +72,14 @@ router.post('/make-reservations', async function (req, res, next) {
 		}
 		res.redirect('/home');
 	}
+});
+
+// Delete the specified reservation from the Reserve_Slot table
+router.post('/make-reservations/delete', async function (req, res, next) {
+	let onid = req.session.onid;
+	let slotId = req.body.slotId;
+	await reserveSlot.deleteReservation(onid, slotId);
+	res.send('Success');
 });
 
 module.exports = router;

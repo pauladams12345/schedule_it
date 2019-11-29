@@ -129,6 +129,7 @@ module.exports.processUpcomingReservationsForDisplay = async function(onid) {
 				creator: upcomingSlot.creator_first_name + " " + upcomingSlot.creator_last_name,
 				description: upcomingSlot.description,
 				visibility: upcomingSlot.visibility,
+				event_id: upcomingSlot.event_id,
 				reservations: []
 			};
 		}
