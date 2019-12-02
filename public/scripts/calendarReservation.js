@@ -46,9 +46,9 @@ function configureCalendar() {
         if(slotAttendee.length >= max_attendee_per_slot){
           warningModalSlots();
         }
-        /*else if(numCurSelectedSlots >= max_resv_per_attendee){
+        else if(numCurSelectedSlots >= max_resv_per_attendee){
           warningModalEvents();
-        }*/
+        }
         else{
           createModalBody(slotId);
           createSlotInputForm(slotId, startTime, endTime, location);
