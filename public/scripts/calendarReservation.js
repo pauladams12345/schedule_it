@@ -9,8 +9,8 @@ function configureCalendar() {
     var endTime;
     var numSelectedSlots = 0;  //holds current number of selected slots before actual submission
     var slotCounter = 0;
-    var max_attendees_per_slot = document.getElementById('max_attendee_per_slot');
-    var max_resv_per_attendee = document.getElementById('max_resv_per_attendee');
+    var max_attendee_per_slot = document.getElementById('max_attendee_per_slot').value;
+    var max_resv_per_attendee = document.getElementById('max_resv_per_attendee').value;
     var calendarEl = document.getElementById('calendar');
     var modal = document.getElementById('exampleModal');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -39,7 +39,7 @@ function configureCalendar() {
         var endTime = document.getElementById('slotEnd' + slotId).value.substring(0,21);
         var location = document.getElementById('slotLocation' + slotId).value;
         var slotAttendee = document.getElementsByName('name' + slotId);
-        console.log(max_attendees_per_slot);
+        console.log(max_attendee_per_slot);
         console.log(slotAttendee.length);
         if(slotAttendee.length >= max_attendees_per_slot){
           warningModalSlots();
