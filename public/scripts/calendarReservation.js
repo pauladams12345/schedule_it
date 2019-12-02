@@ -103,7 +103,7 @@ function warningModalSlots(){
   $('#resvSlotExceeded').modal('show');
 };
 
-function warningModalSlots(){
+function warningModalEvents(){
   $('#resvEventExceeded').modal('show');
 };
 
