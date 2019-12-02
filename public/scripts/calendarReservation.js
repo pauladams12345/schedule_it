@@ -101,7 +101,7 @@ function createModalBody(slotId) {
 };
 
 function warningModalSlots(){
-  var slotModalBody = document.getElementsByName('slotModalBody');
+  var slotModalBody = document.getElementById('slotModalBody');
   var text = document.createTextNode('This slot is full.');
   var modalParagraph = document.createElement('p');
   modalParagraph.appendChild(text);
@@ -110,7 +110,7 @@ function warningModalSlots(){
 };
 
 function warningModalEvents(){
-  var eventModalBody = document.getElementsByName('eventModalBody');
+  var eventModalBody = document.getElementById('eventModalBody');
   var text = document.createTextNode('Event sign up limitation reached.');
   var modalParagraph = document.createElement('p');
   modalParagraph.appendChild(text);
