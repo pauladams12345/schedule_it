@@ -43,11 +43,11 @@ function configureCalendar() {
         console.log(max_attendee_per_slot);
         console.log(slotAttendee.length);
         console.log(numCurSelectedSlots);
-        if(slotAttendee.length >= max_attendee_per_slot){
-          warningModalSlots();
-        }
-        else if(numCurSelectedSlots >= max_resv_per_attendee){
+        if(numCurSelectedSlots >= max_resv_per_attendee){
           warningModalEvents();
+        }
+        else if(slotAttendee.length >= max_attendee_per_slot){
+          warningModalSlots();
         }
         else{
           createModalBody(slotId);
