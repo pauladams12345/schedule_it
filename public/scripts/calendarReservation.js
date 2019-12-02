@@ -46,7 +46,7 @@ function configureCalendar() {
         }
         else{
           createModalBody(slotId);
-          createSlotInputForm(slotId, startTime, endTime, location, max_attendees_per_slot, max_resv_per_attendee);
+          createSlotInputForm(slotId, startTime, endTime, location);
           ++numSelectedSlots;
         }
       }
@@ -100,7 +100,7 @@ function warningModalSlots(){
   $('#resvSlotExceeded').modal('show');
 };
 
-function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation, max_attendees_per_slot, max_resv_per_attendee){
+function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
 
   //create table rows
   let userSlotExist = document.getElementById('userSlot' + slotId);
