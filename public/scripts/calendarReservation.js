@@ -7,8 +7,10 @@ function configureCalendar() {
     var context = {};
     var startTime;
     var endTime;
+    var numSelectedSlots = 0;  //holds current number of selected slots before actual submission
     var slotCounter = 0;
-    var max_attendees;
+    var max_attendees_per_slot = document.getElementById('max_attendees_per_slot');
+    var max_resv_per_attendee = document.getElementById('max_resv_per_attendee');
     var calendarEl = document.getElementById('calendar');
     var modal = document.getElementById('exampleModal');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -36,9 +38,16 @@ function configureCalendar() {
         var startTime = document.getElementById('slotStart' + slotId).value.substring(0,21);
         var endTime = document.getElementById('slotEnd' + slotId).value.substring(0,21);
         var location = document.getElementById('slotLocation' + slotId).value;
-        createModalBody(slotId);
-        createSlotInputForm(slotId, startTime, endTime, location);
-      },
+        var slotAttendee = document.getElementsByName('name' + slotId);
+        if(slotAttendee.length >= max_attendees_per_slot){
+          warningModalSlots();
+        }
+        else{
+          createModalBody(slotId);
+          createSlotInputForm(slotId, startTime, endTime, location, max_attendees_per_slot, max_resv_per_attendee);
+          ++numSelectedSlots;
+        }
+      }
     });
     var existingSlots = document.getElementsByClassName('existingSlots');
     for (var i = 0; i < existingSlots.length; i++) {
@@ -57,6 +66,7 @@ function configureCalendar() {
 function createModalBody(slotId) {
 
   //check if modal body already exists if so remove in order to create a new modal body.
+  //this allows the software to start with an empty modal, removing all the previous data.
   let element = document.getElementById("modalBodyDiv");
   if(element){
     while (element.firstChild) {
@@ -66,11 +76,11 @@ function createModalBody(slotId) {
   }
 
   var slot = document.createElement('div');
+  var modalParagraph = document.createElement('p');
   slot.setAttribute('id', 'modalBodyDiv');
 
   var name = document.getElementsByName('name' + slotId);
   for (var i = 0; i < name.length; i++){
-    var modalParagraph = document.createElement('p');
     var attendeeName = document.createTextNode(name[i].value);
     modalParagraph.appendChild(attendeeName);
     slot.appendChild(modalParagraph);
@@ -82,11 +92,15 @@ function createModalBody(slotId) {
   $('#resvSlot').modal('show');
 };
 
-function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
+function warningModalSlots(){
+  $('#resvSlotExceeded').modal('show');
+};
+
+function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation, max_attendees_per_slot, max_resv_per_attendee){
 
   //create table rows
-  let userSlotExist = document.getElementById('row' + slotId);
-  let rowExist = document.getElementById('userSlot' + slotId);
+  let userSlotExist = document.getElementById('userSlot' + slotId);
+  let rowExist = document.getElementById('row' + slotId);
   if(userSlotExist === null && rowExist === null){
     var body = document.getElementById('body');
     var row = document.createElement('tr');

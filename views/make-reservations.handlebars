@@ -10,6 +10,13 @@
    <h5>(you can pick as many as you like!!)</h5>
 </div>
 
+<div class="event-display mb-4 ml-2 w-auto" hidden>
+  <input type="number" name="max_resv_per_attendee"
+  id="max_resv_per_attendee" value="{{eventDetails.max_resv_per_attendee}}" hidden>
+  <input type="number" name="max_attendees_per_slot"
+  id="max_attendees_per_slot" value="{{eventDetails.max_attendees_per_slot}}" hidden>
+</div>
+
 <!-- event and attendee detail inputs from db -->
 {{#each existingSlots}}
 <div class="existingSlots" id="slot{{this.slot_id}}">
@@ -51,6 +58,21 @@ aria-labelledby="resvSlotLabel" aria-hidden="true">
         <h5 class="modal-title" id="resvSlotLabel">Who signed up</h5>
       </div>
       <div class="modal-body" id="modalBody">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal for showing slot limitation exceeded-->
+<div class="modal fade" id="resvSlotExceeded" tabindex="-1" role="dialog"
+aria-labelledby="resvSlotExceeded" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="resvSlotExceeded">Slot Reservations Warning</h5>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <p>This slot is full.</p>
       </div>
     </div>
   </div>

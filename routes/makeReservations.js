@@ -54,10 +54,10 @@ router.post('/make-reservations', async function (req, res, next) {
 		let onid = req.session.onid;
 		let attending = req.body.attend;
 		let eventId = req.body.eventId;
-		if (attending === 'no'){  //if not attending only update respondsToRequest with 1
-			await respondsToRequest.setRequest(onid, eventId, 1);
+		if (attending === 'no'){  //if not attending only update respondsToRequest with 0
+			await respondsToRequest.setRequest(onid, eventId, 0);
 		}
-		else{  // if attending update respondsToRequest with 0 and update associated slots
+		else{  // if attending update respondsToRequest with 1 and update associated slots
 			// Handle edge cases of 1 or 0 emails, convert to an array
 			if (typeof slotIds === 'string') {
 				slotIds = [slotIds];
@@ -67,7 +67,7 @@ router.post('/make-reservations', async function (req, res, next) {
 			//loop through slots and create reservations
 			for(let slot of slotIds){
 				await reserveSlot.createReservation(onid, slot);
-				await respondsToRequest.setRequest(onid, eventId, 0);
+				await respondsToRequest.setRequest(onid, eventId, 1);
 			}
 		}
 		res.redirect('/home');
