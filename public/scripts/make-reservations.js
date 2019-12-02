@@ -18,10 +18,11 @@ function configureCalendar() {
       themeSystem: 'bootstrap',
       defaultView: 'timeGridWeek',
       slotDuration: '00:30',
-      editable: true,
+      editable: false,
       selectable: true,
       eventLimit : true,
       longPressDelay: 20,
+      eventColor: '#000000',
       header: {
         left: 'prev,next today',
         center: 'title',

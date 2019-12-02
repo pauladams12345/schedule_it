@@ -45,3 +45,21 @@ module.exports.deleteReservedSlotReservations = async function(slotId){
 		console.log(err);
 	}
 };
+
+module.exports.getEventAttendees = async function(eventId) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+		"SELECT DISTINCT om.first_name, om.last_name, om.ONID_email, om.onid " +
+		"FROM `Reserve_Slot` rs " +
+		"INNER JOIN `Slot` s ON rs.fk_slot_id = s.slot_id " +
+		"INNER JOIN `OSU_member` om ON rs.fk_onid = om.onid " +
+		"INNER JOIN `Event` e ON s.fk_event_id = e.event_id " +
+		"WHERE e.event_id = ?", [eventId]);
+		connection.end();
+		return rows;
+	}
+	catch (err) {
+		console.log(err);
+	}	
+}

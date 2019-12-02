@@ -9,28 +9,94 @@ var Router = 		require('express-promise-router'),
 
 // TODO: restrict access to event creator
 router.get('/manage/:eventId', async function (req, res, next) {
-	let eventId = req.params.eventId;
-	let context = {};
-	context.slotResv = await slot.eventSlotResv(eventId);
-	context.eventDetails = await event.findEvent(eventId);
-	context.invitations = await invitation.findEventInvitations(eventId);
-
-	let existingSlots = await slot.findEventSlots(eventId);
-	for (let slot of existingSlots) {
-		let startTime = new Date(slot.slot_date);												// get date of slot start
-		startTime.setUTCHours(slot.start_time.substring(0,2), slot.start_time.substring(3,5));	// set time of slot start
-		let endTime = new Date(startTime.getTime() + slot.duration * 60000);					// set date/time of slot end
-		slot['start_time'] = startTime;
-		slot['end_time'] = endTime;
+	// If there is no session established, redirect to the landing page
+	if (!req.session.onid) {
+		res.redirect('/login');
 	}
-	context.existingSlots = existingSlots;
+	else {
+		let eventId = req.params.eventId;
 
-	context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
-	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
-	context.scripts = ['calendarManage.js', 'manage.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
-	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
-	res.render('manage', context);
+		// If this user is not an organizer for this event, redirect to the homepage
+		let event_organizers = await createsEvent.getEventOrganizers(eventId);
+		let is_organizer = false;
+		for (let event_organizer of event_organizers) {
+			if (event_organizer.organizer == req.session.onid) {
+				is_organizer = true;
+				break;
+			}
+		}
+		if ( !is_organizer ) {
+			res.redirect('/home');
+		}
+
+		// Gather event details to display
+		else {
+			let context = {};
+			context.slotResv = await slot.eventSlotResv(eventId);
+			context.attendees = await reserveSlot.getEventAttendees(eventId);
+			helpers.combineDateAndTime(context.slotResv);
+			context.eventDetails = await event.findEvent(eventId);
+			context.invitations = await invitation.findEventInvitations(eventId);
+
+			let existingSlots = await slot.findEventSlots(eventId);
+			for (let slot of existingSlots) {
+				let startTime = new Date(slot.slot_date);												// get date of slot start
+				startTime.setUTCHours(slot.start_time.substring(0,2), slot.start_time.substring(3,5));	// set time of slot start
+				let endTime = new Date(startTime.getTime() + slot.duration * 60000);					// set date/time of slot end
+				slot['start_time'] = startTime;
+				slot['end_time'] = endTime;
+			}
+			context.existingSlots = existingSlots;
+
+			context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
+			'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
+			context.scripts = ['manage.js', 'convertISOToLocal.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+			'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
+			res.render('manage', context);
+		}
+	}
 });
+
+// // TODO: restrict access to event creator
+// router.get('/manage-test/:eventId', async function (req, res, next) {
+// 	req.session.onid = 'adamspa';
+// 	let eventId = req.params.eventId;
+// 	let event_organizers = await createsEvent.getEventOrganizers(eventId);
+// 	let is_organizer = false;
+// 	for (let event_organizer of event_organizers) {
+// 		if (event_organizer.organizer == req.session.onid) {
+// 			is_organizer = true;
+// 			break;
+// 		}
+// 	}
+// 	if ( !is_organizer ) {
+// 		res.redirect('/home');
+// 	}
+
+// 	else {
+// 		let context = {};
+// 		context.slotResv = await slot.eventSlotResv(eventId);
+// 		helpers.combineDateAndTime(context.slotResv);
+// 		context.eventDetails = await event.findEvent(eventId);
+// 		context.invitations = await invitation.findEventInvitations(eventId);
+
+// 		let existingSlots = await slot.findEventSlots(eventId);
+// 		for (let slot of existingSlots) {
+// 			let startTime = new Date(slot.slot_date);												// get date of slot start
+// 			startTime.setUTCHours(slot.start_time.substring(0,2), slot.start_time.substring(3,5));	// set time of slot start
+// 			let endTime = new Date(startTime.getTime() + slot.duration * 60000);					// set date/time of slot end
+// 			slot['start_time'] = startTime;
+// 			slot['end_time'] = endTime;
+// 		}
+// 		context.existingSlots = existingSlots;
+
+// 		context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
+// 		'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
+// 		context.scripts = ['manage.js', 'convertISOToLocal.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+// 		'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
+// 		res.render('manage', context);
+// 	}
+// });
 
 router.post('/manage/delete-reservation', async function (req, res, next) {
 	let onid = req.body.onid;
@@ -88,7 +154,7 @@ router.post('/manage/:eventId/send-invitations', async function (req, res, next)
 	// Handle edge cases of 1 or 0 emails, convert to an array
 	if (typeof emails === 'string') {
 		emails = [emails];
-	} else if (typeof email === 'undefined') {
+	} else if (typeof emails === 'undefined') {
 		emails = [];
 	}
 
@@ -116,7 +182,7 @@ router.post('/manage/:eventId/edit-slots', async function (req, res, next) {
 	for (let id of slotIds) {
 		let state = req.body['slotState' + id];
 		if (state == 'existingDeleted') {
-			let [rows, fields] = await slot.findSlotAttendees(id);
+			let rows = await slot.findSlotAttendees(id);
 			if (rows.length > 0) {
 				modificationsAllowed = false;
 				res.send("Error! You cannot delete a slot with active registrations. Delete these reservations below and try again.");
@@ -193,6 +259,16 @@ router.post('/manage/:eventId/edit-slots', async function (req, res, next) {
 
 		res.send('Changes to time slots were successful.');
 	}
+});
+
+router.post('/manage/:eventId/manual-reservation', async function (req, res, next) {
+	let eventId = req.params.eventId;
+	let onid = req.body.manualReservationONID;
+	let slotId = req.body.manualReservationSlotId;
+	if (onid && slotId){
+		await reserveSlot.createReservation(onid, slotId);
+	}
+	res.send('Success');
 });
 
 module.exports = router;

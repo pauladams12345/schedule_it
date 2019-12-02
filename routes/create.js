@@ -9,12 +9,18 @@ var Router = 		require('express-promise-router'),
 
 // Displays "Create New Event" page
 router.get('/create', async function (req, res, next) {
-	let context = {};
-	context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
-	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
-	context.scripts = ['calendarCreate.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
-	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
-	res.render('create', context);
+	// If there is no session established, redirect to the landing page
+	if (!req.session.onid) {
+		res.redirect('/login');
+	}
+	else {
+		let context = {};
+		context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
+		'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
+		context.scripts = ['create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+		'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
+		res.render('create', context);
+	}
 });
 
 
@@ -24,7 +30,7 @@ router.get('/create-test', async function (req, res, next) {
 	let context = {};
 	context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
 	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
-	context.scripts = ['calendarCreate.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
+	context.scripts = ['create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
 	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 	res.render('create', context);
 });

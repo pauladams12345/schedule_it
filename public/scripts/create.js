@@ -19,8 +19,7 @@ function configureFormValidation() {
         if (form.checkValidity() === true) {
           var data = $(this).serialize();
           data += "&" + $.param(slotStates);
-          data += "&slotIds=" + encodeURIComponent(slotIds);
-          console.log(data);  
+          data += "&slotIds=" + encodeURIComponent(slotIds); 
           $.ajax({
             url : $(this).attr('action'),
             type: $(this).attr('method'),
@@ -63,6 +62,7 @@ function configureCalendar() {
       selectable: true,
       eventLimit : true,
       longPressDelay: 20,
+      eventColor: '#000000',
       header: {
         left: 'prev,next today',
         center: 'title',
@@ -123,9 +123,7 @@ function configureSlotLocationDisplay(calendar) {
   var defaultLocationInput = document.getElementById('defaultLocation');
   defaultLocationInput.addEventListener('blur', function (e){
     var events = calendar.getEvents();
-    console.log(events);
     for (var i = 0; i < events.length; i++) {
-      console.log(document.getElementById('slotLocation' + events[i].id).value)
       if (document.getElementById('slotLocation' + events[i].id).value == '') {
         events[i].setProp('title', defaultLocationInput.value);
       }

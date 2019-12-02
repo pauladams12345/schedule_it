@@ -22,23 +22,24 @@
     "indaba"
   ],
   "author": "Paul Adams, Everett Williams",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/pauladams12345/indaba/issues"
   },
   "homepage": "https://github.com/pauladams12345/indaba#readme",
   "dependencies": {
+    "@fullcalendar/bootstrap": "^4.3.0",
     "@fullcalendar/core": "^4.3.1",
     "@fullcalendar/daygrid": "^4.3.0",
-    "@fullcalendar/timegrid": "^4.3.0",
-    "@fullcalendar/bootstrap": "^4.3.0",
     "@fullcalendar/interaction": "^4.3.0",
+    "@fullcalendar/timegrid": "^4.3.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
     "express-mysql-session": "^2.1.0",
     "express-promise-router": "^3.0.3",
     "express-session": "^1.17.0",
+    "helmet": "^3.21.2",
     "mysql2": "^2.0.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
