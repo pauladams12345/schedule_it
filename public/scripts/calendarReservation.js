@@ -9,7 +9,7 @@ function configureCalendar() {
     var endTime;
     var numSelectedSlots = 0;  //holds current number of selected slots before actual submission
     var slotCounter = 0;
-    var max_attendees_per_slot = document.getElementById('max_attendees_per_slot');
+    var max_attendees_per_slot = document.getElementById('max_attendee_per_slot');
     var max_resv_per_attendee = document.getElementById('max_resv_per_attendee');
     var calendarEl = document.getElementById('calendar');
     var modal = document.getElementById('exampleModal');
