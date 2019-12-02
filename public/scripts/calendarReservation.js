@@ -42,6 +42,7 @@ function configureCalendar() {
         console.log(max_attendee_per_slot);
         console.log(slotAttendee.length);
         if(slotAttendee.length >= max_attendee_per_slot){
+          clickInfo.event.color = 'grey';
           warningModalSlots();
         }
         else{
