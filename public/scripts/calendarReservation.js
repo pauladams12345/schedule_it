@@ -39,6 +39,8 @@ function configureCalendar() {
         var endTime = document.getElementById('slotEnd' + slotId).value.substring(0,21);
         var location = document.getElementById('slotLocation' + slotId).value;
         var slotAttendee = document.getElementsByName('name' + slotId);
+        console.log(max_attendees_per_slot);
+        console.log(slotAttendee.length);
         if(slotAttendee.length >= max_attendees_per_slot){
           warningModalSlots();
         }
