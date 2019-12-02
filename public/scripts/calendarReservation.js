@@ -41,10 +41,10 @@ function configureCalendar() {
         var slotAttendee = document.getElementsByName('name' + slotId);
         var numUserResv = document.getElementById('numOfUserResv4Event').value;
         var numCurSelectedSlots = document.getElementsByName('resvSlotId').length;
-        /*console.log(max_attendee_per_slot);
+        console.log(max_attendee_per_slot);
         console.log(slotAttendee.length);
         console.log(numCurSelectedSlots);
-        console.log(numUserResv);*/
+        console.log(numUserResv);
         //logic for use cases: #resv per slot exceeded, #resv per event exceeded, or
         //limitations not exceeded.
         if((numCurSelectedSlots + numUserResv) >= max_resv_per_attendee){
