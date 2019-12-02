@@ -48,7 +48,9 @@ function configureCalendar() {
         console.log(max_resv_per_attendee);
         //logic for use cases: #resv per slot exceeded, #resv per event exceeded, or
         //limitations not exceeded.
-        if((numCurSelectedSlots + numUserResv) >= max_resv_per_attendee){
+        var totalResv = numCurSelectedSlots + numUserResv;
+        console.log(totalResv);
+        if(totalResv >= max_resv_per_attendee){
           console.log("test");
           warningModalEvents();
         }
