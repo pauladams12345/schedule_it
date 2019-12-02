@@ -182,7 +182,7 @@ module.exports.nullifyExpirationDate = async function(eventId) {
 module.exports.getNumOfUserResv4Event = async function(onid, eventId) {
 	try {
 		const connection = await sql.createConnection(dbcon);
-		const [rows, fields] = await connection.query("SELECT COUNT (*) FROM `Slot` INNER JOIN `Event`" +
+		const [rows, fields] = await connection.query("SELECT COUNT (*) AS NUM_ROWS FROM `Slot` INNER JOIN `Event`" +
 		"ON fk_event_id = event_id INNER JOIN `Reserve_Slot` ON fk_slot_id = slot_id WHERE fk_onid = ? AND event_id = ?", [onid, eventId]);
 		connection.end();
 		return rows[0];
