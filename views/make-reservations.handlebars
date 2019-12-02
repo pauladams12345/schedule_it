@@ -4,8 +4,8 @@
    <h4>Event name: {{eventDetails.event_name}}</h4>
    <h4>Created by: {{eventCreator}}</h4>
    <h4>Description: {{eventDetails.description}}</h4>
-   <h4>Maximum Attendees Per Slot: {{eventDetails.max_attendee_per_slot}}</h4>
-   <h4>Maximum Total Reservations Per Attendee: {{eventDetails.max_resv_per_attendee}}</h4>
+   <h2>Maximum Attendees Per Slot: {{eventDetails.max_attendee_per_slot}}</h2>
+   <h2>Maximum Total Reservations Per Attendee: {{eventDetails.max_resv_per_attendee}}</h2>
    <br>
    <br>
    <h5>Click on a time slot to select it:</h5>
@@ -18,6 +18,8 @@
   id="max_resv_per_attendee" value="{{eventDetails.max_resv_per_attendee}}" hidden>
   <input type="number" name="max_attendee_per_slot"
   id="max_attendee_per_slot" value="{{eventDetails.max_attendee_per_slot}}" hidden>
+  <input type="number" name="getNumOfUserResv4Event"
+  id="getNumOfUserResv4Event" value="{{numOfUserResv4Event}}" hidden>
 </div>
 
 <!--slot and event reservation limitations-->

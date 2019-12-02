@@ -24,6 +24,7 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 
 		context.eventDetails = await event.findEvent(eventId);
 		context.eventCreator = await event.getEventCreator(eventId);
+		context.numOfUserResv4Event = await event.getNumOfUserResv4Event(onid, eventId);
 		let [slots, fields] = await slot.findUserSlots(onid);
 		let eventSlots = await slot.findEventSlots(eventId);
 		for (let slot of eventSlots) {

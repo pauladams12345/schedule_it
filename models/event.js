@@ -175,5 +175,21 @@ module.exports.nullifyExpirationDate = async function(eventId) {
 	}
 	catch (err) {
 		console.log(err);
-	}	
+	}
 }
+
+//number of total reservations a user has made for a given event.
+module.exports.getNumOfUserResv4Event = async function(onid, eventId) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query("SELECT COUNT (*) FROM `Slot` INNER JOIN `Event`" +
+		"ON fk_event_id = event_id INNER JOIN `Reserve_Slot` ON fk_slot_id = slot_id WHERE fk_onid = ? AND event_id = ?", [onid, event_id]);
+		connection.end();
+		return rows[0];
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
+
+//SELECT COUNT(*) FROM indaba_db.Slot INNER JOIN indaba_db.Event ON fk_event_id = event_id INNER JOIN indaba_db.Reserve_Slot ON fk_slot_id = slot_id WHERE fk_onid = 'williaev' AND event_id = 212;
