@@ -5,7 +5,8 @@ var Router = 		require('express-promise-router'),
 	event =			require('../models/event.js'),
 	invitation =	require('../models/invitation.js'),
 	createsEvent =	require('../models/createsEvent.js'),
-	reserveSlot =	require('../models/reserveSlot.js');
+	reserveSlot =	require('../models/reserveSlot.js'),
+	email =			require('../helpers/email.js');
 
 // TODO: restrict access to event creator
 router.get('/manage/:eventId', async function (req, res, next) {
@@ -157,6 +158,14 @@ router.post('/manage/:eventId/send-invitations', async function (req, res, next)
 	} else if (typeof emails === 'undefined') {
 		emails = [];
 	}
+
+	let organizerName = "Paul Adams";
+	let eventName = "Test Emails";
+	let eventDescription = "This is just a test";
+
+	// Send invitation emails
+	email.sendTestEmail(organizerName, eventName, eventDescription, eventId, emails)
+
 
 	// Store the invitations (users emails) in the database
 	await invitation.createInvitations(eventId, emails);

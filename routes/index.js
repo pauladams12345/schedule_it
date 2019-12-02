@@ -5,7 +5,8 @@ var Router = 		require('express-promise-router'),
 	event =			require('../models/event.js'),
 	invitation =	require('../models/invitation.js'),
 	createsEvent =	require('../models/createsEvent.js'),
-	helpers = 		require('../helpers/helpers.js');
+	helpers = 		require('../helpers/helpers.js'),
+	email =			require('../helpers/email.js');
 
 // Redirects new arrivals to landing page. Handles authentication
 // for users redirected from CAS login then redirects to personal homepage

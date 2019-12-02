@@ -1,4 +1,4 @@
-var	dbcon = 	require('../middleware/dbcon.js'),
+var	dbcon = 	require('../config/dbcon.js'),
 	sql =   	require('mysql2/promise');
 
 // Given an event id and an array of email addresses, create rows in the Invitation table

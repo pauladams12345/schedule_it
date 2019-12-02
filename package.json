@@ -40,6 +40,7 @@
     "express-promise-router": "^3.0.3",
     "express-session": "^1.17.0",
     "helmet": "^3.21.2",
+    "mailgun-js": "^0.22.0",
     "mysql2": "^2.0.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",

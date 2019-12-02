@@ -1,4 +1,4 @@
-var	dbcon = 	require('../middleware/dbcon.js'),
+var	dbcon = 	require('../config/dbcon.js'),
 	sql =   	require('mysql2/promise');
 
 // Query database for user by onid, return matching row

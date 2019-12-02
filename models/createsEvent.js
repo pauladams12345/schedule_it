@@ -1,4 +1,4 @@
-var	dbcon = 	require('../middleware/dbcon.js'),
+var	dbcon = 	require('../config/dbcon.js'),
 	sql =   	require('mysql2/promise');
 
 // Create a row in the Creates_Event table with the given information
