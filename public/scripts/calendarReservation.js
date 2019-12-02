@@ -42,10 +42,11 @@ function configureCalendar() {
         var numCurSelectedSlots = document.getElementsByName('resvSlotId').length;
         console.log(max_attendee_per_slot);
         console.log(slotAttendee.length);
+        console.log(numCurSelectedSlots);
         if(slotAttendee.length >= max_attendee_per_slot){
           warningModalSlots();
         }
-        if(numCurSelectedSlots >= max_resv_per_attendee){
+        else if(numCurSelectedSlots >= max_resv_per_attendee){
           warningModalEvents();
         }
         else{
