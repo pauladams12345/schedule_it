@@ -7,7 +7,7 @@ function configureCalendar() {
     var context = {};
     var startTime;
     var endTime;
-    var numSelectedSlots = 0;  //holds current number of selected slots before actual submission
+    var numSelectedSlots = 0;  //holds current number of selected slots for this event before actual submission
     var slotCounter = 0;
     var max_attendee_per_slot = document.getElementById('max_attendee_per_slot').value;
     var max_resv_per_attendee = document.getElementById('max_resv_per_attendee').value;
@@ -39,16 +39,18 @@ function configureCalendar() {
         var endTime = document.getElementById('slotEnd' + slotId).value.substring(0,21);
         var location = document.getElementById('slotLocation' + slotId).value;
         var slotAttendee = document.getElementsByName('name' + slotId);
+        var numCurSelectedSlots = document.getElementsByName('resvSlotId').length;
         console.log(max_attendee_per_slot);
         console.log(slotAttendee.length);
         if(slotAttendee.length >= max_attendee_per_slot){
-          clickInfo.event.color = 'grey';
           warningModalSlots();
+        }
+        if(numCurSelectedSlots >= max_resv_per_attendee){
+          warningModalEvents();
         }
         else{
           createModalBody(slotId);
           createSlotInputForm(slotId, startTime, endTime, location);
-          ++numSelectedSlots;
         }
       }
     });
@@ -99,6 +101,10 @@ function createModalBody(slotId) {
 
 function warningModalSlots(){
   $('#resvSlotExceeded').modal('show');
+};
+
+function warningModalSlots(){
+  $('#resvEventExceeded').modal('show');
 };
 
 function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){

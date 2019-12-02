@@ -4,17 +4,26 @@
    <h4>Event name: {{eventDetails.event_name}}</h4>
    <h4>Created by: {{eventCreator}}</h4>
    <h4>Description: {{eventDetails.description}}</h4>
+   <h4>Maximum Attendees Per Slot: {{eventDetails.max_attendee_per_slot}}</h4>
+   <h4>Maximum Total Reservations Per Attendee: {{eventDetails.max_resv_per_attendee}}</h4>
    <br>
    <br>
    <h5>Click on a time slot to select it:</h5>
    <h5>(you can pick as many as you like!!)</h5>
 </div>
 
+<!--slot and event reservation limitations-->
 <div class="event-display mb-4 ml-2 w-auto" hidden>
   <input type="number" name="max_resv_per_attendee"
   id="max_resv_per_attendee" value="{{eventDetails.max_resv_per_attendee}}" hidden>
   <input type="number" name="max_attendee_per_slot"
   id="max_attendee_per_slot" value="{{eventDetails.max_attendee_per_slot}}" hidden>
+</div>
+
+<!--slot and event reservation limitations-->
+<div class="event-display mb-4 ml-2 w-auto" hidden>
+  <input type="number" name="max_resv_per_attendee"
+  id="max_resv_per_attendee" value="{{eventDetails.max_resv_per_attendee}}" hidden>
 </div>
 
 <!-- event and attendee detail inputs from db -->
@@ -66,13 +75,28 @@ aria-labelledby="resvSlotLabel" aria-hidden="true">
 <!--modal for showing slot limitation exceeded-->
 <div class="modal fade" id="resvSlotExceeded" tabindex="-1" role="dialog"
 aria-labelledby="resvSlotExceeded" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="resvSlotExceeded">Slot Reservations Warning</h5>
+  <div class="slot-modal-dialog" role="document">
+    <div class="slot-modal-content">
+      <div class="slot-modal-header">
+        <h5 class="slot-modal-title" id="resvSlotExceeded">Slot Reservations Warning</h5>
       </div>
-      <div class="modal-body" id="modalBody">
+      <div class="slot-modal-body" id="slotModalBody">
         <p>This slot is full.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal for showing slot limitation exceeded-->
+<div class="modal fade" id="resvEventExceeded" tabindex="-1" role="dialog"
+aria-labelledby="resvEventExceeded" aria-hidden="true">
+  <div class="event-modal-dialog" role="document">
+    <div class="event-modal-content">
+      <div class="event-modal-header">
+        <h5 class="event-modal-title" id="resvEventExceeded">Event Reservations Warning</h5>
+      </div>
+      <div class="event-modal-body" id="eventModalBody">
+        <p>Event sign up limitation reached.</p>
       </div>
     </div>
   </div>
