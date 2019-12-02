@@ -41,7 +41,7 @@ function configureCalendar() {
         var slotAttendee = document.getElementsByName('name' + slotId);
         console.log(max_attendee_per_slot);
         console.log(slotAttendee.length);
-        if(slotAttendee.length >= max_attendees_per_slot){
+        if(slotAttendee.length >= max_attendee_per_slot){
           warningModalSlots();
         }
         else{
