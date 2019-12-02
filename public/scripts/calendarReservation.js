@@ -50,9 +50,7 @@ function configureCalendar() {
         //limitations not exceeded.
         numResv = parseInt(numUserResv, 10);
         var totalResv = numCurSelectedSlots + numResv;
-        console.log(totalResv);
         if(totalResv >= max_resv_per_attendee){
-          console.log("test");
           warningModalEvents();
         }
         else if(slotAttendee.length >= max_attendee_per_slot){
