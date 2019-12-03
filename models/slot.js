@@ -59,7 +59,7 @@ module.exports.findSlot = async function(slotId) {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT * FROM `Slot` WHERE slot_id = ?", [slotId]);
 		connection.end();
-		return [rows, fields];
+		return rows[0];
 	}
 	catch (err) {
 		console.log(err);

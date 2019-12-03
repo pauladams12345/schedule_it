@@ -49,7 +49,7 @@ function configureCalendar() {
         var endTime = document.getElementById('slotEnd' + slotId).value.substring(0,21);
         var location = document.getElementById('slotLocation' + slotId).value;
         var slotAttendee = document.getElementsByName('name' + slotId);
-        var numUserResv = document.getElementById('numOfUserResv4Event').value;
+        var numUserResv = document.getElementById('numUserReservations').value;
         var numCurSelectedSlots = document.getElementsByName('resvSlotId').length;
         var maxAttendees = document.getElementById('maxAttendees' + slotId).value;
 

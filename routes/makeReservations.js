@@ -25,7 +25,7 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 
 		context.eventDetails = await event.findEvent(eventId);
 		context.eventCreator = await event.getEventCreator(eventId);
-		context.numOfUserResv4Event = await event.getNumOfUserResv4Event(onid, eventId);
+		context.numUserReservations = await reserveSlot.getNumUserReservations(onid, eventId);
 		let [slots, field] = await slot.findUserSlots(onid);
 		let eventSlots = await slot.findEventSlots(eventId);
 		for (let slot of eventSlots) {
@@ -56,20 +56,30 @@ router.post('/make-reservations', async function (req, res, next) {
 		let onid = req.session.onid;
 		let attending = req.body.attend;
 		let eventId = req.body.eventId;
-		if (attending === 'no'){  //if not attending only update respondsToRequest with 0
-			await respondsToRequest.setRequest(onid, eventId, 0);
+		let existingResponse = await respondsToRequest.getResponse(onid, eventId);
+
+		// User is not attending, set their response in Responds_To_Request table
+		if (existingResponse.length == 0 && attending === 'no'){
+			await respondsToRequest.createResponse(onid, eventId, 0);
 		}
-		else{  // if attending update respondsToRequest with 1 and update associated slots
+		// User is attending
+		else {  
 			// Handle edge cases of 1 or 0 emails, convert to an array
 			if (typeof slotIds === 'string') {
 				slotIds = [slotIds];
 			} else if (typeof slotIds === 'undefined') {
 				slotIds = [];
 			}
-			//loop through slots and create reservations
+			// Loop through slots and create reservations
 			for(let slot of slotIds){
 				await reserveSlot.createReservation(onid, slot);
-				await respondsToRequest.setRequest(onid, eventId, 1);
+			}
+			// Set response in Responds_To_Request table
+			if (existingResponse.length == 0) {							// first reservation
+				await respondsToRequest.createResponse(onid, eventId, 1);
+			}
+			else if (existingResponse[0].attending == 0) {							// previously responded "not attending"
+				await respondsToRequest.updateResponse(onid, eventId, 1);
 			}
 		}
 		res.redirect('/home');
@@ -80,7 +90,15 @@ router.post('/make-reservations', async function (req, res, next) {
 router.post('/make-reservations/delete', async function (req, res, next) {
 	let onid = req.session.onid;
 	let slotId = req.body.slotId;
+	let slotInfo = await slot.findSlot(slotId);
+	let eventId = slotInfo.fk_event_id;
 	await reserveSlot.deleteReservation(onid, slotId);
+
+	// See if user has any other reservations for this event
+	let reservations = await reserveSlot.getNumUserReservations(onid, eventId)
+	if (reservations == 0) {
+		respondsToRequest.updateResponse(onid, eventId, 0)
+	}
 	res.send('Success');
 });
 

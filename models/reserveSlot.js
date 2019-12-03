@@ -62,4 +62,22 @@ module.exports.getEventAttendees = async function(eventId) {
 	catch (err) {
 		console.log(err);
 	}	
-}
+};
+
+//number of total reservations a user has made for a given event.
+module.exports.getNumUserReservations = async function(onid, eventId) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+		"SELECT COUNT (*) AS num " +
+		"FROM `Slot` s " +
+		"INNER JOIN `Event` e ON s.fk_event_id = e.event_id " +
+		"INNER JOIN `Reserve_Slot` rs ON rs.fk_slot_id = s.slot_id " +
+		"WHERE rs.fk_onid = ? AND s.fk_event_id = ?", [onid, eventId]);
+		connection.end();
+		return rows[0].num;
+	}
+	catch (err) {
+		console.log(err);
+	}
+};
