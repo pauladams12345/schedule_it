@@ -110,20 +110,28 @@ function createModalBody(slotId) {
   var modalParagraph = document.createElement('p');
   slot.setAttribute('id', 'modalBodyDiv');
 
-  var name = document.getElementsByName('name' + slotId);
-  if (name.length == 0) {
-    var text = document.createTextNode('There are currently no other reservations.');
+  var visibility = document.getElementById('visibility').value;
+  if (visibility == 0) {
+    var text = document.createTextNode('Sorry, attendee information for this event is private');
     modalParagraph.appendChild(text);
     slot.appendChild(modalParagraph);
   }
   else {
-    for (var i = 0; i < name.length; i++){
-      var br = document.createElement('br');
-      var attendeeName = document.createTextNode(name[i].value);
-      modalParagraph.appendChild(attendeeName);
-      modalParagraph.appendChild(br);
+    var name = document.getElementsByName('name' + slotId);
+    if (name.length == 0) {
+      var text = document.createTextNode('There are currently no other reservations.');
+      modalParagraph.appendChild(text);
+      slot.appendChild(modalParagraph);
     }
-    slot.appendChild(modalParagraph);
+    else {
+      for (var i = 0; i < name.length; i++){
+        var br = document.createElement('br');
+        var attendeeName = document.createTextNode(name[i].value);
+        modalParagraph.appendChild(attendeeName);
+        modalParagraph.appendChild(br);
+      }
+      slot.appendChild(modalParagraph);
+    }
   }
 
   // Append all new elements to the modal

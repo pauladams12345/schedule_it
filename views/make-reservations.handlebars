@@ -15,20 +15,16 @@
 </div>
 
 <!--slot and event reservation limitations-->
-<div class="event-display mb-4 ml-2 w-auto" hidden>
-  <input type="number" name="max_resv_per_attendee"
-  id="max_resv_per_attendee" value="{{eventDetails.max_resv_per_attendee}}" hidden>
-  <input type="number" name="max_attendee_per_slot"
-  id="max_attendee_per_slot" value="{{eventDetails.max_attendee_per_slot}}" hidden>
-  <input type="number" name="numUserReservations"
-  id="numUserReservations" value="{{numUserReservations}}" hidden>
-</div>
+<input type="number" name="max_resv_per_attendee"
+id="max_resv_per_attendee" value="{{eventDetails.max_resv_per_attendee}}" hidden>
+<input type="number" name="max_attendee_per_slot"
+id="max_attendee_per_slot" value="{{eventDetails.max_attendee_per_slot}}" hidden>
+<input type="number" name="numUserReservations"
+id="numUserReservations" value="{{numUserReservations}}" hidden>
 
-<!--slot and event reservation limitations-->
-<div class="event-display mb-4 ml-2 w-auto" hidden>
-  <input type="number" name="max_resv_per_attendee"
-  id="max_resv_per_attendee" value="{{eventDetails.max_resv_per_attendee}}" hidden>
-</div>
+<!-- Hidden input specifying registrant information visibility -->
+<input type="number" name="visibility"
+id="visibility" value="{{eventDetails.visibility}}" hidden>
 
 <!-- event and attendee detail inputs from db -->
 {{#each existingSlots}}
