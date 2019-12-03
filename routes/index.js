@@ -84,6 +84,7 @@ router.get('/home-test', async function (req, res, next) {
 
 // Displays landing page
 router.get('/login', async function (req, res, next) {
+	console.log("in login router: ", req.session);
 	let context = {};
 	context.layout = 'no_navbar.handlebars';
 	context.stylesheets = ['main.css', 'login.css'];
