@@ -12,8 +12,6 @@ var Router = 		require('express-promise-router'),
 // for users redirected from CAS login then redirects to personal homepage
 router.get('/', async function (req, res, next) {
 
-	console.log('session: ', req.session);
-
 	// If there's no CAS ticket in the query string, redirect to the landing page
 	if (!req.query.ticket) {
 		res.redirect('/login');
@@ -83,6 +81,7 @@ router.get('/home-test', async function (req, res, next) {
 });
 
 // Displays landing page
+// TODO: redirect to homepage if there's a session???
 router.get('/login', async function (req, res, next) {
 	let context = {};
 	context.layout = 'no_navbar.handlebars';
