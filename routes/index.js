@@ -34,8 +34,16 @@ router.get('/', async function (req, res, next) {
 		// If new user, store in database
 		await helpers.createUserIfNew(attributes);
 
-		// Redirect to homepage
-		res.redirect('/home');
+		// If the user was trying to reserve a time slot, redirect them to that page
+		if (req.session.eventId) {
+			res.redirect('/make-reservations/' + req.session.eventId);
+			delete req.session['eventId'];
+		}
+
+		// Otherwise, redirect them to the homepage
+		else {
+			res.redirect('/home');
+		}
 	}
 });
 
