@@ -11,11 +11,11 @@ module.exports.sendTestEmail = function(organizerName, eventName, eventDescripti
 	}
 	let subject = "Invitation to " + eventName;
 	
-	let text = "Hello,\n\n" + 
-	organizerName + " has inivted you to " +
-	eventName + "!\n\n";
+	let text = "Hello!\n\n" + 
+	organizerName + " has inivted you to the following event: " +
+	eventName + "\n";
 	if (eventDescription) {
-		text += "Description: " + eventDescription + "\n\n";
+		text += "Event description: " + eventDescription + "\n\n";
 	}
 	text += "Click below to check out the event details and make your reservation\n\n" +
 	"https://indaba-scheduler.herokuapp.com/make-reservations/" + eventId;

@@ -159,9 +159,9 @@ router.post('/manage/:eventId/send-invitations', async function (req, res, next)
 		emails = [];
 	}
 
-	let organizerName = "Paul Adams";
-	let eventName = "Test Emails";
-	let eventDescription = "This is just a test";
+	let organizerName = await event.getEventCreator(eventId);
+	let eventName = req.body.eventName;
+	let eventDescription = req.body.description;
 
 	// Send invitation emails
 	email.sendTestEmail(organizerName, eventName, eventDescription, eventId, emails)
