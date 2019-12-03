@@ -27,7 +27,7 @@ router.get('/', async function (req, res, next) {
 		let cas_ticket = req.query.ticket;
 
 		// Validate ticket and get user's attributes
-		let attributes = await helpers.validateTicket(cas_ticket);
+		let [attributes, redirect_address] = await helpers.validateTicket(cas_ticket);
 
 		// Store user's name and onid in the session
 		req.session.onid = attributes.onid;
@@ -44,7 +44,7 @@ router.get('/', async function (req, res, next) {
 
 		// Otherwise, redirect them to the homepage
 		else {
-			res.redirect('/home');
+			res.redirect(redirect_address);
 		}
 	}
 });

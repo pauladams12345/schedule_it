@@ -38,7 +38,8 @@ module.exports.validateTicket = async function(cas_ticket){
 		attributes.email = cas_attributes['cas:email'];
 
 		// Return user's attributes
-		return attributes;
+		console.log("service url: ", req.query.service);
+		return [attributes, req.query.service];
 	}
 	catch (err) {
 		console.log(err);
