@@ -12,8 +12,7 @@ var Router = 		require('express-promise-router'),
 // for users redirected from CAS login then redirects to personal homepage
 router.get('/', async function (req, res, next) {
 
-	console.log('at root session: ', req.session);
-	console.log('at root query: ', req.query);
+	console.log('session: ', req.session);
 
 	// If there's no CAS ticket in the query string, redirect to the landing page
 	if (!req.query.ticket) {
