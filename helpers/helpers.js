@@ -184,6 +184,7 @@ module.exports.processEventSlots = async function (existingSlots){
 			start_time: resv.start_time,
 			end_time: resv.end_time,
 			location: resv.slot_location,
+			max_attendees: resv.max_attendees,
 			attendees: {}
 		};
 		const attendees = await slot.findSlotAttendees(resv.slot_id);

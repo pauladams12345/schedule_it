@@ -3,14 +3,23 @@ configureCalendar();
 //Script to create and manipulate the calendar on the reservations page
 function configureCalendar() {
   document.addEventListener('DOMContentLoaded', function() {
+    // Create an array of all
+    var userSlotIds = [];
+    var userSlots = document.getElementsByClassName('userSlots');
+    for (var i = 0; i < userSlots.length; i++) {
+      userSlotIds.push(userSlots[i].getAttribute('id').substring(9));
+    }
+
     dateFormat = {}
     var context = {};
     var startTime;
     var endTime;
     var numSelectedSlots = 0;  //holds current number of selected slots for this event before actual submission
     var slotCounter = 0;
-    var max_attendee_per_slot = document.getElementById('max_attendee_per_slot').value;
     var max_resv_per_attendee = document.getElementById('max_resv_per_attendee').value;
+    if (max_resv_per_attendee == 0) {
+      max_resv_per_attendee = Number.MAX_SAFE_INTEGER;
+    }
     var calendarEl = document.getElementById('calendar');
     var modal = document.getElementById('exampleModal');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -42,15 +51,20 @@ function configureCalendar() {
         var slotAttendee = document.getElementsByName('name' + slotId);
         var numUserResv = document.getElementById('numOfUserResv4Event').value;
         var numCurSelectedSlots = document.getElementsByName('resvSlotId').length;
+        var maxAttendees = document.getElementById('maxAttendees' + slotId).value;
 
         //logic for use cases: #resv per slot exceeded, #resv per event exceeded, or
         //limitations not exceeded.
         numResv = parseInt(numUserResv, 10);
         var totalResv = numCurSelectedSlots + numResv;
-        if(totalResv >= max_resv_per_attendee){
+
+        if ($.inArray(slotId, userSlotIds) != -1) {
+          // Do nothing
+        }
+        else if(totalResv >= max_resv_per_attendee){
           warningModalEvents();
         }
-        else if(slotAttendee.length >= max_attendee_per_slot){
+        else if(slotAttendee.length >= maxAttendees){
           warningModalSlots();
         }
         else{
@@ -60,12 +74,19 @@ function configureCalendar() {
       }
     });
     var existingSlots = document.getElementsByClassName('existingSlots');
+    console.log(userSlotIds);
     for (var i = 0; i < existingSlots.length; i++) {
       var slotId = existingSlots[i].getAttribute('id').substring(4);
       var startTime = new Date(document.getElementById('slotStart' + slotId).value);
       var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
       var location = document.getElementById('slotLocation' + slotId).value;
-      var calendarEvent = calendar.addEvent({id: slotId, start: startTime, end: endTime, title: location});
+      console.log(slotId);
+      if ($.inArray(slotId, userSlotIds) != -1) {
+        var calendarEvent = calendar.addEvent({id: slotId, start: startTime, end: endTime, title: "Registered", backgroundColor: '#D3832B'});
+      }
+      else {
+        var calendarEvent = calendar.addEvent({id: slotId, start: startTime, end: endTime, title: location});
+      }
     }
     calendar.render();
   });
