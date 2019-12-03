@@ -71,7 +71,7 @@ module.exports.findSlotAttendees = async function(slotId) {
 	try {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
-		"SELECT om.first_name, om.last_name, om.ONID_email " +
+		"SELECT om.first_name, om.last_name, om.ONID_email, om.onid " +
 		"FROM `Reserve_Slot` rs " +
 		"INNER JOIN `Slot` s ON rs.fk_slot_id = s.slot_id " +
 		"INNER JOIN `OSU_member` om ON rs.fk_onid = om.onid " +

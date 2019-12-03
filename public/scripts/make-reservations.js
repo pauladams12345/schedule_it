@@ -111,11 +111,18 @@ function createModalBody(slotId) {
   slot.setAttribute('id', 'modalBodyDiv');
 
   var name = document.getElementsByName('name' + slotId);
-  for (var i = 0; i < name.length; i++){
-    var br = document.createElement('br');
-    var attendeeName = document.createTextNode(name[i].value);
-    modalParagraph.appendChild(attendeeName);
-    modalParagraph.appendChild(br);
+  if (name.length == 0) {
+    var text = document.createTextNode('There are currently no other reservations.');
+    modalParagraph.appendChild(text);
+    slot.appendChild(modalParagraph);
+  }
+  else {
+    for (var i = 0; i < name.length; i++){
+      var br = document.createElement('br');
+      var attendeeName = document.createTextNode(name[i].value);
+      modalParagraph.appendChild(attendeeName);
+      modalParagraph.appendChild(br);
+    }
     slot.appendChild(modalParagraph);
   }
 
@@ -149,7 +156,7 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
     var deleteButton = document.createElement('td');
     var button = document.createElement('button');
     button.setAttribute('class','btn btn-primary reservation-delete');
-    button.textContent = 'Delete';
+    button.textContent = 'Remove';
     startTime.textContent = slotStartTime;
     endTime.textContent = slotEndTime;
     cellLocation.textContent = slotLocation;

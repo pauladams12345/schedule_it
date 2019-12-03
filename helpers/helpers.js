@@ -188,14 +188,16 @@ module.exports.processEventSlots = async function (existingSlots){
 			attendees: {}
 		};
 		const attendees = await slot.findSlotAttendees(resv.slot_id);
+		console.log("attendees: ", attendees);
 		for (let attendee of attendees){
 			//if(attendee.onid != user_ONID){
 			slots[resv.slot_id].attendees[attendee.onid] = {
 				slotId: resv.slot_id,
 				name: attendee.first_name + ' ' + attendee.last_name,
 				email: attendee.ONID_email
-				};
+			};
 		}
+		console.log("slots: ", slots);
 	}
 	return slots;
 };
