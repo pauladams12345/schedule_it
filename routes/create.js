@@ -44,7 +44,7 @@ router.post('/create', async function (req, res, next) {
 	let defaultLocation = req.body.defaultLocation;
 	let defaultMaxAttendees = req.body.defaultMaxAttendees;
 	let maxResvPerAttendees = req.body.maxReservationsPerAttendee;
-	let description = req.body.description;
+	let description = req.body.description.substring(0, 255);
 	let visibility = req.body.attendeeNameVisibility;
 	let emails = req.body.emails;
 	let slotIds = req.body.slotIds;

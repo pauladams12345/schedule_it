@@ -52,6 +52,9 @@ function configureCalendar() {
         var numUserResv = document.getElementById('numUserReservations').value;
         var numCurSelectedSlots = document.getElementsByName('resvSlotId').length;
         var maxAttendees = document.getElementById('maxAttendees' + slotId).value;
+        if (maxAttendees == 0) {
+          maxAttendees = Number.MAX_SAFE_INTEGER;
+        }
 
         //logic for use cases: #resv per slot exceeded, #resv per event exceeded, or
         //limitations not exceeded.
@@ -74,13 +77,11 @@ function configureCalendar() {
       }
     });
     var existingSlots = document.getElementsByClassName('existingSlots');
-    console.log(userSlotIds);
     for (var i = 0; i < existingSlots.length; i++) {
       var slotId = existingSlots[i].getAttribute('id').substring(4);
       var startTime = new Date(document.getElementById('slotStart' + slotId).value);
       var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
       var location = document.getElementById('slotLocation' + slotId).value;
-      console.log(slotId);
       if ($.inArray(slotId, userSlotIds) != -1) {
         var calendarEvent = calendar.addEvent({id: slotId, start: startTime, end: endTime, title: "Registered", backgroundColor: '#D3832B'});
       }

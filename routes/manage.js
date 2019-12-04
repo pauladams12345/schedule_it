@@ -115,7 +115,7 @@ router.post('/manage/:eventId/edit-name', async function (req, res, next) {
 
 router.post('/manage/:eventId/edit-description', async function (req, res, next) {
 	let eventId = req.params.eventId;
-	let description = req.body.description;
+	let description = req.body.description.substring(0,255);
 	await event.editDescription(eventId, description);
 	res.send('Success');
 });

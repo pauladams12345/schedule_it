@@ -28,8 +28,6 @@ module.exports.sendTestEmail = function(organizerName, eventName, eventDescripti
 		"text": text
 	};
 
-	console.log("data: ", data);
-
 	mg.messages().send(data, function (error, body) {
 		console.log(body);
 	});	

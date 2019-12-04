@@ -58,18 +58,19 @@ router.post('/make-reservations', async function (req, res, next) {
 		let eventId = req.body.eventId;
 		let existingResponse = await respondsToRequest.getResponse(onid, eventId);
 
+		// Handle edge cases of 1 or 0 emails, convert to an array
+		if (typeof slotIds === 'string') {
+			slotIds = [slotIds];
+		} else if (typeof slotIds === 'undefined') {
+			slotIds = [];
+		}
+
 		// User is not attending, set their response in Responds_To_Request table
-		if (existingResponse.length == 0 && attending === 'no'){
+		if (existingResponse.length == 0 && attending === 'no' && slotIds.length == 0){
 			await respondsToRequest.createResponse(onid, eventId, 0);
 		}
 		// User is attending
 		else {  
-			// Handle edge cases of 1 or 0 emails, convert to an array
-			if (typeof slotIds === 'string') {
-				slotIds = [slotIds];
-			} else if (typeof slotIds === 'undefined') {
-				slotIds = [];
-			}
 			// Loop through slots and create reservations
 			for(let slot of slotIds){
 				await reserveSlot.createReservation(onid, slot);
