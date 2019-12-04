@@ -1,3 +1,0 @@
-Placeholder file to make the directory structure show up in git.
-
-Delete this file when something real is added to this directory.

@@ -1,3 +1,5 @@
+// Defines routes for login, logout, and homepage
+
 var Router = 		require('express-promise-router'),
 	router = 		new Router(),						// allows asynchronous route handlers
 	session = 		require('express-session'),
@@ -5,7 +7,8 @@ var Router = 		require('express-promise-router'),
 	event =			require('../models/event.js'),
 	invitation =	require('../models/invitation.js'),
 	createsEvent =	require('../models/createsEvent.js'),
-	helpers = 		require('../helpers/helpers.js');
+	helpers = 		require('../helpers/helpers.js'),
+	email =			require('../helpers/email.js');
 
 // Redirects new arrivals to landing page. Handles authentication
 // for users redirected from CAS login then redirects to personal homepage
@@ -33,8 +36,16 @@ router.get('/', async function (req, res, next) {
 		// If new user, store in database
 		await helpers.createUserIfNew(attributes);
 
-		// Redirect to homepage
-		res.redirect('/home');
+		// If the user was trying to reserve a time slot, redirect them to that page
+		if (req.session.eventId) {
+			res.redirect('/make-reservations/' + req.session.eventId);
+			delete req.session['eventId'];
+		}
+
+		// Otherwise, redirect them to the homepage
+		else {
+			res.redirect('/home');
+		}
 	}
 });
 
@@ -50,29 +61,27 @@ router.get('/home', async function (req, res, next) {
 		context.eventsManaging = await createsEvent.getUpcomingUserEvents(req.session.onid);
 		context.eventsAttending = await helpers.processUpcomingReservationsForDisplay(req.session.onid);
 		context.firstName = req.session.firstName;
-		context.stylesheets = ['main.css', 'home.css'];
+		context.stylesheets = ['main.css'];
 		context.scripts = ['convertISOToLocal.js', 'home.js'];
 		res.render('home', context);
 	}
 
 });
 
-// Displays user's personal homepage
+// Development route for local testing
 router.get('/home-test', async function (req, res, next) {
 	req.session.onid = 'adamspa';
 	req.session.firstName = 'Paul';
 	let context = {};
 	context.eventsManaging = await createsEvent.getUpcomingUserEvents(req.session.onid);
 	context.eventsAttending = await helpers.processUpcomingReservationsForDisplay(req.session.onid);
-	console.log(JSON.stringify(context.eventsAttending, null, 4));
 	context.firstName = req.session.firstName;
-	context.stylesheets = ['main.css', 'home.css'];
+	context.stylesheets = ['main.css'];
 	context.scripts = ['convertISOToLocal.js', 'home.js'];
 	res.render('home', context);
 });
 
 // Displays landing page
-// TODO: redirect to homepage if there's a session???
 router.get('/login', async function (req, res, next) {
 	let context = {};
 	context.layout = 'no_navbar.handlebars';

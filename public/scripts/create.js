@@ -1,3 +1,5 @@
+// Client-side JS for the Create Event page
+
 var numEmails = 0;
 var slotIds = [];         // Store all id of every slot created
 var slotStates = {};      // Track state of each slot. Options: new, notUsed
@@ -37,10 +39,7 @@ function configureFormValidation() {
   }, false);
 }
 
-// TODO: figure out how to handle slot ID assignment on Manage Event
-// Maybe pick a random starting value tied to the date/time? Want to
-// avoid overlap.
-//Script to create and manipulate the calendar on the create event page
+// Create and manipulate the calendar
 function configureCalendar() {
   document.addEventListener('DOMContentLoaded', function() {
     dateFormat = {}
@@ -233,7 +232,7 @@ function bindEmailDelete(input, button) {
   });
 };
 
-// bind the delete button in a slot's form. Deletes the input and the 
+// Binds the delete button in a slot's form. Deletes the input and the 
 // corresponding event in the calendar.
 function bindSlotDelete(deleteButton, calendarEvent, slot, slotId) {
     deleteButton.addEventListener('click', function(event) {
@@ -244,7 +243,7 @@ function bindSlotDelete(deleteButton, calendarEvent, slot, slotId) {
   });
 };
 
-// Bind the save button in a slot's form. For slots with a status of existingUnmodified,
+// Binds the save button in a slot's form. For slots with a status of existingUnmodified,
 //changes the status to existingModified. Hides the modal
 function bindSlotSave(saveButton, calendarEvent, slot, slotId) {
   saveButton.addEventListener('click', function(event) {

@@ -4,35 +4,35 @@
    <h4>Event name: {{eventDetails.event_name}}</h4>
    <h4>Created by: {{eventCreator}}</h4>
    <h4>Description: {{eventDetails.description}}</h4>
-   <h6>Maximum Attendees Per Slot: {{eventDetails.max_attendee_per_slot}}</h6>
-   <h6>Maximum Total Reservations Per Attendee: {{eventDetails.max_resv_per_attendee}}</h6>
    <br>
    <br>
    <h5>Click on a time slot to select it:</h5>
-   <h5>(you can pick as many as you like!!)</h5>
+   {{#if eventDetails.max_resv_per_attendee}}
+   <h5>You can register for up to {{eventDetails.max_resv_per_attendee}} slots</h5>
+   {{else}}
+   <h5>Choose as many slots as you like</h5>
+   {{/if}}
 </div>
 
 <!--slot and event reservation limitations-->
-<div class="event-display mb-4 ml-2 w-auto" hidden>
-  <input type="number" name="max_resv_per_attendee"
-  id="max_resv_per_attendee" value="{{eventDetails.max_resv_per_attendee}}" hidden>
-  <input type="number" name="max_attendee_per_slot"
-  id="max_attendee_per_slot" value="{{eventDetails.max_attendee_per_slot}}" hidden>
-  <input type="number" name="numOfUserResv4Event"
-  id="numOfUserResv4Event" value="{{numOfUserResv4Event.NUM_ROWS}}" hidden>
-</div>
+<input type="number" name="max_resv_per_attendee"
+id="max_resv_per_attendee" value="{{eventDetails.max_resv_per_attendee}}" hidden>
+<input type="number" name="max_attendee_per_slot"
+id="max_attendee_per_slot" value="{{eventDetails.max_attendee_per_slot}}" hidden>
+<input type="number" name="numUserReservations"
+id="numUserReservations" value="{{numUserReservations}}" hidden>
 
-<!--slot and event reservation limitations-->
-<div class="event-display mb-4 ml-2 w-auto" hidden>
-  <input type="number" name="max_resv_per_attendee"
-  id="max_resv_per_attendee" value="{{eventDetails.max_resv_per_attendee}}" hidden>
-</div>
+<!-- Hidden input specifying registrant information visibility -->
+<input type="number" name="visibility"
+id="visibility" value="{{eventDetails.visibility}}" hidden>
 
 <!-- event and attendee detail inputs from db -->
 {{#each existingSlots}}
 <div class="existingSlots" id="slot{{this.slot_id}}">
   <input type="number" name="slot{{this.slot_id}}"
   id="slotExistsInDatabase{{this.slot_id}}" value="1" hidden>
+  <input type="number" name="maxAttendees" id="maxAttendees{{this.slot_id}}" 
+  value="{{this.max_attendees}}" hidden>
   <input type="text" name="slotStart{{this.slot_id}}"
   id="slotStart{{this.slot_id}}" value="{{this.start_time}}" hidden>
   <input type="text" name="slotEnd{{this.slot_id}}"
@@ -50,9 +50,9 @@
 
 <!-- attendee slot reservations from db -->
 {{#each userSlots}}
-<div class="userSlots" id="userSlots{{this.slot_id}}">
-  <input type="text" name="userSlot{{this.slot_id}}"
-  id="userSlot{{this.slot_id}}" value="{{this.slot_id}}" hidden>
+<div class="userSlots" id="userSlots{{this.fk_slot_id}}">
+  <input type="text" name="userSlot{{this.fk_slot_id}}"
+  id="userSlot{{this.fk_slot_id}}" value="{{this.fk_slot_id}}" hidden>
 </div>
 {{/each}}
 
@@ -66,7 +66,7 @@ aria-labelledby="resvSlotLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="resvSlotLabel">Who signed up</h5>
+        <h5 class="modal-title" id="resvSlotLabel">Who's signed up: </h5>
       </div>
       <div class="modal-body" id="modalBody">
       </div>

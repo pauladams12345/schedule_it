@@ -1,16 +1,27 @@
+// Client-side JS for the Make a Reservation page
+
 configureCalendar();
 
-//Script to create and manipulate the calendar on the reservations page
+// Create and manipulate the calendar
 function configureCalendar() {
   document.addEventListener('DOMContentLoaded', function() {
+    // Create an array of all
+    var userSlotIds = [];
+    var userSlots = document.getElementsByClassName('userSlots');
+    for (var i = 0; i < userSlots.length; i++) {
+      userSlotIds.push(userSlots[i].getAttribute('id').substring(9));
+    }
+
     dateFormat = {}
     var context = {};
     var startTime;
     var endTime;
     var numSelectedSlots = 0;  //holds current number of selected slots for this event before actual submission
     var slotCounter = 0;
-    var max_attendee_per_slot = document.getElementById('max_attendee_per_slot').value;
     var max_resv_per_attendee = document.getElementById('max_resv_per_attendee').value;
+    if (max_resv_per_attendee == 0) {
+      max_resv_per_attendee = Number.MAX_SAFE_INTEGER;
+    }
     var calendarEl = document.getElementById('calendar');
     var modal = document.getElementById('exampleModal');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -40,17 +51,25 @@ function configureCalendar() {
         var endTime = document.getElementById('slotEnd' + slotId).value.substring(0,21);
         var location = document.getElementById('slotLocation' + slotId).value;
         var slotAttendee = document.getElementsByName('name' + slotId);
-        var numUserResv = document.getElementById('numOfUserResv4Event').value;
+        var numUserResv = document.getElementById('numUserReservations').value;
         var numCurSelectedSlots = document.getElementsByName('resvSlotId').length;
+        var maxAttendees = document.getElementById('maxAttendees' + slotId).value;
+        if (maxAttendees == 0) {
+          maxAttendees = Number.MAX_SAFE_INTEGER;
+        }
 
         //logic for use cases: #resv per slot exceeded, #resv per event exceeded, or
         //limitations not exceeded.
         numResv = parseInt(numUserResv, 10);
         var totalResv = numCurSelectedSlots + numResv;
-        if(totalResv >= max_resv_per_attendee){
+
+        if ($.inArray(slotId, userSlotIds) != -1) {
+          // Do nothing
+        }
+        else if(totalResv >= max_resv_per_attendee){
           warningModalEvents();
         }
-        else if(slotAttendee.length >= max_attendee_per_slot){
+        else if(slotAttendee.length >= maxAttendees){
           warningModalSlots();
         }
         else{
@@ -65,7 +84,12 @@ function configureCalendar() {
       var startTime = new Date(document.getElementById('slotStart' + slotId).value);
       var endTime = new Date(document.getElementById('slotEnd' + slotId).value);
       var location = document.getElementById('slotLocation' + slotId).value;
-      var calendarEvent = calendar.addEvent({id: slotId, start: startTime, end: endTime, title: location});
+      if ($.inArray(slotId, userSlotIds) != -1) {
+        var calendarEvent = calendar.addEvent({id: slotId, start: startTime, end: endTime, title: "Registered", backgroundColor: '#D3832B'});
+      }
+      else {
+        var calendarEvent = calendar.addEvent({id: slotId, start: startTime, end: endTime, title: location});
+      }
     }
     calendar.render();
   });
@@ -89,13 +113,28 @@ function createModalBody(slotId) {
   var modalParagraph = document.createElement('p');
   slot.setAttribute('id', 'modalBodyDiv');
 
-  var name = document.getElementsByName('name' + slotId);
-  for (var i = 0; i < name.length; i++){
-    var br = document.createElement('br');
-    var attendeeName = document.createTextNode(name[i].value);
-    modalParagraph.appendChild(attendeeName);
-    modalParagraph.appendChild(br);
+  var visibility = document.getElementById('visibility').value;
+  if (visibility == 0) {
+    var text = document.createTextNode('Sorry, attendee information for this event is private');
+    modalParagraph.appendChild(text);
     slot.appendChild(modalParagraph);
+  }
+  else {
+    var name = document.getElementsByName('name' + slotId);
+    if (name.length == 0) {
+      var text = document.createTextNode('There are currently no other reservations.');
+      modalParagraph.appendChild(text);
+      slot.appendChild(modalParagraph);
+    }
+    else {
+      for (var i = 0; i < name.length; i++){
+        var br = document.createElement('br');
+        var attendeeName = document.createTextNode(name[i].value);
+        modalParagraph.appendChild(attendeeName);
+        modalParagraph.appendChild(br);
+      }
+      slot.appendChild(modalParagraph);
+    }
   }
 
   // Append all new elements to the modal
@@ -104,14 +143,18 @@ function createModalBody(slotId) {
   $('#resvSlot').modal('show');
 };
 
+// Show the warning modal for a full slot
 function warningModalSlots(){
   $('#resvSlotExceeded').modal('show');
 };
 
+// show the warning modal for when a user has reserved their max number of slots
 function warningModalEvents(){
   $('#resvEventExceeded').modal('show');
 };
 
+// Create a row in the "Selected time slots" table for the selected slot
+// and also create a hidden input with the slot details
 function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
 
   //create table rows
@@ -128,7 +171,7 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
     var deleteButton = document.createElement('td');
     var button = document.createElement('button');
     button.setAttribute('class','btn btn-primary reservation-delete');
-    button.textContent = 'Delete';
+    button.textContent = 'Remove';
     startTime.textContent = slotStartTime;
     endTime.textContent = slotEndTime;
     cellLocation.textContent = slotLocation;
@@ -156,6 +199,7 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   }
 }
 
+// Bind the delete button for a reservation in the "Seleted time slots" table
 function bindReservationDelete(button, slotId) {
   button.addEventListener('click', function(event) {
     var row = document.getElementById('row' + slotId);

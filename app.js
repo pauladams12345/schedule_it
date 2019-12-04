@@ -1,9 +1,11 @@
+// Base application. Run from terminal with "node app.js"
+
 var express =       require('express'),
     bodyParser =    require('body-parser'),
     session =       require('express-session'),
     handlebars =    require('express-handlebars'),
     request =       require('request'),
-    dbcon =         require('./middleware/dbcon.js'),
+    dbcon =         require('./config/dbcon.js'),
     helmet =        require('helmet'),
     MySQLStore =    require('express-mysql-session')(session),
     sessionStore =  new MySQLStore(dbcon);

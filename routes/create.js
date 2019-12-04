@@ -1,3 +1,5 @@
+// Defines routes for the Create Event page
+
 var Router = 		require('express-promise-router'),
 	router = 		new Router(),						// allows asynchronous route handlers
 	session = 		require('express-session'),
@@ -5,7 +7,8 @@ var Router = 		require('express-promise-router'),
 	event =			require('../models/event.js'),
 	invitation =	require('../models/invitation.js'),
 	createsEvent =	require('../models/createsEvent.js');
-	helpers = 		require('../helpers/helpers.js');
+	helpers = 		require('../helpers/helpers.js'),
+	email = 		require('../helpers/email.js');
 
 // Displays "Create New Event" page
 router.get('/create', async function (req, res, next) {
@@ -23,18 +26,6 @@ router.get('/create', async function (req, res, next) {
 	}
 });
 
-
-// Use this route to test locally without constantly re-deploying to Heroku
-router.get('/create-test', async function (req, res, next) {
-	req.session.onid = 'williaev';
-	let context = {};
-	context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
-	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
-	context.scripts = ['create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
-	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
-	res.render('create', context);
-});
-
 // Process event creation form
 router.post('/create', async function (req, res, next) {
 
@@ -44,7 +35,7 @@ router.post('/create', async function (req, res, next) {
 	let defaultLocation = req.body.defaultLocation;
 	let defaultMaxAttendees = req.body.defaultMaxAttendees;
 	let maxResvPerAttendees = req.body.maxReservationsPerAttendee;
-	let description = req.body.description;
+	let description = req.body.description.substring(0, 255);
 	let visibility = req.body.attendeeNameVisibility;
 	let emails = req.body.emails;
 	let slotIds = req.body.slotIds;
@@ -104,6 +95,11 @@ router.post('/create', async function (req, res, next) {
 		let [expirationDate, expirationTime] = await helpers.parseDateTimeString(lastSlotEndDate);
 		await event.editExpirationDate(eventId, expirationDate);
 	}
+
+	// Send invitation emails
+
+	let organizerName = await event.getEventCreator(eventId);
+	email.sendInvitationEmail(organizerName, eventName, description, eventId, emails)
 
 	res.send('/manage/' + eventId);
 });

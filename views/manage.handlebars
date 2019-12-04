@@ -172,6 +172,8 @@ method="post" id="editSlotsForm" novalidate>
 method="post" id="invitationsForm" novalidate>
   <div class="form-row mt-4">
     <div class="col col-sm-10 col-md-9 col-lg-6 col-xl-6 form-group" id="emailsDiv">
+      <input type="text" name="eventName" value="{{eventDetails.event_name}}" hidden>
+      <input type="text" name="description" value="{{eventDetails.description}}" hidden>
       <label for="emailAddresses">
       Enter email addresses below to invite more people:</label>
       <small id="emailAddressesHelpText" class="form-text text-muted mt-0">
