@@ -1,8 +1,14 @@
+// Code for sending invitation emails using mailgun
+// TODO: During migration to OSU servers, either get set up with university
+// SMTP server or create one in node.js
+
 let mailgun = require("mailgun-js"),
 	DOMAIN = "sandbox0e8f8a6368da4e8ab06448f9de870507.mailgun.org",
 	mg = mailgun({apiKey: "fda0cf14403f53806e01b759277a8a66-f7910792-bc0058e7", domain: DOMAIN});
 
-module.exports.sendTestEmail = function(organizerName, eventName, eventDescription, eventId, emails) {
+// Send an invitation email with the specified info to all email addresses in the
+// emails array using mailgun.
+module.exports.sendInvitationEmail = function(organizerName, eventName, eventDescription, eventId, emails) {
 
 	let from = "Indaba Scheduler <postmaster@sandbox0e8f8a6368da4e8ab06448f9de870507.mailgun.org>";
 	let recipientVariables = {}
@@ -31,4 +37,4 @@ module.exports.sendTestEmail = function(organizerName, eventName, eventDescripti
 	mg.messages().send(data, function (error, body) {
 		console.log(body);
 	});	
-}
+};

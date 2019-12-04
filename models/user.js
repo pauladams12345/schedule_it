@@ -7,7 +7,7 @@ module.exports.findUser = async function(onid) {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query("SELECT * FROM `OSU_member` WHERE onid = ?", [onid]);
 		connection.end();
-		return [rows, fields];
+		return rows;
 	} 
 	catch (err) {
 		console.log(err);

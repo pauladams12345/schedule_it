@@ -5,7 +5,8 @@ var Router = 		require('express-promise-router'),
 	event =			require('../models/event.js'),
 	invitation =	require('../models/invitation.js'),
 	createsEvent =	require('../models/createsEvent.js');
-	helpers = 		require('../helpers/helpers.js');
+	helpers = 		require('../helpers/helpers.js'),
+	email = 		require('../helpers/email.js');
 
 // Displays "Create New Event" page
 router.get('/create', async function (req, res, next) {
@@ -104,6 +105,10 @@ router.post('/create', async function (req, res, next) {
 		let [expirationDate, expirationTime] = await helpers.parseDateTimeString(lastSlotEndDate);
 		await event.editExpirationDate(eventId, expirationDate);
 	}
+
+	// Send invitation emails
+	email.sendInvitationEmail(organizerName, eventName, eventDescription, eventId, emails)
+
 
 	res.send('/manage/' + eventId);
 });

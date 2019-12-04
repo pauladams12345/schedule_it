@@ -164,7 +164,7 @@ router.post('/manage/:eventId/send-invitations', async function (req, res, next)
 	let eventDescription = req.body.description;
 
 	// Send invitation emails
-	email.sendTestEmail(organizerName, eventName, eventDescription, eventId, emails)
+	email.sendInvitationEmail(organizerName, eventName, eventDescription, eventId, emails)
 
 
 	// Store the invitations (users emails) in the database
