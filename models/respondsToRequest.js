@@ -51,3 +51,20 @@ const connection = await sql.createConnection(dbcon);
 		console.log(err);	
 	}
 };
+
+// Delete a row with the given onid and eventId
+module.exports.deleteResponsesForEvent = async function(eventId) {
+	try {
+		const connection = await sql.createConnection(dbcon);
+		const [rows, fields] = await connection.query(
+		"DELETE FROM `Responds_To_Request` " + 
+		"WHERE `fk_event_id` = ?", 
+		[eventId]);
+		connection.end();
+		return rows;
+	}
+	catch (err) {
+		console.log(err);	
+	}
+};
+

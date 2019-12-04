@@ -1,14 +1,15 @@
 // Defines routes for the Mange Event page
 
-var Router = 		require('express-promise-router'),
-	router = 		new Router(),						// allows asynchronous route handlers
-	session = 		require('express-session'),
-	slot =			require('../models/slot.js'),
-	event =			require('../models/event.js'),
-	invitation =	require('../models/invitation.js'),
-	createsEvent =	require('../models/createsEvent.js'),
-	reserveSlot =	require('../models/reserveSlot.js'),
-	email =			require('../helpers/email.js');
+var Router = 			require('express-promise-router'),
+	router = 			new Router(),						// allows asynchronous route handlers
+	session = 			require('express-session'),
+	slot =				require('../models/slot.js'),
+	event =				require('../models/event.js'),
+	invitation =		require('../models/invitation.js'),
+	createsEvent =		require('../models/createsEvent.js'),
+	reserveSlot =		require('../models/reserveSlot.js'),
+	email =				require('../helpers/email.js'),
+	respondsToRequest = require('../models/respondsToRequest.js');
 
 // Display the Manage Event page
 router.get('/manage/:eventId', async function (req, res, next) {
@@ -112,6 +113,7 @@ router.post('/manage/:eventId/delete-event', async function (req, res, next) {
 	}
 	await createsEvent.removeUserFromCreatesEvent(eventId);
 	await slot.deleteSlotByEventId(eventId);
+	await respondsToRequest.deleteResponsesForEvent(eventId);
 	await event.deleteEvent(eventId);
 	res.redirect('/home');
 });

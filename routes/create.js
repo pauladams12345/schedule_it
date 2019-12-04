@@ -97,9 +97,10 @@ router.post('/create', async function (req, res, next) {
 	}
 
 	// Send invitation emails
-
-	let organizerName = await event.getEventCreator(eventId);
-	email.sendInvitationEmail(organizerName, eventName, description, eventId, emails)
+	if (emails.length > 0) {
+		let organizerName = await event.getEventCreator(eventId);
+		email.sendInvitationEmail(organizerName, eventName, description, eventId, emails)
+	}
 
 	res.send('/manage/' + eventId);
 });
