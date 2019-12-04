@@ -63,7 +63,7 @@ module.exports.createUserIfNew = async function(attributes){
 
 // Take a JS date object, convert it to an ISO-formatted string,
 // and extract the date and time from that string
-module.exports.parseDateTimeString = async function (slot){
+module.exports.parseDateTimeString = function (slot){
 	let date = slot.toISOString().substring(0,10);
 	let time = slot.toISOString().substring(11,19);
 	return [date, time];
@@ -101,6 +101,8 @@ module.exports.processUpcomingReservationsForDisplay = async function(onid) {
 	return events;
 };
 
+// Find all of a user's past reserved slots and gather the needed information
+// to display those slots in an organized way
 module.exports.processPastReservationsForDisplay = async function(onid) {
 	let eventIds = [];											// keep track of which events we've seen
 	let events = {};											// hold info for each event
@@ -130,10 +132,12 @@ module.exports.processPastReservationsForDisplay = async function(onid) {
 	return events;
 };
 
+// Given an array of slots from the database, creates an object with nested objects
+// containing each slots's information, including slot attendees
 module.exports.processEventSlots = async function (existingSlots){
 	let slots = {};		// Store the details of each slot in a handlebars-friendly format
 
-	// Loop over each reservation to fill the events object
+	// Loop over each reservation to create objects
 	for (let resv of existingSlots) {
 		slots[resv.slot_id] = {
 			slot_id: resv.slot_id,
@@ -143,9 +147,8 @@ module.exports.processEventSlots = async function (existingSlots){
 			max_attendees: resv.max_attendees,
 			attendees: {}
 		};
-		const attendees = await slot.findSlotAttendees(resv.slot_id);
+		const attendees = await slot.findSlotAttendees(resv.slot_id);	// add attendee info
 		for (let attendee of attendees){
-			//if(attendee.onid != user_ONID){
 			slots[resv.slot_id].attendees[attendee.onid] = {
 				slotId: resv.slot_id,
 				name: attendee.first_name + ' ' + attendee.last_name,
@@ -156,18 +159,8 @@ module.exports.processEventSlots = async function (existingSlots){
 	return slots;
 };
 
-module.exports.processUserSlots = async function (existingSlots){
-	let slots = {};		// Store the details of each slot in a handlebars-friendly format
-
-	// Loop over each reservation to fill the events object
-	for (let resv of existingSlots) {
-		slots[resv.fk_slot_id] = {
-			slot_id: resv.fk_slot_id
-		};
-	}
-	return slots;
-};
-
+// Create a JS date object from a slot's date and set the hour to match
+// the stored value to facilitate time zone adjustment
 module.exports.combineDateAndTime = function (slots) {
 	for (let slot of slots) {
 		let date = new Date(slot['slot_date']);

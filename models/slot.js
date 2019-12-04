@@ -1,3 +1,5 @@
+// Database functions most closely related to the Slot table
+
 var	dbcon = 	require('../config/dbcon.js'),
 	sql =   	require('mysql2/promise');
 
@@ -57,7 +59,10 @@ module.exports.findUpcomingUserSlots = async function(onid) {
 module.exports.findSlot = async function(slotId) {
 	try {
 		const connection = await sql.createConnection(dbcon);
-		const [rows, fields] = await connection.query("SELECT * FROM `Slot` WHERE slot_id = ?", [slotId]);
+		const [rows, fields] = await connection.query(
+		"SELECT * FROM `Slot` " +
+		"WHERE slot_id = ?", 
+		[slotId]);
 		connection.end();
 		return rows[0];
 	}
@@ -66,7 +71,7 @@ module.exports.findSlot = async function(slotId) {
 	}
 };
 
-// Query database for all of the individuals who signed up for the slot
+// Query database for all of the individuals who signed up for a slot
 module.exports.findSlotAttendees = async function(slotId) {
 	try {
 		const connection = await sql.createConnection(dbcon);
@@ -108,10 +113,15 @@ module.exports.findEventSlots = async function(eventId) {
 module.exports.eventSlotResv = async function(eventId){
 	try{
 		const connection = await sql.createConnection(dbcon);
-		const [rows, fields] = await connection.query("SELECT first_name, last_name, slot_id, onid, " +
+		const [rows, fields] = await connection.query(
+		"SELECT first_name, last_name, slot_id, onid, " +
 		"ONID_email, slot_date, start_time, end_time, location FROM  `Event` " +
-		"INNER JOIN `Slot` ON fk_event_id = event_id INNER JOIN `Reserve_Slot` ON " +
-		"fk_slot_id = slot_id INNER JOIN `OSU_member` ON fk_onid = onid WHERE event_id = ? ORDER BY slot_date", [eventId]);
+		"INNER JOIN `Slot` ON fk_event_id = event_id " +
+		"INNER JOIN `Reserve_Slot` ON fk_slot_id = slot_id " +
+		"INNER JOIN `OSU_member` ON fk_onid = onid " +
+		"WHERE event_id = ? " +
+		"ORDER BY slot_date", 
+		[eventId]);
 		return rows;
 		connection.end();
 	}
@@ -124,9 +134,11 @@ module.exports.eventSlotResv = async function(eventId){
 module.exports.createSlot = async function(eventId, location, date, startTime, endTime, duration, maxAttendees){
 	try{
 		const connection = await sql.createConnection(dbcon);
-		await connection.query("INSERT INTO `indaba_db`.`Slot` " +
-		"(`fk_event_id`, `slot_location`, `slot_date`, `start_time`, `end_time`, " +
-		"`duration`, max_attendees) VALUES (?, ?, ?, ?, ?, ?, ?);",
+		await connection.query(
+		"INSERT INTO `indaba_db`.`Slot` " +
+		"(`fk_event_id`, `slot_location`, `slot_date`, `start_time`, " +
+		"`end_time`, `duration`, max_attendees) " +
+		"VALUES (?, ?, ?, ?, ?, ?, ?);",
 		 [eventId, location, date, startTime, endTime, duration, maxAttendees]);
 		connection.end();
 	}
@@ -139,8 +151,10 @@ module.exports.createSlot = async function(eventId, location, date, startTime, e
 module.exports.editSlot = async function(location, date, startTime, endTime, duration, maxAttendees, slotId){
 	try{
 		const connection = await sql.createConnection(dbcon);
-		await connection.query("UPDATE `Slot` " +
-		"SET `slot_location` = ?, `slot_date` = ?, `start_time` = ?, `end_time` = ?, `duration` = ?, max_attendees = ?" +
+		await connection.query(
+		"UPDATE `Slot` " +
+		"SET `slot_location` = ?, `slot_date` = ?, `start_time` = ?, " +
+		"`end_time` = ?, `duration` = ?, max_attendees = ?" +
 		"WHERE `slot_id` = ?",
 		 [location, date, startTime, endTime, duration, maxAttendees, slotId]);
 		connection.end();
@@ -154,7 +168,8 @@ module.exports.editSlot = async function(location, date, startTime, endTime, dur
 module.exports.deleteSlot = async function(slotId){
 	try{
 		const connection = await sql.createConnection(dbcon);
-		await connection.query("DELETE FROM `Slot` " +
+		await connection.query(
+		"DELETE FROM `Slot` " +
 		"WHERE `slot_id` = ?;",
 		 [slotId]);
 		connection.end();
@@ -164,28 +179,15 @@ module.exports.deleteSlot = async function(slotId){
 	}
 };
 
-// Delete slot with the given ID
+// Delete all slots with the given foreign key event id
 module.exports.deleteSlotByEventId = async function(eventId){
 	try{
 		const connection = await sql.createConnection(dbcon);
-		await connection.query("DELETE FROM `Slot` " +
+		await connection.query(
+		"DELETE FROM `Slot` " +
 		"WHERE `fk_event_id` = ?;",
 		 [eventId]);
 		connection.end();
-	}
-	catch (err) {
-		console.log(err);
-	}
-};
-
-// Query database for slot by its ID and return all columns for that row
-module.exports.findUserSlots = async function(onid) {
-	try {
-		const connection = await sql.createConnection(dbcon);
-		const [rows, fields] = await connection.query("SELECT * FROM `Reserve_Slot` " +
-		"INNER JOIN `OSU_member` ON fk_onid = onid WHERE `onid` = ?", [onid]);
-		connection.end();
-		return [rows, fields];
 	}
 	catch (err) {
 		console.log(err);

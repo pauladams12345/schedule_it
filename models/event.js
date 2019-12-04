@@ -1,3 +1,5 @@
+// Database functions most closely related to the Event table
+
 var	dbcon = 	require('../config/dbcon.js'),
 	sql =   	require('mysql2/promise');
 
@@ -6,7 +8,8 @@ module.exports.createEvent = async function(eventName, location,
 	maxAttendeePerSlot, maxResvPerAttendee, description, visibility) {
 	try {
 		const connection = await sql.createConnection(dbcon);
-		await connection.query("INSERT INTO `indaba_db`.`Event` " +
+		await connection.query(
+		"INSERT INTO `indaba_db`.`Event` " +
 		"(`event_name`, `location`, `max_attendee_per_slot`, " +
 		"`max_resv_per_attendee`, `description`, `visibility`) " +
 		"VALUES (?, ?, ?, ?, ?, ?);",
@@ -21,13 +24,15 @@ module.exports.createEvent = async function(eventName, location,
 	catch (err) {
 		console.log(err);
 	}
-}
+};
 
 // Query database for an event by its ID and return all columns for that row
 module.exports.findEvent = async function(eventId) {
 	try {
 		const connection = await sql.createConnection(dbcon);
-		const [rows, fields] = await connection.query("SELECT * FROM `Event` WHERE event_id = ?", [eventId]);
+		const [rows, fields] = await connection.query(
+			"SELECT * FROM `Event` " +
+			"WHERE event_id = ?", [eventId]);
 		connection.end();
 		return rows[0];
 	}
@@ -42,27 +47,14 @@ module.exports.getEventCreator = async function(eventId) {
 	try {
 		const connection = await sql.createConnection(dbcon);
 		const [rows, fields] = await connection.query(
-			"SELECT om.first_name, om.last_name FROM `OSU_member` om " +
+			"SELECT om.first_name, om.last_name " +
+			"FROM `OSU_member` om " +
 			"INNER JOIN `Creates_Event` ce ON om.onid = ce.fk_onid " +
 			"INNER JOIN `Event` e ON ce.fk_event_id = e.event_id " +
 			"WHERE e.event_id = ? ",
 			[eventId]);
 		connection.end();
 		return rows[0].first_name + " " + rows[0].last_name;
-	}
-	catch (err) {
-		console.log(err);
-	}
-};
-
-//takes a time in MySQL 24h time format and converts to 12h format
-let convertTime = async function(slotTime){
-	try{
-		const connection = await sql.createConnection(dbcon);
-		const [rows, fields] = await connection.query(
-			"SELECT TIME_FORMAT('" + slotTime + "', '%h:%i%p') AS timePM");
-		connection.end();
-		return rows[0].timePM
 	}
 	catch (err) {
 		console.log(err);
@@ -132,11 +124,13 @@ module.exports.editVisibility = async function(eventId, visibility) {
 		console.log(err);
 	}
 };
+
 // Delete slot with the given ID
 module.exports.deleteEvent = async function(eventId){
 	try{
 		const connection = await sql.createConnection(dbcon);
-		await connection.query("DELETE FROM `Event` " +
+		await connection.query(
+		"DELETE FROM `Event` " +
 		"WHERE `event_id` = ?;",
 		 [eventId]);
     connection.end();

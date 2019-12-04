@@ -26,7 +26,6 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 		context.eventDetails = await event.findEvent(eventId);
 		context.eventCreator = await event.getEventCreator(eventId);
 		context.numUserReservations = await reserveSlot.getNumUserReservations(onid, eventId);
-		let [slots, field] = await slot.findUserSlots(onid);
 		let eventSlots = await slot.findEventSlots(eventId);
 		for (let slot of eventSlots) {
 			let startTime = new Date(slot.slot_date);												// get date of slot start
@@ -35,7 +34,7 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 			slot['start_time'] = startTime;
 			slot['end_time'] = endTime;
 		}
-		context.userSlots = await helpers.processUserSlots(slots);
+		context.userSlots = await reserveSlot.getSlotIdsByUserAndEvent(onid, eventId);
 		context.existingSlots = await helpers.processEventSlots(eventSlots, eventId);
 
 		context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',

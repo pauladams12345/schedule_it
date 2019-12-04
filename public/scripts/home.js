@@ -1,3 +1,5 @@
+// Client-side JS for the home page
+
 configureCancellations();
 
 // Find all of "Cancel reservation" buttons and call their binding function

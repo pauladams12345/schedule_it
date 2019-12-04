@@ -1,3 +1,5 @@
+// Client-side JS for the Manage Event page
+
 var numEmails = 0;        // Used to create unique id for email inputs as they're dynamically created
 var slotIds = [];         // Store all id of every slot created
 var slotStates = {};      // Track state of each slot. Options: new, notUsed, existingUnmodified, existingModified, existingDeleted
@@ -371,7 +373,8 @@ function configureFormValidation() {
   }, false);
 };
 
-//
+// Populate the "Manually make a reservation" form with the info for every
+// registered user and every slot
 function configureManualRegistration() {
   window.addEventListener('load', function() {
     var existingSlots = document.getElementsByClassName('existingSlot');
@@ -396,6 +399,7 @@ function configureManualRegistration() {
   });
 };
 
+// Bind the delete button for an entry in the "Reservations" table
 function bindReservationDelete(button, reservation, onid, slotId) {
   button.addEventListener('click', function(event) {
     // Send ajax request to delete reservation
@@ -411,6 +415,7 @@ function bindReservationDelete(button, reservation, onid, slotId) {
   })
 }
 
+// Bind the delete button for the entire event
 function bindEventDelete(button, eventId) {
   button.addEventListener('click', function(event) {
     // Send ajax request to delete event
@@ -425,7 +430,7 @@ function bindEventDelete(button, eventId) {
   })
 }
 
-// Bind the delete button in a slot's form. Deletes the form and the corresponding
+// Bind the delete button in a slot's form (shows in modal). Deletes the form and the corresponding
 // event in FullCalendar. Changes existing slot's status to existingDeleted and new slots
 // status to notUsed
 function bindSlotDelete(button, calendarEvent, slot, slotId) {

@@ -1,7 +1,9 @@
+// Database functions most closely related to the Responds_To_Request table
+
 var	dbcon = 	require('../config/dbcon.js'),
 	sql =   	require('mysql2/promise');
 
-// Create row in Reserve_Slot with the given information
+// Create row with the given information
 module.exports.createResponse = async function(onid, eventId, response) {
 	try {
 		const connection = await sql.createConnection(dbcon);
@@ -33,7 +35,7 @@ module.exports.updateResponse = async function(onid, eventId, response) {
 };
 
 // Get the value of attending from a row with the given onid and eventId
-// Returns the entire rows array
+// Returns the entire rows array (even if empty), not just the response
 module.exports.getResponse = async function(onid, eventId) {
 	try {
 const connection = await sql.createConnection(dbcon);
@@ -48,4 +50,4 @@ const connection = await sql.createConnection(dbcon);
 	catch (err) {
 		console.log(err);	
 	}
-}
+};

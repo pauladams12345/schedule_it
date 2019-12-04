@@ -50,9 +50,9 @@ id="visibility" value="{{eventDetails.visibility}}" hidden>
 
 <!-- attendee slot reservations from db -->
 {{#each userSlots}}
-<div class="userSlots" id="userSlots{{this.slot_id}}">
-  <input type="text" name="userSlot{{this.slot_id}}"
-  id="userSlot{{this.slot_id}}" value="{{this.slot_id}}" hidden>
+<div class="userSlots" id="userSlots{{this.fk_slot_id}}">
+  <input type="text" name="userSlot{{this.fk_slot_id}}"
+  id="userSlot{{this.fk_slot_id}}" value="{{this.fk_slot_id}}" hidden>
 </div>
 {{/each}}
 

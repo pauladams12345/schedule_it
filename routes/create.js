@@ -107,7 +107,9 @@ router.post('/create', async function (req, res, next) {
 	}
 
 	// Send invitation emails
-	email.sendInvitationEmail(organizerName, eventName, eventDescription, eventId, emails)
+
+	let organizerName = await event.getEventCreator(eventId);
+	email.sendInvitationEmail(organizerName, eventName, description, eventId, emails)
 
 
 	res.send('/manage/' + eventId);

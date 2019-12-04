@@ -1,6 +1,8 @@
+// Client-side JS for the Make a Reservation page
+
 configureCalendar();
 
-//Script to create and manipulate the calendar on the reservations page
+// Create and manipulate the calendar
 function configureCalendar() {
   document.addEventListener('DOMContentLoaded', function() {
     // Create an array of all
@@ -141,14 +143,18 @@ function createModalBody(slotId) {
   $('#resvSlot').modal('show');
 };
 
+// Show the warning modal for a full slot
 function warningModalSlots(){
   $('#resvSlotExceeded').modal('show');
 };
 
+// show the warning modal for when a user has reserved their max number of slots
 function warningModalEvents(){
   $('#resvEventExceeded').modal('show');
 };
 
+// Create a row in the "Selected time slots" table for the selected slot
+// and also create a hidden input with the slot details
 function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
 
   //create table rows
@@ -193,6 +199,7 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
   }
 }
 
+// Bind the delete button for a reservation in the "Seleted time slots" table
 function bindReservationDelete(button, slotId) {
   button.addEventListener('click', function(event) {
     var row = document.getElementById('row' + slotId);
