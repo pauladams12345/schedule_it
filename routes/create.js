@@ -1,3 +1,5 @@
+// Defines routes for the Create Event page
+
 var Router = 		require('express-promise-router'),
 	router = 		new Router(),						// allows asynchronous route handlers
 	session = 		require('express-session'),
@@ -22,18 +24,6 @@ router.get('/create', async function (req, res, next) {
 		'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
 		res.render('create', context);
 	}
-});
-
-
-// Use this route to test locally without constantly re-deploying to Heroku
-router.get('/create-test', async function (req, res, next) {
-	req.session.onid = 'williaev';
-	let context = {};
-	context.stylesheets = ['main.css', 'calendar.css', '@fullcalendar/core/main.css', '@fullcalendar/daygrid/main.css',
-	'@fullcalendar/timegrid/main.css', '@fullcalendar/bootstrap/main.css'];
-	context.scripts = ['create.js', '@fullcalendar/core/main.js', '@fullcalendar/daygrid/main.js',
-	'@fullcalendar/timegrid/main.js', '@fullcalendar/bootstrap/main.js', '@fullcalendar/interaction/main.js'];
-	res.render('create', context);
 });
 
 // Process event creation form
@@ -110,7 +100,6 @@ router.post('/create', async function (req, res, next) {
 
 	let organizerName = await event.getEventCreator(eventId);
 	email.sendInvitationEmail(organizerName, eventName, description, eventId, emails)
-
 
 	res.send('/manage/' + eventId);
 });

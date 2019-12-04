@@ -1,3 +1,5 @@
+// Defines routes for login, logout, and homepage
+
 var Router = 		require('express-promise-router'),
 	router = 		new Router(),						// allows asynchronous route handlers
 	session = 		require('express-session'),
@@ -59,14 +61,14 @@ router.get('/home', async function (req, res, next) {
 		context.eventsManaging = await createsEvent.getUpcomingUserEvents(req.session.onid);
 		context.eventsAttending = await helpers.processUpcomingReservationsForDisplay(req.session.onid);
 		context.firstName = req.session.firstName;
-		context.stylesheets = ['main.css', 'home.css'];
+		context.stylesheets = ['main.css'];
 		context.scripts = ['convertISOToLocal.js', 'home.js'];
 		res.render('home', context);
 	}
 
 });
 
-// Displays user's personal homepage
+// Development route for local testing
 router.get('/home-test', async function (req, res, next) {
 	req.session.onid = 'adamspa';
 	req.session.firstName = 'Paul';
@@ -74,13 +76,12 @@ router.get('/home-test', async function (req, res, next) {
 	context.eventsManaging = await createsEvent.getUpcomingUserEvents(req.session.onid);
 	context.eventsAttending = await helpers.processUpcomingReservationsForDisplay(req.session.onid);
 	context.firstName = req.session.firstName;
-	context.stylesheets = ['main.css', 'home.css'];
+	context.stylesheets = ['main.css'];
 	context.scripts = ['convertISOToLocal.js', 'home.js'];
 	res.render('home', context);
 });
 
 // Displays landing page
-// TODO: redirect to homepage if there's a session???
 router.get('/login', async function (req, res, next) {
 	let context = {};
 	context.layout = 'no_navbar.handlebars';

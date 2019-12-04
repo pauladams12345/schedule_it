@@ -1,3 +1,5 @@
+// Defines routes for the Make Reservations page
+
 var Router = 		require('express-promise-router'),
 	router = 		new Router(),						// allows asynchronous route handlers
 	session = 		require('express-session'),
@@ -9,7 +11,7 @@ var Router = 		require('express-promise-router'),
 	respondsToRequest =    require('../models/respondsToRequest.js'),
 	helpers = 		require('../helpers/helpers.js');
 
-
+// Displays "Make a reservation" page for the given event
 router.get('/make-reservations/:eventId', async function (req, res, next) {
 	// If there is no session established, redirect to the landing page
 	if (!req.session.onid) {
@@ -45,6 +47,7 @@ router.get('/make-reservations/:eventId', async function (req, res, next) {
 	}
 });
 
+// Process the submitted form to make new reservations
 router.post('/make-reservations', async function (req, res, next) {
 	if (!req.session.onid) {
 		res.redirect('../login');
