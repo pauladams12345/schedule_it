@@ -11,7 +11,7 @@ module.exports.sendInvitationEmail = function(organizerName, eventName, eventDes
 
 	messageText = "Hello!\n\n" + 
 	organizerName + " has inivted you to the following event: " +
-	eventName + "\n";
+	eventName + "\n\n";
 	if (eventDescription) {
 		messageText += "Event description: " + eventDescription + "\n\n";
 	}
