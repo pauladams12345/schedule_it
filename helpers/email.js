@@ -3,7 +3,7 @@
 // SMTP server or create one in node.js
 
 let mailgun = require("mailgun-js"),
-	API_KEY = ENV['MAILGUN_API_KEY'],
+	API_KEY = process.env.MAILGUN_API_KEY,
 	API_URL = "https://api:" + API_KEY + "@api.mailgun.net/v3/indaba-scheduler.herokuapp.com",
 	mg = mailgun({apiKey: API_KEY, domain: API_URL});
 
@@ -12,7 +12,7 @@ let mailgun = require("mailgun-js"),
 // emails array using mailgun.
 module.exports.sendInvitationEmail = function(organizerName, eventName, eventDescription, eventId, emails) {
 
-	let from = "Indaba Scheduler <postmaster@sandbox0e8f8a6368da4e8ab06448f9de870507.mailgun.org>";
+	let from = "Indaba Scheduler <indaba-scheduler.herokuapp.com>";
 	let recipientVariables = {}
 	for (let email of emails) {
 		recipientVariables[email] = {};
