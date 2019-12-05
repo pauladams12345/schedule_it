@@ -3,8 +3,10 @@
 // SMTP server or create one in node.js
 
 let mailgun = require("mailgun-js"),
-	DOMAIN = "sandbox0e8f8a6368da4e8ab06448f9de870507.mailgun.org",
-	mg = mailgun({apiKey: "fda0cf14403f53806e01b759277a8a66-f7910792-bc0058e7", domain: DOMAIN});
+	API_KEY = ENV['MAILGUN_API_KEY'],
+	API_URL = "https://api:" + API_KEY + "@api.mailgun.net/v3/indaba-scheduler.herokuapp.com",
+	mg = mailgun({apiKey: API_KEY, domain: API_URL});
+
 
 // Send an invitation email with the specified info to all email addresses in the
 // emails array using mailgun.
