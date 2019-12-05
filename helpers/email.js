@@ -18,8 +18,8 @@ module.exports.sendInvitationEmail = function(organizerName, eventName, eventDes
 	"https://indaba-scheduler.herokuapp.com/make-reservations/" + eventId;
 
 	var fromEmail = new helper.Email({
-		name: 'Indaba Scheduler',
-		email: 'noreply@indaba-scheduler.herokuapp.com'
+		'name': 'Indaba Scheduler',
+		'email': 'noreply@indaba-scheduler.herokuapp.com'
 	});
 	var toEmail = new helper.Email(emails);
 	var subject = 'Invitation to ' + eventName;
