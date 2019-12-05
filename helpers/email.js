@@ -2,10 +2,9 @@
 // TODO: During migration to OSU servers, either get set up with university
 // SMTP server or create one in node.js
 
-let mailgun = require("mailgun-js"),
-	API_KEY = process.env.MAILGUN_API_KEY,
-	API_URL = "https://api:" + API_KEY + "@api.mailgun.net/v3/indaba-scheduler.herokuapp.com",
-	mg = mailgun({apiKey: API_KEY, domain: API_URL});
+let	API_KEY = process.env.MAILGUN_API_KEY,
+	DOMAIN = process.env.MAILGUN_DOMAIN,
+	mg = require('mailgun-js')({apiKey: API_KEY, domain: DOMAIN});
 
 
 // Send an invitation email with the specified info to all email addresses in the
