@@ -11,7 +11,7 @@ let	API_KEY = process.env.MAILGUN_API_KEY,
 // emails array using mailgun.
 module.exports.sendInvitationEmail = function(organizerName, eventName, eventDescription, eventId, emails) {
 
-	let from = "Indaba Scheduler <indaba-scheduler.herokuapp.com>";
+	let from = "Indaba Scheduler <noreply@indaba-scheduler.herokuapp.com>";
 	let recipientVariables = {}
 	for (let email of emails) {
 		recipientVariables[email] = {};
