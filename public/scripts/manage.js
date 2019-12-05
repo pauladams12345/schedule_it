@@ -12,7 +12,7 @@ configureManualRegistration();
 //Script to create and manipulate the calendar on the create event page
 function configureCalendar() {
   document.addEventListener('DOMContentLoaded', function() {
-    dateFormat = {}
+    dateFormat = {};
     var context = {};
     var startTime;
     var endTime;
@@ -99,7 +99,7 @@ function configureCalendar() {
       slotStates['slotState' + slotId] = 'existingUnmodified';
       slotIds.push(slotId);
       var deleteButton = document.getElementById('slotDelete' + slotId);
-      bindSlotDelete(deleteButton, calendarEvent, existingSlots[i], slotId)
+      bindSlotDelete(deleteButton, calendarEvent, existingSlots[i], slotId);
       var saveButton = document.getElementById('slotSave' + slotId);
       bindSlotSave(saveButton, calendarEvent, existingSlots[i], slotId);
     }
@@ -122,7 +122,7 @@ function configureSlotLocationDisplay(calendar) {
       }
     }
   });
-};
+}
 
 // Configure form submissions to stay on current page and send
 // form details via ajax
@@ -243,7 +243,7 @@ function configureFormSubmissions() {
       });
     });
   });
-};
+}
 
 
 
@@ -258,7 +258,7 @@ function configureReservations() {
       bindReservationDelete(buttons[i], reservation, onid, slotId);
     }
   });
-};
+}
 
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
@@ -286,7 +286,7 @@ function appendSlot(startTime, endTime, slotId, calendarEvent) {
   // upon form submission if not explicitly specified.
   var location = document.createElement('input');
   location.setAttribute('type', 'text');
-  location.setAttribute('class', 'form-control')
+  location.setAttribute('class', 'form-control');
   location.setAttribute('name', 'slotLocation' + slotId);
   location.setAttribute('id', 'slotLocation' + slotId);
 
@@ -317,7 +317,7 @@ function appendSlot(startTime, endTime, slotId, calendarEvent) {
   deleteButton.setAttribute('class', 'btn btn-danger');
   deleteButton.setAttribute('id', 'slotDelete' + slotId);
   deleteButton.textContent = 'Delete slot';
-  bindSlotDelete(deleteButton, calendarEvent, slot, slotId)
+  bindSlotDelete(deleteButton, calendarEvent, slot, slotId);
 
   // Save button. Hides the slot's form in the modal
   var saveButton = document.createElement('button');
@@ -354,7 +354,7 @@ function appendSlot(startTime, endTime, slotId, calendarEvent) {
   // Append all new elements to the modal
   var modalBody = document.getElementById('modalBody');
   modalBody.appendChild(slot);
-};
+}
 
 // Disable form submissions if there are invalid fields
 // Adapted from https://getbootstrap.com/docs/4.0/components/forms/
@@ -371,7 +371,7 @@ function configureFormValidation() {
       }, false);
     });
   }, false);
-};
+}
 
 // Populate the "Manually make a reservation" form with the info for every
 // registered user and every slot
@@ -397,7 +397,7 @@ function configureManualRegistration() {
     }
     $('#manualReservationSlotId').append(options);
   });
-};
+}
 
 // Bind the delete button for an entry in the "Reservations" table
 function bindReservationDelete(button, reservation, onid, slotId) {
@@ -412,7 +412,7 @@ function bindReservationDelete(button, reservation, onid, slotId) {
       }
     });
     reservation.parentNode.removeChild(reservation);
-  })
+  });
 }
 
 // Bind the delete button for the entire event
@@ -427,7 +427,7 @@ function bindEventDelete(button, eventId) {
         alert(errorThrown);
       }
     });
-  })
+  });
 }
 
 // Bind the delete button in a slot's form (shows in modal). Deletes the form and the corresponding
@@ -445,7 +445,7 @@ function bindSlotDelete(button, calendarEvent, slot, slotId) {
     slot.parentNode.removeChild(slot);
     $('#addEventSlot').modal('hide');
   });
-};
+}
 
 // Bind the save button in a slot's form. For slots with a status of existingUnmodified,
 //changes the status to existingModified. Hides the modal
@@ -454,14 +454,14 @@ function bindSlotSave(saveButton, calendarEvent, slot, slotId) {
     if (slotStates['slotState' + slotId] == "existingUnmodified") {
       slotStates['slotState' + slotId] = 'existingModified';
     }
-    let location = document.getElementById('slotLocation' + slotId).value
+    let location = document.getElementById('slotLocation' + slotId).value;
     if (location != '') {
       calendarEvent.setProp('title', location);
     }
 
     slot.hidden = true;
   });
-};
+}
 
 // Extract email addresses from textarea, create a separate email input
 // for each, and do input validation
@@ -485,7 +485,7 @@ function splitEmails(event) {
     }
 
     numEmails++;
-    var newInput = createEmailInput(email, numEmails)   // create input
+    var newInput = createEmailInput(email, numEmails);  // create input
     var newDeleteButton = createEmailDelete();         // create delete button
     bindEmailDelete(newInput, newDeleteButton);              // bind delete button to input
 
@@ -500,7 +500,7 @@ function splitEmails(event) {
     appendEmailInputAndButton(newInput, newDeleteButton);    // add to document
 
   }
-};
+}
 
 // Return an email input with value matching the 1st argument
 function createEmailInput(email, inputNumber) {
@@ -514,7 +514,7 @@ function createEmailInput(email, inputNumber) {
   input.value = email;
 
   return input;
-};
+}
 
 // Returns a button for deleting an email input
 function createEmailDelete() {
@@ -526,7 +526,7 @@ function createEmailDelete() {
   button.textContent = 'Delete';
 
   return button;
-};
+}
 
 // Checks if an email input's value is valid and sets formatting appropriately
 function validateEmail(event) {
@@ -545,18 +545,18 @@ function validateEmail(event) {
 function appendEmailInputAndButton(input, button) {
     // Append row and column for new input and append to document
     var row = document.createElement("div");
-    row.setAttribute('class', 'row')
+    row.setAttribute('class', 'row');
     var col = document.createElement("div");
     col.setAttribute('class', 'col-12 form-inline d-flex');
     var div = document.createElement("div");
-    div.setAttribute('style', 'display: flex; flex-grow: 1;')
+    div.setAttribute('style', 'display: flex; flex-grow: 1;');
 
-    div.appendChild(input)
+    div.appendChild(input);
     col.appendChild(div);
     col.appendChild(button);
     row.appendChild(col);
     document.getElementById('emailsDiv').appendChild(row);
-};
+}
 
 // Sets the supplied button to delete the corresponding
 // input (and itself) upon being clicked
@@ -565,4 +565,4 @@ function bindEmailDelete(input, button) {
     input.remove();
     button.remove();
   });
-};
+}

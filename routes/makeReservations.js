@@ -98,9 +98,9 @@ router.post('/make-reservations/delete', async function (req, res, next) {
 	await reserveSlot.deleteReservation(onid, slotId);
 
 	// See if user has any other reservations for this event
-	let reservations = await reserveSlot.getNumUserReservations(onid, eventId)
+	let reservations = await reserveSlot.getNumUserReservations(onid, eventId);
 	if (reservations == 0) {
-		respondsToRequest.updateResponse(onid, eventId, 0)
+		respondsToRequest.updateResponse(onid, eventId, 0);
 	}
 	res.send('Success');
 });

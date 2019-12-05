@@ -42,7 +42,7 @@ function configureFormValidation() {
 // Create and manipulate the calendar
 function configureCalendar() {
   document.addEventListener('DOMContentLoaded', function() {
-    dateFormat = {}
+    dateFormat = {};
     var context = {};
     var startTime;
     var endTime;
@@ -128,7 +128,7 @@ function configureSlotLocationDisplay(calendar) {
       }
     }
   });
-};
+}
 
 // Extract email addresses from textarea, create a separate email input
 // for each, and do input validation
@@ -150,7 +150,7 @@ function splitEmails(event) {
     }
 
     numEmails++;
-    var newInput = createEmailInput(email, numEmails)   // create input
+    var newInput = createEmailInput(email, numEmails);   // create input
     var newDeleteButton = createDeleteButton();         // create delete button
     bindEmailDelete(newInput, newDeleteButton);              // bind delete button to input
 
@@ -165,7 +165,7 @@ function splitEmails(event) {
     appendInputAndButton(newInput, newDeleteButton);    // add to document
 
   }
-};
+}
 
 // Return an email input with value matching the 1st argument
 function createEmailInput(email, inputNumber) {
@@ -179,7 +179,7 @@ function createEmailInput(email, inputNumber) {
   input.value = email;
 
   return input;
-};
+}
 
 // Returns a button for deleting an email input
 function createDeleteButton() {
@@ -191,7 +191,7 @@ function createDeleteButton() {
   button.textContent = 'Delete';
 
   return button;
-};
+}
 
 // Checks if an email input's value is valid and sets formatting appropriately
 function validateEmail(event) {
@@ -210,18 +210,18 @@ function validateEmail(event) {
 function appendInputAndButton(input, button) {
     // Append row and column for new input and append to document
     var row = document.createElement("div");
-    row.setAttribute('class', 'row')
+    row.setAttribute('class', 'row');
     var col = document.createElement("div");
     col.setAttribute('class', 'col-12 form-inline d-flex');
     var div = document.createElement("div");
-    div.setAttribute('style', 'display: flex; flex-grow: 1;')
+    div.setAttribute('style', 'display: flex; flex-grow: 1;');
 
-    div.appendChild(input)
+    div.appendChild(input);
     col.appendChild(div);
     col.appendChild(button);
     row.appendChild(col);
     document.getElementById('emailsDiv').appendChild(row);
-};
+}
 
 // Sets the supplied button to delete the corresponding
 // input (and itself) upon being clicked
@@ -230,7 +230,7 @@ function bindEmailDelete(input, button) {
     input.remove();
     button.remove();
   });
-};
+}
 
 // Binds the delete button in a slot's form. Deletes the input and the 
 // corresponding event in the calendar.
@@ -241,19 +241,19 @@ function bindSlotDelete(deleteButton, calendarEvent, slot, slotId) {
     slotStates["slotState" + slotId] = "notUsed";
     $('#addEventSlot').modal('hide');
   });
-};
+}
 
 // Binds the save button in a slot's form. For slots with a status of existingUnmodified,
 //changes the status to existingModified. Hides the modal
 function bindSlotSave(saveButton, calendarEvent, slot, slotId) {
   saveButton.addEventListener('click', function(event) {
-    let location = document.getElementById('slotLocation' + slotId).value
+    let location = document.getElementById('slotLocation' + slotId).value;
     if (location != '') {
       calendarEvent.setProp('title', location);
     }
     slot.hidden = true;
   });
-};
+}
 
 // Creates inputs for start time, end time, location, and maxAttendees
 // for a new slot and appends to the modal. Hidden by default.
@@ -281,7 +281,7 @@ function appendSlot(startTime, endTime, slotId, calendarEvent) {
   // upon form submission if not explicitly specified.
   var location = document.createElement('input');
   location.setAttribute('type', 'text');
-  location.setAttribute('class', 'form-control')
+  location.setAttribute('class', 'form-control');
   location.setAttribute('name', 'slotLocation' + slotId);
   location.setAttribute('id', 'slotLocation' + slotId);
 
@@ -349,4 +349,4 @@ function appendSlot(startTime, endTime, slotId, calendarEvent) {
   // Append all new elements to the modal
   var modalBody = document.getElementById('modalBody');
   modalBody.appendChild(slot);
-};
+}

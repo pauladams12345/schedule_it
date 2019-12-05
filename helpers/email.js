@@ -26,7 +26,7 @@ module.exports.sendInvitationEmail = function(organizerName, eventName, eventDes
 		},
 		subject: 'Invitation to ' + eventName,
 		text: messageText
-	}
+	};
 
 	sgMail.sendMultiple(msg);
 };
