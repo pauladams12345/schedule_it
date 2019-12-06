@@ -19,13 +19,13 @@ router.get('/past-events', async function (req, res, next) {
 	// If there is a session, render user's past events
 	else {
 		let pastEvents = await createsEvent.getPastUserEvents(req.session.onid);
-		let events = []
+		let events = [];
 
 		for (let pastEvent of pastEvents) {
 			let eventDetails = await event.findEvent(pastEvent.event_id);
 			eventDetails['reservations'] = await slot.eventSlotResv(pastEvent.event_id);
 			eventDetails['invitations'] = await invitation.findEventInvitations(pastEvent.event_id);
-			eventDetails['organizers'] = await createsEvent.getEventOrganizers(pastEvent.event_id)
+			eventDetails['organizers'] = await createsEvent.getEventOrganizers(pastEvent.event_id);
 			eventDetails['slots'] = await slot.findEventSlots(pastEvent.event_id);
 			
 			// Add the hour to the start date so that the client can convert time zones correctly

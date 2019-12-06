@@ -6,7 +6,7 @@ var Router = 		require('express-promise-router'),
 	slot =			require('../models/slot.js'),
 	event =			require('../models/event.js'),
 	invitation =	require('../models/invitation.js'),
-	createsEvent =	require('../models/createsEvent.js');
+	createsEvent =	require('../models/createsEvent.js'),
 	helpers = 		require('../helpers/helpers.js'),
 	email = 		require('../helpers/email.js');
 
@@ -99,7 +99,7 @@ router.post('/create', async function (req, res, next) {
 	// Send invitation emails
 	if (emails.length > 0) {
 		let organizerName = await event.getEventCreator(eventId);
-		email.sendInvitationEmail(organizerName, eventName, description, eventId, emails)
+		email.sendInvitationEmail(organizerName, eventName, description, eventId, emails);
 	}
 
 	res.send('/manage/' + eventId);

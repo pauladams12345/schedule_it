@@ -20,7 +20,7 @@ function convertTextToDate(text) {
 	var dateStringOptions = {weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric'};
 	var date = new Date(text);
 	return date.toLocaleDateString(undefined, dateStringOptions);
-};
+}
 
 // Given a time string in ISO 8601 format, make a JS date object to convert
 // to local time and return a formatted string
@@ -29,4 +29,4 @@ function convertTextToTime(text) {
 	var time = new Date();
 	time.setUTCHours(text.substring(0,2), text.substring(3,5), 0);
 	return time.toLocaleTimeString(undefined, timeStringOptions);
-};
+}

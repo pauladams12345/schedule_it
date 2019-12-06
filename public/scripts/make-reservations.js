@@ -12,7 +12,7 @@ function configureCalendar() {
       userSlotIds.push(userSlots[i].getAttribute('id').substring(9));
     }
 
-    dateFormat = {}
+    dateFormat = {};
     var context = {};
     var startTime;
     var endTime;
@@ -141,17 +141,17 @@ function createModalBody(slotId) {
   var modalBody = document.getElementById('modalBody');
   modalBody.appendChild(slot);
   $('#resvSlot').modal('show');
-};
+}
 
 // Show the warning modal for a full slot
 function warningModalSlots(){
   $('#resvSlotExceeded').modal('show');
-};
+}
 
 // show the warning modal for when a user has reserved their max number of slots
 function warningModalEvents(){
   $('#resvEventExceeded').modal('show');
-};
+}
 
 // Create a row in the "Selected time slots" table for the selected slot
 // and also create a hidden input with the slot details
@@ -206,5 +206,5 @@ function bindReservationDelete(button, slotId) {
     row.parentNode.removeChild(row);  //remove reservation from table
     var input = document.getElementById('resvSlotId' + slotId);
     input.parentNode.removeChild(input);  //remove reservation from form inputs
-  })
+  });
 }

@@ -122,8 +122,8 @@ module.exports.eventSlotResv = async function(eventId){
 		"WHERE event_id = ? " +
 		"ORDER BY slot_date", 
 		[eventId]);
-		return rows;
 		connection.end();
+		return rows;
 	}
 	catch (err) {
 		console.log(err);
