@@ -3,7 +3,7 @@
 // SMTP server or create one in node.js
 
 let sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Send an invitation email with the specified info to all email addresses in the
 // emails array using mailgun.
