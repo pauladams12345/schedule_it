@@ -47,8 +47,8 @@ function configureCalendar() {
       // Upon clicking an existing slot, show the modal to edit details
       eventClick: function(clickInfo) {
         var slotId = clickInfo.event.id;  //retrives slot id #
-        var startTime = document.getElementById('slotStart' + slotId).value.substring(0,21);
-        var endTime = document.getElementById('slotEnd' + slotId).value.substring(0,21);
+        var startTime = clickInfo.event.start;
+        var endTime = clickInfo.event.end;
         var location = document.getElementById('slotLocation' + slotId).value;
         var slotAttendee = document.getElementsByName('name' + slotId);
         var numUserResv = document.getElementById('numUserReservations').value;
@@ -172,8 +172,11 @@ function createSlotInputForm(slotId, slotStartTime, slotEndTime, slotLocation){
     var button = document.createElement('button');
     button.setAttribute('class','btn btn-primary reservation-delete');
     button.textContent = 'Remove';
-    startTime.textContent = slotStartTime;
-    endTime.textContent = slotEndTime;
+    var dateStringOptions = {weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric'};
+    var timeStringOptions = {hour: '2-digit', minute: '2-digit', timeZoneName: 'short'};
+    startTime.textContent = slotStartTime.toLocaleDateString(undefined, dateStringOptions) +
+    ' ' + slotStartTime.toLocaleTimeString(undefined, timeStringOptions);
+    endTime.textContent = slotEndTime.toLocaleTimeString(undefined, timeStringOptions);
     cellLocation.textContent = slotLocation;
     slot_Id.textContent = slotId;
     slot_Id.hidden = true;

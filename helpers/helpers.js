@@ -98,7 +98,12 @@ module.exports.processUpcomingReservationsForDisplay = async function(onid) {
 		helpers.combineDateAndTime(events[id].reservations);
 	}
 
-	return events;
+	if (eventIds.length > 0) {
+		return events;
+	}
+	else {
+		return null;
+	}
 };
 
 // Find all of a user's past reserved slots and gather the needed information

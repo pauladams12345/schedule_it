@@ -18,6 +18,7 @@
   </div>
 </div>
 
+{{#if eventsManaging}}
 {{#each eventsManaging}}
 <div class="reservation-display mb-4 w-auto">
   <div class="row d-flex justify-content-center">
@@ -33,6 +34,9 @@
   </div>
 </div>
 {{/each}}
+{{else}}
+<p class="h3"> You are not organizing any upcoming events</p>
+{{/if}}
 
 <div class="row d-flex justify-content-center">
   <div class="col-12 col-lg-10">
@@ -40,6 +44,7 @@
   </div>
 </div>
 
+{{#if eventsAttending}}
 {{#each eventsAttending}}
 <div class="reservation-display mb-4 w-auto">
   <div class="row d-flex justify-content-center">
@@ -110,3 +115,6 @@
   {{/each}}
 </div>
 {{/each}}
+{{else}}
+<p class="h3">You don't have any upcoming reservations</p>
+{{/if}}
